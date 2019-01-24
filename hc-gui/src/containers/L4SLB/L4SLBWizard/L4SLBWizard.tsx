@@ -1,8 +1,13 @@
 import React from 'react'
 import { A10Container } from 'a10-gui-framework'
 
-import { Wizard } from '../../../components/shared'
-import { VirtualServerForm, ServiceGroupForm, DeploymentForm } from './Steps/index'
+import { Wizard } from 'src/components/shared'
+import {
+  VirtualServerForm,
+  ServiceGroupForm,
+  DeploymentForm,
+  Review,
+} from './Steps'
 
 interface IStep {
   title: string
@@ -42,6 +47,10 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
       {
         title: 'Deployment Association',
         content: <DeploymentForm />,
+      },
+      {
+        title: 'Review',
+        content: <Review />,
       },
     ]
   }

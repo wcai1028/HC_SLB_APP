@@ -1,8 +1,10 @@
 import React from 'react'
 import { A10Component } from 'a10-gui-framework'
-import { A10Steps } from 'a10-gui-widgets'
+import { A10Steps, A10Icon } from 'a10-gui-widgets'
 
 import { IAbstractStepProps } from '../../AbstractStep'
+
+import './styles/index.less'
 
 export interface IStep {
   title: string
@@ -16,6 +18,13 @@ interface IWizardProps {
 interface IWizardState {
   current: number
   stepsForRendering: IStep[]
+}
+
+interface IDotOptions {
+  index: number
+  status: 'wait' | 'process' | 'finish' | 'error'
+  title: string | undefined
+  description: string | undefined
 }
 
 class Wizard extends A10Component<IWizardProps, IWizardState> {
@@ -51,20 +60,39 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
     this.setState({ current })
   }
 
+  renderProgressDot = (iconDot: JSX.Element, dotOptions: IDotOptions) => {
+    return (
+      <div className="step">
+        <div className="icon">
+          {dotOptions.status === 'finish' ? (
+            <A10Icon type="check" />
+          ) : (
+            dotOptions.index + 1
+          )}
+        </div>
+        <div className="title">{dotOptions.title}</div>
+      </div>
+    )
+  }
+
   render() {
     const { title } = this.props
     const { stepsForRendering, current } = this.state
     const { Step } = A10Steps
     return (
-      <React.Fragment>
-        <h1>{title}</h1>
-        <A10Steps current={current}>
+      <div className="app-wizard">
+        <h1 className="app-wizard--title">{title}</h1>
+        <A10Steps
+          current={current}
+          labelPlacement="vertical"
+          progressDot={this.renderProgressDot}
+        >
           {stepsForRendering.map(step => (
             <Step key={step.title} title={step.title} />
           ))}
         </A10Steps>
         <div>{stepsForRendering[current].content}</div>
-      </React.Fragment>
+      </div>
     )
   }
 }

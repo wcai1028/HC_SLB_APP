@@ -12,6 +12,16 @@ export default abstract class AbstractStep<
   },
   S = {}
 > extends A10Component<P, S> {
-  abstract onPrev(props: P): void
-  abstract onNext(props: P): void
+  formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 16 },
+    },
+  }
+  abstract onPrev(event: React.SyntheticEvent): void
+  abstract onNext(event: React.SyntheticEvent): void
 }
