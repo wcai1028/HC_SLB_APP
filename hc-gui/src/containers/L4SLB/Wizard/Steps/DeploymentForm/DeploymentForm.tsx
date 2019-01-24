@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { A10Component } from 'a10-gui-framework'
 import { A10Row, A10Col, A10Icon } from 'a10-gui-widgets'
+
+import AbstractStep, { IAbstractStepProps } from '../../../AbstractStep'
 
 import A10IconTextGroup from 'src/components/ADC/A10IconTextGroup'
 import { A10Panel } from 'src/components/ADC/A10Panel'
@@ -9,14 +10,6 @@ import { A10Panel } from 'src/components/ADC/A10Panel'
 import './styles/index.less'
 
 export type DeploymentType = 'INLINE' | 'SOURCE-NAT' | 'DSR'
-
-interface IDeploymentChoiceProps {
-  onChangeDeployment: (type: DeploymentType) => void
-}
-
-interface IDeploymentChoiceState {
-  currentDeploymentType: DeploymentType
-}
 
 const titleStyle = { fontSize: 48 }
 const title = (
@@ -34,11 +27,17 @@ const deploymentTypes = [
   { deploymentType: 'DSR', topology: 'dsr' },
 ]
 
-export default class IDeploymentChoice extends A10Component<
-  IDeploymentChoiceProps,
-  IDeploymentChoiceState
+interface IDeploymentFormProps extends IAbstractStepProps {}
+
+interface IDeploymentFormState {
+  currentDeploymentType: DeploymentType
+}
+
+export default class DeploymentForm extends AbstractStep<
+  IDeploymentFormProps,
+  IDeploymentFormState
 > {
-  constructor(props: IDeploymentChoiceProps) {
+  constructor(props: IDeploymentFormProps) {
     super(props)
     this.state = {
       currentDeploymentType: 'INLINE',
@@ -46,10 +45,20 @@ export default class IDeploymentChoice extends A10Component<
   }
 
   shouldComponentUpdate(
-    nextProps: Readonly<IDeploymentChoiceProps>,
-    nextState: Readonly<IDeploymentChoiceState>,
+    nextProps: Readonly<IDeploymentFormProps>,
+    nextState: Readonly<IDeploymentFormState>,
   ) {
     return nextState.currentDeploymentType !== this.state.currentDeploymentType
+  }
+
+  onPrev = () => {
+    console.log('Deployment Form onPrev')
+    this.props.onPrev()
+  }
+
+  onNext = () => {
+    console.log('Deployment Form onNext')
+    this.props.onNext()
   }
 
   render() {
