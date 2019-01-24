@@ -4,6 +4,10 @@ import {
   setupA10Container,
   IA10ContainerDefaultProps,
 } from 'a10-gui-framework'
+import { config } from 'src/constants/DashboardConfig'
+import { Viz } from 'a10-gui-dgp-viz'
+
+const { GridLayout } = Viz
 
 export interface IDashboardProps extends IA10ContainerDefaultProps {
 }
@@ -13,9 +17,12 @@ export interface IDashboardState {
 class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
 
   render() {
+    const { dashboards } = config
+    const { tops, charts } = dashboards[0]
     return (
       <div>
-        Dashboard PlaceHolder
+        <GridLayout {...tops} />
+        <GridLayout {...charts} />
       </div>
     )
   }
