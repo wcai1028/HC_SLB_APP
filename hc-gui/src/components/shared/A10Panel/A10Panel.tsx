@@ -7,8 +7,8 @@ const styles = require('./styles/index.module.less')
 export interface IA10PanelProps {
   title: string | React.ReactElement<any>
   menu?: string | React.ReactElement<any>
-  shouldShowTitle: boolean
-  isFormContent: boolean
+  shouldShowTitle?: boolean
+  isFormContent?: boolean
 }
 
 class A10Panel extends A10Component<IA10PanelProps> {

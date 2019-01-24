@@ -11,8 +11,8 @@ import {
   A10Select,
 } from 'a10-gui-widgets'
 
-import A10Panel from 'src/components/ADC/A10Panel'
-import A10IconTextGroup from 'src/components/ADC/A10IconTextGroup'
+import A10Panel from 'src/components/shared/A10Panel'
+import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep from '../../../AbstractStep'
 
 export default class VirtualServerForm extends AbstractStep {

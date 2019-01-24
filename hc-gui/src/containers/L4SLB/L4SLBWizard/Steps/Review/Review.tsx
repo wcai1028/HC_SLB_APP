@@ -2,8 +2,8 @@ import React from 'react'
 
 import { A10Button, A10Form, A10Icon, A10Row, A10Col } from 'a10-gui-widgets'
 
-import A10Panel from 'src/components/ADC/A10Panel'
-import A10IconTextGroup from 'src/components/ADC/A10IconTextGroup'
+import A10Panel from 'src/components/shared/A10Panel'
+import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep from '../../../AbstractStep'
 
 export default class Review extends AbstractStep {

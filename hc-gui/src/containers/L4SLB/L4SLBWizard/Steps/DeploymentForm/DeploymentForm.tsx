@@ -11,8 +11,8 @@ import {
 
 import AbstractStep, { IAbstractStepProps } from '../../../AbstractStep'
 
-import A10IconTextGroup from 'src/components/ADC/A10IconTextGroup'
-import { A10Panel } from 'src/components/ADC/A10Panel'
+import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
+import { A10Panel } from 'src/components/shared/A10Panel'
 
 import './styles/index.less'
 
