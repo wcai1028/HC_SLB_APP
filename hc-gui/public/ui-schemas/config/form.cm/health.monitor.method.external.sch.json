@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.external",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/external",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "External",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "external",
+          "label": "External",
+          "cm-lineage": "health.monitor.method.external.external",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "EXTERNAL type" 
+          }
+        },
+        { 
+          "key": "ext-program",
+          "label": "Ext Program",
+          "cm-lineage": "health.monitor.method.external.ext-program",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "external",
+            "help": "Specify external application",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "shared-partition-program",
+          "label": "Shared Partition Program",
+          "cm-lineage": "health.monitor.method.external.shared-partition-program",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "external",
+            "help": "external application from shared partition" 
+          }
+        },
+        { 
+          "key": "ext-program-shared",
+          "label": "Ext Program Shared",
+          "cm-lineage": "health.monitor.method.external.ext-program-shared",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "shared-partition-program",
+            "help": "Specify external application",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "ext-port",
+          "label": "Ext Port",
+          "cm-lineage": "health.monitor.method.external.ext-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "ext-program",
+            "help": "Specify the server port",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "ext-arguments",
+          "label": "Ext Arguments",
+          "cm-lineage": "health.monitor.method.external.ext-arguments",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ext-program",
+            "help": "Specify external application's arguments",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "ext-preference",
+          "label": "Ext Preference",
+          "cm-lineage": "health.monitor.method.external.ext-preference",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ext-program",
+            "help": "Get server's perference" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

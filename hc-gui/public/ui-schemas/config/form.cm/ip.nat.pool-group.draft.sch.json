@@ -1,0 +1,77 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "ip.nat.pool-group",
+  "cm-object-meta": {
+    "obj-json-suffix": "-list"
+  },
+  "axapi": "ip/nat/pool-group/{pool-group-name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+
+        "fields": [
+          {
+            "key": "pool-group-name",
+            "label": "Pool Group Name",
+            "cm-lineage": "ip.nat.pool-group.pool-group-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "help": "Specify pool group name",
+              "object-key": true,
+              "range": "1-63"
+            }
+          },
+          {
+            "key": "vrid",
+            "label": "Vrid",
+            "cm-lineage": "ip.nat.pool-group.vrid",
+            "cm-meta": {
+              "format": "number",
+              "condition": "pool-group-name",
+              "help": "Specify VRRP-A vrid",
+              "obj-association": ["vrrp-a.vrid"],
+              "range": "1-31"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Member",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pool-name",
+            "label": "Pool Name",
+            "cm-lineage": "ip.nat.pool-group.member.pool-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "help": "Specify NAT pool name",
+              "object-key": true,
+              "range": "1-63"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

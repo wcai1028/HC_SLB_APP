@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.cluster-devices.cluster-discovery-timeout",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/cluster-devices/cluster-discovery-timeout",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "timer-val",
+          "label": "Timer Val",
+          "cm-lineage": "scaleout.cluster.cluster-devices.cluster-discovery-timeout.time",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Cluster node discovery timeout value",
+            "default": "120",
+            "range": "60-86400" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

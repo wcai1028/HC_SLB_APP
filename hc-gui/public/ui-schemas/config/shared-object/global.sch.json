@@ -1,0 +1,171 @@
+{
+  "version": "1.0.0",
+  "template": "shared-object",
+  "type": "global",
+  "components": [
+    {
+      "label": "ADC",
+      "expanded": true,
+      "children": [
+        {
+          "label": "Virtual Server",
+          "cm-object-lineage": "slb.template.virtual-server",
+          "referred-by": ["slb.virtual-server"]
+        },
+        {
+          "label": "Virtual Port",
+          "cm-object-lineage": "slb.template.virtual-port",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Server",
+          "cm-object-lineage": "slb.template.server",
+          "referred-by": [
+            "slb.virtual-server.port",
+            "slb.server",
+            "slb.service-group"
+          ]
+        },
+        {
+          "label": "Port",
+          "cm-object-lineage": "slb.template.port",
+          "referred-by": ["slb.virtual-server.port", "slb.service-group"]
+        },
+        {
+          "label": "Cache",
+          "cm-object-lineage": "slb.template.cache",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Connection Reuse",
+          "cm-object-lineage": "slb.template.connection-reuse",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Dynamic Service",
+          "cm-object-lineage": "slb.template.dynamic-service",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Persist Cookie",
+          "cm-object-lineage": "slb.template.persist.cookie",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Persist Destination IP",
+          "cm-object-lineage": "slb.template.persist.destination-ip",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Persist Source IP",
+          "cm-object-lineage": "slb.template.persist.source-ip",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Persist SSL SID",
+          "cm-object-lineage": "slb.template.persist.ssl-sid",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "Apps",
+      "children": [
+        {
+          "label": "HTTP",
+          "cm-object-lineage": "slb.template.http",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "HTTP Policy",
+          "cm-object-lineage": "slb.template.http-policy",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "DNS",
+          "cm-object-lineage": "slb.template.dns",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "SSL",
+      "children": [
+        {
+          "label": "Cipher",
+          "cm-object-lineage": "slb.template.cipher",
+          "referred-by": ["slb.template.virtual-port"]
+        },
+        {
+          "label": "Client SSL",
+          "cm-object-lineage": "slb.template.client-ssl",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "Server SSL",
+          "cm-object-lineage": "slb.template.server-ssl",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "SSLi",
+      "children": [
+        {
+          "label": "TCP Proxy",
+          "cm-object-lineage": "slb.template.tcp-proxy",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "System",
+      "children": [
+        {
+          "label": "Logging",
+          "cm-object-lineage": "slb.template.logging",
+          "referred-by": ["slb.template.http"]
+        },
+        {
+          "label": "IP NAT Logging",
+          "cm-object-lineage": "ip.nat.template.logging",
+          "referred-by": ["slb.virtual-server", "slb.virtual-server.port"]
+        },
+        {
+          "label": "Monitor",
+          "cm-object-lineage": "slb.template.monitor",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "Protocol",
+      "children": [
+        {
+          "label": "TCP",
+          "cm-object-lineage": "slb.template.tcp",
+          "referred-by": ["slb.virtual-server.port"]
+        },
+        {
+          "label": "UDP",
+          "cm-object-lineage": "slb.template.udp",
+          "referred-by": ["slb.virtual-server.port"]
+        }
+      ]
+    },
+    {
+      "label": "Policy",
+      "children": [
+        {
+          "label": "Policy",
+          "cm-object-lineage": "slb.template.policy",
+          "referred-by": [
+            "slb.virtual-server",
+            "slb.service-group",
+            "slb.virtual-server.port"
+          ]
+        }
+      ]
+    }
+  ]
+}

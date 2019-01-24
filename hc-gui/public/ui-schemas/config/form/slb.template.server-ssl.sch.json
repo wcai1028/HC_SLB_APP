@@ -1,0 +1,905 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.server-ssl",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/server-ssl/{name}",
+  "pageTitle": "Server SSL Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.server-ssl.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Server SSL Template Name"
+            }
+          },
+          {
+            "key": "cert",
+            "label": "Cert",
+            "type": "input",
+            "cm-lineage": "slb.template.server-ssl.cert",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "cert-keyword",
+              "range": "1-245",
+              "help": "Certificate Name",
+              "m-exclusion": [
+                "cert-shared-str"
+              ]
+            }
+          },
+          {
+            "key": "cert-shared-str",
+            "label": "Cert Shared String",
+            "type": "input",
+            "cm-lineage": "slb.template.server-ssl.cert-shared-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "cert-partition-shared",
+              "range": "1-245",
+              "m-exclusion": [
+                "cert"
+              ],
+              "help": "Certificate Name"
+            }
+          },
+          {
+            "key": "cipher-without-prio-list",
+            "label": "Cipher Without Prio List",
+            "type": "table",
+            "cm-lineage": "slb.template.server-ssl.cipher-without-prio-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "cipher-wo-prio",
+                "label": "Cipher WO Prio",
+                "type": "select",
+                "cm-lineage": "slb.template.server-ssl.cipher-without-prio-list.cipher-wo-prio",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "allowed": [
+                    {
+                      "label": "SSL3_RSA_DES_192_CBC3_SHA",
+                      "value": "SSL3_RSA_DES_192_CBC3_SHA",
+                      "help": "SSL3_RSA_DES_192_CBC3_SHA"
+                    },
+                    {
+                      "label": "SSL3_RSA_RC4_128_MD5",
+                      "value": "SSL3_RSA_RC4_128_MD5",
+                      "help": "SSL3_RSA_RC4_128_MD5"
+                    },
+                    {
+                      "label": "SSL3_RSA_RC4_128_SHA",
+                      "value": "SSL3_RSA_RC4_128_SHA",
+                      "help": "SSL3_RSA_RC4_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_SHA",
+                      "value": "TLS1_RSA_AES_128_SHA",
+                      "help": "TLS1_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_SHA",
+                      "value": "TLS1_RSA_AES_256_SHA",
+                      "help": "TLS1_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_SHA256",
+                      "value": "TLS1_RSA_AES_128_SHA256",
+                      "help": "TLS1_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_SHA256",
+                      "value": "TLS1_RSA_AES_256_SHA256",
+                      "help": "TLS1_RSA_AES_256_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_SHA",
+                      "value": "TLS1_DHE_RSA_AES_128_SHA",
+                      "help": "TLS1_DHE_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_128_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_DHE_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_SHA",
+                      "value": "TLS1_DHE_RSA_AES_256_SHA",
+                      "help": "TLS1_DHE_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_256_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_256_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_SHA",
+                      "value": "TLS1_ECDHE_RSA_AES_128_SHA",
+                      "help": "TLS1_ECDHE_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                      "value": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                      "help": "TLS1_ECDHE_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_SHA",
+                      "value": "TLS1_ECDHE_RSA_AES_256_SHA",
+                      "help": "TLS1_ECDHE_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                      "value": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                      "help": "TLS1_ECDHE_RSA_AES_256_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256"
+                    }
+                  ],
+                  "max-elements": 37,
+                  "condition": "cipher"
+                }
+              }
+            ]
+          },
+          {
+            "key": "enable-tls-alert-logging",
+            "label": "Enable TLS Alert Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.enable-tls-alert-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable TLS alert logging"
+            }
+          },
+          {
+            "key": "alert-type",
+            "label": "Alert Type",
+            "type": "select",
+            "cm-lineage": "slb.template.server-ssl.alert-type",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mv",
+              "allowed": [
+                {
+                  "label": "Fatal",
+                  "value": "fatal",
+                  "help": "Log fatal alerts"
+                }
+              ],
+              "condition": "enable-tls-alert-logging",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "close-notify",
+            "label": "Close Notify",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.close-notify",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send close notification when terminate connection"
+            }
+          },
+          {
+            "key": "forward-proxy-enable",
+            "label": "Forward Proxy Enable",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.forward-proxy-enable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable SSL forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "session-ticket-enable",
+            "label": "Session Ticket Enable",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.session-ticket-enable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable server side session ticket support"
+            }
+          },
+          {
+            "key": "version",
+            "label": "Version",
+            "type": "input-number",
+            "cm-lineage": "slb.template.server-ssl.version",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "30-33",
+              "help": "TLS/SSL version, default is the highest number supported",
+              "default": 33
+            }
+          },
+          {
+            "key": "dgversion",
+            "label": "Dgversion",
+            "type": "input-number",
+            "cm-lineage": "slb.template.server-ssl.dgversion",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "30-33",
+              "condition": "version",
+              "help": "Lower TLS/SSL version can be downgraded",
+              "default": 31
+            }
+          },
+          {
+            "key": "key",
+            "label": "Key",
+            "type": "input",
+            "cm-lineage": "slb.template.server-ssl.key",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvy",
+              "range": "1-245",
+              "condition": "key-keyword",
+              "help": "Key Name",
+              "m-exclusion": [
+                "key-shared-str"
+              ]
+            }
+          },
+          {
+            "key": "pass-phrase",
+            "label": "Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "key",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "passphrase",
+            "label": "Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.server-ssl.passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "encrypted",
+            "label": "Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.server-ssl.encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "key-shared-str",
+            "label": "Key Shared String",
+            "type": "input",
+            "cm-lineage": "slb.template.server-ssl.key-shared-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvy",
+              "range": "1-245",
+              "condition": "key-partition-shared",
+              "m-exclusion": [
+                "key"
+              ],
+              "help": "Key Name"
+            }
+          },
+          {
+            "key": "key-shared-pass-phrase",
+            "label": "Key Shared Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.key-shared-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "key-shared-str",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-shared-passphrase",
+            "label": "Key Shared Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.server-ssl.key-shared-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "key-shared-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-shared-encrypted",
+            "label": "Key Shared Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.server-ssl.key-shared-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "key-shared-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "template",
+            "label": "Template",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Template"
+            }
+          },
+          {
+            "key": "template-cipher",
+            "label": "Template Cipher",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.template-cipher",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "help": "Cipher Template"
+            }
+          },
+          {
+            "key": "cipher-template",
+            "label": "Cipher Template",
+            "type": "select",
+            "cm-lineage": "slb.template.server-ssl.cipher-template",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "m-exclusion": [
+                "cipher-wo-prio",
+                "shared-partition-cipher-template"
+              ],
+              "range": "1-127",
+              "condition": "template-cipher",
+              "obj-association": [
+                "slb.template.cipher"
+              ],
+              "help": "Cipher Template Name"
+            }
+          },
+          {
+            "key": "p-cipher",
+            "label": "P Cipher",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.p-cipher",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "template-cipher",
+              "help": "Reference a Cipher template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-cipher-template",
+            "label": "Shared Partition Cipher Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.shared-partition-cipher-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-cipher",
+              "m-exclusion": [
+                "cipher-template"
+              ],
+              "help": "Reference a cipher template from shared partition"
+            }
+          },
+          {
+            "key": "template-cipher-shared",
+            "label": "Template Cipher Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.server-ssl.template-cipher-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-cipher-template",
+              "obj-association": [
+                "slb.template.cipher"
+              ],
+              "help": "Cipher Template Name"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dh-param",
+            "label": "DH Param",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.dh-param",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Specify Diffie Hellman Parameter"
+            }
+          },
+          {
+            "key": "dh-type",
+            "label": "DH Type",
+            "type": "select",
+            "cm-lineage": "slb.template.server-ssl.dh-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "dh-param",
+              "allowed": [
+                {
+                  "label": "1024",
+                  "value": "1024",
+                  "help": "1024"
+                },
+                {
+                  "label": "1024 Dsa",
+                  "value": "1024-dsa",
+                  "help": "1024-dsa"
+                },
+                {
+                  "label": "2048",
+                  "value": "2048",
+                  "help": "2048"
+                }
+              ]
+            }
+          },
+          {
+            "key": "ec-name",
+            "label": "EC Name",
+            "type": "dummy",
+            "cm-lineage": "slb.template.server-ssl.ec-name",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Specify Elliptic Curve Name"
+            }
+          },
+          {
+            "key": "ec-list",
+            "label": "EC List",
+            "type": "table",
+            "cm-lineage": "slb.template.server-ssl.ec-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ec",
+                "label": "EC",
+                "type": "select",
+                "cm-lineage": "slb.template.server-ssl.ec-list.ec",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "condition": "ec-name",
+                  "allowed": [
+                    {
+                      "label": "Secp256r1",
+                      "value": "secp256r1",
+                      "help": "X9_62_prime256v1"
+                    },
+                    {
+                      "label": "Secp384r1",
+                      "value": "secp384r1",
+                      "help": "secp384r1"
+                    }
+                  ],
+                  "max-elements": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "use-client-sni",
+            "label": "Use Client SNI",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.use-client-sni",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "use client SNI"
+            }
+          },
+          {
+            "key": "renegotiation-disable",
+            "label": "Renegotiation Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.renegotiation-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable SSL renegotiation"
+            }
+          },
+          {
+            "key": "session-cache-size",
+            "label": "Session Cache Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.server-ssl.session-cache-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-128",
+              "default": 0,
+              "help": "Session Cache Size"
+            }
+          },
+          {
+            "key": "session-cache-timeout",
+            "label": "Session Cache Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.server-ssl.session-cache-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-7200",
+              "help": "Session Cache Timeout"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Action",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "server-certificate-error",
+            "label": "Server Certificate Error",
+            "type": "table",
+            "cm-lineage": "slb.template.server-ssl.server-certificate-error",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Specify actions for server certificate errors. Disallow error by default"
+            },
+            "fields": [
+              {
+                "key": "error-type",
+                "label": "Error Type",
+                "type": "select",
+                "cm-lineage": "slb.template.server-ssl.server-certificate-error.error-type",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "max-elements": 4,
+                  "condition": "server-certificate-error",
+                  "allowed": [
+                    {
+                      "label": "Email",
+                      "value": "email",
+                      "help": "Notify the error via email"
+                    },
+                    {
+                      "label": "Ignore",
+                      "value": "ignore",
+                      "help": "Ignore the error, which mean the connection can continue"
+                    },
+                    {
+                      "label": "Logging",
+                      "value": "logging",
+                      "help": "Log the error"
+                    },
+                    {
+                      "label": "Trap",
+                      "value": "trap",
+                      "help": "Notify the error by SNMP trap"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Cert-Verification",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ca-certs",
+            "label": "CA Certs",
+            "type": "table",
+            "cm-lineage": "slb.template.server-ssl.ca-certs",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true,
+              "help": "CA Certificate"
+            },
+            "fields": [
+              {
+                "key": "ca-cert",
+                "label": "CA Cert",
+                "type": "input",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.ca-cert",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "oby",
+                  "multi-field-key": true,
+                  "range": "1-245",
+                  "max-elements": 128,
+                  "help": "Specify CA certificate"
+                }
+              },
+              {
+                "key": "ca-cert-partition",
+                "label": "CA Cert Partition",
+                "type": "dummy",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.ca-cert-partition",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "okpS",
+                  "help": "CA Certificate Partition"
+                },
+                "name-label": "Partition"
+              },
+              {
+                "key": "ca-cert-partition-shared",
+                "label": "CA Cert Partition Shared",
+                "type": "switch",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.ca-cert-partition-shared",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "help": "CA Certificate Partition Shared"
+                },
+                "name-label": "Shared"
+              },
+              {
+                "key": "server-ocsp",
+                "label": "Server OCSP",
+                "type": "dummy",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.server-ocsp",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "mk",
+                  "help": "Specify ocsp authentication server(s) for client certificate verification"
+                },
+                "name-label": "OCSP"
+              },
+              {
+                "key": "server-ocsp-srvr",
+                "label": "Server OCSP Srvr",
+                "type": "select",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.server-ocsp-srvr",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "obj-association": [
+                    "aam.authentication.server.ocsp"
+                  ],
+                  "help": "Specify authentication server"
+                },
+                "name-label": "Server"
+              },
+              {
+                "key": "server-ocsp-sg",
+                "label": "Server OCSP SG",
+                "type": "select",
+                "cm-lineage": "slb.template.server-ssl.ca-certs.server-ocsp-sg",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mb",
+                  "range": "1-127",
+                  "obj-association": [
+                    "aam.authentication.service-group"
+                  ],
+                  "help": "Specify service-group"
+                },
+                "name-label": "Service Group"
+              }
+            ]
+          },
+          {
+            "key": "crl-certs",
+            "label": "CRL Certs",
+            "type": "table",
+            "cm-lineage": "slb.template.server-ssl.crl-certs",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "crl",
+                "label": "CRL",
+                "type": "input",
+                "cm-lineage": "slb.template.server-ssl.crl-certs.crl",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ob",
+                  "range": "1-255",
+                  "max-elements": 128,
+                  "help": "Certificate Revocation Lists"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Logging",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ssli-logging",
+            "label": "SSLi Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.server-ssl.ssli-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "SSLi logging level, default is error logging only",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "sslilogging",
+            "label": "Sslilogging",
+            "type": "select",
+            "cm-lineage": "slb.template.server-ssl.sslilogging",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "ssli-logging",
+              "allowed": [
+                {
+                  "label": "Disable",
+                  "value": "disable",
+                  "help": "Disable all logging"
+                },
+                {
+                  "label": "All",
+                  "value": "all",
+                  "help": "enable all logging(error, info)"
+                }
+              ],
+              "range": "1-128"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

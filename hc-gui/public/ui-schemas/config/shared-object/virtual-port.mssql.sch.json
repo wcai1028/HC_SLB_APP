@@ -1,0 +1,55 @@
+{
+   "version": "1.0.0",
+   "template": "shared-object",
+   "type": "virtual-port.mssql",
+   "components": [
+      {
+         "label": "Client SSL",
+         "cm-object-lineage": "slb.template.client-ssl",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Persist Destination IP",
+         "cm-object-lineage": "slb.template.persist.destination-ip",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Persist Source IP",
+         "cm-object-lineage": "slb.template.persist.source-ip",
+         "referred-by": [
+            "slb.template.external-service",
+            "slb.template.reqmod-icap",
+            "slb.template.respmod-icap",
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Server SSL",
+         "cm-object-lineage": "slb.template.server-ssl",
+         "referred-by": [
+            "slb.template.reqmod-icap",
+            "slb.template.respmod-icap",
+            "slb.server.port",
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Virtual Port",
+         "cm-object-lineage": "slb.template.virtual-port",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Dynamic Service",
+         "cm-object-lineage": "slb.template.dynamic-service",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      }
+   ]
+}

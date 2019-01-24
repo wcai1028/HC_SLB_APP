@@ -1,0 +1,217 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.respmod-icap",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/respmod-icap/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.respmod-icap.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Reqmod ICAP Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "fail-close",
+          "label": "Fail Close",
+          "cm-lineage": "slb.template.respmod-icap.fail-close",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "When template sg is down mark vport down" 
+          }
+        },
+        { 
+          "key": "min-payload-size",
+          "label": "Min Payload Size",
+          "cm-lineage": "slb.template.respmod-icap.min-payload-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "min-payload-size value 0 - 65535, default is 0",
+            "default": "0",
+            "range": "0-65535" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "include-protocol-in-uri",
+          "label": "Include Protocol In Uri",
+          "cm-lineage": "slb.template.respmod-icap.include-protocol-in-uri",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Include protocol and port in HTTP URI" 
+          }
+        },
+        { 
+          "key": "bypass-ip-cfg",
+          "label": "Bypass Ip Cfg",
+          "cm-lineage": "slb.template.respmod-icap.bypass-ip-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "bypass-ip",
+            "label": "Bypass Ip",
+            "cm-lineage": "slb.template.respmod-icap.bypass-ip",
+            "cm-meta":  { 
+              "format": "ipv4-address",
+              "help": "ip address to bypass respmod-icap service",
+              "multi-field-key": true,
+              "max-elements": "20" 
+            }
+          },
+          { 
+            "key": "mask",
+            "label": "Mask",
+            "cm-lineage": "slb.template.respmod-icap.mask",
+            "cm-meta":  { 
+              "format": "ipv4-netmask",
+              "condition": "bypass-ip",
+              "help": "IP prefix mask",
+              "multi-field-key": true,
+              "max-elements": "20" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "failure-action",
+          "label": "Failure Action",
+          "cm-lineage": "slb.template.respmod-icap.failure-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "Continue" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "Drop" 
+              },
+              { 
+              "label": "Reset",
+              "value": "reset",
+              "help": "Reset" 
+              }
+            ],
+            "default": "continue" 
+          }
+        },
+        { 
+          "key": "cylance",
+          "label": "Cylance",
+          "cm-lineage": "slb.template.respmod-icap.cylance",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "cylance external server" 
+          }
+        },
+        { 
+          "key": "log-only-allowed-method",
+          "label": "Log Only Allowed Method",
+          "cm-lineage": "slb.template.respmod-icap.log-only-allowed-method",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Only log allowed HTTP method" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "tcp-proxy",
+          "label": "Tcp Proxy",
+          "cm-lineage": "slb.template.respmod-icap.tcp-proxy",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "TCP proxy template",
+            "obj-association": [  
+             "slb.template.tcp-proxy" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "logging",
+          "label": "Logging",
+          "cm-lineage": "slb.template.respmod-icap.logging",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "logging template",
+            "obj-association": [  
+             "slb.template.logging" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "server-ssl",
+          "label": "Server Ssl",
+          "cm-lineage": "slb.template.respmod-icap.server-ssl",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Server SSL template",
+            "obj-association": [  
+             "slb.template.server-ssl" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "source-ip",
+          "label": "Source Ip",
+          "cm-lineage": "slb.template.respmod-icap.source-ip",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Source IP persistence template",
+            "obj-association": [  
+             "slb.template.persist.source-ip" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "shared-partition-persist-source-ip-template" 
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

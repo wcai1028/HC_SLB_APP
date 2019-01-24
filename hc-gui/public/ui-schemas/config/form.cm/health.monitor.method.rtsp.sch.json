@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.rtsp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/rtsp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "RTSP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "rtsp",
+          "label": "Rtsp",
+          "cm-lineage": "health.monitor.method.rtsp.rtsp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "RTSP type" 
+          }
+        },
+        { 
+          "key": "rtspurl",
+          "label": "Rtspurl",
+          "cm-lineage": "health.monitor.method.rtsp.rtspurl",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "rtsp",
+            "help": "Specify URL string",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "rtsp-port",
+          "label": "Rtsp Port",
+          "cm-lineage": "health.monitor.method.rtsp.rtsp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "rtspurl",
+            "help": "Specify RTSP port, default is 554",
+            "default": "554",
+            "range": "1-65534" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

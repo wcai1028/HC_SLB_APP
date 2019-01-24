@@ -1,0 +1,19 @@
+.application-icon {
+  &.is-active {
+      background: #0082d6;
+  }
+  &:hover {
+      text-decoration: none !important;
+      background: #0082d6;
+  }
+  .menu-item {
+      border: 1px solid #0c608e;
+      cursor: pointer;
+      padding: 7px 10px;
+      font-size: 12px;
+      width: 95px;
+      text-align: center;
+      height: 100%;
+      color: #FFF;
+  }
+}

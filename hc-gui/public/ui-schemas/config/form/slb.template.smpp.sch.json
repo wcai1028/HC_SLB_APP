@@ -1,0 +1,120 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.smpp",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/smpp/{name}",
+  "pageTitle": "SMPP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.smpp.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "SMPP Template Name"
+            }
+          },
+          {
+            "key": "client-enquire-link",
+            "label": "Client Enquire Link",
+            "type": "switch",
+            "cm-lineage": "slb.template.smpp.client-enquire-link",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Respond client ENQUIRE_LINK packet directly instead of forwarding to server"
+            }
+          },
+          {
+            "key": "server-enquire-link",
+            "label": "Server Enquire Link",
+            "type": "switch",
+            "cm-lineage": "slb.template.smpp.server-enquire-link",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "Send server ENQUIRE_LINK packet for every persist connection when enable conn-reuse"
+            }
+          },
+          {
+            "key": "server-enquire-link-val",
+            "label": "Server Enquire Link Value",
+            "type": "input-number",
+            "cm-lineage": "slb.template.smpp.server-enquire-link-val",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ov",
+              "range": "5-300",
+              "condition": "server-enquire-link",
+              "help": "Set interval of keep-alive packet for each persistent connection (second, default is 30)",
+              "default": 30
+            }
+          },
+          {
+            "key": "user",
+            "label": "User",
+            "type": "input",
+            "cm-lineage": "slb.template.smpp.user",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Configure the user to bind"
+            }
+          },
+          {
+            "key": "password",
+            "label": "Password",
+            "type": "input",
+            "cm-lineage": "slb.template.smpp.password",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "condition": "user",
+              "help": "Configure the password used to bind"
+            }
+          },
+          {
+            "key": "server-selection-per-request",
+            "label": "Server Selection Per Request",
+            "type": "switch",
+            "cm-lineage": "slb.template.smpp.server-selection-per-request",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Force server selection on every SMPP request when enable conn-reuse"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

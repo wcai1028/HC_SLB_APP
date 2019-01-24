@@ -1,0 +1,400 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.server",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/server/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.server.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Server template name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.template.server.conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection limit",
+            "default": "64000000",
+            "range": "1-64000000" 
+          }
+        },
+        { 
+          "key": "resume",
+          "label": "Resume",
+          "cm-lineage": "slb.template.server.resume",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "conn-limit",
+            "help": "Resume accepting new connection after connection number drops below threshold",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "conn-limit-no-logging",
+          "label": "Conn Limit No Logging",
+          "cm-lineage": "slb.template.server.conn-limit-no-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "conn-limit",
+            "help": "Do not log connection over limit event" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit",
+          "label": "Conn Rate Limit",
+          "cm-lineage": "slb.template.server.conn-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "rate-interval",
+          "label": "Rate Interval",
+          "cm-lineage": "slb.template.server.rate-interval",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "conn-rate-limit",
+            "allowed": [  
+              { 
+              "label": "100ms",
+              "value": "100ms",
+              "help": "Use 100 ms as sampling interval" 
+              },
+              { 
+              "label": "Second",
+              "value": "second",
+              "help": "Use 1 second as sampling interval" 
+              }
+            ],
+            "default": "second" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit-no-logging",
+          "label": "Conn Rate Limit No Logging",
+          "cm-lineage": "slb.template.server.conn-rate-limit-no-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "conn-rate-limit",
+            "help": "Do not log connection over limit event" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "dns-query-interval",
+          "label": "Dns Query Interval",
+          "cm-lineage": "slb.template.server.dns-query-interval",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The interval to query DNS server for the hostname",
+            "default": "10",
+            "range": "1-1440" 
+          }
+        },
+        { 
+          "key": "dynamic-server-prefix",
+          "label": "Dynamic Server Prefix",
+          "cm-lineage": "slb.template.server.dynamic-server-prefix",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Prefix of dynamic server",
+            "range": "1-3" 
+          }
+        },
+        { 
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.template.server.extended-stats",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable extended statistics on real server" 
+          }
+        },
+        { 
+          "key": "log-selection-failure",
+          "label": "Log Selection Failure",
+          "cm-lineage": "slb.template.server.log-selection-failure",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable real-time logging for server selection failure event" 
+          }
+        },
+        { 
+          "key": "health-check",
+          "label": "Health Check",
+          "cm-lineage": "slb.template.server.health-check",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Health Check Monitor",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "health-check-disable" 
+            ]
+          }
+        },
+        { 
+          "key": "health-check-disable",
+          "label": "Health Check Disable",
+          "cm-lineage": "slb.template.server.health-check-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable configured health check configuration",
+            "m-exclusion": [  
+             "health-check" 
+            ]
+          }
+        },
+        { 
+          "key": "max-dynamic-server",
+          "label": "Max Dynamic Server",
+          "cm-lineage": "slb.template.server.max-dynamic-server",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Maximum dynamic server number",
+            "default": "255",
+            "range": "1-1023" 
+          }
+        },
+        { 
+          "key": "min-ttl-ratio",
+          "label": "Min Ttl Ratio",
+          "cm-lineage": "slb.template.server.min-ttl-ratio",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Minimum TTL to DNS query interval ratio",
+            "default": "2",
+            "range": "1-15" 
+          }
+        },
+        { 
+          "key": "weight",
+          "label": "Weight",
+          "cm-lineage": "slb.template.server.weight",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Weight for the Real Servers",
+            "default": "1",
+            "range": "1-1000" 
+          }
+        },
+        { 
+          "key": "spoofing-cache",
+          "label": "Spoofing Cache",
+          "cm-lineage": "slb.template.server.spoofing-cache",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Servers under the template are spoofing cache" 
+          }
+        },
+        { 
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.template.server.stats-data-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for real server" 
+              },
+              { 
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for real server" 
+              }
+            ],
+            "default": "stats-data-enable" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Slow Start",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "slow-start",
+          "label": "Slow Start",
+          "cm-lineage": "slb.template.server.slow-start",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Slowly ramp up the connection number after server is up" 
+          }
+        },
+        { 
+          "key": "initial-slow-start",
+          "label": "Initial Slow Start",
+          "cm-lineage": "slb.template.server.initial-slow-start",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Initial slow start connection limit (default 128)",
+            "default": "128",
+            "range": "1-4095" 
+          }
+        },
+        { 
+          "key": "add",
+          "label": "Add",
+          "cm-lineage": "slb.template.server.add",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit add by a number every interval",
+            "range": "1-4095",
+            "m-exclusion": [  
+             "times" 
+            ]
+          }
+        },
+        { 
+          "key": "times",
+          "label": "Times",
+          "cm-lineage": "slb.template.server.times",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit multiply by a number every interval (default 2)",
+            "default": "2",
+            "range": "2-10",
+            "m-exclusion": [  
+             "add" 
+            ]
+          }
+        },
+        { 
+          "key": "every",
+          "label": "Every",
+          "cm-lineage": "slb.template.server.every",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit increment interval (default 10)",
+            "default": "10",
+            "range": "1-60" 
+          }
+        },
+        { 
+          "key": "till",
+          "label": "Till",
+          "cm-lineage": "slb.template.server.till",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start ends when slow start connection limit reaches a number (default 4096)",
+            "default": "4096",
+            "range": "1-65535" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Bandwidth Rate Limit",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "bw-rate-limit-acct",
+          "label": "Bw Rate Limit Acct",
+          "cm-lineage": "slb.template.server.bw-rate-limit-acct",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "To Server Only",
+              "value": "to-server-only",
+              "help": "Only account for traffic sent to server" 
+              },
+              { 
+              "label": "From Server Only",
+              "value": "from-server-only",
+              "help": "Only account for traffic received from server" 
+              },
+              { 
+              "label": "All",
+              "value": "all",
+              "help": "Account for all traffic sent to and received from server" 
+              }
+            ],
+            "default": "all" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit",
+          "label": "Bw Rate Limit",
+          "cm-lineage": "slb.template.server.bw-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Configure bandwidth rate limit on real server",
+            "range": "1-16777216" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit-resume",
+          "label": "Bw Rate Limit Resume",
+          "cm-lineage": "slb.template.server.bw-rate-limit-resume",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "bw-rate-limit",
+            "help": "Resume server selection after bandwidth drops below this threshold (in Kbps)",
+            "range": "1-16777216" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit-duration",
+          "label": "Bw Rate Limit Duration",
+          "cm-lineage": "slb.template.server.bw-rate-limit-duration",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "bw-rate-limit-resume",
+            "help": "Duration in seconds the observed rate needs to honor",
+            "range": "1-250" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

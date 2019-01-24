@@ -1,0 +1,78 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.persist.ssl-sid",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/persist/ssl-sid/{name}",
+  "pageTitle": "Persist SSL SID Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.ssl-sid.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "SSL session ID persistence template name"
+            }
+          },
+          {
+            "key": "dont-honor-conn-rules",
+            "label": "Don't Honor Connection Rules",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.ssl-sid.dont-honor-conn-rules",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Do not observe connection rate rules"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "timeout",
+            "label": "Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.persist.ssl-sid.timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-2000",
+              "default": 5,
+              "help": "Persistence timeout"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

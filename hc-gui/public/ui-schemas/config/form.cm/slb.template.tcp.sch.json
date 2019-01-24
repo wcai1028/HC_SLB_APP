@@ -1,0 +1,181 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.tcp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/tcp/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.tcp.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Fast TCP Template Name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "initial-window-size",
+          "label": "Initial Window Size",
+          "cm-lineage": "slb.template.tcp.initial-window-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Set the initial window size",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "qos",
+          "label": "Qos",
+          "cm-lineage": "slb.template.tcp.qos",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "QOS level",
+            "range": "1-63" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Timeout",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "idle-timeout",
+          "label": "Idle Timeout",
+          "cm-lineage": "slb.template.tcp.idle-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Idle Timeout value (Interval of 60 seconds), default 120 seconds",
+            "round-off": true,
+            "default": "120",
+            "range": "1-2097151" 
+          }
+        },
+        { 
+          "key": "half-open-idle-timeout",
+          "label": "Half Open Idle Timeout",
+          "cm-lineage": "slb.template.tcp.half-open-idle-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "TCP Half Open Idle Timeout (sec), default off",
+            "range": "1-60" 
+          }
+        },
+        { 
+          "key": "half-close-idle-timeout",
+          "label": "Half Close Idle Timeout",
+          "cm-lineage": "slb.template.tcp.half-close-idle-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "TCP Half Close Idle Timeout (sec), default off",
+            "range": "60-120" 
+          }
+        },
+        { 
+          "key": "force-delete-timeout",
+          "label": "Force Delete Timeout",
+          "cm-lineage": "slb.template.tcp.force-delete-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The maximum time that a session can stay in the system before being delete",
+            "range": "1-31",
+            "m-exclusion": [  
+             "force-delete-timeout-100ms" 
+            ]
+          }
+        },
+        { 
+          "key": "force-delete-timeout-100ms",
+          "label": "Force Delete Timeout 100ms",
+          "cm-lineage": "slb.template.tcp.force-delete-timeout-100ms",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The maximum time that a session can stay in the system before being delete",
+            "range": "1-31",
+            "m-exclusion": [  
+             "force-delete-timeout" 
+            ]
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "insert-client-ip",
+          "label": "Insert Client Ip",
+          "cm-lineage": "slb.template.tcp.insert-client-ip",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Insert client ip into TCP option" 
+          }
+        },
+        { 
+          "key": "lan-fast-ack",
+          "label": "Lan Fast Ack",
+          "cm-lineage": "slb.template.tcp.lan-fast-ack",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable fast TCP ack on LAN" 
+          }
+        },
+        { 
+          "key": "reset-fwd",
+          "label": "Reset Fwd",
+          "cm-lineage": "slb.template.tcp.reset-fwd",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "send reset to server if error happens" 
+          }
+        },
+        { 
+          "key": "reset-rev",
+          "label": "Reset Rev",
+          "cm-lineage": "slb.template.tcp.reset-rev",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "send reset to client if error happens" 
+          }
+        },
+        { 
+          "key": "del-session-on-server-down",
+          "label": "Del Session On Server Down",
+          "cm-lineage": "slb.template.tcp.del-session-on-server-down",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Delete session if the server/port goes down (either disabled/hm down)" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

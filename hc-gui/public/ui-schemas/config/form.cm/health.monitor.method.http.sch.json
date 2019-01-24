@@ -1,0 +1,352 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.http",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/http",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "HTTP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "http",
+          "label": "Http",
+          "cm-lineage": "health.monitor.method.http.http",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "HTTP type" 
+          }
+        },
+        { 
+          "key": "http-port",
+          "label": "Http Port",
+          "cm-lineage": "health.monitor.method.http.http-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "http",
+            "help": "Specify HTTP Port",
+            "default": "80",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "http-expect",
+          "label": "Http Expect",
+          "cm-lineage": "health.monitor.method.http.http-expect",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "http",
+            "help": "Specify what you expect from the response message" 
+          }
+        },
+        { 
+          "key": "http-response-code",
+          "label": "Http Response Code",
+          "cm-lineage": "health.monitor.method.http.http-response-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http-expect",
+            "help": "Specify response code range (e.g. 200,400-430)",
+            "range": "1-31",
+            "m-exclusion": [  
+             "http-text" 
+            ]
+          }
+        },
+        { 
+          "key": "response-code-regex",
+          "label": "Response Code Regex",
+          "cm-lineage": "health.monitor.method.http.response-code-regex",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http-expect",
+            "help": "Specify response code range with Regex",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "http-text",
+          "label": "Http Text",
+          "cm-lineage": "health.monitor.method.http.http-text",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http-expect",
+            "help": "Specify text expected",
+            "range": "1-127",
+            "m-exclusion": [  
+             "http-response-code" 
+            ]
+          }
+        },
+        { 
+          "key": "text-regex",
+          "label": "Text Regex",
+          "cm-lineage": "health.monitor.method.http.text-regex",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http-expect",
+            "help": "Specify text expected  with Regex",
+            "range": "1-127",
+            "m-exclusion": [  
+             "http-text" 
+            ]
+          }
+        },
+        { 
+          "key": "http-host",
+          "label": "Http Host",
+          "cm-lineage": "health.monitor.method.http.http-host",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http",
+            "help": "Specify \"Host:\" header used in request (enclose IPv6 address in [])",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "http-maintenance-code",
+          "label": "Http Maintenance Code",
+          "cm-lineage": "health.monitor.method.http.http-maintenance-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http",
+            "help": "Specify response code for maintenance",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "http-url",
+          "label": "Http Url",
+          "cm-lineage": "health.monitor.method.http.http-url",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "http",
+            "help": "Specify URL string, default is GET /" 
+          }
+        },
+        { 
+          "key": "url-type",
+          "label": "Url Type",
+          "cm-lineage": "health.monitor.method.http.url-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "http-url",
+            "allowed": [  
+              { 
+              "label": "GET",
+              "value": "GET",
+              "help": "HTTP GET method" 
+              },
+              { 
+              "label": "POST",
+              "value": "POST",
+              "help": "HTTP POST method" 
+              },
+              { 
+              "label": "HEAD",
+              "value": "HEAD",
+              "help": "HTTP HEAD method" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "url-path",
+          "label": "Url Path",
+          "cm-lineage": "health.monitor.method.http.url-path",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "url-type",
+            "help": "Specify URL path, default is \"/\"",
+            "range": "1-500" 
+          }
+        },
+        { 
+          "key": "post-path",
+          "label": "Post Path",
+          "cm-lineage": "health.monitor.method.http.post-path",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "url-type",
+            "help": "Specify URL path, default is \"/\"",
+            "range": "1-500" 
+          }
+        },
+        { 
+          "key": "post-type",
+          "label": "Post Type",
+          "cm-lineage": "health.monitor.method.http.post-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "post-path",
+            "allowed": [  
+              { 
+              "label": "Postdata",
+              "value": "postdata",
+              "help": "Specify the HTTP post data" 
+              },
+              { 
+              "label": "Postfile",
+              "value": "postfile",
+              "help": "Specify the HTTP post data" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "http-postdata",
+          "label": "Http Postdata",
+          "cm-lineage": "health.monitor.method.http.http-postdata",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "post-type",
+            "help": "Specify the HTTP post data",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "http-postfile",
+          "label": "Http Postfile",
+          "cm-lineage": "health.monitor.method.http.http-postfile",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "post-type",
+            "help": "Specify the HTTP post data",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "http-username",
+          "label": "Http Username",
+          "cm-lineage": "health.monitor.method.http.http-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "http-password",
+          "label": "Http Password",
+          "cm-lineage": "health.monitor.method.http.http-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "http-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "http-password-string",
+          "label": "Http Password String",
+          "cm-lineage": "health.monitor.method.http.http-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "http-password",
+            "help": "Specify password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "http-encrypted",
+          "label": "Http Encrypted",
+          "cm-lineage": "health.monitor.method.http.http-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "http-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "http-kerberos-auth",
+          "label": "Http Kerberos Auth",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-auth",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "http",
+            "help": "Http Kerberos Auth" 
+          }
+        },
+        { 
+          "key": "http-kerberos-realm",
+          "label": "Http Kerberos Realm",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-realm",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "http-kerberos-auth",
+            "help": "Specify realm of Kerberos server",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "http-kerberos-hostip",
+          "label": "Http Kerberos Hostip",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-hostip",
+          "cm-meta":  { 
+            "format": "host",
+            "condition": "http-kerberos-realm",
+            "help": "Kdc's hostname(length:1-31) or IP address",
+            "range": "1-31",
+            "m-exclusion": [  
+             "http-kerberos-hostipv6" 
+            ]
+          }
+        },
+        { 
+          "key": "http-kerberos-hostipv6",
+          "label": "Http Kerberos Hostipv6",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-hostipv6",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "http-kerberos-realm",
+            "help": "Server's IPV6 address",
+            "m-exclusion": [  
+             "http-kerberos-hostip" 
+            ]
+          }
+        },
+        { 
+          "key": "http-kerberos-port",
+          "label": "Http Kerberos Port",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "http-kerberos-hostip",
+            "help": "Specify the kdc port",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "http-kerberos-portv6",
+          "label": "Http Kerberos Portv6",
+          "cm-lineage": "health.monitor.method.http.http-kerberos-portv6",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "http-kerberos-hostipv6",
+            "help": "Specify the kdc port",
+            "range": "1-65535" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

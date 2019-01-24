@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+.logo {
+  background: url(~src/assets/images/a10_logo_gold_white.png) no-repeat;
+  text-indent: -999em;
+  background-size: 70px;
+  margin-left: 1px;
+  width: 68px;
+  height: 45px;
+  margin-bottom: 10px;
+}
+
+.productName {
+  width: 86px;
+  height: 45px;
+  font-family: Exo;
+  font-size: 30px;
+  text-align: center;
+  color: #252525;
+  padding-top: 10px;
+}
+.marginTop5 {
+  margin-top: 5% !important;
+}
+.centerContent {
+  display: inline-flex;
+  margin-left: 44%;
+}
+.marginTop1 {
+  margin-top: 1% !important;
+}
+.formPanel {
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #ffffff, #dadada);
+  box-shadow: 0 15px 28px 0px rgba(27, 27, 27, 0.3);
+  padding: 20px 10px;
+  font-family: Roboto;
+  width: 45%;
+  margin-left: 26%;
+  min-height: 250px;
+}
+.formHeader {
+  text-align: center;
+  color: #363636;
+  font-size: 24px;
+}
+.formInput {
+  display: block;
+  width: 60%;
+  margin-left: 16%;
+  height: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

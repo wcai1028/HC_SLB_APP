@@ -1,0 +1,112 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dynamic-service",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/dynamic-service/{name}",
+  "pageTitle": "Dynamic Service Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.dynamic-service.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Dynamic Service Template Name"
+            }
+          },
+          {
+            "key": "dns-server",
+            "label": "DNS Server",
+            "type": "table",
+            "cm-lineage": "slb.template.dynamic-service.dns-server",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "dns",
+                "label": "DNS",
+                "type": "dummy",
+                "cm-lineage": "slb.template.dynamic-service.dns-server.dns",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "mk",
+                  "help": "Specify DNS Option"
+                }
+              },
+              {
+                "key": "server",
+                "label": "Server",
+                "type": "dummy",
+                "cm-lineage": "slb.template.dynamic-service.dns-server.server",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "mk",
+                  "help": "DNS Server",
+                  "condition": "dns"
+                }
+              },
+              {
+                "key": "ipv4-dns-server",
+                "label": "IPv4 DNS Server",
+                "type": "input",
+                "cm-lineage": "slb.template.dynamic-service.dns-server.ipv4-dns-server",
+                "cm-meta": {
+                  "format": "ipv4-address",
+                  "flags": "mv",
+                  "help": "DNS Server IPv4 Address",
+                  "condition": "server",
+                  "multi-field-key": true,
+                  "max-elements": 2
+                }
+              },
+              {
+                "key": "ipv6-dns-server",
+                "label": "IPv6 DNS Server",
+                "type": "input",
+                "cm-lineage": "slb.template.dynamic-service.dns-server.ipv6-dns-server",
+                "cm-meta": {
+                  "format": "ipv6-address",
+                  "flags": "mv",
+                  "help": "DNS Server IPv6 Address",
+                  "condition": "server",
+                  "multi-field-key": true,
+                  "max-elements": 2
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

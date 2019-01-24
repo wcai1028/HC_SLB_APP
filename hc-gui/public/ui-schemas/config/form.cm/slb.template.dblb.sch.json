@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dblb",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/dblb/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.dblb.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "DBLB template name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "class-list",
+          "label": "Class List",
+          "cm-lineage": "slb.template.dblb.class-list",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Specify user/password string class list",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "server-version",
+          "label": "Server Version",
+          "cm-lineage": "slb.template.dblb.server-version",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "MSSQL2008",
+              "value": "MSSQL2008",
+              "help": "MSSQL server 2008 or 2008 R2" 
+              },
+              { 
+              "label": "MSSQL2012",
+              "value": "MSSQL2012",
+              "help": "MSSQL server 2012" 
+              },
+              { 
+              "label": "MySQL",
+              "value": "MySQL",
+              "help": "MySQL server (any version)" 
+              }
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

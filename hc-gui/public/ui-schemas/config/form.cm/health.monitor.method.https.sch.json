@@ -1,0 +1,425 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.https",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/https",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "HTTPS",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "https",
+          "label": "Https",
+          "cm-lineage": "health.monitor.method.https.https",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "HTTPS type" 
+          }
+        },
+        { 
+          "key": "web-port",
+          "label": "Web Port",
+          "cm-lineage": "health.monitor.method.https.web-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "https",
+            "help": "Specify HTTPS port",
+            "default": "443",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "https-expect",
+          "label": "Https Expect",
+          "cm-lineage": "health.monitor.method.https.https-expect",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https",
+            "help": "Specify what you expect from the response message" 
+          }
+        },
+        { 
+          "key": "https-response-code",
+          "label": "Https Response Code",
+          "cm-lineage": "health.monitor.method.https.https-response-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https-expect",
+            "help": "Specify response code range (e.g. 200,400-430)",
+            "range": "1-31",
+            "m-exclusion": [  
+             "https-text" 
+            ]
+          }
+        },
+        { 
+          "key": "response-code-regex",
+          "label": "Response Code Regex",
+          "cm-lineage": "health.monitor.method.https.response-code-regex",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https-expect",
+            "help": "Specify response code range with Regex",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "https-text",
+          "label": "Https Text",
+          "cm-lineage": "health.monitor.method.https.https-text",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https-expect",
+            "help": "Specify text expected",
+            "range": "1-127",
+            "m-exclusion": [  
+             "https-response-code" 
+            ]
+          }
+        },
+        { 
+          "key": "text-regex",
+          "label": "Text Regex",
+          "cm-lineage": "health.monitor.method.https.text-regex",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https-expect",
+            "help": "Specify text expected  with Regex",
+            "range": "1-127",
+            "m-exclusion": [  
+             "https-text" 
+            ]
+          }
+        },
+        { 
+          "key": "https-host",
+          "label": "Https Host",
+          "cm-lineage": "health.monitor.method.https.https-host",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https",
+            "help": "Specify \"Host:\" header used in request (enclose IPv6 address in [])",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "https-maintenance-code",
+          "label": "Https Maintenance Code",
+          "cm-lineage": "health.monitor.method.https.https-maintenance-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https",
+            "help": "Specify response code for maintenance",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "https-url",
+          "label": "Https Url",
+          "cm-lineage": "health.monitor.method.https.https-url",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https",
+            "help": "Specify URL string, default is GET /" 
+          }
+        },
+        { 
+          "key": "url-type",
+          "label": "Url Type",
+          "cm-lineage": "health.monitor.method.https.url-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "https-url",
+            "allowed": [  
+              { 
+              "label": "GET",
+              "value": "GET",
+              "help": "HTTP GET method" 
+              },
+              { 
+              "label": "POST",
+              "value": "POST",
+              "help": "HTTP POST method" 
+              },
+              { 
+              "label": "HEAD",
+              "value": "HEAD",
+              "help": "HTTP HEAD method" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "url-path",
+          "label": "Url Path",
+          "cm-lineage": "health.monitor.method.https.url-path",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "url-type",
+            "help": "Specify URL path, default is \"/\"",
+            "range": "1-500" 
+          }
+        },
+        { 
+          "key": "post-path",
+          "label": "Post Path",
+          "cm-lineage": "health.monitor.method.https.post-path",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "url-type",
+            "help": "Specify URL path, default is \"/\"",
+            "range": "1-500" 
+          }
+        },
+        { 
+          "key": "post-type",
+          "label": "Post Type",
+          "cm-lineage": "health.monitor.method.https.post-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "post-path",
+            "allowed": [  
+              { 
+              "label": "Postdata",
+              "value": "postdata",
+              "help": "Specify the HTTP post data" 
+              },
+              { 
+              "label": "Postfile",
+              "value": "postfile",
+              "help": "Specify the HTTP post data" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "https-postdata",
+          "label": "Https Postdata",
+          "cm-lineage": "health.monitor.method.https.https-postdata",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "post-type",
+            "help": "Specify the HTTP post data",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "https-postfile",
+          "label": "Https Postfile",
+          "cm-lineage": "health.monitor.method.https.https-postfile",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "post-type",
+            "help": "Specify the HTTP post data",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "https-username",
+          "label": "Https Username",
+          "cm-lineage": "health.monitor.method.https.https-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "https-password",
+          "label": "Https Password",
+          "cm-lineage": "health.monitor.method.https.https-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "https-password-string",
+          "label": "Https Password String",
+          "cm-lineage": "health.monitor.method.https.https-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "https-password",
+            "help": "Configure password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "https-encrypted",
+          "label": "Https Encrypted",
+          "cm-lineage": "health.monitor.method.https.https-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "https-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "disable-sslv2hello",
+          "label": "Disable Sslv2hello",
+          "cm-lineage": "health.monitor.method.https.disable-sslv2hello",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https",
+            "help": "Disable SSLv2Hello for HTTPs" 
+          }
+        },
+        { 
+          "key": "https-kerberos-auth",
+          "label": "Https Kerberos Auth",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-auth",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https",
+            "help": "Https Kerberos Auth" 
+          }
+        },
+        { 
+          "key": "https-kerberos-realm",
+          "label": "Https Kerberos Realm",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-realm",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https-kerberos-auth",
+            "help": "Specify realm of Kerberos server",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "https-kerberos-hostip",
+          "label": "Https Kerberos Hostip",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-hostip",
+          "cm-meta":  { 
+            "format": "host",
+            "condition": "https-kerberos-realm",
+            "help": "Kdc's hostname(length:1-31) or IP address",
+            "range": "1-31",
+            "m-exclusion": [  
+             "https-kerberos-hostipv6" 
+            ]
+          }
+        },
+        { 
+          "key": "https-kerberos-hostipv6",
+          "label": "Https Kerberos Hostipv6",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-hostipv6",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "https-kerberos-realm",
+            "help": "Server's IPV6 address",
+            "m-exclusion": [  
+             "https-kerberos-hostip" 
+            ]
+          }
+        },
+        { 
+          "key": "https-kerberos-port",
+          "label": "Https Kerberos Port",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "https-kerberos-hostip",
+            "help": "Specify the kdc port",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "https-kerberos-portv6",
+          "label": "Https Kerberos Portv6",
+          "cm-lineage": "health.monitor.method.https.https-kerberos-portv6",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "https-kerberos-hostipv6",
+            "help": "Specify the kdc port",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "cert-key-shared",
+          "label": "Cert Key Shared",
+          "cm-lineage": "health.monitor.method.https.cert-key-shared",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "https",
+            "help": "Select shared partition" 
+          }
+        },
+        { 
+          "key": "cert",
+          "label": "Cert",
+          "cm-lineage": "health.monitor.method.https.cert",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "https",
+            "help": "Specify client certificate",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "key",
+          "label": "Key",
+          "cm-lineage": "health.monitor.method.https.key",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "cert",
+            "help": "Specify client private key",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "key-pass-phrase",
+          "label": "Key Pass Phrase",
+          "cm-lineage": "health.monitor.method.https.key-pass-phrase",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "key",
+            "help": "Client private key password phrase" 
+          }
+        },
+        { 
+          "key": "key-phrase",
+          "label": "Key Phrase",
+          "cm-lineage": "health.monitor.method.https.key-phrase",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "key-pass-phrase",
+            "help": "Password Phrase",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "https-key-encrypted",
+          "label": "Https Key Encrypted",
+          "cm-lineage": "health.monitor.method.https.https-key-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "key-pass-phrase",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

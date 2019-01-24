@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.tracking-template.template",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/tracking-template/template/{template}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "template",
+          "label": "Template",
+          "cm-lineage": "scaleout.cluster.tracking-template.template.template",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "bind tracking template name",
+            "object-key": true,
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "threshold-cfg",
+          "label": "Threshold Cfg",
+          "cm-lineage": "scaleout.cluster.tracking-template.template.threshold-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "threshold",
+            "label": "Threshold",
+            "cm-lineage": "scaleout.cluster.tracking-template.template.threshold",
+            "cm-meta":  { 
+              "format": "number",
+              "help": "action triggering threshold",
+              "max-elements": "2",
+              "range": "1-65535" 
+            }
+          },
+          { 
+            "key": "action",
+            "label": "Action",
+            "cm-lineage": "scaleout.cluster.tracking-template.template.action",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "threshold",
+              "allowed": [  
+                { 
+                "label": "Down",
+                "value": "down",
+                "help": "node stops processing user traffic" 
+                },
+                { 
+                "label": "Exit Cluster",
+                "value": "exit-cluster",
+                "help": "node exits scaleout cluster" 
+                }
+              ],
+              "max-elements": "2" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.compound",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/compound",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Compound",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "compound",
+          "label": "Compound",
+          "cm-lineage": "health.monitor.method.compound.compound",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Compound type" 
+          }
+        },
+        { 
+          "key": "rpn-string",
+          "label": "Rpn String",
+          "cm-lineage": "health.monitor.method.compound.rpn-string",
+          "cm-meta":  { 
+            "format": "line",
+            "condition": "compound",
+            "help": "Enter Reverse Polish Notation, example: sub hm1 sub hm2 and",
+            "range": "1-512" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

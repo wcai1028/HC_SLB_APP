@@ -1,0 +1,103 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.ftp",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/ftp/{name}",
+  "pageTitle": "FTP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.ftp.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "FTP template name"
+            }
+          },
+          {
+            "key": "active-mode-port",
+            "label": "Active Mode Port",
+            "type": "switch",
+            "cm-lineage": "slb.template.ftp.active-mode-port",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Non-Standard FTP Active mode port"
+            }
+          },
+          {
+            "key": "active-mode-port-val",
+            "label": "Active Mode Port Value",
+            "type": "input-number",
+            "cm-lineage": "slb.template.ftp.active-mode-port-val",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-65534",
+              "condition": "active-mode-port",
+              "help": "Non-Standard FTP Active mode port",
+              "m-exclusion": [
+                "any"
+              ]
+            }
+          },
+          {
+            "key": "to",
+            "label": "To",
+            "type": "input-number",
+            "cm-lineage": "slb.template.ftp.to",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "active-mode-port-val",
+              "help": "End range of FTP Active mode port"
+            }
+          },
+          {
+            "key": "any",
+            "label": "Any",
+            "type": "switch",
+            "cm-lineage": "slb.template.ftp.any",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "m-exclusion": [
+                "active-mode-port-val"
+              ],
+              "condition": "active-mode-port",
+              "help": "Allow any FTP Active mode port"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

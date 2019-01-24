@@ -1,0 +1,153 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "ip.nat.pool",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "ip/nat/pool/{pool-name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "pool-name",
+          "label": "Pool Name",
+          "cm-lineage": "ip.nat.pool.pool-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify pool name or pool group",
+            "object-key": true,
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "start-address",
+          "label": "Start Address",
+          "cm-lineage": "ip.nat.pool.start-address",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "pool-name",
+            "help": "Configure start IP address of NAT pool",
+            "m-exclusion": [  
+             "use-if-ip" 
+            ]
+          }
+        },
+        { 
+          "key": "end-address",
+          "label": "End Address",
+          "cm-lineage": "ip.nat.pool.end-address",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "start-address",
+            "help": "Configure end IP address of NAT pool" 
+          }
+        },
+        { 
+          "key": "netmask",
+          "label": "Netmask",
+          "cm-lineage": "ip.nat.pool.netmask",
+          "cm-meta":  { 
+            "format": "ipv4-netmask-brief",
+            "condition": "end-address",
+            "help": "Configure mask for pool" 
+          }
+        },
+        { 
+          "key": "use-if-ip",
+          "label": "Use If Ip",
+          "cm-lineage": "ip.nat.pool.use-if-ip",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "pool-name",
+            "help": "Use Interface IP",
+            "m-exclusion": [  
+             "start-address" 
+            ]
+          }
+        },
+        { 
+          "key": "ethernet",
+          "label": "Ethernet",
+          "cm-lineage": "ip.nat.pool.ethernet",
+          "cm-meta":  { 
+            "format": "interface",
+            "condition": "use-if-ip",
+            "help": "Ethernet interface",
+            "range": "0-103" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "gateway",
+          "label": "Gateway",
+          "cm-lineage": "ip.nat.pool.gateway",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "netmask",
+            "help": "Configure gateway IP" 
+          }
+        },
+        { 
+          "key": "vrid",
+          "label": "Vrid",
+          "cm-lineage": "ip.nat.pool.vrid",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "netmask",
+            "help": "Configure VRRP-A vrid",
+            "obj-association": [  
+             "vrrp-a.vrid" 
+            ],
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "scaleout-device-id",
+          "label": "Scaleout Device Id",
+          "cm-lineage": "ip.nat.pool.scaleout-device-id",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "netmask",
+            "help": "Configure Scaleout device id to which this NAT pool is to be bound",
+            "range": "1-64" 
+          }
+        },
+        { 
+          "key": "ip-rr",
+          "label": "Ip Rr",
+          "cm-lineage": "ip.nat.pool.ip-rr",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "netmask",
+            "help": "Use IP address round-robin behavior" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,627 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.sip",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/sip/{name}",
+  "pageTitle": "SIP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.sip.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "SIP Template Name"
+            }
+          },
+          {
+            "key": "alg-dest-nat",
+            "label": "ALG Destination NAT",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.alg-dest-nat",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Translate VIP to real server IP in SIP message when destination NAT is used"
+            }
+          },
+          {
+            "key": "call-id-persist-disable",
+            "label": "Call ID Persist Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.call-id-persist-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable call-ID persistence"
+            }
+          },
+          {
+            "key": "client-keep-alive",
+            "label": "Client Keep Alive",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.client-keep-alive",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Respond client keep-alive packet directly instead of forwarding to server"
+            }
+          },
+          {
+            "key": "exclude-translation",
+            "label": "Exclude Translation",
+            "type": "table",
+            "cm-lineage": "slb.template.sip.exclude-translation",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Exclude all translations in SIP message",
+              "max-elements": 6
+            },
+            "fields": [
+              {
+                "key": "translation-value",
+                "label": "Translation Value",
+                "type": "select",
+                "cm-lineage": "slb.template.sip.exclude-translation.translation-value",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mvy",
+                  "condition": "exclude-translation",
+                  "multi-field-key": true,
+                  "allowed": [
+                    {
+                      "label": "Start Line",
+                      "value": "start-line",
+                      "help": "SIP request line or status line"
+                    },
+                    {
+                      "label": "Header",
+                      "value": "header",
+                      "help": "SIP message headers"
+                    },
+                    {
+                      "label": "Body",
+                      "value": "body",
+                      "help": "SIP message body"
+                    }
+                  ],
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "header-string",
+                "label": "Header String",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.exclude-translation.header-string",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "disabled": [
+                    "translation-value",
+                    [
+                      "start-line",
+                      "body"
+                    ]
+                  ],
+                  "range": "1-63",
+                  "condition": "translation-value",
+                  "help": "SIP header name"
+                }
+              }
+            ]
+          },
+          {
+            "key": "failed-client-selection",
+            "label": "Failed Client Selection",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.failed-client-selection",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Define action when select client fail"
+            }
+          },
+          {
+            "key": "drop-when-client-fail",
+            "label": "Drop When Client Fail",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.drop-when-client-fail",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "failed-client-selection",
+              "help": "Drop current SIP message when select client fail",
+              "m-exclusion": [
+                "failed-client-selection-message"
+              ]
+            }
+          },
+          {
+            "key": "failed-client-selection-message",
+            "label": "Failed Client Selection Message",
+            "type": "input",
+            "cm-lineage": "slb.template.sip.failed-client-selection-message",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "m-exclusion": [
+                "drop-when-client-fail"
+              ],
+              "range": "1-63",
+              "condition": "failed-client-selection",
+              "help": "Send SIP message (includs status code) to server when select client fail(Format: 3 digits(1XX~6XX) space reason)"
+            }
+          },
+          {
+            "key": "registrar",
+            "label": "Registrar",
+            "type": "dummy",
+            "cm-lineage": "slb.template.sip.registrar",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Registrar server configuration"
+            }
+          },
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.sip.service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mbr",
+              "range": "1-127",
+              "condition": "registrar",
+              "help": "service group name",
+              "obj-association": [
+                "slb.service-group"
+              ]
+            }
+          },
+          {
+            "key": "server-request-header",
+            "label": "Server Request Header",
+            "type": "table",
+            "cm-lineage": "slb.template.sip.server-request-header",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Modify the toppest header from server request",
+              "max-elements": 8
+            },
+            "fields": [
+              {
+                "key": "server-request-header-erase",
+                "label": "Server Request Header Erase",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.server-request-header.server-request-header-erase",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mby",
+                  "range": "1-63",
+                  "multi-field-key": true,
+                  "condition": "server-request-header",
+                  "help": "Erase a SIP header"
+                },
+                "name-label": "Erase"
+              },
+              {
+                "key": "server-request-erase-all",
+                "label": "Server Request Erase All",
+                "type": "switch",
+                "cm-lineage": "slb.template.sip.server-request-header.server-request-erase-all",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "server-request-header-erase",
+                  "help": "Erase all headers"
+                },
+                "name-label": "All"
+              },
+              {
+                "key": "server-request-header-insert",
+                "label": "Server Request Header Insert",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.server-request-header.server-request-header-insert",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mby",
+                  "range": "1-127",
+                  "multi-field-key": true,
+                  "condition": "server-request-header",
+                  "help": "Insert a SIP header"
+                },
+                "name-label": "Insert"
+              },
+              {
+                "key": "insert-condition-server-request",
+                "label": "Insert Condition Server Request",
+                "type": "select",
+                "cm-lineage": "slb.template.sip.server-request-header.insert-condition-server-request",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ovy",
+                  "allowed": [
+                    {
+                      "label": "Insert If Not Exist",
+                      "value": "insert-if-not-exist",
+                      "help": "Only insert the header when it does not exist"
+                    },
+                    {
+                      "label": "Insert Always",
+                      "value": "insert-always",
+                      "help": "Always insert the header even when there is a header with the same name"
+                    }
+                  ],
+                  "condition": "server-request-header-insert",
+                  "range": "1-128"
+                },
+                "name-label": "Insert Condition"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "client-request-header",
+            "label": "Client Request Header",
+            "type": "table",
+            "cm-lineage": "slb.template.sip.client-request-header",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Modify the toppest header from client request",
+              "max-elements": 8
+            },
+            "fields": [
+              {
+                "key": "client-request-header-erase",
+                "label": "Client Request Header Erase",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.client-request-header.client-request-header-erase",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mby",
+                  "range": "1-63",
+                  "multi-field-key": true,
+                  "condition": "client-request-header",
+                  "help": "Erase a SIP header"
+                },
+                "name-label": "Erase"
+              },
+              {
+                "key": "client-request-erase-all",
+                "label": "Client Request Erase All",
+                "type": "switch",
+                "cm-lineage": "slb.template.sip.client-request-header.client-request-erase-all",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "client-request-header-erase",
+                  "help": "Erase all headers"
+                },
+                "name-label": "All"
+              },
+              {
+                "key": "client-request-header-insert",
+                "label": "Client Request Header Insert",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.client-request-header.client-request-header-insert",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mby",
+                  "range": "1-127",
+                  "multi-field-key": true,
+                  "condition": "client-request-header",
+                  "help": "Insert a SIP header"
+                },
+                "name-label": "Insert"
+              },
+              {
+                "key": "insert-condition-client-request",
+                "label": "Insert Condition Client Request",
+                "type": "select",
+                "cm-lineage": "slb.template.sip.client-request-header.insert-condition-client-request",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ovy",
+                  "allowed": [
+                    {
+                      "label": "Insert If Not Exist",
+                      "value": "insert-if-not-exist",
+                      "help": "Only insert the header when it does not exist"
+                    },
+                    {
+                      "label": "Insert Always",
+                      "value": "insert-always",
+                      "help": "Always insert the header even when there is a header with the same name"
+                    }
+                  ],
+                  "condition": "client-request-header-insert",
+                  "range": "1-128"
+                },
+                "name-label": "Insert Condition"
+              }
+            ]
+          },
+          {
+            "key": "client-response-header",
+            "label": "Client Response Header",
+            "type": "table",
+            "cm-lineage": "slb.template.sip.client-response-header",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Modify the toppest header from client response",
+              "max-elements": 8
+            },
+            "fields": [
+              {
+                "key": "client-response-header-erase",
+                "label": "Client Response Header Erase",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.client-response-header.client-response-header-erase",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mby",
+                  "range": "1-63",
+                  "multi-field-key": true,
+                  "condition": "client-response-header",
+                  "help": "Erase a SIP header"
+                },
+                "name-label": "Erase"
+              },
+              {
+                "key": "client-response-erase-all",
+                "label": "Client Response Erase All",
+                "type": "switch",
+                "cm-lineage": "slb.template.sip.client-response-header.client-response-erase-all",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "client-response-header-erase",
+                  "help": "Erase all headers"
+                },
+                "name-label": "All"
+              },
+              {
+                "key": "client-response-header-insert",
+                "label": "Client Response Header Insert",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.client-response-header.client-response-header-insert",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mby",
+                  "range": "1-127",
+                  "multi-field-key": true,
+                  "condition": "client-response-header",
+                  "help": "Insert a SIP header"
+                },
+                "name-label": "Insert"
+              },
+              {
+                "key": "insert-condition-client-response",
+                "label": "Insert Condition Client Response",
+                "type": "select",
+                "cm-lineage": "slb.template.sip.client-response-header.insert-condition-client-response",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ovy",
+                  "allowed": [
+                    {
+                      "label": "Insert If Not Exist",
+                      "value": "insert-if-not-exist",
+                      "help": "Only insert the header when it does not exist"
+                    },
+                    {
+                      "label": "Insert Always",
+                      "value": "insert-always",
+                      "help": "Always insert the header even when there is a header with the same name"
+                    }
+                  ],
+                  "condition": "client-response-header-insert",
+                  "range": "1-128"
+                },
+                "name-label": "Insert Condition"
+              }
+            ]
+          },
+          {
+            "key": "keep-server-ip-if-match-acl",
+            "label": "Keep Server IP If Match ACL",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.keep-server-ip-if-match-acl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Use Real Server IP for addresses matching the ACL for a Call-Id"
+            }
+          },
+          {
+            "key": "acl-id",
+            "label": "ACL ID",
+            "type": "select",
+            "cm-lineage": "slb.template.sip.acl-id",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "100-199",
+              "help": "ACL id",
+              "condition": "keep-server-ip-if-match-acl",
+              "obj-association": [
+                "access-list.standard",
+                "access-list.extended"
+              ],
+              "m-exclusion": [
+                "acl-name-value"
+              ]
+            }
+          },
+          {
+            "key": "acl-name-key",
+            "label": "ACL Name Key",
+            "type": "dummy",
+            "cm-lineage": "slb.template.sip.acl-name-key",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Access List name",
+              "condition": "keep-server-ip-if-match-acl"
+            }
+          },
+          {
+            "key": "acl-name-value",
+            "label": "ACL Name Value",
+            "type": "select",
+            "cm-lineage": "slb.template.sip.acl-name-value",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mv",
+              "m-exclusion": [
+                "acl-id"
+              ],
+              "range": "1-16",
+              "help": "IPv4 Access List Name",
+              "condition": "acl-name-key",
+              "obj-association": [
+                "ip.access-list"
+              ]
+            }
+          },
+          {
+            "key": "server-response-header",
+            "label": "Server Response Header",
+            "type": "table",
+            "cm-lineage": "slb.template.sip.server-response-header",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Modify the toppest header from server response",
+              "max-elements": 8
+            },
+            "fields": [
+              {
+                "key": "server-response-header-erase",
+                "label": "Server Response Header Erase",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.server-response-header.server-response-header-erase",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mby",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "condition": "server-response-header",
+                  "help": "Erase a SIP header"
+                },
+                "name-label": "Erase"
+              },
+              {
+                "key": "server-response-erase-all",
+                "label": "Server Response Erase All",
+                "type": "switch",
+                "cm-lineage": "slb.template.sip.server-response-header.server-response-erase-all",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "server-response-header-erase",
+                  "help": "Erase all headers"
+                },
+                "name-label": "All"
+              },
+              {
+                "key": "server-response-header-insert",
+                "label": "Server Response Header Insert",
+                "type": "input",
+                "cm-lineage": "slb.template.sip.server-response-header.server-response-header-insert",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mby",
+                  "multi-field-key": true,
+                  "range": "1-127",
+                  "condition": "server-response-header",
+                  "help": "Insert a SIP header"
+                },
+                "name-label": "Insert"
+              },
+              {
+                "key": "insert-condition-server-response",
+                "label": "Insert Condition Server Response",
+                "type": "select",
+                "cm-lineage": "slb.template.sip.server-response-header.insert-condition-server-response",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ovy",
+                  "allowed": [
+                    {
+                      "label": "Insert If Not Exist",
+                      "value": "insert-if-not-exist",
+                      "help": "Only insert the header when it does not exist"
+                    },
+                    {
+                      "label": "Insert Always",
+                      "value": "insert-always",
+                      "help": "Always insert the header even when there is a header with the same name"
+                    }
+                  ],
+                  "condition": "server-response-header-insert",
+                  "range": "1-128"
+                },
+                "name-label": "Insert Condition"
+              }
+            ]
+          },
+          {
+            "key": "server-selection-per-request",
+            "label": "Server Selection Per Request",
+            "type": "switch",
+            "cm-lineage": "slb.template.sip.server-selection-per-request",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Force server selection on every SIP request"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

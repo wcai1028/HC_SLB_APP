@@ -1,0 +1,92 @@
+.login-view .login-header {
+  color: #66676C;
+  margin: 25px 0 50px;
+  text-align: center; }
+
+.login-view .forgot-password-cancel-link {
+  /*color: $link-green-color;*/
+  float: right; }
+
+.login-view .brand {
+  height: 130px; }
+  .login-view .brand .a10-globe {
+    height: 50px; }
+  .login-view .brand .centered {
+    display: -webkit-box; }
+
+.login-view .panel {
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #ffffff, #dadada);
+  box-shadow: 0 15px 28px 0px rgba(27, 27, 27, 0.3);
+  padding: 20px 10px;
+  font-family: Roboto; }
+
+.login-view h3 {
+  text-align: center;
+  color: #363636; }
+
+.login-view .login-form {
+  margin-bottom: 0;
+  margin-top: 30px;
+  text-align: left; }
+  .login-view .login-form .row {
+    margin: 0; }
+  .login-view .login-form .link {
+    padding-top: 10px;
+    cursor: pointer;
+    color: #4a90e2; }
+  .login-view .login-form .form-control {
+    border-radius: 3px;
+    box-shadow: none; }
+  .login-view .login-form input[type="text"], .login-view .login-form input[type="password"] {
+    height: 40px; }
+  .login-view .login-form input[type="checkbox"] {
+    vertical-align: top; }
+  .login-view .login-form .clearfix {
+    margin-top: 20px; }
+  .login-view .login-form .login-btn {
+    margin-bottom: 15px; }
+  .login-view .login-form .btn-primary {
+    color: #fff;
+    font-weight: bold;
+    background-color: #4a90e2;
+    border: solid 1px #50bbfe;
+    height: 40px;
+    font-size: 16px; }
+
+.login-view hr {
+  margin: 10px 0 10px;
+  width: 100%; }
+
+.login-view .login-signup-link {
+  font-size: 18px;
+  text-align: center; }
+
+.login-view .a10-logo {
+  background: url("../assets/images/a10_logo_gold_white.png") no-repeat;
+  text-indent: -999em;
+  background-size: 70px;
+  margin-left: 1px;
+  width: 68px;
+  max-width: 70px;
+  height: 45px;
+  margin-bottom: 10px; }
+
+.login-view .product-name {
+  width: 86px;
+  max-width: 90px;
+  height: 45px;
+  font-family: Exo;
+  font-size: 30px;
+  text-align: center;
+  color: #252525;
+  padding-top: 10px; }
+
+.login-view .underline {
+  border-bottom: 1px solid; }
+
+.login-default {
+  margin-top: -10px;
+  background-image: linear-gradient(122deg, #61a7d3, #0078c3);
+  height: 100vh;
+  overflow: auto; }

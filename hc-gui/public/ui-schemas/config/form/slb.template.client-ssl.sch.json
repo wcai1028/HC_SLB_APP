@@ -1,0 +1,3913 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.client-ssl",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/client-ssl/{name}",
+  "pageTitle": "Client SSL Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-127",
+              "object-key": true,
+              "help": "Client SSL Template Name"
+            }
+          },
+          {
+            "key": "auth-username",
+            "label": "Auth Username",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.auth-username",
+            "cm-meta": {
+              "format": "string-follow",
+              "flags": "mb",
+              "range": "1-63",
+              "help": "Specify the Username Field in the Client Certificate(If multi-fields are specificed, prior one has higher priority)"
+            }
+          },
+          {
+            "key": "common-name",
+            "label": "Common Name",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.common-name",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Certificate subject common came"
+            }
+          },
+          {
+            "key": "subject-alt-name-othername",
+            "label": "Subject Alt Name Othername",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.subject-alt-name-othername",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Subject Alternative Name - other name"
+            }
+          },
+          {
+            "key": "subject-alt-name-email",
+            "label": "Subject Alt Name Email",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.subject-alt-name-email",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Subject Alternative Name - extension email"
+            }
+          },
+          {
+            "key": "ca-certs",
+            "label": "CA Certs",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.ca-certs",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ca-cert",
+                "label": "CA Cert",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.ca-cert",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "oby",
+                  "multi-field-key": true,
+                  "help": "CA Certificate",
+                  "range": "1-245",
+                  "max-elements": 128
+                }
+              },
+              {
+                "key": "ca-partition",
+                "label": "CA Partition",
+                "type": "dummy",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.ca-partition",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "okpS",
+                  "help": "CA Certificate Partition"
+                },
+                "name-label": "Partition"
+              },
+              {
+                "key": "ca-shared",
+                "label": "CA Shared",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.ca-shared",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "help": "CA Certificate Partition Shared"
+                },
+                "name-label": "Shared"
+              },
+              {
+                "key": "client-ocsp",
+                "label": "Client OCSP",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.client-ocsp",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "help": "Specify ocsp authentication server(s) for client certificate verification"
+                },
+                "name-label": "OCSP"
+              },
+              {
+                "key": "client-ocsp-srvr",
+                "label": "Client OCSP Srvr",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.client-ocsp-srvr",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "obj-association": [
+                    "aam.authentication.server.ocsp.instance"
+                  ],
+                  "help": "Specify authentication server"
+                },
+                "name-label": "Server"
+              },
+              {
+                "key": "client-ocsp-sg",
+                "label": "Client OCSP SG",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.ca-certs.client-ocsp-sg",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mb",
+                  "range": "1-127",
+                  "obj-association": [
+                    "aam.authentication.service-group"
+                  ],
+                  "help": "Specify service-group"
+                },
+                "name-label": "Service Group"
+              }
+            ]
+          },
+          {
+            "key": "chain-cert",
+            "label": "Chain Cert",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.chain-cert",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "chain-cert-keyword",
+              "range": "1-245",
+              "help": "Chain Certificate Name",
+              "m-exclusion": [
+                "chain-cert-shared-str"
+              ]
+            }
+          },
+          {
+            "key": "chain-cert-shared-str",
+            "label": "Chain Cert Shared String",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.chain-cert-shared-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "chain-cert-shared",
+              "range": "1-245",
+              "m-exclusion": [
+                "chain-cert"
+              ],
+              "help": "Chain Certificate Name"
+            }
+          },
+          {
+            "key": "cert-str",
+            "label": "Cert String",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.cert-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "cert-keyword",
+              "range": "1-245",
+              "help": "Certificate Name",
+              "m-exclusion": [
+                "cert-shared-str"
+              ]
+            }
+          },
+          {
+            "key": "cert-shared-str",
+            "label": "Cert Shared String",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.cert-shared-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "cert-partition-shared",
+              "range": "1-245",
+              "m-exclusion": [
+                "cert-str"
+              ],
+              "help": "Certificate Name"
+            }
+          },
+          {
+            "key": "cert-alternate",
+            "label": "Cert Alternate",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.cert-alternate",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "help": "Specify the second certificate",
+              "range": "1-245"
+            }
+          },
+          {
+            "key": "ocspst-ca-cert",
+            "label": "Ocspst CA Cert",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.ocspst-ca-cert",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "range": "1-245",
+              "condition": "ocsp-stapling",
+              "help": "CA certificate"
+            }
+          },
+          {
+            "key": "client-certificate",
+            "label": "Client Certificate",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.client-certificate",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "help": "Request Client SSL Certificate",
+              "allowed": [
+                {
+                  "label": "Ignore",
+                  "value": "Ignore",
+                  "help": "Don't request client certificate"
+                },
+                {
+                  "label": "Require",
+                  "value": "Require",
+                  "help": "Require client certificate"
+                },
+                {
+                  "label": "Request",
+                  "value": "Request",
+                  "help": "Request client certificate"
+                }
+              ],
+              "default": "Ignore",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "req-ca-lists",
+            "label": "Request CA Lists",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.req-ca-lists",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "client-certificate-Request-CA",
+                "label": "Client Certificate Request CA",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.req-ca-lists.client-certificate-Request-CA",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ob",
+                  "range": "1-245",
+                  "max-elements": 10,
+                  "help": "Send CA lists in certificate request"
+                }
+              }
+            ]
+          },
+          {
+            "key": "crl-certs",
+            "label": "CRL Certs",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.crl-certs",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "crl",
+                "label": "CRL",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.crl-certs.crl",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "oby",
+                  "range": "1-255",
+                  "max-elements": 128,
+                  "help": "Certificate Revocation Lists"
+                }
+              },
+              {
+                "key": "crl-partition",
+                "label": "CRL Partition",
+                "type": "dummy",
+                "cm-lineage": "slb.template.client-ssl.crl-certs.crl-partition",
+                "cm-meta": {
+                  "format": "dummy",
+                  "flags": "okpS",
+                  "condition": "crl",
+                  "help": "Certificate Revocation Lists Partition"
+                },
+                "name-label": "Partition"
+              },
+              {
+                "key": "crl-shared",
+                "label": "CRL Shared",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.crl-certs.crl-shared",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "condition": "crl-partition",
+                  "help": "Certificate Revocation Lists Partition Shared"
+                },
+                "name-label": "Shared"
+              }
+            ]
+          },
+          {
+            "key": "forward-proxy-ca-cert",
+            "label": "Forward Proxy CA Cert",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-ca-cert",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ob",
+              "range": "1-245",
+              "help": "CA Certificate for forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-ca-key",
+            "label": "Forward Proxy CA Key",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-ca-key",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "range": "1-245",
+              "help": "CA Private Key for forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-pass-phrase",
+            "label": "Forward Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.forward-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "forward-proxy-ca-key",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "forward-passphrase",
+            "label": "Forward Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.forward-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "forward-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "forward-encrypted",
+            "label": "Forward Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.forward-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "forward-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "forward-proxy-alt-sign",
+            "label": "Forward Proxy Alt Sign",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-alt-sign",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "Forward proxy alternate signing cert and key",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "fp-alt-cert",
+            "label": "FP Alt Cert",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.fp-alt-cert",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "range": "1-245",
+              "condition": "forward-proxy-alt-sign",
+              "help": "CA Certificate for forward proxy alternate signing"
+            }
+          },
+          {
+            "key": "fp-alt-key",
+            "label": "FP Alt Key",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.fp-alt-key",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "range": "1-245",
+              "condition": "fp-alt-cert",
+              "help": "CA Private Key for forward proxy alternate signing"
+            }
+          },
+          {
+            "key": "fp-alt-pass-phrase",
+            "label": "FP Alt Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.fp-alt-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "fp-alt-key",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "fp-alt-passphrase",
+            "label": "FP Alt Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.fp-alt-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "fp-alt-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "fp-alt-encrypted",
+            "label": "FP Alt Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.fp-alt-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "fp-alt-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "forward-proxy-trusted-ca-lists",
+            "label": "Forward Proxy Trusted CA Lists",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-trusted-ca-lists",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true,
+              "help": "Forward proxy trusted CA list files"
+            },
+            "fields": [
+              {
+                "key": "forward-proxy-trusted-ca",
+                "label": "Forward Proxy Trusted CA",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.forward-proxy-trusted-ca-lists.forward-proxy-trusted-ca",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ob",
+                  "range": "1-255",
+                  "help": "Forward proxy trusted CA file",
+                  "max-elements": 128,
+                  "feat-license": "ssli"
+                }
+              }
+            ]
+          },
+          {
+            "key": "forward-proxy-ssl-version",
+            "label": "Forward Proxy SSL Version",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-ssl-version",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "31-33",
+              "default": 33,
+              "help": "TLS/SSL version, default is TLS1.2",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "key-str",
+            "label": "Key String",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.key-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvy",
+              "range": "1-245",
+              "condition": "key-keyword",
+              "help": "Key Name",
+              "m-exclusion": [
+                "key-shared-str"
+              ]
+            }
+          },
+          {
+            "key": "key-pass-phrase",
+            "label": "Key Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.key-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "key-str",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-passphrase",
+            "label": "Key Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "key-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-encrypted",
+            "label": "Key Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "key-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "key-shared-str",
+            "label": "Key Shared String",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.key-shared-str",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvy",
+              "range": "1-245",
+              "condition": "key-partition-shared",
+              "m-exclusion": [
+                "key-str"
+              ],
+              "help": "Key Name"
+            }
+          },
+          {
+            "key": "key-shared-pass-phrase",
+            "label": "Key Shared Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.key-shared-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "key-shared-str",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-shared-passphrase",
+            "label": "Key Shared Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-shared-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "key-shared-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-shared-encrypted",
+            "label": "Key Shared Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-shared-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "key-shared-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "key-alternate",
+            "label": "Key Alternate",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.key-alternate",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mby",
+              "range": "1-245",
+              "help": "Specify the second private key"
+            }
+          },
+          {
+            "key": "key-alt-pass-phrase",
+            "label": "Key Alt Pass Phrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.key-alt-pass-phrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "key-alternate",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-alt-passphrase",
+            "label": "Key Alt Passphrase",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-alt-passphrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "condition": "key-alt-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "key-alt-encrypted",
+            "label": "Key Alt Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.client-ssl.key-alt-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "key-alt-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "cipher-template",
+            "label": "Cipher Template",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.cipher-template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "help": "Cipher Template"
+            }
+          },
+          {
+            "key": "template-cipher",
+            "label": "Template Cipher",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.template-cipher",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "cipher-template",
+              "obj-association": [
+                "slb.template.cipher"
+              ],
+              "help": "Cipher Template Name",
+              "m-exclusion": [
+                "shared-partition-cipher-template"
+              ]
+            }
+          },
+          {
+            "key": "p-cipher",
+            "label": "P Cipher",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.p-cipher",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "cipher-template",
+              "help": "Reference a Cipher template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-cipher-template",
+            "label": "Shared Partition Cipher Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.shared-partition-cipher-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-cipher",
+              "m-exclusion": [
+                "template-cipher"
+              ],
+              "help": "Reference a cipher template from shared partition"
+            }
+          },
+          {
+            "key": "template-cipher-shared",
+            "label": "Template Cipher Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.template-cipher-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-cipher-template",
+              "obj-association": [
+                "slb.template.cipher"
+              ],
+              "help": "Cipher Template Name"
+            }
+          },
+          {
+            "key": "cipher",
+            "label": "Cipher",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.cipher",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "SSL cipher suites and all by default"
+            }
+          },
+          {
+            "key": "cipher-without-prio-list",
+            "label": "Cipher Without Prio List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.cipher-without-prio-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "cipher-wo-prio",
+                "label": "Cipher WO Prio",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.cipher-without-prio-list.cipher-wo-prio",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "m-exclusion": [
+                    "template-cipher"
+                  ],
+                  "multi-field-key": true,
+                  "condition": "cipher",
+                  "allowed": [
+                    {
+                      "label": "SSL3_RSA_DES_192_CBC3_SHA",
+                      "value": "SSL3_RSA_DES_192_CBC3_SHA",
+                      "help": "SSL3_RSA_DES_192_CBC3_SHA"
+                    },
+                    {
+                      "label": "SSL3_RSA_RC4_128_MD5",
+                      "value": "SSL3_RSA_RC4_128_MD5",
+                      "help": "SSL3_RSA_RC4_128_MD5"
+                    },
+                    {
+                      "label": "SSL3_RSA_RC4_128_SHA",
+                      "value": "SSL3_RSA_RC4_128_SHA",
+                      "help": "SSL3_RSA_RC4_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_SHA",
+                      "value": "TLS1_RSA_AES_128_SHA",
+                      "help": "TLS1_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_SHA",
+                      "value": "TLS1_RSA_AES_256_SHA",
+                      "help": "TLS1_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_SHA256",
+                      "value": "TLS1_RSA_AES_128_SHA256",
+                      "help": "TLS1_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_SHA256",
+                      "value": "TLS1_RSA_AES_256_SHA256",
+                      "help": "TLS1_RSA_AES_256_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_SHA",
+                      "value": "TLS1_DHE_RSA_AES_128_SHA",
+                      "help": "TLS1_DHE_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_128_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_128_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_DHE_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_SHA",
+                      "value": "TLS1_DHE_RSA_AES_256_SHA",
+                      "help": "TLS1_DHE_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_AES_256_SHA256",
+                      "value": "TLS1_DHE_RSA_AES_256_SHA256",
+                      "help": "TLS1_DHE_RSA_AES_256_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_SHA",
+                      "value": "TLS1_ECDHE_RSA_AES_128_SHA",
+                      "help": "TLS1_ECDHE_RSA_AES_128_SHA"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                      "value": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                      "help": "TLS1_ECDHE_RSA_AES_128_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_SHA",
+                      "value": "TLS1_ECDHE_RSA_AES_256_SHA",
+                      "help": "TLS1_ECDHE_RSA_AES_256_SHA"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_128_GCM_SHA256",
+                      "value": "TLS1_RSA_AES_128_GCM_SHA256",
+                      "help": "TLS1_RSA_AES_128_GCM_SHA256"
+                    },
+                    {
+                      "label": "TLS1_RSA_AES_256_GCM_SHA384",
+                      "value": "TLS1_RSA_AES_256_GCM_SHA384",
+                      "help": "TLS1_RSA_AES_256_GCM_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                      "value": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                      "help": "TLS1_ECDHE_RSA_AES_256_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                      "value": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                      "help": "TLS1_ECDHE_ECDSA_AES_256_SHA384"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_ECDHE_RSA_CHACHA20_POLY1305_SHA256"
+                    },
+                    {
+                      "label": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_ECDHE_ECDSA_CHACHA20_POLY1305_SHA256"
+                    },
+                    {
+                      "label": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "value": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256",
+                      "help": "TLS1_DHE_RSA_CHACHA20_POLY1305_SHA256"
+                    }
+                  ],
+                  "max-elements": 37
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dh-param",
+            "label": "DH Param",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.dh-param",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Specify Diffie Hellman Parameter"
+            }
+          },
+          {
+            "key": "dh-type",
+            "label": "DH Type",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.dh-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "dh-param",
+              "allowed": [
+                {
+                  "label": "1024",
+                  "value": "1024",
+                  "help": "1024"
+                },
+                {
+                  "label": "1024 Dsa",
+                  "value": "1024-dsa",
+                  "help": "1024-dsa"
+                },
+                {
+                  "label": "2048",
+                  "value": "2048",
+                  "help": "2048"
+                }
+              ]
+            }
+          },
+          {
+            "key": "ec-name",
+            "label": "EC Name",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ec-name",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Specify Elliptic Curve Name"
+            }
+          },
+          {
+            "key": "ec-list",
+            "label": "EC List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.ec-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ec",
+                "label": "EC",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.ec-list.ec",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "condition": "ec-name",
+                  "allowed": [
+                    {
+                      "label": "Secp256r1",
+                      "value": "secp256r1",
+                      "help": "X9_62_prime256v1"
+                    },
+                    {
+                      "label": "Secp384r1",
+                      "value": "secp384r1",
+                      "help": "secp384r1"
+                    }
+                  ],
+                  "max-elements": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "ocsp-stapling",
+            "label": "OCSP Stapling",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.ocsp-stapling",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Config OCSP stapling support"
+            }
+          },
+          {
+            "key": "ocspst-ocsp",
+            "label": "Ocspst OCSP",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.ocspst-ocsp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "condition": "ocspst-ca-cert",
+              "help": "Specify OCSP Authentication"
+            }
+          },
+          {
+            "key": "ocspst-srvr",
+            "label": "Ocspst Srvr",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "condition": "ocspst-ocsp",
+              "obj-association": [
+                "aam.authentication.server.ocsp"
+              ],
+              "help": "Specify OCSP authentication server",
+              "m-exclusion": [
+                "ocspst-sg"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-srvr-period",
+            "label": "Ocspst Srvr Period",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr-period",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "ocspst-srvr",
+              "help": "Specify certificate status update period (Default is 1 hour)"
+            }
+          },
+          {
+            "key": "ocspst-srvr-days",
+            "label": "Ocspst Srvr Days",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr-days",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "ocspst-srvr-period",
+              "help": "Specify update period, in days",
+              "m-exclusion": [
+                "ocspst-srvr-hours",
+                "ocspst-srvr-minutes"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-srvr-hours",
+            "label": "Ocspst Srvr Hours",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr-hours",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-23",
+              "condition": "ocspst-srvr-period",
+              "help": "Specify update period, in hours",
+              "default": 1,
+              "m-exclusion": [
+                "ocspst-srvr-days",
+                "ocspst-srvr-minutes"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-srvr-minutes",
+            "label": "Ocspst Srvr Minutes",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr-minutes",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-59",
+              "condition": "ocspst-srvr-period",
+              "help": "Specify update period, in minutes",
+              "m-exclusion": [
+                "ocspst-srvr-hours",
+                "ocspst-srvr-days"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-srvr-timeout",
+            "label": "Ocspst Srvr Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-srvr-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-44640",
+              "condition": "ocspst-srvr",
+              "help": "Specify retry timeout (Default is 30 mins)",
+              "default": 30
+            }
+          },
+          {
+            "key": "ocspst-sg",
+            "label": "Ocspst SG",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "ocspst-ocsp",
+              "obj-association": [
+                "aam.authentication.service-group"
+              ],
+              "m-exclusion": [
+                "ocspst-srvr"
+              ],
+              "help": "Specify authentication service group"
+            }
+          },
+          {
+            "key": "ocspst-sg-period",
+            "label": "Ocspst SG Period",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg-period",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "ocspst-sg",
+              "help": "Specify certificate status update period (Default is 1 hour)"
+            }
+          },
+          {
+            "key": "ocspst-sg-days",
+            "label": "Ocspst SG Days",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg-days",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "ocspst-sg-period",
+              "help": "Specify update period, in days",
+              "m-exclusion": [
+                "ocspst-sg-hours",
+                "ocspst-sg-minutes"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-sg-hours",
+            "label": "Ocspst SG Hours",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg-hours",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-23",
+              "condition": "ocspst-sg-period",
+              "help": "Specify update period, in hours",
+              "default": 1,
+              "m-exclusion": [
+                "ocspst-sg-days",
+                "ocspst-sg-minutes"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-sg-minutes",
+            "label": "Ocspst SG Minutes",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg-minutes",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-59",
+              "condition": "ocspst-sg-period",
+              "help": "Specify update period, in minutes",
+              "m-exclusion": [
+                "ocspst-sg-hours",
+                "ocspst-sg-days"
+              ]
+            }
+          },
+          {
+            "key": "ocspst-sg-timeout",
+            "label": "Ocspst SG Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.ocspst-sg-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-44640",
+              "condition": "ocspst-sg",
+              "help": "Specify retry timeout (Default is 30 mins)",
+              "default": 30
+            }
+          },
+          {
+            "key": "close-notify",
+            "label": "Close Notify",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.close-notify",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send close notification when terminate connection"
+            }
+          },
+          {
+            "key": "forward-proxy-decrypted",
+            "label": "Forward Proxy Decrypted",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-decrypted",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Features to apply to decrypted traffic",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-decrypted-dscp",
+            "label": "Forward Proxy Decrypted DSCP",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-decrypted-dscp",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "condition": "forward-proxy-decrypted",
+              "range": "1-63",
+              "help": "Apply a DSCP to decrypted and bypassed traffic",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-decrypted-dscp-bypass",
+            "label": "Forward Proxy Decrypted DSCP Bypass",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-decrypted-dscp-bypass",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "condition": "forward-proxy-decrypted-dscp",
+              "range": "1-63",
+              "help": "DSCP to apply to bypassed traffic",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-cache-persistence",
+            "label": "Forward Proxy Cache Persistence",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-cache-persistence",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Configure class-list for SSLi cache persistence",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "cache-persistence-list",
+            "label": "Cache Persistence List",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.cache-persistence-list",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Do persistence hash on certificates that match this class-list",
+              "condition": "forward-proxy-cache-persistence"
+            }
+          },
+          {
+            "key": "cache-persistence-list-name",
+            "label": "Cache Persistence List Name",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.cache-persistence-list-name",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "condition": "cache-persistence-list"
+            }
+          },
+          {
+            "key": "forward-proxy-hash-persistence-interval",
+            "label": "Forward Proxy Hash Persistence Interval",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-hash-persistence-interval",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-720",
+              "default": 30,
+              "help": "Set the time interval to save the hash persistence certs"
+            }
+          },
+          {
+            "key": "forward-proxy-ocsp-disable",
+            "label": "Forward Proxy OCSP Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-ocsp-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable ocsp-stapling for forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-crl-disable",
+            "label": "Forward Proxy CRL Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-crl-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable Certificate Revocation List checking for forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-selfsign-redir",
+            "label": "Forward Proxy Selfsign Redir",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-selfsign-redir",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Redirect connections to pages with self signed certs to a warning page",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-failsafe-disable",
+            "label": "Forward Proxy Failsafe Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-failsafe-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable Failsafe for SSL forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "sslv2-bypass",
+            "label": "SSLv2 Bypass",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.sslv2-bypass",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Bypass SSL version 2"
+            }
+          },
+          {
+            "key": "sslv2-bypass-service-group",
+            "label": "SSLv2 Bypass Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.sslv2-bypass-service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "help": "Service Group for Bypass SSLV2",
+              "condition": "sslv2-bypass",
+              "obj-association": [
+                "slb.service-group"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "title": "Logging",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ssli-logging",
+            "label": "SSLi Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.ssli-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "SSLi logging level, default is error logging only",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "sslilogging",
+            "label": "Sslilogging",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.sslilogging",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "ssli-logging",
+              "allowed": [
+                {
+                  "label": "Disable",
+                  "value": "disable",
+                  "help": "Disable all logging"
+                },
+                {
+                  "label": "All",
+                  "value": "all",
+                  "help": "enable all logging(error, info)"
+                }
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "enable-tls-alert-logging",
+            "label": "Enable TLS Alert Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.enable-tls-alert-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable TLS alert logging"
+            }
+          },
+          {
+            "key": "alert-type",
+            "label": "Alert Type",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.alert-type",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mv",
+              "allowed": [
+                {
+                  "label": "Fatal",
+                  "value": "fatal",
+                  "help": "Log fatal alerts"
+                }
+              ],
+              "condition": "enable-tls-alert-logging",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-log-disable",
+            "label": "Forward Proxy Log Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-log-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable SSL forward proxy logging",
+              "feat-license": "ssli"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Others",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "session-cache-size",
+            "label": "Session Cache Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.session-cache-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "help": "Session Cache Size",
+              "range": "$platform-specific",
+              "default": 0
+            }
+          },
+          {
+            "key": "session-cache-timeout",
+            "label": "Session Cache Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.session-cache-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "help": "Session Cache Timeout",
+              "range": "0-604800",
+              "default": 0
+            }
+          },
+          {
+            "key": "session-ticket-lifetime",
+            "label": "Session Ticket Lifetime",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.session-ticket-lifetime",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "help": "Session ticket lifetime in seconds from stateless session resumption",
+              "default": 0
+            }
+          },
+          {
+            "key": "ssl-false-start-disable",
+            "label": "SSL False Start Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.ssl-false-start-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "disable SSL False Start"
+            }
+          },
+          {
+            "key": "disable-sslv3",
+            "label": "Disable SSLv3",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.disable-sslv3",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Reject Client requests for SSL version 3"
+            }
+          },
+          {
+            "key": "version",
+            "label": "Version",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.version",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "30-33",
+              "help": "TLS/SSL version, default is the highest number supported",
+              "default": 33
+            }
+          },
+          {
+            "key": "dgversion",
+            "label": "Dgversion",
+            "type": "input-number",
+            "cm-lineage": "slb.template.client-ssl.dgversion",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "30-33",
+              "condition": "version",
+              "help": "Lower TLS/SSL version can be downgraded",
+              "default": 31
+            }
+          },
+          {
+            "key": "renegotiation-disable",
+            "label": "Renegotiation Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.renegotiation-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable SSL renegotiation"
+            }
+          }
+        ]
+      },
+      {
+        "title": "SSL-Action",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "forward-proxy-verify-cert-fail-action",
+            "label": "Forward Proxy Verify Cert Fail Action",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-verify-cert-fail-action",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Action taken if certificate verification fails, close the connection by default",
+              "default": 1,
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "verify-cert-fail-action",
+            "label": "Verify Cert Fail Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.verify-cert-fail-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "forward-proxy-verify-cert-fail-action",
+              "allowed": [
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass SSLi processing"
+                },
+                {
+                  "label": "Continue",
+                  "value": "continue",
+                  "help": "continue the connection"
+                },
+                {
+                  "label": "Drop",
+                  "value": "drop",
+                  "help": "close the connection"
+                },
+                {
+                  "label": "Block",
+                  "value": "block",
+                  "help": "block the connection with a warning page"
+                }
+              ],
+              "default": "drop",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-cert-revoke-action",
+            "label": "Forward Proxy Cert Revoke Action",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-revoke-action",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Action taken if a certificate is irreversibly revoked, bypass SSLi processing by default",
+              "default": 1,
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "cert-revoke-action",
+            "label": "Cert Revoke Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.cert-revoke-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "forward-proxy-cert-revoke-action",
+              "allowed": [
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass SSLi processing"
+                },
+                {
+                  "label": "Continue",
+                  "value": "continue",
+                  "help": "continue the connection"
+                },
+                {
+                  "label": "Drop",
+                  "value": "drop",
+                  "help": "close the connection"
+                },
+                {
+                  "label": "Block",
+                  "value": "block",
+                  "help": "block the connection with a warning page"
+                }
+              ],
+              "default": "bypass",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-no-shared-cipher-action",
+            "label": "Forward Proxy No Shared Cipher Action",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-no-shared-cipher-action",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Action taken if handshake fails due to no shared ciper, close the connection by default",
+              "default": 1,
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "no-shared-cipher-action",
+            "label": "No Shared Cipher Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.no-shared-cipher-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "forward-proxy-no-shared-cipher-action",
+              "allowed": [
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass SSLi processing"
+                },
+                {
+                  "label": "Drop",
+                  "value": "drop",
+                  "help": "close the connection"
+                }
+              ],
+              "default": "drop",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-cert-unknown-action",
+            "label": "Forward Proxy Cert Unknown Action",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-unknown-action",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Action taken if a certificate revocation status is unknown, bypass SSLi processing by default",
+              "default": 1,
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "cert-unknown-action",
+            "label": "Cert Unknown Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.cert-unknown-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "forward-proxy-cert-unknown-action",
+              "allowed": [
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass SSLi processing"
+                },
+                {
+                  "label": "Continue",
+                  "value": "continue",
+                  "help": "continue the connection"
+                },
+                {
+                  "label": "Drop",
+                  "value": "drop",
+                  "help": "close the connection"
+                },
+                {
+                  "label": "Block",
+                  "value": "block",
+                  "help": "block the connection with a warning page"
+                }
+              ],
+              "default": "bypass",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-block-message",
+            "label": "Forward Proxy Block Message",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-block-message",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mby",
+              "help": "Message to be included on the block page",
+              "range": "1-1023",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "forward-proxy-no-sni-action",
+            "label": "Forward Proxy No SNI Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-no-sni-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mby",
+              "help": "SSL forward proxy action in No SNI case",
+              "allowed": [
+                {
+                  "label": "Intercept",
+                  "value": "intercept",
+                  "help": "intercept in no SNI case"
+                },
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass in no SNI case"
+                },
+                {
+                  "label": "Reset",
+                  "value": "reset",
+                  "help": "reset in no SNI case"
+                }
+              ],
+              "default": "intercept",
+              "feat-license": "ssli",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "forward-proxy-cert-not-ready-action",
+            "label": "Forward Proxy Cert Not Ready Action",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-not-ready-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mby",
+              "help": "Action taken if certificate cache is not ready, bypass connections by default",
+              "allowed": [
+                {
+                  "label": "Bypass",
+                  "value": "bypass",
+                  "help": "bypass the connection"
+                },
+                {
+                  "label": "Reset",
+                  "value": "reset",
+                  "help": "reset the connection"
+                },
+                {
+                  "label": "Intercept",
+                  "value": "intercept",
+                  "help": "wait for cert and then inspect the connection"
+                }
+              ],
+              "default": "bypass",
+              "feat-license": "ssli",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "web-category",
+            "label": "Web Category",
+            "type": "dummy-object",
+            "cm-lineage": "slb.template.client-ssl.web-category",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "condition": "forward-proxy-bypass",
+              "help": "Web URL Category",
+              "feat-license": "web-category"
+            },
+            "fields": [
+              {
+                "key": "uncategorized",
+                "label": "Uncategorized",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.uncategorized",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "help": "Uncategorized URLs",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "real-estate",
+                "label": "Real Estate",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.real-estate",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Real Estate",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "computer-and-internet-security",
+                "label": "Computer And Internet Security",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.computer-and-internet-security",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Computer and Internet Security",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "financial-services",
+                "label": "Financial Services",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.financial-services",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Financial Services",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "business-and-economy",
+                "label": "Business And Economy",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.business-and-economy",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Business and Economy",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "computer-and-internet-info",
+                "label": "Computer And Internet Info",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.computer-and-internet-info",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Computer and Internet Info",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "auctions",
+                "label": "Auctions",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.auctions",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Auctions",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "shopping",
+                "label": "Shopping",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.shopping",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Shopping",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "cult-and-occult",
+                "label": "Cult And Occult",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.cult-and-occult",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Cult and Occult",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "travel",
+                "label": "Travel",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.travel",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Travel",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "drugs",
+                "label": "Drugs",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.drugs",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Abused Drugs",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "adult-and-pornography",
+                "label": "Adult And Pornography",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.adult-and-pornography",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Adult and Pornography",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "home-and-garden",
+                "label": "Home And Garden",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.home-and-garden",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Home and Garden",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "military",
+                "label": "Military",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.military",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Military",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "social-network",
+                "label": "Social Network",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.social-network",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Social Network",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "dead-sites",
+                "label": "Dead Sites",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.dead-sites",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Dead Sites (db Ops only)",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "stock-advice-and-tools",
+                "label": "Stock Advice And Tools",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.stock-advice-and-tools",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Stock Advice and Tools",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "training-and-tools",
+                "label": "Training And Tools",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.training-and-tools",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Training and Tools",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "dating",
+                "label": "Dating",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.dating",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Dating",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "sex-education",
+                "label": "Sex Education",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.sex-education",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Sex Education",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "religion",
+                "label": "Religion",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.religion",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Religion",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "entertainment-and-arts",
+                "label": "Entertainment And Arts",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.entertainment-and-arts",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Entertainment and Arts",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "personal-sites-and-blogs",
+                "label": "Personal Sites And Blogs",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.personal-sites-and-blogs",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Personal sites and Blogs",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "legal",
+                "label": "Legal",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.legal",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Legal",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "local-information",
+                "label": "Local Information",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.local-information",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Local Information",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "streaming-media",
+                "label": "Streaming Media",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.streaming-media",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Streaming Media",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "job-search",
+                "label": "Job Search",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.job-search",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Job Search",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "gambling",
+                "label": "Gambling",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.gambling",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Gambling",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "translation",
+                "label": "Translation",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.translation",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Translation",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "reference-and-research",
+                "label": "Reference And Research",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.reference-and-research",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Reference and Research",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "shareware-and-freeware",
+                "label": "Shareware And Freeware",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.shareware-and-freeware",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Shareware and Freeware",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "peer-to-peer",
+                "label": "Peer To Peer",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.peer-to-peer",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Peer to Peer",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "marijuana",
+                "label": "Marijuana",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.marijuana",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Marijuana",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "hacking",
+                "label": "Hacking",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.hacking",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Hacking",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "games",
+                "label": "Games",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.games",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Games",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "philosophy-and-politics",
+                "label": "Philosophy And Politics",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.philosophy-and-politics",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Philosophy and Political Advocacy",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "weapons",
+                "label": "Weapons",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.weapons",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Weapons",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "pay-to-surf",
+                "label": "Pay To Surf",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.pay-to-surf",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Pay to Surf",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "hunting-and-fishing",
+                "label": "Hunting And Fishing",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.hunting-and-fishing",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Hunting and Fishing",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "society",
+                "label": "Society",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.society",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Society",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "educational-institutions",
+                "label": "Educational Institutions",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.educational-institutions",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Educational Institutions",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "online-greeting-cards",
+                "label": "Online Greeting Cards",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.online-greeting-cards",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Online Greeting cards",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "sports",
+                "label": "Sports",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.sports",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Sports",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "swimsuits-and-intimate-apparel",
+                "label": "Swimsuits And Intimate Apparel",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.swimsuits-and-intimate-apparel",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Swimsuits and Intimate Apparel",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "questionable",
+                "label": "Questionable",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.questionable",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Questionable",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "kids",
+                "label": "Kids",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.kids",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Kids",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "hate-and-racism",
+                "label": "Hate And Racism",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.hate-and-racism",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Hate and Racism",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "personal-storage",
+                "label": "Personal Storage",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.personal-storage",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Personal Storage",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "violence",
+                "label": "Violence",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.violence",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Violence",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "keyloggers-and-monitoring",
+                "label": "Keyloggers And Monitoring",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.keyloggers-and-monitoring",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Keyloggers and Monitoring",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "search-engines",
+                "label": "Search Engines",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.search-engines",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Search Engines",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "internet-portals",
+                "label": "Internet Portals",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.internet-portals",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Internet Portals",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "web-advertisements",
+                "label": "Web Advertisements",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.web-advertisements",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Web Advertisements",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "cheating",
+                "label": "Cheating",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.cheating",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Cheating",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "gross",
+                "label": "Gross",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.gross",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Gross",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "web-based-email",
+                "label": "Web Based Email",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.web-based-email",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Web based email",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "malware-sites",
+                "label": "Malware Sites",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.malware-sites",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Malware Sites",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "phishing-and-other-fraud",
+                "label": "Phishing And Other Fraud",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.phishing-and-other-fraud",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Phishing and Other Frauds",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "proxy-avoid-and-anonymizers",
+                "label": "Proxy Avoid And Anonymizers",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.proxy-avoid-and-anonymizers",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Proxy Avoid and Anonymizers",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "spyware-and-adware",
+                "label": "Spyware And Adware",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.spyware-and-adware",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Spyware and Adware",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "music",
+                "label": "Music",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.music",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Music",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "government",
+                "label": "Government",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.government",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Government",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "nudity",
+                "label": "Nudity",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.nudity",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Nudity",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "news-and-media",
+                "label": "News And Media",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.news-and-media",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category News and Media",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "illegal",
+                "label": "Illegal",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.illegal",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Illegal",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "cdns",
+                "label": "Cdns",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.cdns",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category CDNs",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "internet-communications",
+                "label": "Internet Communications",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.internet-communications",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Internet Communications",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "bot-nets",
+                "label": "Bot Nets",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.bot-nets",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Bot Nets",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "abortion",
+                "label": "Abortion",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.abortion",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Abortion",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "health-and-medicine",
+                "label": "Health And Medicine",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.health-and-medicine",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Health and Medicine",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "confirmed-spam-sources",
+                "label": "Confirmed Spam Sources",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.confirmed-spam-sources",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Confirmed SPAM Sources",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "spam-urls",
+                "label": "Spam URLs",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.spam-urls",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category SPAM URLs",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "unconfirmed-spam-sources",
+                "label": "Unconfirmed Spam Sources",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.unconfirmed-spam-sources",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Unconfirmed SPAM Sources",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "open-http-proxies",
+                "label": "Open HTTP Proxies",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.open-http-proxies",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Open HTTP Proxies",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "dynamic-comment",
+                "label": "Dynamic Comment",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.dynamic-comment",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Dynamic Comment",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "parked-domains",
+                "label": "Parked Domains",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.parked-domains",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Parked Domains",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "alcohol-and-tobacco",
+                "label": "Alcohol And Tobacco",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.alcohol-and-tobacco",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Alcohol and Tobacco",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "private-ip-addresses",
+                "label": "Private IP Addresses",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.private-ip-addresses",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Private IP Addresses",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "image-and-video-search",
+                "label": "Image And Video Search",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.image-and-video-search",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Image and Video Search",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "fashion-and-beauty",
+                "label": "Fashion And Beauty",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.fashion-and-beauty",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Fashion and Beauty",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "recreation-and-hobbies",
+                "label": "Recreation And Hobbies",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.recreation-and-hobbies",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Recreation and Hobbies",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "motor-vehicles",
+                "label": "Motor Vehicles",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.motor-vehicles",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Motor Vehicles",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "web-hosting-sites",
+                "label": "Web Hosting Sites",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.web-hosting-sites",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Web Hosting Sites",
+                  "condition": "web-category"
+                }
+              },
+              {
+                "key": "food-and-dining",
+                "label": "Food And Dining",
+                "type": "switch",
+                "cm-lineage": "slb.template.client-ssl.web-category.food-and-dining",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "help": "Category Food and Dining",
+                  "condition": "web-category"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "SSL-Policies",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "forward-proxy-bypass",
+            "label": "Forward Proxy Bypass",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-bypass",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Bypass SSL forward proxy",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "case-insensitive",
+            "label": "Case Insensitive",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.case-insensitive",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Case insensitive forward proxy bypass",
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "class-list",
+            "label": "Class List",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Forward proxy bypass if SNI string matches class-list",
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "class-list-name",
+            "label": "Class List Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.class-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "class-list"
+            }
+          },
+          {
+            "key": "multi-class-list",
+            "label": "Multi Class List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.multi-class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "If binding multiple class-lists",
+              "condition": "class-list"
+            },
+            "fields": [
+              {
+                "key": "multi-clist-name",
+                "label": "Multi Clist Name",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.multi-class-list.multi-clist-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "max-elements": 16,
+                  "m-exclusion": [
+                    "class-list-name"
+                  ],
+                  "obj-association": [
+                    "class-list"
+                  ],
+                  "help": "Class List Name",
+                  "condition": "multi-class-list"
+                }
+              }
+            ]
+          },
+          {
+            "key": "user-name-list",
+            "label": "User Name List",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.user-name-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Forward proxy bypass if user-name matches class-list",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "ad-group-list",
+            "label": "AD Group List",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.ad-group-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Forward proxy bypass if ad-group matches class-list",
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "exception-user-name-list",
+            "label": "Exception User Name List",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.exception-user-name-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Exceptions to forward proxy bypass if user-name matches class-list",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "exception-ad-group-list",
+            "label": "Exception AD Group List",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.exception-ad-group-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Exceptions to forward proxy bypass if ad-group matches class-list",
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "exception-class-list",
+            "label": "Exception Class List",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.exception-class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Exceptions to forward-proxy-bypass",
+              "condition": "forward-proxy-bypass"
+            }
+          },
+          {
+            "key": "exception-sni-cl-name",
+            "label": "Exception SNI CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.exception-sni-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Exceptions to forward-proxy-bypass",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "exception-class-list"
+            }
+          },
+          {
+            "key": "forward-proxy-inspect",
+            "label": "Forward Proxy Inspect",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-inspect",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "SSL forward proxy Inspect Class-list",
+              "feat-license": "ssli"
+            }
+          },
+          {
+            "key": "inspect-list",
+            "label": "Inspect List",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-list",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Forward proxy Inspect if SNI string matches class-list",
+              "condition": "forward-proxy-inspect"
+            }
+          },
+          {
+            "key": "inspect-list-name",
+            "label": "Inspect List Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.inspect-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "inspect-list"
+            }
+          },
+          {
+            "key": "inspect-certificate-subject",
+            "label": "Inspect Certificate Subject",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-subject",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "forward-proxy-inspect",
+              "help": "Certificate subject will be used to match class-list"
+            }
+          },
+          {
+            "key": "inspect-cert-subject-cl-dummy",
+            "label": "Inspect Cert Subject CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-cert-subject-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Forward proxy Inspect if Certificate subject matches class-list",
+              "condition": "inspect-certificate-subject"
+            }
+          },
+          {
+            "key": "inspect-certificate-subject-cl-name",
+            "label": "Inspect Certificate Subject CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-subject-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Forward proxy Inspect if Certificate Subject matches class-list",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "inspect-cert-subject-cl-dummy"
+            }
+          },
+          {
+            "key": "inspect-certificate-issuer",
+            "label": "Inspect Certificate Issuer",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-issuer",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "forward-proxy-inspect",
+              "help": "Certificate Issuer will be used to match class-list"
+            }
+          },
+          {
+            "key": "inspect-cert-issuer-cl-dummy",
+            "label": "Inspect Cert Issuer CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-cert-issuer-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Forward proxy Inspect if Certificate issuer matches class-list",
+              "condition": "inspect-certificate-issuer"
+            }
+          },
+          {
+            "key": "inspect-certificate-issuer-cl-name",
+            "label": "Inspect Certificate Issuer CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-issuer-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Forward proxy Inspect if Certificate issuer matches class-list",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "inspect-cert-issuer-cl-dummy"
+            }
+          },
+          {
+            "key": "inspect-certificate-san",
+            "label": "Inspect Certificate San",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-san",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "forward-proxy-inspect",
+              "help": "Certificate SAN will be used to match class-list"
+            }
+          },
+          {
+            "key": "inspect-cert-san-cl-dummy",
+            "label": "Inspect Cert San CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.inspect-cert-san-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Forward proxy Inspect if Certificate SAN matches class-list",
+              "condition": "inspect-certificate-san"
+            }
+          },
+          {
+            "key": "inspect-certificate-san-cl-name",
+            "label": "Inspect Certificate San CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.inspect-certificate-san-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Forward proxy Inspect if Certificate Subject Alternative Name matches class-list",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "inspect-cert-san-cl-dummy"
+            }
+          },
+          {
+            "key": "contains-list",
+            "label": "Contains List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.contains-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "contains",
+                "label": "Contains",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.contains-list.contains",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string contains another string",
+                  "condition": "forward-proxy-bypass",
+                  "max-elements": 64
+                }
+              }
+            ]
+          },
+          {
+            "key": "ends-with-list",
+            "label": "Ends With List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.ends-with-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ends-with",
+                "label": "Ends With",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.ends-with-list.ends-with",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string ends with another string",
+                  "condition": "forward-proxy-bypass",
+                  "max-elements": 64
+                }
+              }
+            ]
+          },
+          {
+            "key": "equals-list",
+            "label": "Equals List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.equals-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "equals",
+                "label": "Equals",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.equals-list.equals",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string equals another string",
+                  "condition": "forward-proxy-bypass",
+                  "max-elements": 64
+                }
+              }
+            ]
+          },
+          {
+            "key": "starts-with-list",
+            "label": "Starts With List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.starts-with-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "starts-with",
+                "label": "Starts With",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.starts-with-list.starts-with",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string starts with another string",
+                  "condition": "forward-proxy-bypass",
+                  "max-elements": 64
+                }
+              }
+            ]
+          },
+          {
+            "key": "bypass-filter-certificate-subject",
+            "label": "Bypass Filter Certificate Subject",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-filter-certificate-subject",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "forward-proxy-bypass",
+              "help": "Certificate Subject will be used to match"
+            }
+          },
+          {
+            "key": "bypass-cert-subject-cl-dummy",
+            "label": "Bypass Cert Subject CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-subject-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Forward proxy bypass if Certificate subject matches class-list",
+              "condition": "bypass-filter-certificate-subject"
+            }
+          },
+          {
+            "key": "bypass-cert-subject-class-list-name",
+            "label": "Bypass Cert Subject Class List Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-subject-class-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "bypass-cert-subject-cl-dummy"
+            }
+          },
+          {
+            "key": "bypass-cert-subject-multi-class-list",
+            "label": "Bypass Cert Subject Multi Class List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-subject-multi-class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "If binding multiple class-lists",
+              "condition": "bypass-cert-subject-cl-dummy"
+            },
+            "fields": [
+              {
+                "key": "bypass-cert-subject-multi-class-list-name",
+                "label": "Bypass Cert Subject Multi Class List Name",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.bypass-cert-subject-multi-class-list.bypass-cert-subject-multi-class-list-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "max-elements": 16,
+                  "obj-association": [
+                    "class-list"
+                  ],
+                  "m-exclusion": [
+                    "bypass-cert-subject-class-list-name"
+                  ],
+                  "help": "Class List Name",
+                  "condition": "bypass-cert-subject-multi-class-list"
+                },
+                "name-label": "Multi Clist Name"
+              }
+            ]
+          },
+          {
+            "key": "ex-bypass-cert-subject-cl",
+            "label": "EX Bypass Cert Subject CL",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ex-bypass-cert-subject-cl",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Exceptions to forward-proxy-bypass",
+              "condition": "bypass-filter-certificate-subject"
+            }
+          },
+          {
+            "key": "exception-certificate-subject-cl-name",
+            "label": "Exception Certificate Subject CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.exception-certificate-subject-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Exceptions to forward-proxy-bypass",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "ex-bypass-cert-subject-cl"
+            }
+          },
+          {
+            "key": "bypass-filter-certificate-issuer",
+            "label": "Bypass Filter Certificate Issuer",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-filter-certificate-issuer",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "forward-proxy-bypass",
+              "help": "Certificate issuer will be used to match another string"
+            }
+          },
+          {
+            "key": "bypass-cert-issuer-cl-dummy",
+            "label": "Bypass Cert Issuer CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-issuer-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Forward proxy bypass if Certificate issuer matches class-list",
+              "condition": "bypass-filter-certificate-issuer"
+            }
+          },
+          {
+            "key": "bypass-cert-issuer-class-list-name",
+            "label": "Bypass Cert Issuer Class List Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-issuer-class-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "bypass-cert-issuer-cl-dummy"
+            }
+          },
+          {
+            "key": "bypass-cert-issuer-multi-class-list",
+            "label": "Bypass Cert Issuer Multi Class List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-issuer-multi-class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "If binding multiple class-lists",
+              "condition": "bypass-cert-issuer-cl-dummy"
+            },
+            "fields": [
+              {
+                "key": "bypass-cert-issuer-multi-class-list-name",
+                "label": "Bypass Cert Issuer Multi Class List Name",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.bypass-cert-issuer-multi-class-list.bypass-cert-issuer-multi-class-list-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "max-elements": 16,
+                  "m-exclusion": [
+                    "bypass-cert-issuer-class-list-name"
+                  ],
+                  "obj-association": [
+                    "class-list"
+                  ],
+                  "help": "Class List Name",
+                  "condition": "bypass-cert-issuer-multi-class-list"
+                },
+                "name-label": "Multi Clist Name"
+              }
+            ]
+          },
+          {
+            "key": "ex-bypass-cert-issuer-cl",
+            "label": "EX Bypass Cert Issuer CL",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ex-bypass-cert-issuer-cl",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Exceptions to forward-proxy-bypass",
+              "condition": "bypass-filter-certificate-issuer"
+            }
+          },
+          {
+            "key": "exception-certificate-issuer-cl-name",
+            "label": "Exception Certificate Issuer CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.exception-certificate-issuer-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Exceptions to forward-proxy-bypass",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "ex-bypass-cert-issuer-cl"
+            }
+          },
+          {
+            "key": "bypass-filter-certificate-san",
+            "label": "Bypass Filter Certificate San",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-filter-certificate-san",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "forward-proxy-bypass",
+              "help": "Certificate SAN will be used to match another string"
+            }
+          },
+          {
+            "key": "bypass-cert-san-cl-dummy",
+            "label": "Bypass Cert San CL Dummy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-san-cl-dummy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Forward proxy bypass if Certificate SAN matches class-list",
+              "condition": "bypass-filter-certificate-san"
+            }
+          },
+          {
+            "key": "bypass-cert-san-class-list-name",
+            "label": "Bypass Cert San Class List Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-san-class-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Class List Name",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "bypass-cert-san-cl-dummy"
+            }
+          },
+          {
+            "key": "bypass-cert-san-multi-class-list",
+            "label": "Bypass Cert San Multi Class List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.bypass-cert-san-multi-class-list",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "If binding multiple class-lists",
+              "condition": "bypass-cert-san-cl-dummy"
+            },
+            "fields": [
+              {
+                "key": "bypass-cert-san-multi-class-list-name",
+                "label": "Bypass Cert San Multi Class List Name",
+                "type": "select",
+                "cm-lineage": "slb.template.client-ssl.bypass-cert-san-multi-class-list.bypass-cert-san-multi-class-list-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "max-elements": 16,
+                  "m-exclusion": [
+                    "bypass-cert-san-class-list-name"
+                  ],
+                  "obj-association": [
+                    "class-list"
+                  ],
+                  "help": "Class List Name",
+                  "condition": "bypass-cert-san-multi-class-list"
+                },
+                "name-label": "Multi Clist Name"
+              }
+            ]
+          },
+          {
+            "key": "ex-bypass-cert-san-cl",
+            "label": "EX Bypass Cert San CL",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.ex-bypass-cert-san-cl",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Exceptions to forward-proxy-bypass",
+              "condition": "bypass-filter-certificate-san"
+            }
+          },
+          {
+            "key": "exception-certificate-san-cl-name",
+            "label": "Exception Certificate San CL Name",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.exception-certificate-san-cl-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "help": "Exceptions to forward-proxy-bypass",
+              "obj-association": [
+                "class-list"
+              ],
+              "condition": "ex-bypass-cert-san-cl"
+            }
+          },
+          {
+            "key": "client-auth",
+            "label": "Client Auth",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.client-auth",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "condition": "forward-proxy-bypass",
+              "help": "Bypass SSL forward proxy client authentication"
+            }
+          },
+          {
+            "key": "client-auth-case-insensitive",
+            "label": "Client Auth Case Insensitive",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.client-auth-case-insensitive",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Case insensitive forward proxy client auth bypass",
+              "condition": "client-auth"
+            }
+          },
+          {
+            "key": "client-auth-class-list",
+            "label": "Client Auth Class List",
+            "type": "input",
+            "cm-lineage": "slb.template.client-ssl.client-auth-class-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "condition": "client-auth",
+              "help": "Forward proxy client auth bypass if SNI string matches class-list"
+            }
+          },
+          {
+            "key": "client-auth-contains-list",
+            "label": "Client Auth Contains List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.client-auth-contains-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "client-auth-contains",
+                "label": "Client Auth Contains",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.client-auth-contains-list.client-auth-contains",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string contains another string",
+                  "condition": "client-auth",
+                  "max-elements": 64
+                },
+                "name-label": "Contains"
+              }
+            ]
+          },
+          {
+            "key": "client-auth-ends-with-list",
+            "label": "Client Auth Ends With List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.client-auth-ends-with-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "client-auth-ends-with",
+                "label": "Client Auth Ends With",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.client-auth-ends-with-list.client-auth-ends-with",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string ends with another string",
+                  "condition": "client-auth",
+                  "max-elements": 64
+                },
+                "name-label": "Ends With"
+              }
+            ]
+          },
+          {
+            "key": "client-auth-equals-list",
+            "label": "Client Auth Equals List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.client-auth-equals-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "client-auth-equals",
+                "label": "Client Auth Equals",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.client-auth-equals-list.client-auth-equals",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string equals another string",
+                  "condition": "client-auth",
+                  "max-elements": 64
+                },
+                "name-label": "Equals"
+              }
+            ]
+          },
+          {
+            "key": "client-auth-starts-with-list",
+            "label": "Client Auth Starts With List",
+            "type": "table",
+            "cm-lineage": "slb.template.client-ssl.client-auth-starts-with-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "client-auth-starts-with",
+                "label": "Client Auth Starts With",
+                "type": "input",
+                "cm-lineage": "slb.template.client-ssl.client-auth-starts-with-list.client-auth-starts-with",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-63",
+                  "help": "Forward proxy bypass if SNI string starts with another string",
+                  "condition": "client-auth",
+                  "max-elements": 64
+                },
+                "name-label": "Starts With"
+              }
+            ]
+          },
+          {
+            "key": "require-web-category",
+            "label": "Require Web Category",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.require-web-category",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "forward-proxy-bypass",
+              "help": "Wait for web category to be resolved before taking bypass decision"
+            }
+          },
+          {
+            "key": "non-ssl-bypass",
+            "label": "Non SSL Bypass",
+            "type": "dummy",
+            "cm-lineage": "slb.template.client-ssl.non-ssl-bypass",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Bypass non-ssl traffic"
+            }
+          },
+          {
+            "key": "non-ssl-bypass-service-group",
+            "label": "Non SSL Bypass Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.client-ssl.non-ssl-bypass-service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mby",
+              "range": "1-127",
+              "help": "Service Group for Bypass non-ssl traffic",
+              "condition": "non-ssl-bypass",
+              "obj-association": [
+                "slb.service-group"
+              ]
+            }
+          },
+          {
+            "key": "non-ssl-bypass-l4session",
+            "label": "Non SSL Bypass L4session",
+            "type": "switch",
+            "cm-lineage": "slb.template.client-ssl.non-ssl-bypass-l4session",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "non-ssl-bypass-service-group",
+              "help": "Handle the non-ssl session as L4 for performance optimization"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

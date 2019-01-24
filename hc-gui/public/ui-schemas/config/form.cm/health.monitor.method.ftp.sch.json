@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.ftp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/ftp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "FTP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "ftp",
+          "label": "Ftp",
+          "cm-lineage": "health.monitor.method.ftp.ftp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "FTP type" 
+          }
+        },
+        { 
+          "key": "ftp-port",
+          "label": "Ftp Port",
+          "cm-lineage": "health.monitor.method.ftp.ftp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "ftp",
+            "help": "Specify FTP port",
+            "default": "21",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "ftp-username",
+          "label": "Ftp Username",
+          "cm-lineage": "health.monitor.method.ftp.ftp-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ftp",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "ftp-password",
+          "label": "Ftp Password",
+          "cm-lineage": "health.monitor.method.ftp.ftp-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ftp-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "ftp-password-string",
+          "label": "Ftp Password String",
+          "cm-lineage": "health.monitor.method.ftp.ftp-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "ftp-password",
+            "help": "Specify the user password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "ftp-encrypted",
+          "label": "Ftp Encrypted",
+          "cm-lineage": "health.monitor.method.ftp.ftp-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "ftp-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

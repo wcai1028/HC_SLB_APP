@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.sip",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/sip",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "SIP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "sip",
+          "label": "Sip",
+          "cm-lineage": "health.monitor.method.sip.sip",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "SIP type" 
+          }
+        },
+        { 
+          "key": "register",
+          "label": "Register",
+          "cm-lineage": "health.monitor.method.sip.register",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "sip",
+            "help": "Send SIP REGISTER message, default is to send OPTION message" 
+          }
+        },
+        { 
+          "key": "sip-port",
+          "label": "Sip Port",
+          "cm-lineage": "health.monitor.method.sip.sip-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "sip",
+            "help": "Specify the SIP port, default is 5060",
+            "default": "5060",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "expect-response-code",
+          "label": "Expect Response Code",
+          "cm-lineage": "health.monitor.method.sip.expect-response-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "sip",
+            "help": "Specify accepted response codes (e.g. 200, 400-430, any)",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "sip-tcp",
+          "label": "Sip Tcp",
+          "cm-lineage": "health.monitor.method.sip.sip-tcp",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "sip",
+            "help": "Use TCP for transmission, default is UDP" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

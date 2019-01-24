@@ -1,0 +1,201 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.virtual-server",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/virtual-server/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.virtual-server.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Virtual server template name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.template.virtual-server.conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection limit",
+            "default": "64000000",
+            "range": "1-64000000" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit",
+          "label": "Conn Rate Limit",
+          "cm-lineage": "slb.template.virtual-server.conn-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit-reset",
+          "label": "Conn Rate Limit Reset",
+          "cm-lineage": "slb.template.virtual-server.conn-rate-limit-reset",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "conn-rate-limit",
+            "help": "Send client reset when connection rate over limit" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "ICMP V4",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "icmp-rate-limit",
+          "label": "Icmp Rate Limit",
+          "cm-lineage": "slb.template.virtual-server.icmp-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "ICMP rate limit",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "icmp-lockup",
+          "label": "Icmp Lockup",
+          "cm-lineage": "slb.template.virtual-server.icmp-lockup",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "icmp-rate-limit",
+            "help": "Enter lockup state when ICMP rate exceeds lockup rate limit",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "icmp-lockup-period",
+          "label": "Icmp Lockup Period",
+          "cm-lineage": "slb.template.virtual-server.icmp-lockup-period",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "icmp-lockup",
+            "help": "Lockup period (second)",
+            "range": "1-16383" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "ICMP V6",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "icmpv6-rate-limit",
+          "label": "Icmpv6 Rate Limit",
+          "cm-lineage": "slb.template.virtual-server.icmpv6-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "ICMPv6 rate limit",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "icmpv6-lockup",
+          "label": "Icmpv6 Lockup",
+          "cm-lineage": "slb.template.virtual-server.icmpv6-lockup",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "icmpv6-rate-limit",
+            "help": "Enter lockup state when ICMP rate exceeds lockup rate limit",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "icmpv6-lockup-period",
+          "label": "Icmpv6 Lockup Period",
+          "cm-lineage": "slb.template.virtual-server.icmpv6-lockup-period",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "icmpv6-lockup",
+            "help": "Lockup period (second)",
+            "range": "1-16383" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "tcp-stack-tfo-active-conn-limit",
+          "label": "Tcp Stack Tfo Active Conn Limit",
+          "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-active-conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The allowed active layer 7 tcp fast-open connection limit, default is zero",
+            "default": "0",
+            "range": "0-10000" 
+          }
+        },
+        { 
+          "key": "tcp-stack-tfo-cookie-time-limit",
+          "label": "Tcp Stack Tfo Cookie Time Limit",
+          "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-cookie-time-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The time limit (in seconds) that a layer 7 tcp fast-open cookie is valid, default is 60 seconds",
+            "default": "60",
+            "range": "1-14400" 
+          }
+        },
+        { 
+          "key": "tcp-stack-tfo-backoff-time",
+          "label": "Tcp Stack Tfo Backoff Time",
+          "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-backoff-time",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "The time tcp stack will wait before allowing new fast-open requests after security condition, default 600 seconds",
+            "default": "600",
+            "range": "1-14400" 
+          }
+        },
+        { 
+          "key": "subnet-gratuitous-arp",
+          "label": "Subnet Gratuitous Arp",
+          "cm-lineage": "slb.template.virtual-server.subnet-gratuitous-arp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send gratuitous ARP for every IP in the subnet virtual server" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

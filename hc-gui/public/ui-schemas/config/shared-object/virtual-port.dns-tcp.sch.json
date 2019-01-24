@@ -1,0 +1,66 @@
+{
+   "version": "1.0.0",
+   "template": "shared-object",
+   "type": "virtual-port.dns-tcp",
+   "components": [
+      {
+         "label": "DNS",
+         "cm-object-lineage": "slb.template.dns",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Persist Destination IP",
+         "cm-object-lineage": "slb.template.persist.destination-ip",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Persist Source IP",
+         "cm-object-lineage": "slb.template.persist.source-ip",
+         "referred-by": [
+            "slb.template.external-service",
+            "slb.template.reqmod-icap",
+            "slb.template.respmod-icap",
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Policy",
+         "cm-object-lineage": "slb.template.policy",
+         "referred-by": [
+            "system.template",
+            "slb.service-group",
+            "slb.virtual-server",
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "TCP Proxy",
+         "cm-object-lineage": "slb.template.tcp-proxy",
+         "referred-by": [
+            "slb.template.logging",
+            "slb.template.external-service",
+            "slb.template.reqmod-icap",
+            "slb.template.respmod-icap",
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Virtual Port",
+         "cm-object-lineage": "slb.template.virtual-port",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      },
+      {
+         "label": "Dynamic Service",
+         "cm-object-lineage": "slb.template.dynamic-service",
+         "referred-by": [
+            "slb.virtual-server.port"
+         ]
+      }
+   ]
+}

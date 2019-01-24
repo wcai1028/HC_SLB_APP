@@ -1,0 +1,101 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "ip.nat.pool-group",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "ip/nat/pool-group/{pool-group-name}",
+  "pageTitle": "IP NAT Pool Group",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pool-group-name",
+            "label": "Pool Group Name",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool-group.pool-group-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-63",
+              "help": "Specify pool group name",
+              "object-key": true
+            }
+          },
+          {
+            "key": "vrid",
+            "label": "VRID",
+            "type": "select",
+            "cm-lineage": "ip.nat.pool-group.vrid",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obsp",
+              "range": "1-31",
+              "range-in-partition": "1-7",
+              "obj-association": [
+                "vrrp-a.vrid"
+              ],
+              "condition": "pool-group-name",
+              "modify-ineligible": true,
+              "help": "Specify VRRP-A vrid"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Member",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "member-list",
+            "label": "Member List",
+            "type": "table",
+            "cm-lineage": "ip.nat.pool-group.member-list",
+            "cm-meta": {
+              "gui-as-field": true,
+              "obj-occurences": "multi",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "pool-name",
+                "label": "Pool Name",
+                "type": "select",
+                "cm-lineage": "ip.nat.pool-group.member-list.pool-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "help": "Specify NAT pool name",
+                  "obj-association": [
+                    "ip.nat.pool"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

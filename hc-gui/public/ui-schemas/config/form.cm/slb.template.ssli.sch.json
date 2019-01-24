@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.ssli",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/ssli/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.ssli.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SSLi Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "type",
+          "label": "Type",
+          "cm-lineage": "slb.template.ssli.type",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Http",
+              "value": "http",
+              "help": "HTTP service" 
+              },
+              { 
+              "label": "Xmpp",
+              "value": "xmpp",
+              "help": "XMPP service" 
+              },
+              { 
+              "label": "Smtp",
+              "value": "smtp",
+              "help": "SMTP service" 
+              },
+              { 
+              "label": "Pop",
+              "value": "pop",
+              "help": "POP service" 
+              }
+            ],
+            "default": "http" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

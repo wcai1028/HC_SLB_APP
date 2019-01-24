@@ -1,0 +1,291 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.virtual-server",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/virtual-server/{name}",
+  "pageTitle": "Virtual Server Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.virtual-server.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Virtual server template name"
+            }
+          },
+          {
+            "key": "conn-limit",
+            "label": "Connection Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.conn-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-64000000",
+              "default": 64000000,
+              "help": "Connection limit"
+            }
+          },
+          {
+            "key": "conn-limit-reset",
+            "label": "Connection Limit Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-server.conn-limit-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-limit",
+              "help": "Send client reset when connection over limit"
+            }
+          },
+          {
+            "key": "conn-limit-no-logging",
+            "label": "Connection Limit No Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-server.conn-limit-no-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-limit",
+              "help": "Do not log connection over limit event"
+            }
+          },
+          {
+            "key": "conn-rate-limit",
+            "label": "Connection Rate Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.conn-rate-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-1048575",
+              "help": "Connection rate limit"
+            }
+          },
+          {
+            "key": "rate-interval",
+            "label": "Rate Interval",
+            "type": "select",
+            "cm-lineage": "slb.template.virtual-server.rate-interval",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "condition": "conn-rate-limit",
+              "help": "Set the sampling interval",
+              "allowed": [
+                {
+                  "label": "100ms",
+                  "value": "100ms",
+                  "help": "Use 100 ms as sampling interval"
+                },
+                {
+                  "label": "Second",
+                  "value": "second",
+                  "help": "Use 1 second as sampling interval"
+                }
+              ],
+              "default": "second",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "conn-rate-limit-reset",
+            "label": "Connection Rate Limit Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-server.conn-rate-limit-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-rate-limit",
+              "help": "Send client reset when connection rate over limit"
+            }
+          },
+          {
+            "key": "conn-rate-limit-no-logging",
+            "label": "Connection Rate Limit No Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-server.conn-rate-limit-no-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-rate-limit",
+              "help": "Do not log connection over limit event"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "tcp-stack-tfo-active-conn-limit",
+            "label": "TCP Stack TFO Active Connection Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-active-conn-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-10000",
+              "help": "The allowed active layer 7 tcp fast-open connection limit, default is zero",
+              "default": 0
+            }
+          },
+          {
+            "key": "tcp-stack-tfo-cookie-time-limit",
+            "label": "TCP Stack TFO Cookie Time Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-cookie-time-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-14400",
+              "help": "The time limit (in seconds) that a layer 7 tcp fast-open cookie is valid, default is 60 seconds",
+              "default": 60
+            }
+          },
+          {
+            "key": "tcp-stack-tfo-backoff-time",
+            "label": "TCP Stack TFO Backoff Time",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.tcp-stack-tfo-backoff-time",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-14400",
+              "help": "The time tcp stack will wait before allowing new fast-open requests after security condition, default 600 seconds",
+              "default": 600
+            }
+          },
+          {
+            "key": "subnet-gratuitous-arp",
+            "label": "Subnet Gratuitous ARP",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-server.subnet-gratuitous-arp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send gratuitous ARP for every IP in the subnet virtual server"
+            }
+          }
+        ]
+      },
+      {
+        "title": "ICMP V4",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "icmp-rate-limit",
+            "label": "ICMP Rate Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmp-rate-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-65535",
+              "help": "ICMP rate limit"
+            }
+          },
+          {
+            "key": "icmp-lockup",
+            "label": "ICMP Lockup",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmp-lockup",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65535",
+              "condition": "icmp-rate-limit",
+              "help": "Enter lockup state when ICMP rate exceeds lockup rate limit"
+            }
+          },
+          {
+            "key": "icmp-lockup-period",
+            "label": "ICMP Lockup Period",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmp-lockup-period",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-16383",
+              "condition": "icmp-lockup",
+              "help": "Lockup period (second)"
+            }
+          }
+        ]
+      },
+      {
+        "title": "ICMP V6",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "icmpv6-rate-limit",
+            "label": "ICMPv6 Rate Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmpv6-rate-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-65535",
+              "help": "ICMPv6 rate limit"
+            }
+          },
+          {
+            "key": "icmpv6-lockup",
+            "label": "ICMPv6 Lockup",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmpv6-lockup",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65535",
+              "condition": "icmpv6-rate-limit",
+              "help": "Enter lockup state when ICMP rate exceeds lockup rate limit"
+            }
+          },
+          {
+            "key": "icmpv6-lockup-period",
+            "label": "ICMPv6 Lockup Period",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-server.icmpv6-lockup-period",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-16383",
+              "condition": "icmpv6-lockup",
+              "help": "Lockup period (second)"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

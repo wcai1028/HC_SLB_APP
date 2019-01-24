@@ -1,0 +1,26 @@
+{
+	"version": "1.0.0",
+	"template": "shared-object",
+	"type": "service-group",
+	"components": [{
+			"label": "Port",
+			"cm-object-lineage": "slb.template.port",
+			"referred-by": [
+				"slb.virtual-server.port"]
+		}, {
+			"label": "Server",
+			"cm-object-lineage": "slb.template.server",
+			"referred-by": [
+				"slb.virtual-server.port",
+				"slb.server",
+				"slb.service-group"]
+		}, {
+			"label": "Policy",
+			"cm-object-lineage": "slb.template.policy",
+			"referred-by": [
+				"slb.virtual-server",
+				"slb.service-group",
+				"slb.virtual-server.port"]
+		}
+	]
+}

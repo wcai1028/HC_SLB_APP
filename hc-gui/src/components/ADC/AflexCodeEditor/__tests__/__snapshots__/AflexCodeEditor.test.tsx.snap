@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit Test: AflexCodeEditor  should render properly:  should render properly without diff in props 1`] = `
+<div
+  id="unit_test_123456"
+  style={
+    Object {
+      "border": "solid 2px #e7ecf1",
+      "paddingBottom": "10px",
+      "paddingTop": "10px",
+    }
+  }
+>
+  <div>
+    <span>
+      Code Mirror
+    </span>
+    <span>
+      value: 
+      test-value
+    </span>
+    <span>
+      options: 
+      {"readOnly":true}
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Unit Test: AflexCodeEditor  should work properly:  should add styles properly with diff and "after" version 1`] = `
+<div
+  id="after_123456"
+  style={
+    Object {
+      "border": "solid 2px #e7ecf1",
+      "paddingBottom": "10px",
+      "paddingTop": "10px",
+    }
+  }
+>
+  <div>
+    <span>
+      Code Mirror
+    </span>
+    <span>
+      value: 
+      test-value
+    </span>
+    <span>
+      options: 
+      {"readOnly":true}
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Unit Test: AflexCodeEditor  should work properly:  should add styles properly with diff and "before" version 1`] = `
+<div
+  id="before_123456"
+  style={
+    Object {
+      "border": "solid 2px #e7ecf1",
+      "paddingBottom": "10px",
+      "paddingTop": "10px",
+    }
+  }
+>
+  <div>
+    <span>
+      Code Mirror
+    </span>
+    <span>
+      value: 
+      test-value
+    </span>
+    <span>
+      options: 
+      {"readOnly":true}
+    </span>
+  </div>
+</div>
+`;

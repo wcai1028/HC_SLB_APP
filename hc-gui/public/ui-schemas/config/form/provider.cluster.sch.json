@@ -1,0 +1,78 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "provider.cluster",
+  "cm-object-meta": {},
+  "axapi": "provider/{name}/cluster/{name}",
+  "pageTitle": "Provider Cluster",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "provider.cluster.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "help": "Cluster name",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "type",
+            "label": "Type",
+            "type": "select",
+            "cm-lineage": "provider.cluster.type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "ob",
+              "allowed": [
+                {
+                  "label": "Standalone",
+                  "value": "standalone",
+                  "help": "Standalone"
+                },
+                {
+                  "label": "VCS",
+                  "value": "vcs",
+                  "help": "VCS"
+                },
+                {
+                  "label": "HA",
+                  "value": "ha",
+                  "help": "HA"
+                },
+                {
+                  "label": "Scaleout",
+                  "value": "scaleout",
+                  "help": "Scaleout"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

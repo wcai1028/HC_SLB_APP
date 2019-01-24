@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly with ALL States of All Attributes 1`] = `
+Array [
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleBig"
+      style={
+        Object {
+          "backgroundColor": "#7ed321",
+          "padding": "",
+        }
+      }
+    >
+      5
+    </span>
+  </div>,
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleSmall"
+      style={
+        Object {
+          "backgroundColor": "#ff2e48",
+          "padding": "",
+        }
+      }
+    >
+      cp
+    </span>
+  </div>,
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleSmall"
+      style={
+        Object {
+          "backgroundColor": "#f5a623",
+          "padding": "",
+        }
+      }
+    >
+      pa
+    </span>
+  </div>,
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleSmall"
+      style={
+        Object {
+          "backgroundColor": "#f1f8ff",
+          "padding": "0 6px",
+        }
+      }
+    >
+      dis
+    </span>
+  </div>,
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleSmall"
+      style={
+        Object {
+          "backgroundColor": "#4d9fff",
+          "padding": "0 6px",
+        }
+      }
+    >
+      none
+    </span>
+  </div>,
+  <div
+    className="mock-a10-tooltip"
+  >
+    <span
+      className="avatar avatarRectangleSmall"
+      style={
+        Object {
+          "backgroundColor": "#ffba47",
+          "padding": "",
+        }
+      }
+    >
+      un
+    </span>
+  </div>,
+]
+`;
+
+exports[`should render properly with EMPTY Attribute 1`] = `
+<span
+  className="avatar"
+  style={
+    Object {
+      "backgroundColor": "",
+      "padding": "",
+    }
+  }
+>
+  
+</span>
+`;

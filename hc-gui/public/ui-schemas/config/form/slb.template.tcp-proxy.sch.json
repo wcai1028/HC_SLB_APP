@@ -1,0 +1,622 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.tcp-proxy",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/tcp-proxy/{name}",
+  "pageTitle": "TCP Proxy Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.tcp-proxy.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "TCP Proxy Template Name"
+            }
+          },
+          {
+            "key": "ack-aggressiveness",
+            "label": "ACK Aggressiveness",
+            "type": "select",
+            "cm-lineage": "slb.template.tcp-proxy.ack-aggressiveness",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "Low",
+                  "value": "low",
+                  "help": "Delayed ACK"
+                },
+                {
+                  "label": "Medium",
+                  "value": "medium",
+                  "help": "Delayed ACK, with ACK on each packet with PUSH flag"
+                },
+                {
+                  "label": "High",
+                  "value": "high",
+                  "help": "ACK on each packet"
+                }
+              ],
+              "help": "The level of aggressiveness when generating ACKs",
+              "default": "low",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "backend-wscale",
+            "label": "Backend Wscale",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.backend-wscale",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-14",
+              "help": "The TCP window scale used for the server side, default is off"
+            }
+          },
+          {
+            "key": "keepalive-interval",
+            "label": "Keepalive Interval",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.keepalive-interval",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "60-12000",
+              "help": "Interval between keepalive probes (sec), default is off"
+            }
+          },
+          {
+            "key": "keepalive-probes",
+            "label": "Keepalive Probes",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.keepalive-probes",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "2-10",
+              "help": "Number of keepalive probes sent, default is off"
+            }
+          },
+          {
+            "key": "mss",
+            "label": "Mss",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.mss",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "128-9000",
+              "help": "Responding MSS to use if client MSS is large, default is off",
+              "default": 1460
+            }
+          },
+          {
+            "key": "del-session-on-server-down",
+            "label": "Delete Session On Server Down",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.del-session-on-server-down",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Delete session if the server/port goes down (either disabled/hm down)"
+            }
+          },
+          {
+            "key": "disable-tcp-timestamps",
+            "label": "Disable TCP Timestamps",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.disable-tcp-timestamps",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "disable TCP Timestamps Option"
+            }
+          },
+          {
+            "key": "disable-window-scale",
+            "label": "Disable Window Scale",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.disable-window-scale",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "disable TCP Window-Scale Option"
+            }
+          },
+          {
+            "key": "disable-sack",
+            "label": "Disable Sack",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.disable-sack",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "disable Selective Ack Option"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dynamic-buffer-allocation",
+            "label": "Dynamic Buffer Allocation",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.dynamic-buffer-allocation",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Optimally adjust the transmit and receive buffer sizes of TCP proxy while keeping their sum constant"
+            }
+          },
+          {
+            "key": "init-cwnd",
+            "label": "Init Cwnd",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.init-cwnd",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-15",
+              "default": 10,
+              "help": "The initial congestion control window size (packets), default is 10"
+            }
+          },
+          {
+            "key": "initial-window-size",
+            "label": "Initial Window Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.initial-window-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65535",
+              "help": "Set the initial window size, default is off"
+            }
+          },
+          {
+            "key": "psh-flag-optimization",
+            "label": "Psh Flag Optimization",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.psh-flag-optimization",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable Optimized PSH Flag Use"
+            }
+          },
+          {
+            "key": "nagle",
+            "label": "Nagle",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.nagle",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable Nagle Algorithm"
+            }
+          },
+          {
+            "key": "qos",
+            "label": "QoS",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.qos",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "QOS level"
+            }
+          },
+          {
+            "key": "receive-buffer",
+            "label": "Receive Buffer",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.receive-buffer",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-2147483647",
+              "default": 200000,
+              "help": "TCP Receive Buffer (default 200k)"
+            }
+          },
+          {
+            "key": "reno",
+            "label": "Reno",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.reno",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable Reno Congestion Control Algorithm"
+            }
+          },
+          {
+            "key": "transmit-buffer",
+            "label": "Transmit Buffer",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.transmit-buffer",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-2147483647",
+              "default": 200000,
+              "help": "TCP Transmit Buffer (default 200k)"
+            }
+          },
+          {
+            "key": "insert-client-ip",
+            "label": "Insert Client IP",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.insert-client-ip",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Insert client ip into TCP option",
+              "default": 0
+            }
+          },
+          {
+            "key": "disable-abc",
+            "label": "Disable Abc",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.disable-abc",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Appropriate Byte Counting RFC 3465 Disabled, default is enabled"
+            }
+          },
+          {
+            "key": "reassembly-timeout",
+            "label": "Reassembly Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.reassembly-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-300",
+              "default": "30 seconds",
+              "help": "The reassembly timeout, default is 30sec"
+            }
+          },
+          {
+            "key": "reassembly-limit",
+            "label": "Reassembly Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.reassembly-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-500",
+              "default": "25 segments",
+              "help": "The reassembly queuing limit, default is 25 segments"
+            }
+          },
+          {
+            "key": "min-rto",
+            "label": "Min Rto",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.min-rto",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "100-1000",
+              "default": "200 ms",
+              "help": "The minmum retransmission timeout, default is 200ms"
+            }
+          },
+          {
+            "key": "limited-slowstart",
+            "label": "Limited Slowstart",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.limited-slowstart",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-2147483647",
+              "help": "RFC 3742 Limited Slow-Start for TCP with Large Congestion Windows",
+              "default": "0 (disabled)"
+            }
+          },
+          {
+            "key": "early-retransmit",
+            "label": "Early Retransmit",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.early-retransmit",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Configure the Early-Retransmit Algorithm (RFC 5827)"
+            }
+          },
+          {
+            "key": "maxburst",
+            "label": "Maxburst",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.maxburst",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-100",
+              "default": 25,
+              "help": "The max packet count sent per transmission event"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Flow",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "server-down-action",
+            "label": "Server Down Action",
+            "type": "select",
+            "cm-lineage": "slb.template.tcp-proxy.server-down-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "FIN",
+                  "value": "FIN",
+                  "help": "FIN Connection"
+                },
+                {
+                  "label": "RST",
+                  "value": "RST",
+                  "help": "Reset Connection"
+                }
+              ],
+              "help": "Server down connection delete action",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "reset-fwd",
+            "label": "Reset Forward",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.reset-fwd",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "send reset to server if error happens"
+            }
+          },
+          {
+            "key": "reset-rev",
+            "label": "Reset Receive",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.reset-rev",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "send reset to client if error happens"
+            }
+          },
+          {
+            "key": "disable",
+            "label": "Disable",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "reset-rev",
+              "help": "send reset to client when server is disabled",
+              "m-exclusion": [
+                "down"
+              ]
+            }
+          },
+          {
+            "key": "down",
+            "label": "Down",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.down",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "reset-rev",
+              "m-exclusion": [
+                "disable"
+              ],
+              "help": "send reset to client when server is down"
+            }
+          },
+          {
+            "key": "invalid-rate-limit",
+            "label": "Invalid Rate Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.invalid-rate-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-60000000",
+              "default": 500,
+              "help": "Invalid Packet Response Rate Limit (ms), default is 500"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Timeout",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "fin-timeout",
+            "label": "Fin Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.fin-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-60",
+              "help": "FIN timeout (sec), default is disabled"
+            }
+          },
+          {
+            "key": "force-delete-timeout",
+            "label": "Force Delete Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.force-delete-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-31",
+              "help": "The maximum time that a session can stay in the system before being deleted, default is off",
+              "m-exclusion": [
+                "force-delete-timeout-100ms"
+              ]
+            }
+          },
+          {
+            "key": "force-delete-timeout-100ms",
+            "label": "Force Delete Timeout 100ms",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.force-delete-timeout-100ms",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-31",
+              "m-exclusion": [
+                "force-delete-timeout"
+              ],
+              "help": "The maximum time that a session can stay in the system before being deleted, default is off"
+            }
+          },
+          {
+            "key": "alive-if-active",
+            "label": "Alive If Active",
+            "type": "switch",
+            "cm-lineage": "slb.template.tcp-proxy.alive-if-active",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": [
+                "force-delete-timeout",
+                "force-delete-timeout-100ms"
+              ],
+              "help": "keep connection alive if active traffic"
+            }
+          },
+          {
+            "key": "idle-timeout",
+            "label": "Idle Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.idle-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-2097151",
+              "default": 600,
+              "help": "Idle Timeout (Interval of 60 seconds), default is 600",
+              "round-off": [
+                "60",
+                "30",
+                "60"
+              ]
+            }
+          },
+          {
+            "key": "half-open-idle-timeout",
+            "label": "Half Open Idle Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.half-open-idle-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-60",
+              "help": "TCP Half Open Idle Timeout (sec), default is off"
+            }
+          },
+          {
+            "key": "half-close-idle-timeout",
+            "label": "Half Close Idle Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.half-close-idle-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "60-120",
+              "help": "TCP Half Close Idle Timeout (sec), default is off (cmd is deprecated, use fin-timeout instead)"
+            }
+          },
+          {
+            "key": "retransmit-retries",
+            "label": "Retransmit Retries",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.retransmit-retries",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obi",
+              "range": "1-20",
+              "default": 5,
+              "help": "Number of Retries for Retransmit, default is 5"
+            }
+          },
+          {
+            "key": "syn-retries",
+            "label": "Syn Retries",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.syn-retries",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-20",
+              "default": 5,
+              "help": "SYN Retry Numbers, default is 5"
+            }
+          },
+          {
+            "key": "timewait",
+            "label": "Timewait",
+            "type": "input-number",
+            "cm-lineage": "slb.template.tcp-proxy.timewait",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-60",
+              "default": 5,
+              "help": "Timewait Threshold (sec), default 5"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

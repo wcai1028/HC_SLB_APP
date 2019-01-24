@@ -1,0 +1,353 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.monitor",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/monitor/{id}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "id",
+          "label": "Id",
+          "cm-lineage": "slb.template.monitor.id",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Monitor template ID Number",
+            "object-key": true,
+            "range": "1-16" 
+          }
+        },
+        { 
+          "key": "clear-cfg",
+          "label": "Clear Cfg",
+          "cm-lineage": "slb.template.monitor.clear-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "sessions",
+            "label": "Sessions",
+            "cm-lineage": "slb.template.monitor.sessions",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "All",
+                "value": "all",
+                "help": "Clear all sessions" 
+                },
+                { 
+                "label": "Sequence",
+                "value": "sequence",
+                "help": "Sequence number" 
+                }
+              ],
+              "max-elements": "16" 
+            }
+          },
+          { 
+            "key": "clear-all-sequence",
+            "label": "Clear All Sequence",
+            "cm-lineage": "slb.template.monitor.clear-all-sequence",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "sessions",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "clear-sequence",
+            "label": "Clear Sequence",
+            "cm-lineage": "slb.template.monitor.clear-sequence",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "sessions",
+              "help": "Specify the port physical port number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "link-disable-cfg",
+          "label": "Link Disable Cfg",
+          "cm-lineage": "slb.template.monitor.link-disable-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "diseth",
+            "label": "Diseth",
+            "cm-lineage": "slb.template.monitor.diseth",
+            "cm-meta":  { 
+              "format": "interface",
+              "help": "Specify the physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "dis-sequence",
+            "label": "Dis Sequence",
+            "cm-lineage": "slb.template.monitor.dis-sequence",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "diseth",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "link-enable-cfg",
+          "label": "Link Enable Cfg",
+          "cm-lineage": "slb.template.monitor.link-enable-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "enaeth",
+            "label": "Enaeth",
+            "cm-lineage": "slb.template.monitor.enaeth",
+            "cm-meta":  { 
+              "format": "interface",
+              "help": "Specify the physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "ena-sequence",
+            "label": "Ena Sequence",
+            "cm-lineage": "slb.template.monitor.ena-sequence",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "enaeth",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "monitor-relation",
+          "label": "Monitor Relation",
+          "cm-lineage": "slb.template.monitor.monitor-relation",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Monitor And",
+              "value": "monitor-and",
+              "help": "Configures the monitors in current template to work with AND logic" 
+              },
+              { 
+              "label": "Monitor Or",
+              "value": "monitor-or",
+              "help": "Configures the monitors in current template to work with OR logic" 
+              }
+            ],
+            "default": "monitor-and" 
+          }
+        },
+        { 
+          "key": "link-up-cfg",
+          "label": "Link Up Cfg",
+          "cm-lineage": "slb.template.monitor.link-up-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "linkup-ethernet1",
+            "label": "Linkup Ethernet1",
+            "cm-lineage": "slb.template.monitor.linkup-ethernet1",
+            "cm-meta":  { 
+              "format": "interface",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-up-sequence1",
+            "label": "Link Up Sequence1",
+            "cm-lineage": "slb.template.monitor.link-up-sequence1",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkup-ethernet1",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "linkup-ethernet2",
+            "label": "Linkup Ethernet2",
+            "cm-lineage": "slb.template.monitor.linkup-ethernet2",
+            "cm-meta":  { 
+              "format": "interface",
+              "condition": "linkup-ethernet1",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-up-sequence2",
+            "label": "Link Up Sequence2",
+            "cm-lineage": "slb.template.monitor.link-up-sequence2",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkup-ethernet2",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "linkup-ethernet3",
+            "label": "Linkup Ethernet3",
+            "cm-lineage": "slb.template.monitor.linkup-ethernet3",
+            "cm-meta":  { 
+              "format": "interface",
+              "condition": "linkup-ethernet2",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-up-sequence3",
+            "label": "Link Up Sequence3",
+            "cm-lineage": "slb.template.monitor.link-up-sequence3",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkup-ethernet3",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "link-down-cfg",
+          "label": "Link Down Cfg",
+          "cm-lineage": "slb.template.monitor.link-down-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "linkdown-ethernet1",
+            "label": "Linkdown Ethernet1",
+            "cm-lineage": "slb.template.monitor.linkdown-ethernet1",
+            "cm-meta":  { 
+              "format": "interface",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-down-sequence1",
+            "label": "Link Down Sequence1",
+            "cm-lineage": "slb.template.monitor.link-down-sequence1",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkdown-ethernet1",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "linkdown-ethernet2",
+            "label": "Linkdown Ethernet2",
+            "cm-lineage": "slb.template.monitor.linkdown-ethernet2",
+            "cm-meta":  { 
+              "format": "interface",
+              "condition": "linkdown-ethernet1",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-down-sequence2",
+            "label": "Link Down Sequence2",
+            "cm-lineage": "slb.template.monitor.link-down-sequence2",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkdown-ethernet2",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "linkdown-ethernet3",
+            "label": "Linkdown Ethernet3",
+            "cm-lineage": "slb.template.monitor.linkdown-ethernet3",
+            "cm-meta":  { 
+              "format": "interface",
+              "condition": "linkdown-ethernet2",
+              "help": "Specify the port physical port number",
+              "max-elements": "16",
+              "range": "1-103" 
+            }
+          },
+          { 
+            "key": "link-down-sequence3",
+            "label": "Link Down Sequence3",
+            "cm-lineage": "slb.template.monitor.link-down-sequence3",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "linkdown-ethernet3",
+              "help": "Sequence number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "vrrp-a.vrid",
+  "cm-object-meta": {
+    "obj-json-suffix": "-list"
+  },
+  "axapi": "vrrp-a/vrid/{vrid-val}",
+  "pageTitle": "VRRP-A VRID",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "vrid-val",
+            "label": "VRID Value",
+            "cm-lineage": "vrrp-a.vrid.vrid-val",
+            "cm-meta": {
+              "format": "number",
+              "help": "Specify ha VRRP-A vrid",
+              "object-key": true,
+              "range": "0-31",
+              "range-in-partition": "0-7",
+              "default": 0
+            }
+          },
+          {
+            "key": "floating-ip",
+            "cm-lineage": "vrrp-a.vrid.floating-ip",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "ip-address-cfg",
+                "label": "IP Address Config",
+                "cm-lineage": "vrrp-a.vrid.floating-ip.ip-address-cfg",
+                "cm-meta": {
+                  "start": true,
+                  "multi": true
+                },
+                "fields": [
+                  {
+                    "key": "ip-address",
+                    "label": "IP Address",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ip-address-cfg.ip-address",
+                    "cm-meta": {
+                      "format": "ipv4-address",
+                      "help": "IP Address",
+                      "multi-field-key": true,
+                      "max-elements": "$platform-specific"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "ip-address-part-cfg",
+                "label": "IP Address Partition Config",
+                "cm-lineage": "vrrp-a.vrid.floating-ip.ip-address-part-cfg",
+                "cm-meta": {
+                  "start": true,
+                  "multi": true
+                },
+                "fields": [
+                  {
+                    "key": "ip-address-partition",
+                    "label": "IP Address",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ip-address-part-cfg.ip-address-partition",
+                    "cm-meta": {
+                      "format": "ipv4-address",
+                      "help": "IP Address",
+                      "multi-field-key": true,
+                      "max-elements": "$platform-specific"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "ipv6-address-cfg",
+                "label": "IPv6 Address Config",
+                "cm-lineage": "vrrp-a.vrid.floating-ip.ipv6-address-cfg",
+                "cm-meta": {
+                  "start": true,
+                  "multi": true
+                },
+                "fields": [
+                  {
+                    "key": "ipv6-address",
+                    "label": "IPv6 Address",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-cfg.ipv6-address",
+                    "cm-meta": {
+                      "format": "ipv4-address",
+                      "help": "IPv6 Address",
+                      "multi-field-key": true,
+                      "max-elements": "$platform-specific"
+                    }
+                  },
+                  {
+                    "key": "ethernet",
+                    "label": "Ethernet",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-cfg.ethernet",
+                    "cm-meta": {
+                      "format": "interface",
+                      "help": "Ethernet (for link-local address only)",
+                      "multi-field-key": true,
+                      "condition": "ipv6-address"
+                    }
+                  },
+                  {
+                    "key": "trunk",
+                    "label": "Trunk",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-cfg.trunk",
+                    "cm-meta": {
+                      "format": "number",
+                      "range": "1-4096",
+                      "help": "Trunk interface (for link-local address only)",
+                      "obj-association": ["interface.trunk"],
+                      "multi-field-key": true,
+                      "condition": "ipv6-address"
+                    }
+                  },
+                  {
+                    "key": "ve",
+                    "label": "VE",
+                    "cm-lineage": "vrrp-a.vrid.floating-ip.ipv6-address-cfg.ve",
+                    "cm-meta": {
+                      "format": "number",
+                      "range": "2-4096",
+                      "help": "VE interface (for link-local address only)",
+                      "obj-association": ["network.vlan"],
+                      "multi-field-key": true,
+                      "condition": "ipv6-address"
+                    }
+                  }
+                ]
+              },
+
+              {
+                "key": "ipv6-address-part-cfg",
+                "label": "IPv6 Address Partition Config",
+                "cm-lineage": "vrrp-a.vrid.floating-ip.ipv6-address-part-cfg",
+                "cm-meta": {
+                  "start": true,
+                  "multi": true
+                },
+                "fields": [
+                  {
+                    "key": "ipv6-address-partition",
+                    "label": "IPv6 Address",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-part-cfg.ipv6-address-partition",
+                    "cm-meta": {
+                      "format": "ipv6-address",
+                      "help": "IPv6 Address",
+                      "multi-field-key": true,
+                      "max-elements": "$platform-specific"
+                    }
+                  },
+                  {
+                    "key": "ethernet",
+                    "label": "Ethernet",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-part-cfg.ethernet",
+                    "cm-meta": {
+                      "format": "interface",
+                      "help": "Ethernet (for link-local address only)",
+                      "multi-field-key": true,
+                      "condition": "ipv6-address-partition"
+                    }
+                  },
+                  {
+                    "key": "trunk",
+                    "label": "Trunk",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-part-cfg.trunk",
+                    "cm-meta": {
+                      "format": "number",
+                      "range": "1-4096",
+                      "help": "Trunk interface (for link-local address only)",
+                      "obj-association": ["interface.trunk"],
+                      "multi-field-key": true,
+                      "condition": "ipv6-address-partition"
+                    }
+                  },
+                  {
+                    "key": "ve",
+                    "label": "VE",
+                    "cm-lineage":
+                      "vrrp-a.vrid.floating-ip.ipv6-address-part-cfg.ve",
+                    "cm-meta": {
+                      "format": "number",
+                      "range": "2-4096",
+                      "help": "VE interface (for link-local address only)",
+                      "obj-association": ["network.vlan"],
+                      "multi-field-key": true,
+                      "condition": "ipv6-address-partition"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "preempt-mode",
+            "cm-lineage": "vrrp-a.vrid.preempt-mode",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "threshold",
+                "label": "Threshold",
+                "cm-lineage": "vrrp-a.vrid.preempt-mode.threshold",
+                "cm-meta": {
+                  "format": "number",
+                  "help": "preemption threshold",
+                  "default": 0,
+                  "range": "0-255"
+                }
+              },
+              {
+                "key": "disable",
+                "label": "Disable",
+                "cm-lineage": "vrrp-a.vrid.preempt-mode.disable",
+                "cm-meta": {
+                  "format": "flag",
+                  "help": "disable preemption"
+                }
+              }
+            ]
+          },
+          {
+            "key": "follow",
+            "cm-lineage": "vrrp-a.vrid.follow",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "vrid-lead",
+                "label": "VRID Lead",
+                "cm-lineage": "vrrp-a.vrid.follow.vrid-lead",
+                "cm-meta": {
+                  "format": "string",
+                  "help": "Define a VRRP-A VRID leader"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Blade Parameters",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "priority",
+            "label": "Priority",
+            "cm-lineage": "vrrp-a.vrid.blade-parameters.priority",
+            "cm-meta": {
+              "format": "number",
+              "help": "VRRP-A priorty",
+              "default": 150,
+              "range": "1-255"
+            }
+          },
+          {
+            "key": "fail-over-policy-template",
+            "label": "Fail Over Policy Template",
+            "cm-lineage":
+              "vrrp-a.vrid.blade-parameters.fail-over-policy-template",
+            "cm-meta": {
+              "format": "string",
+              "help": "Apply a fail over policy template",
+              "obj-association": ["vrrp-a.fail-over-policy-template"],
+              "range": "1-63"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Tracking Options",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "interface",
+            "label": "Interface",
+            "cm-lineage":
+              "vrrp-a.vrid.blade-parameters.tracking-options.interface",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "multi": true,
+              "help": "Interface tracking"
+            },
+            "fields": [
+              {
+                "key": "ethernet",
+                "label": "Ethernet",
+                "cm-lineage":
+                  "vrrp-a.vrid.blade-parameters.tracking-options.ethernet",
+                "cm-meta": {
+                  "format": "interface",
+                  "help": " Ethernet Interface"
+                }
+              },
+              {
+                "key": "priority-cost",
+                "label": "Priority Cost",
+                "cm-lineage":
+                  "vrrp-a.vrid.blade-parameters.tracking-options.priority-cost",
+                "cm-meta": {
+                  "format": "number",
+                  "help": "The amount of the priority will decrease",
+                  "range": "1-255"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.persist.cookie",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/persist/cookie/{name}",
+  "pageTitle": "Persist Cookie Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.cookie.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Cookie persistence"
+            }
+          },
+          {
+            "key": "domain",
+            "label": "Domain",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.cookie.domain",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Set cookie domain"
+            }
+          },
+          {
+            "key": "expire",
+            "label": "Expire",
+            "type": "input-number",
+            "cm-lineage": "slb.template.persist.cookie.expire",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-31536000",
+              "default": 31536000,
+              "help": "Set cookie expiration time"
+            }
+          },
+          {
+            "key": "cookie-name",
+            "label": "Cookie Name",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.cookie.cookie-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Set cookie name",
+              "default": "sto-id"
+            }
+          },
+          {
+            "key": "path",
+            "label": "Path",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.cookie.path",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "help": "Set cookie path",
+              "default": "/"
+            }
+          },
+          {
+            "key": "secure",
+            "label": "Secure",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.secure",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable secure attribute"
+            }
+          },
+          {
+            "key": "httponly",
+            "label": "HTTPOnly",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.httponly",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable HttpOnly attribute"
+            }
+          },
+          {
+            "key": "match-type",
+            "label": "Match Type",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.match-type",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "Persist for server, default is port"
+            }
+          },
+          {
+            "key": "server",
+            "label": "Server",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.server",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "match-type",
+              "help": "Persist to the same server, default is port",
+              "m-exclusion": [
+                "service-group"
+              ]
+            }
+          },
+          {
+            "key": "server-service-group",
+            "label": "Server Service Group",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.server-service-group",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "server",
+              "help": "Persist to the same server and within the same service group"
+            }
+          },
+          {
+            "key": "scan-all-members",
+            "label": "Scan All Members",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.scan-all-members",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "server",
+              "help": "Persist within the same server SCAN"
+            }
+          },
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.service-group",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "match-type",
+              "m-exclusion": [
+                "server"
+              ],
+              "help": "Persist within the same service group"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dont-honor-conn-rules",
+            "label": "Don't Honor Connection Rules",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.dont-honor-conn-rules",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Do not observe connection rate rules"
+            }
+          },
+          {
+            "key": "insert-always",
+            "label": "Insert Always",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.insert-always",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Insert persist cookie to every reponse"
+            }
+          },
+          {
+            "key": "encrypt-level",
+            "label": "Encrypt Level",
+            "type": "input-number",
+            "cm-lineage": "slb.template.persist.cookie.encrypt-level",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-1",
+              "default": 1,
+              "help": "Encryption level for cookie name / value"
+            }
+          },
+          {
+            "key": "persist-cookie-passphrase",
+            "label": "Persist Cookie Passphrase",
+            "type": "dummy",
+            "cm-lineage": "slb.template.persist.cookie.persist-cookie-passphrase",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Set passphrase for encryption"
+            }
+          },
+          {
+            "key": "pass-phrase",
+            "label": "Pass Phrase",
+            "type": "password",
+            "cm-lineage": "slb.template.persist.cookie.pass-phrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "8-8",
+              "default": "ACOS4KEY",
+              "condition": "persist-cookie-passphrase",
+              "help": "Set passphrase for encryption"
+            }
+          },
+          {
+            "key": "encrypted",
+            "label": "Encrypted",
+            "type": "password",
+            "cm-lineage": "slb.template.persist.cookie.encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "persist-cookie-passphrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "pass-thru",
+            "label": "Pass Through",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.cookie.pass-thru",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Pass thru mode - Server sends the persist cookie"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

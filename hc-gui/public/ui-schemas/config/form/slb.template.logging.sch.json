@@ -1,0 +1,355 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.logging",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/logging/{name}",
+  "pageTitle": "Logging Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.logging.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Logging Template Name"
+            }
+          },
+          {
+            "key": "format",
+            "label": "Format",
+            "type": "textarea",
+            "cm-lineage": "slb.template.logging.format",
+            "cm-meta": {
+              "format": "line",
+              "flags": "ob",
+              "range": "1-250",
+              "help": "Specify a format string for web logging"
+            }
+          },
+          {
+            "key": "local-logging",
+            "label": "Local Logging",
+            "type": "input-number",
+            "cm-lineage": "slb.template.logging.local-logging",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-1",
+              "help": "1 to enable local logging",
+              "default": 0
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "obj-association": [
+                "slb.service-group"
+              ],
+              "help": "Bind a Service Group to the logging template"
+            }
+          },
+          {
+            "key": "pcre-mask",
+            "label": "Pcre Mask",
+            "type": "input",
+            "cm-lineage": "slb.template.logging.pcre-mask",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mby",
+              "range": "1-63",
+              "help": "Mask matched PCRE pattern in the log"
+            }
+          },
+          {
+            "key": "mask",
+            "label": "Mask",
+            "type": "input",
+            "cm-lineage": "slb.template.logging.mask",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "range": "1-1",
+              "condition": "pcre-mask",
+              "help": "Character to mask the matched pattern (default: X)",
+              "default": "X"
+            }
+          },
+          {
+            "key": "keep-end",
+            "label": "Keep End",
+            "type": "input-number",
+            "cm-lineage": "slb.template.logging.keep-end",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "0-65535",
+              "condition": "pcre-mask",
+              "help": "Number of unmasked characters at the end (default: 0)",
+              "default": 0
+            }
+          },
+          {
+            "key": "keep-start",
+            "label": "Keep Start",
+            "type": "input-number",
+            "cm-lineage": "slb.template.logging.keep-start",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "0-65535",
+              "condition": "pcre-mask",
+              "help": "Number of unmasked characters at the beginning (default: 0)",
+              "default": 0
+            }
+          },
+          {
+            "key": "template",
+            "label": "Template",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Applying template to the logging template"
+            }
+          },
+          {
+            "key": "tcp-proxy-d",
+            "label": "TCP Proxy D",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.tcp-proxy-d",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "help": "TCP proxy template",
+              "default": "default"
+            }
+          },
+          {
+            "key": "p-tcp-proxy",
+            "label": "P TCP Proxy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.p-tcp-proxy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "tcp-proxy-d",
+              "help": "Reference a TCP Proxy template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-tcp-proxy-template",
+            "label": "Shared Partition TCP Proxy Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.logging.shared-partition-tcp-proxy-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-tcp-proxy",
+              "m-exclusion": [
+                "tcp-proxy"
+              ],
+              "help": "Reference a TCP Proxy template from shared partition"
+            }
+          },
+          {
+            "key": "template-tcp-proxy-shared",
+            "label": "Template TCP Proxy Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.template-tcp-proxy-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-tcp-proxy-template",
+              "obj-association": [
+                "slb.template.tcp-proxy"
+              ],
+              "help": "TCP Proxy Template name"
+            }
+          },
+          {
+            "key": "source-nat",
+            "label": "Source NAT",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.source-nat",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Source NAT"
+            }
+          },
+          {
+            "key": "nat-pool",
+            "label": "NAT Pool",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.nat-pool",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "source-nat",
+              "help": "Specify NAT pool or pool group"
+            }
+          },
+          {
+            "key": "pool",
+            "label": "Pool",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.pool",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "nat-pool",
+              "obj-association": [
+                "ip.nat.pool",
+                "ipv6.nat.pool",
+                "ip.nat.pool-group",
+                "ipv6.nat.pool-group"
+              ],
+              "help": "Specify NAT pool or pool group",
+              "m-exclusion": [
+                "shared-partition-pool",
+                "auto"
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "p-pool",
+            "label": "P Pool",
+            "type": "dummy",
+            "cm-lineage": "slb.template.logging.p-pool",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okS",
+              "condition": "nat-pool",
+              "help": "Reference a NAT pool or pool group from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-pool",
+            "label": "Shared Partition Pool",
+            "type": "switch",
+            "cm-lineage": "slb.template.logging.shared-partition-pool",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-pool",
+              "m-exclusion": [
+                "pool"
+              ],
+              "help": "Reference a NAT pool or pool group from shared partition"
+            }
+          },
+          {
+            "key": "pool-shared",
+            "label": "Pool Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.pool-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "obj-association": [
+                "ip.nat.pool",
+                "ipv6.nat.pool",
+                "ip.nat.pool-group",
+                "ipv6.nat.pool-group"
+              ],
+              "condition": "shared-partition-pool",
+              "help": "Specify NAT pool or pool group",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "auto",
+            "label": "Auto",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.auto",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "default": "auto",
+              "condition": "source-nat",
+              "m-exclusion": [
+                "pool"
+              ],
+              "allowed": [
+                {
+                  "label": "Auto",
+                  "value": "auto",
+                  "help": "Configure auto NAT for logging, default is auto enabled"
+                }
+              ],
+              "range": "1-128"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Template",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "tcp-proxy",
+            "label": "TCP Proxy",
+            "type": "select",
+            "cm-lineage": "slb.template.logging.tcp-proxy",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "tcp-proxy-d",
+              "obj-association": [
+                "slb.template.tcp-proxy"
+              ],
+              "help": "TCP Proxy Template Name",
+              "m-exclusion": [
+                "shared-partition-tcp-proxy-template"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

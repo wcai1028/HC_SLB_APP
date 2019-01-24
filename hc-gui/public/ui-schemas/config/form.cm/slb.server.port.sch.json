@@ -1,0 +1,331 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.server.port",
+    "cm-object-meta":  {
+    "obj-json-suffix": "-list"
+  },
+  "axapi": "slb/server/{name}/port/{port-number}+{protocol}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  {
+    "sections": [ {
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ {
+          "key": "port-number",
+          "label": "Port Number",
+          "cm-lineage": "slb.server.port.port-number",
+          "cm-meta":  {
+            "format": "number",
+            "help": "Port Number",
+            "object-key": true,
+            "range": "0-65534"
+          }
+        },
+        {
+          "key": "protocol",
+          "label": "Protocol",
+          "cm-lineage": "slb.server.port.protocol",
+          "cm-meta":  {
+            "format": "enum",
+            "condition": "port-number",
+            "allowed": [
+              {
+              "label": "Tcp",
+              "value": "tcp",
+              "help": "TCP Port"
+              },
+              {
+              "label": "Udp",
+              "value": "udp",
+              "help": "UDP Port"
+              }
+            ],
+            "object-key": true
+          }
+        },
+        {
+          "key": "health-check",
+          "label": "Health Check",
+          "cm-lineage": "slb.server.port.health-check",
+          "cm-meta":  {
+            "format": "string-rlx",
+            "help": "Health Check",
+            "obj-association": [
+             "health.monitor"
+            ],
+            "range": "1-63",
+            "m-exclusion": [
+             "shared-rport-health-check"
+            ]
+          }
+        },
+        {
+          "key": "rport-health-check-shared",
+          "label": "Rport Health Check Shared",
+          "cm-lineage": "slb.server.port.rport-health-check-shared",
+          "cm-meta":  {
+            "format": "string-rlx",
+            "condition": "shared-rport-health-check",
+            "help": "Health Check",
+            "obj-association": [
+             "health.monitor"
+            ],
+            "range": "1-63",
+            "m-exclusion": [
+             "health-check-disable"
+            ]
+          }
+        },
+        {
+          "key": "health-check-follow-port",
+          "label": "Health Check Follow Port",
+          "cm-lineage": "slb.server.port.health-check-follow-port",
+          "cm-meta":  {
+            "format": "number",
+            "help": "Specify which port to follow for health status",
+            "range": "1-65534",
+            "m-exclusion": [
+             "health-check"
+            ]
+          }
+        },
+        {
+          "key": "follow-port-protocol",
+          "label": "Follow Port Protocol",
+          "cm-lineage": "slb.server.port.follow-port-protocol",
+          "cm-meta":  {
+            "format": "enum",
+            "condition": "health-check-follow-port",
+            "allowed": [
+              {
+              "label": "Tcp",
+              "value": "tcp",
+              "help": "TCP Port"
+              },
+              {
+              "label": "Udp",
+              "value": "udp",
+              "help": "UDP Port"
+              }
+            ]
+          }
+        },
+        {
+          "key": "health-check-disable",
+          "label": "Health Check Disable",
+          "cm-lineage": "slb.server.port.health-check-disable",
+          "cm-meta":  {
+            "format": "flag",
+            "help": "Disable health check",
+            "m-exclusion": [
+             "health-check"
+            ]
+          }
+        },
+        {
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.server.port.conn-limit",
+          "cm-meta":  {
+            "format": "number",
+            "help": "Connection Limit",
+            "default": "64000000",
+            "range": "1-64000000"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ {
+          "key": "template-port",
+          "label": "Template Port",
+          "cm-lineage": "slb.server.port.template-port",
+          "cm-meta":  {
+            "format": "string-rlx",
+            "help": "Port template",
+            "obj-association": [
+             "slb.template.port"
+            ],
+            "default": "default",
+            "range": "1-127"
+          }
+        },
+        {
+          "key": "template-server-ssl",
+          "label": "Template Server Ssl",
+          "cm-lineage": "slb.server.port.template-server-ssl",
+          "cm-meta":  {
+            "format": "string-rlx",
+            "help": "Server side SSL template",
+            "obj-association": [
+             "slb.template.server-ssl"
+            ],
+            "range": "1-127"
+          }
+        },
+        {
+          "key": "action",
+          "label": "Action",
+          "cm-lineage": "slb.server.port.action",
+          "cm-meta":  {
+            "format": "enum",
+            "allowed": [
+              {
+              "label": "Enable",
+              "value": "enable",
+              "help": "enable"
+              },
+              {
+              "label": "Disable",
+              "value": "disable",
+              "help": "disable"
+              },
+              {
+              "label": "Disable With Health Check",
+              "value": "disable-with-health-check",
+              "help": "disable port, but health check work"
+              }
+            ],
+            "default": "enable"
+          }
+        },
+        {
+          "key": "no-ssl",
+          "label": "No Ssl",
+          "cm-lineage": "slb.server.port.no-ssl",
+          "cm-meta":  {
+            "format": "flag",
+            "help": "No SSL"
+          }
+        },
+        {
+          "key": "weight",
+          "label": "Weight",
+          "cm-lineage": "slb.server.port.weight",
+          "cm-meta":  {
+            "format": "number",
+            "help": "Port Weight",
+            "default": "1",
+            "range": "1-1000"
+          }
+        },
+        {
+          "key": "conn-resume",
+          "label": "Conn Resume",
+          "cm-lineage": "slb.server.port.conn-resume",
+          "cm-meta":  {
+            "format": "number",
+            "help": "Connection Resume",
+            "range": "1-1000000"
+          }
+        },
+        {
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.server.port.stats-data-action",
+          "cm-meta":  {
+            "format": "enum",
+            "allowed": [
+              {
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for real server port"
+              },
+              {
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for real server port"
+              }
+            ],
+            "default": "stats-data-enable"
+          }
+        },
+        {
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.server.port.extended-stats",
+          "cm-meta":  {
+            "format": "flag",
+            "help": "Enable extended statistics on real server port"
+          }
+        },
+        {
+          "key": "alternate-port",
+          "label": "Alternate Port",
+          "cm-lineage": "slb.server.port.alternate-port",
+          "cm-meta":  {
+            "multi": true
+          },
+          "fields": [ {
+            "key": "alternate",
+            "label": "Alternate",
+            "cm-lineage": "slb.server.port.alternate",
+            "cm-meta":  {
+              "format": "number",
+              "help": "Alternate Server Number",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16"
+            }
+          },
+          {
+            "key": "alternate-name",
+            "label": "Alternate Name",
+            "cm-lineage": "slb.server.port.alternate-name",
+            "cm-meta":  {
+              "format": "string-rlx",
+              "condition": "alternate",
+              "help": "Alternate Name",
+              "max-elements": "16",
+              "range": "1-127"
+            }
+          },
+          {
+            "key": "alternate-server-port",
+            "label": "Alternate Server Port",
+            "cm-lineage": "slb.server.port.alternate-server-port",
+            "cm-meta":  {
+              "format": "number",
+              "condition": "alternate-name",
+              "help": "Port",
+              "max-elements": "16",
+              "range": "1-65535"
+            }
+          }
+          ]
+        },
+        {
+          "key": "service-principal-name",
+          "label": "Service Principal Name",
+          "cm-lineage": "slb.server.port.service-principal-name",
+          "cm-meta":  {
+            "format": "string-rlx",
+            "help": "Service Principal Name",
+            "range": "1-128"
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ {
+      "type": "back",
+      "label": "Back"
+    },
+    {
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update"
+    },
+    {
+      "type": "cancel",
+      "label": "Cancel"
+    }
+  ]
+  }
+}

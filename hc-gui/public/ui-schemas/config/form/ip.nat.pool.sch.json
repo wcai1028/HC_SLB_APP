@@ -1,0 +1,192 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "ip.nat.pool",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "ip/nat/pool/{pool-name}",
+  "pageTitle": "IP NAT Pool",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pool-name",
+            "label": "Pool Name",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool.pool-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "object-key": true,
+              "range": "1-63",
+              "help": "Specify pool name or pool group"
+            }
+          },
+          {
+            "key": "start-address",
+            "label": "Start Address",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool.start-address",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "mvd",
+              "condition": "pool-name",
+              "modify-ineligible": true,
+              "help": "Configure start IP address of NAT pool",
+              "m-exclusion": [
+                "use-if-ip"
+              ]
+            },
+            "required": true
+          },
+          {
+            "key": "end-address",
+            "label": "End Address",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool.end-address",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "mv",
+              "condition": "start-address",
+              "modify-ineligible": true,
+              "help": "Configure end IP address of NAT pool"
+            },
+            "required": true
+          },
+          {
+            "key": "netmask",
+            "label": "Netmask",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool.netmask",
+            "cm-meta": {
+              "format": "ipv4-netmask-brief",
+              "flags": "mb",
+              "condition": "end-address",
+              "modify-ineligible": true,
+              "help": "Configure mask for pool"
+            },
+            "required": true
+          },
+          {
+            "key": "use-if-ip",
+            "label": "Use If IP",
+            "type": "switch",
+            "cm-lineage": "ip.nat.pool.use-if-ip",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "plat-pos-list": [
+                "aten-sp-mode"
+              ],
+              "m-exclusion": [
+                "start-address"
+              ],
+              "condition": "pool-name",
+              "help": "Use Interface IP"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "gateway",
+            "label": "Gateway",
+            "type": "input",
+            "cm-lineage": "ip.nat.pool.gateway",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "ob",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Configure gateway IP"
+            }
+          },
+          {
+            "key": "vrid",
+            "label": "VRID",
+            "type": "select",
+            "cm-lineage": "ip.nat.pool.vrid",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obsp",
+              "range": "1-31",
+              "range-in-partition": "1-7",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "obj-association": [
+                "vrrp-a.vrid"
+              ],
+              "help": "Configure VRRP-A vrid"
+            }
+          },
+          {
+            "key": "scaleout-device-id",
+            "label": "Scaleout Device ID",
+            "type": "input-number",
+            "cm-lineage": "ip.nat.pool.scaleout-device-id",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-64",
+              "range-in-partition": "1-63",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Configure Scaleout device id to which this NAT pool is to be bound"
+            }
+          },
+          {
+            "key": "ip-rr",
+            "label": "IP RR",
+            "type": "switch",
+            "cm-lineage": "ip.nat.pool.ip-rr",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Use IP address round-robin behavior",
+              "feat-license": "slb"
+            }
+          },
+          {
+            "key": "ethernet",
+            "label": "Ethernet",
+            "type": "select",
+            "cm-lineage": "ip.nat.pool.ethernet",
+            "cm-meta": {
+              "format": "interface",
+              "flags": "mb",
+              "plat-pos-list": [
+                "aten-sp-mode"
+              ],
+              "condition": "use-if-ip",
+              "help": "Ethernet interface"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

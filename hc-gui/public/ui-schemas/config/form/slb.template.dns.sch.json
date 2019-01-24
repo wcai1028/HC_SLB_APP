@@ -1,0 +1,473 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dns",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/dns/{name}",
+  "pageTitle": "DNS Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.dns.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "DNS Template Name"
+            }
+          },
+          {
+            "key": "disable-dns-template",
+            "label": "Disable DNS Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.dns.disable-dns-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Disable DNS template"
+            }
+          },
+          {
+            "key": "malformed-query",
+            "label": "Malformed Query",
+            "type": "dummy",
+            "cm-lineage": "slb.template.dns.malformed-query",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Define the policy for malformed query"
+            }
+          },
+          {
+            "key": "drop",
+            "label": "Drop",
+            "type": "switch",
+            "cm-lineage": "slb.template.dns.drop",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "malformed-query",
+              "help": "Drop the malformed query",
+              "m-exclusion": [
+                "forward"
+              ]
+            }
+          },
+          {
+            "key": "forward",
+            "label": "Forward",
+            "type": "select",
+            "cm-lineage": "slb.template.dns.forward",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "malformed-query",
+              "m-exclusion": [
+                "drop"
+              ],
+              "help": "Forward to service group",
+              "obj-association": [
+                "slb.service-group"
+              ]
+            }
+          },
+          {
+            "key": "max-query-length",
+            "label": "Max Query Length",
+            "type": "input-number",
+            "cm-lineage": "slb.template.dns.max-query-length",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-4095",
+              "help": "Define Maximum DNS Query Length, default is unlimited"
+            }
+          },
+          {
+            "key": "redirect-to-tcp-port",
+            "label": "Redirect To TCP Port",
+            "type": "switch",
+            "cm-lineage": "slb.template.dns.redirect-to-tcp-port",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Direct the client to retry with TCP for DNS UDP request"
+            }
+          },
+          {
+            "key": "query-id-switch",
+            "label": "Query ID Switch",
+            "type": "switch",
+            "cm-lineage": "slb.template.dns.query-id-switch",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Use DNS query ID to create sesion"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "default-policy",
+            "label": "Default Policy",
+            "type": "select",
+            "cm-lineage": "slb.template.dns.default-policy",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "No Cache",
+                  "value": "nocache",
+                  "help": "Cache disable"
+                },
+                {
+                  "label": "Cache",
+                  "value": "cache",
+                  "help": "Cache enable"
+                }
+              ],
+              "default": "nocache",
+              "help": "Define default DNS cache policy",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "dns-log-enable",
+            "label": "DNS Log Enable",
+            "type": "dummy",
+            "cm-lineage": "slb.template.dns.dns-log-enable",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Enable DNS cache per entry log"
+            }
+          },
+          {
+            "key": "period",
+            "label": "Period",
+            "type": "input-number",
+            "cm-lineage": "slb.template.dns.period",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-10000",
+              "condition": "dns-log-enable",
+              "help": "Period in minutes"
+            }
+          },
+          {
+            "key": "max-cache-entry-size",
+            "label": "Max Cache Entry Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.dns.max-cache-entry-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-4096",
+              "help": "Define maximum cache entry size"
+            }
+          },
+          {
+            "key": "max-cache-size",
+            "label": "Max Cache Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.dns.max-cache-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "$platform-specific",
+              "help": "Define maximum cache size"
+            }
+          },
+          {
+            "key": "enable-cache-sharing",
+            "label": "Enable Cache Sharing",
+            "type": "switch",
+            "cm-lineage": "slb.template.dns.enable-cache-sharing",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable DNS cache sharing"
+            }
+          },
+          {
+            "key": "dnssec-service-group",
+            "label": "DNSSEC Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.dns.dnssec-service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "obj-association": [
+                "slb.service-group"
+              ],
+              "help": "Use different service group if DNSSEC DO bit set"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Class List",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.dns.class-list.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-63",
+              "help": "Specify a class list name"
+            }
+          },
+          {
+            "key": "lid-list",
+            "label": "LID List",
+            "type": "table",
+            "cm-lineage": "slb.template.dns.class-list.lid-list",
+            "cm-meta": {
+              "gui-as-field": true,
+              "obj-occurences": "multi",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "lidnum",
+                "label": "LID Number",
+                "type": "input-number",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.lidnum",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mvm",
+                  "object-key": true,
+                  "range": "1-1023",
+                  "help": "Specify a limit ID"
+                }
+              },
+              {
+                "key": "conn-rate-limit",
+                "label": "Connection Rate Limit",
+                "type": "input-number",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.conn-rate-limit",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ob",
+                  "range": "1-2147483647",
+                  "help": "Connection rate limit"
+                }
+              },
+              {
+                "key": "per",
+                "label": "Per",
+                "type": "input-number",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.per",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "range": "1-65535",
+                  "condition": "conn-rate-limit",
+                  "help": "Per"
+                }
+              },
+              {
+                "key": "over-limit-action",
+                "label": "Over Limit Action",
+                "type": "switch",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.over-limit-action",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mky",
+                  "help": "Action when exceeds limit"
+                }
+              },
+              {
+                "key": "action-value",
+                "label": "Action Value",
+                "type": "select",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.action-value",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mvy",
+                  "condition": "over-limit-action",
+                  "allowed": [
+                    {
+                      "label": "DNS Cache Disable",
+                      "value": "dns-cache-disable",
+                      "help": "Disable DNS cache when it exceeds limit"
+                    },
+                    {
+                      "label": "DNS Cache Enable",
+                      "value": "dns-cache-enable",
+                      "help": "Enable DNS cache when it exceeds limit"
+                    },
+                    {
+                      "label": "Forward",
+                      "value": "forward",
+                      "help": "Forward the traffic even it exceeds limit"
+                    }
+                  ],
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "lockout",
+                "label": "Lockout",
+                "type": "input-number",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.lockout",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ob",
+                  "condition": "over-limit-action",
+                  "range": "1-1023",
+                  "disabled": [
+                    "action-value",
+                    [
+                      "forward"
+                    ]
+                  ],
+                  "help": "Don't accept any new connection for certain time"
+                }
+              },
+              {
+                "key": "log",
+                "label": "Log",
+                "type": "switch",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.log",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "over-limit-action",
+                  "help": "Log a message"
+                }
+              },
+              {
+                "key": "log-interval",
+                "label": "Log Interval",
+                "type": "input-number",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.log-interval",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ov",
+                  "condition": "log",
+                  "range": "1-255",
+                  "help": "Log interval (minute, by default system will log every over limit instance)"
+                }
+              },
+              {
+                "key": "dns",
+                "label": "DNS",
+                "type": "dummy-object",
+                "cm-lineage": "slb.template.dns.class-list.lid-list.dns",
+                "cm-meta": {
+                  "format": "dummy",
+                  "help": "DNS cache option",
+                  "start": true
+                },
+                "fields": [
+                  {
+                    "key": "cache-action",
+                    "label": "Cache Action",
+                    "type": "select",
+                    "cm-lineage": "slb.template.dns.class-list.lid-list.dns.cache-action",
+                    "cm-meta": {
+                      "format": "string",
+                      "flags": "mvy",
+                      "allowed": [
+                        {
+                          "label": "Cache Disable",
+                          "value": "cache-disable",
+                          "help": "Disable dns cache"
+                        },
+                        {
+                          "label": "Cache Enable",
+                          "value": "cache-enable",
+                          "help": "Enable dns cache"
+                        }
+                      ],
+                      "condition": "dns",
+                      "default": "cache-disable",
+                      "range": "1-128"
+                    }
+                  },
+                  {
+                    "key": "ttl",
+                    "label": "TTL",
+                    "type": "input-number",
+                    "cm-lineage": "slb.template.dns.class-list.lid-list.dns.ttl",
+                    "cm-meta": {
+                      "format": "number",
+                      "flags": "mb",
+                      "range": "1-65535",
+                      "condition": "dns",
+                      "help": "TTL for cache entry"
+                    }
+                  },
+                  {
+                    "key": "weight",
+                    "label": "Weight",
+                    "type": "input-number",
+                    "cm-lineage": "slb.template.dns.class-list.lid-list.dns.weight",
+                    "cm-meta": {
+                      "format": "number",
+                      "flags": "mb",
+                      "range": "1-7",
+                      "condition": "dns",
+                      "help": "Weight for cache entry"
+                    }
+                  },
+                  {
+                    "key": "honor-server-response-ttl",
+                    "label": "Honor Server Response TTL",
+                    "type": "switch",
+                    "cm-lineage": "slb.template.dns.class-list.lid-list.dns.honor-server-response-ttl",
+                    "cm-meta": {
+                      "format": "flag",
+                      "flags": "mk",
+                      "condition": "dns",
+                      "help": "Honor the server reponse TTL"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

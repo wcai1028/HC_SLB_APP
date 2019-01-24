@@ -1,0 +1,475 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.server.port",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/server/{name}/port/{port-number}+{protocol}",
+  "pageTitle": "Server Port",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "port-number",
+            "label": "Port Number",
+            "type": "input-number",
+            "cm-lineage": "slb.server.port.port-number",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mvm",
+              "range": "0-65534",
+              "object-key": true,
+              "help": "Port Number"
+            }
+          },
+          {
+            "key": "protocol",
+            "label": "Protocol",
+            "type": "select",
+            "cm-lineage": "slb.server.port.protocol",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mv",
+              "object-key": true,
+              "allowed": [
+                {
+                  "label": "TCP",
+                  "value": "tcp",
+                  "help": "TCP Port"
+                },
+                {
+                  "label": "UDP",
+                  "value": "udp",
+                  "help": "UDP Port"
+                }
+              ],
+              "condition": "port-number",
+              "help": "Protocol",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "rport-health-check",
+            "label": "Rport Health Check",
+            "type": "select",
+            "cm-lineage": "slb.server.port.rport-health-check",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "range": "1-63",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ]
+            }
+          },
+          {
+            "key": "health-check",
+            "label": "Health Check",
+            "type": "select",
+            "cm-lineage": "slb.server.port.health-check",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "condition": "rport-health-check",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ],
+              "m-exclusion": [
+                "shared-rport-health-check",
+                "health-check-follow-port",
+                "health-check-disable"
+              ]
+            }
+          },
+          {
+            "key": "p-rport-health-check",
+            "label": "P Rport Health Check",
+            "type": "dummy",
+            "cm-lineage": "slb.server.port.p-rport-health-check",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "rport-health-check",
+              "help": "Reference a health-check from shared partition"
+            }
+          },
+          {
+            "key": "shared-rport-health-check",
+            "label": "Shared Rport Health Check",
+            "type": "switch",
+            "cm-lineage": "slb.server.port.shared-rport-health-check",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-rport-health-check",
+              "m-exclusion": [
+                "health-check",
+                "health-check-disable"
+              ],
+              "help": "Reference a health-check from shared partition"
+            }
+          },
+          {
+            "key": "rport-health-check-shared",
+            "label": "Rport Health Check Shared",
+            "type": "select",
+            "cm-lineage": "slb.server.port.rport-health-check-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-63",
+              "condition": "shared-rport-health-check",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ],
+              "m-exclusion": [
+                "health-check-disable"
+              ]
+            }
+          },
+          {
+            "key": "health-check-follow-port",
+            "label": "Health Check Follow Port",
+            "type": "input-number",
+            "cm-lineage": "slb.server.port.health-check-follow-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "m-exclusion": [
+                "health-check",
+                "health-check-disable"
+              ],
+              "help": "Specify which port to follow for health status"
+            }
+          },
+          {
+            "key": "follow-port-protocol",
+            "label": "Follow Port Protocol",
+            "type": "select",
+            "cm-lineage": "slb.server.port.follow-port-protocol",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "allowed": [
+                {
+                  "label": "TCP",
+                  "value": "tcp",
+                  "help": "TCP Port"
+                },
+                {
+                  "label": "UDP",
+                  "value": "udp",
+                  "help": "UDP Port"
+                }
+              ],
+              "condition": "health-check-follow-port",
+              "help": "Protocol",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "health-check-disable",
+            "label": "Health Check Disable",
+            "type": "switch",
+            "cm-lineage": "slb.server.port.health-check-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "m-exclusion": [
+                "shared-rport-health-check"
+              ],
+              "help": "Disable health check"
+            }
+          },
+          {
+            "key": "conn-limit",
+            "label": "Connection Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.server.port.conn-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-64000000",
+              "default": 64000000,
+              "help": "Connection Limit"
+            }
+          },
+          {
+            "key": "no-logging",
+            "label": "No Logging",
+            "type": "switch",
+            "cm-lineage": "slb.server.port.no-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-limit",
+              "help": "Do not log connection over limit event"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "template",
+            "label": "Template",
+            "type": "dummy",
+            "cm-lineage": "slb.server.port.template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Apply template to port"
+            }
+          },
+          {
+            "key": "template-port",
+            "label": "Template Port",
+            "type": "select",
+            "cm-lineage": "slb.server.port.template-port",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "template",
+              "obj-association": [
+                "slb.template.port"
+              ],
+              "help": "Port template",
+              "default": "default"
+            }
+          },
+          {
+            "key": "template-server-ssl",
+            "label": "Template Server SSL",
+            "type": "select",
+            "cm-lineage": "slb.server.port.template-server-ssl",
+            "cm-meta": {
+              "format": "name",
+              "flags": "mbr",
+              "range": "1-127",
+              "condition": "template",
+              "disabled": [
+                "protocol",
+                [
+                  "udp"
+                ]
+              ],
+              "obj-association": [
+                "slb.template.server-ssl"
+              ],
+              "help": "Server side SSL template"
+            }
+          },
+          {
+            "key": "action",
+            "label": "Action",
+            "type": "select",
+            "cm-lineage": "slb.server.port.action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Enable",
+                  "value": "enable",
+                  "help": "Enable"
+                },
+                {
+                  "label": "Disable",
+                  "value": "disable",
+                  "help": "Disable"
+                },
+                {
+                  "label": "Disable With Health Check",
+                  "value": "disable-with-health-check",
+                  "help": "disable port, but health check work"
+                }
+              ],
+              "default": "enable",
+              "help": "Template action",
+              "cm-rba-field-oper": true,
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "no-ssl",
+            "label": "No SSL",
+            "type": "switch",
+            "cm-lineage": "slb.server.port.no-ssl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "No SSL"
+            }
+          },
+          {
+            "key": "weight",
+            "label": "Weight",
+            "type": "input-number",
+            "cm-lineage": "slb.server.port.weight",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-1000",
+              "default": 1,
+              "help": "Port Weight"
+            }
+          },
+          {
+            "key": "conn-resume",
+            "label": "Connection Resume",
+            "type": "input-number",
+            "cm-lineage": "slb.server.port.conn-resume",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "1-1000000",
+              "help": "Connection Resume"
+            }
+          },
+          {
+            "key": "stats-data-action",
+            "label": "Stats Data Action",
+            "type": "select",
+            "cm-lineage": "slb.server.port.stats-data-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Stats Data Enable",
+                  "value": "stats-data-enable",
+                  "help": "Enable statistical data collection for real server port"
+                },
+                {
+                  "label": "Stats Data Disable",
+                  "value": "stats-data-disable",
+                  "help": "Disable statistical data collection for real server port"
+                }
+              ],
+              "default": "stats-data-enable",
+              "help": "Stats data action",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "extended-stats",
+            "label": "Extended Stats",
+            "type": "switch",
+            "cm-lineage": "slb.server.port.extended-stats",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable extended statistics on real server port"
+            }
+          },
+          {
+            "key": "alternate-port",
+            "label": "Alternate Port",
+            "type": "table",
+            "cm-lineage": "slb.server.port.alternate-port",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true,
+              "help": "Alternate Server"
+            },
+            "fields": [
+              {
+                "key": "alternate",
+                "label": "Alternate",
+                "type": "input-number",
+                "cm-lineage": "slb.server.port.alternate-port.alternate",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ob",
+                  "range": "1-16",
+                  "multi-field-key": true,
+                  "max-elements": 16,
+                  "help": "Alternate Server Number"
+                }
+              },
+              {
+                "key": "alternate-name",
+                "label": "Alternate Name",
+                "type": "input",
+                "cm-lineage": "slb.server.port.alternate-port.alternate-name",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mvr",
+                  "range": "1-127",
+                  "condition": "alternate",
+                  "help": "Alternate Name"
+                }
+              },
+              {
+                "key": "alternate-server-port",
+                "label": "Alternate Server Port",
+                "type": "input-number",
+                "cm-lineage": "slb.server.port.alternate-port.alternate-server-port",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mbr",
+                  "range": "1-65535",
+                  "condition": "alternate-name",
+                  "help": "Port"
+                },
+                "name-label": "Port"
+              }
+            ]
+          },
+          {
+            "key": "auth-cfg",
+            "label": "Auth CFG",
+            "type": "dummy-object",
+            "cm-lineage": "slb.server.port.auth-cfg",
+            "cm-meta": {
+              "format": "fields",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "service-principal-name",
+                "label": "Service Principal Name",
+                "type": "input",
+                "cm-lineage": "slb.server.port.auth-cfg.service-principal-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "ob",
+                  "help": "Service Principal Name",
+                  "range": "1-128"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

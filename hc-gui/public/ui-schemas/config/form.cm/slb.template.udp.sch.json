@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.udp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/udp/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.udp.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Fast UDP Template Name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "idle-timeout",
+          "label": "Idle Timeout",
+          "cm-lineage": "slb.template.udp.idle-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Idle Timeout value (Interval of 60 seconds), default 120 seconds",
+            "round-off": true,
+            "default": "120",
+            "range": "1-2097151" 
+          }
+        },
+        { 
+          "key": "qos",
+          "label": "Qos",
+          "cm-lineage": "slb.template.udp.qos",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "QOS level",
+            "range": "1-63" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "stateless-conn-timeout",
+          "label": "Stateless Conn Timeout",
+          "cm-lineage": "slb.template.udp.stateless-conn-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Stateless Current Connection Timeout value (5 - 120 seconds)",
+            "default": "120",
+            "range": "5-120" 
+          }
+        },
+        { 
+          "key": "immediate",
+          "label": "Immediate",
+          "cm-lineage": "slb.template.udp.immediate",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Immediate Removal after Transaction",
+            "m-exclusion": [  
+             "short" 
+            ]
+          }
+        },
+        { 
+          "key": "short",
+          "label": "Short",
+          "cm-lineage": "slb.template.udp.short",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Short lived session",
+            "m-exclusion": [  
+             "immediate" 
+            ]
+          }
+        },
+        { 
+          "key": "re-select-if-server-down",
+          "label": "Re Select If Server Down",
+          "cm-lineage": "slb.template.udp.re-select-if-server-down",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "re-select another server if service port is down" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

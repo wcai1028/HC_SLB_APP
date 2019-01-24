@@ -1,0 +1,735 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.http",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/http/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.http.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "HTTP Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "failover-url",
+          "label": "Failover Url",
+          "cm-lineage": "slb.template.http.failover-url",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Failover to this URL",
+            "range": "1-255" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Compression",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "compression-auto-disable-on-high-cpu",
+          "label": "Compression Auto Disable On High Cpu",
+          "cm-lineage": "slb.template.http.compression-auto-disable-on-high-cpu",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Auto-disable software compression on high cpu usage",
+            "range": "1-100" 
+          }
+        },
+        { 
+          "key": "compression-content-type",
+          "label": "Compression Content Type",
+          "cm-lineage": "slb.template.http.compression-content-type",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "content-type",
+            "label": "Content Type",
+            "cm-lineage": "slb.template.http.content-type",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Compression content-type",
+              "multi-field-key": true,
+              "max-elements": "10",
+              "range": "1-31" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "compression-enable",
+          "label": "Compression Enable",
+          "cm-lineage": "slb.template.http.compression-enable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable Compression" 
+          }
+        },
+        { 
+          "key": "compression-exclude-content-type",
+          "label": "Compression Exclude Content Type",
+          "cm-lineage": "slb.template.http.compression-exclude-content-type",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "exclude-content-type",
+            "label": "Exclude Content Type",
+            "cm-lineage": "slb.template.http.exclude-content-type",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Compression exclude content-type",
+              "multi-field-key": true,
+              "max-elements": "10",
+              "range": "1-31" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "compression-exclude-uri",
+          "label": "Compression Exclude Uri",
+          "cm-lineage": "slb.template.http.compression-exclude-uri",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "exclude-uri",
+            "label": "Exclude Uri",
+            "cm-lineage": "slb.template.http.exclude-uri",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Compression exclude uri",
+              "multi-field-key": true,
+              "max-elements": "10",
+              "range": "1-31" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "compression-keep-accept-encoding",
+          "label": "Compression Keep Accept Encoding",
+          "cm-lineage": "slb.template.http.compression-keep-accept-encoding",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Keep accept encoding" 
+          }
+        },
+        { 
+          "key": "compression-keep-accept-encoding-enable",
+          "label": "Compression Keep Accept Encoding Enable",
+          "cm-lineage": "slb.template.http.compression-keep-accept-encoding-enable",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "compression-keep-accept-encoding",
+            "help": "Enable Server Accept Encoding" 
+          }
+        },
+        { 
+          "key": "compression-level",
+          "label": "Compression Level",
+          "cm-lineage": "slb.template.http.compression-level",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "compression level, default 1",
+            "default": "1",
+            "range": "1-9" 
+          }
+        },
+        { 
+          "key": "compression-minimum-content-length",
+          "label": "Compression Minimum Content Length",
+          "cm-lineage": "slb.template.http.compression-minimum-content-length",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Minimum Content Length",
+            "default": "120",
+            "range": "1-2147483647" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Service Selection",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "host-switching",
+          "label": "Host Switching",
+          "cm-lineage": "slb.template.http.host-switching",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "host-switching-type",
+            "label": "Host Switching Type",
+            "cm-lineage": "slb.template.http.host-switching-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Contains",
+                "value": "contains",
+                "help": "Select service group if hostname contains another string" 
+                },
+                { 
+                "label": "Ends With",
+                "value": "ends-with",
+                "help": "Select service group if hostname ends with another string" 
+                },
+                { 
+                "label": "Equals",
+                "value": "equals",
+                "help": "Select service group if hostname equals another string" 
+                },
+                { 
+                "label": "Starts With",
+                "value": "starts-with",
+                "help": "Select service group if hostname starts with another string" 
+                },
+                { 
+                "label": "Regex Match",
+                "value": "regex-match",
+                "help": "Select service group if URL string matches with regular expression" 
+                },
+                { 
+                "label": "Host Hits Enable",
+                "value": "host-hits-enable",
+                "help": "Enables Host Hits counters" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "1024" 
+            }
+          },
+          { 
+            "key": "host-match-string",
+            "label": "Host Match String",
+            "cm-lineage": "slb.template.http.host-match-string",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "host-switching-type",
+              "help": "Hostname String",
+              "multi-field-key": true,
+              "max-elements": "1024",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "host-service-group",
+            "label": "Host Service Group",
+            "cm-lineage": "slb.template.http.host-service-group",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "host-match-string",
+              "help": "Create a Service Group comprising Servers",
+              "multi-field-key": true,
+              "max-elements": "1024",
+              "obj-association": [  
+               "slb.service-group" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "strict-transaction-switch",
+          "label": "Strict Transaction Switch",
+          "cm-lineage": "slb.template.http.strict-transaction-switch",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Force server selection on every HTTP request" 
+          }
+        },
+        { 
+          "key": "url-hash-persist",
+          "label": "Url Hash Persist",
+          "cm-lineage": "slb.template.http.url-hash-persist",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use URL's hash value to select server" 
+          }
+        },
+        { 
+          "key": "url-hash-offset",
+          "label": "Url Hash Offset",
+          "cm-lineage": "slb.template.http.url-hash-offset",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "url-hash-persist",
+            "help": "Skip part of URL to calculate hash value",
+            "range": "0-255" 
+          }
+        },
+        { 
+          "key": "url-hash-first",
+          "label": "Url Hash First",
+          "cm-lineage": "slb.template.http.url-hash-first",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "url-hash-persist",
+            "help": "Use the begining part of URL to calculate hash value",
+            "range": "4-128",
+            "m-exclusion": [  
+             "url-hash-last" 
+            ]
+          }
+        },
+        { 
+          "key": "url-hash-last",
+          "label": "Url Hash Last",
+          "cm-lineage": "slb.template.http.url-hash-last",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "url-hash-persist",
+            "help": "Use the end part of URL to calculate hash value",
+            "range": "4-128",
+            "m-exclusion": [  
+             "url-hash-first" 
+            ]
+          }
+        },
+        { 
+          "key": "url-switching",
+          "label": "Url Switching",
+          "cm-lineage": "slb.template.http.url-switching",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "url-switching-type",
+            "label": "Url Switching Type",
+            "cm-lineage": "slb.template.http.url-switching-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Contains",
+                "value": "contains",
+                "help": "Select service group if URL string contains another string" 
+                },
+                { 
+                "label": "Ends With",
+                "value": "ends-with",
+                "help": "Select service group if URL string ends with another string" 
+                },
+                { 
+                "label": "Equals",
+                "value": "equals",
+                "help": "Select service group if URL string equals another string" 
+                },
+                { 
+                "label": "Starts With",
+                "value": "starts-with",
+                "help": "Select service group if URL string starts with another string" 
+                },
+                { 
+                "label": "Regex Match",
+                "value": "regex-match",
+                "help": "Select service group if URL string matches with regular expression" 
+                },
+                { 
+                "label": "Url Case Insensitive",
+                "value": "url-case-insensitive",
+                "help": "Case insensitive URL switching" 
+                },
+                { 
+                "label": "Url Hits Enable",
+                "value": "url-hits-enable",
+                "help": "Enables URL Hits" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "1024" 
+            }
+          },
+          { 
+            "key": "url-match-string",
+            "label": "Url Match String",
+            "cm-lineage": "slb.template.http.url-match-string",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "url-switching-type",
+              "help": "URL String",
+              "multi-field-key": true,
+              "max-elements": "1024",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "url-service-group",
+            "label": "Url Service Group",
+            "cm-lineage": "slb.template.http.url-service-group",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "url-match-string",
+              "help": "Create a Service Group comprising Servers",
+              "multi-field-key": true,
+              "max-elements": "1024",
+              "obj-association": [  
+               "slb.service-group" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Header Modification",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "insert-client-ip",
+          "label": "Insert Client Ip",
+          "cm-lineage": "slb.template.http.insert-client-ip",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Insert Client IP address into HTTP header" 
+          }
+        },
+        { 
+          "key": "insert-client-port",
+          "label": "Insert Client Port",
+          "cm-lineage": "slb.template.http.insert-client-port",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Insert Client Port address into HTTP header" 
+          }
+        },
+        { 
+          "key": "request-header-erase-list",
+          "label": "Request Header Erase List",
+          "cm-lineage": "slb.template.http.request-header-erase-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "request-header-erase",
+            "label": "Request Header Erase",
+            "cm-lineage": "slb.template.http.request-header-erase",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Erase a header from HTTP request",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "request-header-insert-list",
+          "label": "Request Header Insert List",
+          "cm-lineage": "slb.template.http.request-header-insert-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "request-header-insert",
+            "label": "Request Header Insert",
+            "cm-lineage": "slb.template.http.request-header-insert",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Insert a header into HTTP request",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-127" 
+            }
+          },
+          { 
+            "key": "request-header-insert-type",
+            "label": "Request Header Insert Type",
+            "cm-lineage": "slb.template.http.request-header-insert-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "request-header-insert",
+              "allowed": [  
+                { 
+                "label": "Insert If Not Exist",
+                "value": "insert-if-not-exist",
+                "help": "Only insert the header when it does not exist" 
+                },
+                { 
+                "label": "Insert Always",
+                "value": "insert-always",
+                "help": "Always insert the header even when there is a header with the same name" 
+                }
+              ],
+              "max-elements": "8" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "response-header-erase-list",
+          "label": "Response Header Erase List",
+          "cm-lineage": "slb.template.http.response-header-erase-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "response-header-erase",
+            "label": "Response Header Erase",
+            "cm-lineage": "slb.template.http.response-header-erase",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Erase a header from HTTP response",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "response-header-insert-list",
+          "label": "Response Header Insert List",
+          "cm-lineage": "slb.template.http.response-header-insert-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "response-header-insert",
+            "label": "Response Header Insert",
+            "cm-lineage": "slb.template.http.response-header-insert",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Insert a header into HTTP response",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-127" 
+            }
+          },
+          { 
+            "key": "response-header-insert-type",
+            "label": "Response Header Insert Type",
+            "cm-lineage": "slb.template.http.response-header-insert-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "response-header-insert",
+              "allowed": [  
+                { 
+                "label": "Insert If Not Exist",
+                "value": "insert-if-not-exist",
+                "help": "Only insert the header when it does not exist" 
+                },
+                { 
+                "label": "Insert Always",
+                "value": "insert-always",
+                "help": "Always insert the header even when there is a header with the same name" 
+                }
+              ],
+              "max-elements": "8" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "log-retry",
+          "label": "Log Retry",
+          "cm-lineage": "slb.template.http.log-retry",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "log when HTTP request retry" 
+          }
+        },
+        { 
+          "key": "non-http-bypass",
+          "label": "Non Http Bypass",
+          "cm-lineage": "slb.template.http.non-http-bypass",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Bypass non-http traffic instead of dropping" 
+          }
+        },
+        { 
+          "key": "bypass-sg",
+          "label": "Bypass Sg",
+          "cm-lineage": "slb.template.http.bypass-sg",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "non-http-bypass",
+            "help": "Select service group for non-http traffic",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "redirect",
+          "label": "Redirect",
+          "cm-lineage": "slb.template.http.redirect",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Automatically send a redirect response" 
+          }
+        },
+        { 
+          "key": "match-list",
+          "label": "Match List",
+          "cm-lineage": "slb.template.http.match-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "redirect-match",
+            "label": "Redirect Match",
+            "cm-lineage": "slb.template.http.redirect-match",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "URL Matching",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "rewrite-to",
+            "label": "Rewrite To",
+            "cm-lineage": "slb.template.http.rewrite-to",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "redirect-match",
+              "help": "Rewrite to Destination URL String",
+              "max-elements": "8",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "redirect-secure",
+          "label": "Redirect Secure",
+          "cm-lineage": "slb.template.http.redirect-secure",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use HTTPS" 
+          }
+        },
+        { 
+          "key": "response-content-replace-list",
+          "label": "Response Content Replace List",
+          "cm-lineage": "slb.template.http.response-content-replace-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "response-content-replace",
+            "label": "Response Content Replace",
+            "cm-lineage": "slb.template.http.response-content-replace",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "replace the data from HTTP response content",
+              "multi-field-key": true,
+              "max-elements": "8",
+              "range": "1-127" 
+            }
+          },
+          { 
+            "key": "response-new-string",
+            "label": "Response New String",
+            "cm-lineage": "slb.template.http.response-new-string",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "response-content-replace",
+              "help": "String will be in the http content",
+              "max-elements": "8",
+              "range": "1-127" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "retry-on-5xx",
+          "label": "Retry On 5xx",
+          "cm-lineage": "slb.template.http.retry-on-5xx",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Retry http request on HTTP 5xx code",
+            "m-exclusion": [  
+             "retry-on-5xx-per-req" 
+            ]
+          }
+        },
+        { 
+          "key": "term-11client-hdr-conn-close",
+          "label": "Term 11client Hdr Conn Close",
+          "cm-lineage": "slb.template.http.term-11client-hdr-conn-close",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Terminate HTTP 1.1 client when req has Connection: close" 
+          }
+        },
+        { 
+          "key": "req-hdr-wait-time",
+          "label": "Req Hdr Wait Time",
+          "cm-lineage": "slb.template.http.req-hdr-wait-time",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "HTTP request header wait time before abort connection" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "logging",
+          "label": "Logging",
+          "cm-lineage": "slb.template.http.logging",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Logging template",
+            "obj-association": [  
+             "slb.template.logging" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

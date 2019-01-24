@@ -1,0 +1,205 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.virtual-port",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/virtual-port/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.virtual-port.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Virtual port template name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "aflow",
+          "label": "Aflow",
+          "cm-lineage": "slb.template.virtual-port.aflow",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use aFlow to eliminate the traffic surge" 
+          }
+        },
+        { 
+          "key": "allow-syn-otherflags",
+          "label": "Allow Syn Otherflags",
+          "cm-lineage": "slb.template.virtual-port.allow-syn-otherflags",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Allow initial SYN packet with other flags" 
+          }
+        },
+        { 
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.template.virtual-port.conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection limit",
+            "default": "64000000",
+            "range": "1-64000000" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit",
+          "label": "Conn Rate Limit",
+          "cm-lineage": "slb.template.virtual-port.conn-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "pkt-rate-type",
+          "label": "Pkt Rate Type",
+          "cm-lineage": "slb.template.virtual-port.pkt-rate-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Src Ip Port",
+              "value": "src-ip-port",
+              "help": "Source IP and port rate limit" 
+              },
+              { 
+              "label": "Src Port",
+              "value": "src-port",
+              "help": "Source port rate limit" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "rate",
+          "label": "Rate",
+          "cm-lineage": "slb.template.virtual-port.rate",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "pkt-rate-type",
+            "help": "Source IP and port rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "allow-vip-to-rport-mapping",
+          "label": "Allow Vip To Rport Mapping",
+          "cm-lineage": "slb.template.virtual-port.allow-vip-to-rport-mapping",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Allow mapping of VIP to real port" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "dscp",
+          "label": "Dscp",
+          "cm-lineage": "slb.template.virtual-port.dscp",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Differentiated Services Code Point",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "drop-unknown-conn",
+          "label": "Drop Unknown Conn",
+          "cm-lineage": "slb.template.virtual-port.drop-unknown-conn",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Drop conection if receives TCP packet without SYN or RST flag and it does not belong to any existing connections" 
+          }
+        },
+        { 
+          "key": "reset-unknown-conn",
+          "label": "Reset Unknown Conn",
+          "cm-lineage": "slb.template.virtual-port.reset-unknown-conn",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send reset back if receives TCP packet without SYN or RST flag and it does not belong to any existing connections" 
+          }
+        },
+        { 
+          "key": "reset-l7-on-failover",
+          "label": "Reset L7 On Failover",
+          "cm-lineage": "slb.template.virtual-port.reset-l7-on-failover",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send reset to L7 client and server connection upon a failover" 
+          }
+        },
+        { 
+          "key": "ignore-tcp-msl",
+          "label": "Ignore Tcp Msl",
+          "cm-lineage": "slb.template.virtual-port.ignore-tcp-msl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "reclaim TCP resource immediately without MSL" 
+          }
+        },
+        { 
+          "key": "snat-msl",
+          "label": "Snat Msl",
+          "cm-lineage": "slb.template.virtual-port.snat-msl",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Source NAT MSL",
+            "range": "1-1800" 
+          }
+        },
+        { 
+          "key": "snat-port-preserve",
+          "label": "Snat Port Preserve",
+          "cm-lineage": "slb.template.virtual-port.snat-port-preserve",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Source NAT Port Preservation" 
+          }
+        },
+        { 
+          "key": "non-syn-initiation",
+          "label": "Non Syn Initiation",
+          "cm-lineage": "slb.template.virtual-port.non-syn-initiation",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Allow initial TCP packet to be non-SYN" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

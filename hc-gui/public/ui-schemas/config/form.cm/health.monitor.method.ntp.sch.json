@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.ntp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/ntp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "NTP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "ntp",
+          "label": "Ntp",
+          "cm-lineage": "health.monitor.method.ntp.ntp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "NTP type" 
+          }
+        },
+        { 
+          "key": "ntp-port",
+          "label": "Ntp Port",
+          "cm-lineage": "health.monitor.method.ntp.ntp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "ntp",
+            "help": "Specify the NTP port, default is 123",
+            "default": "123",
+            "range": "1-65534" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

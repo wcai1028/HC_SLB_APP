@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.pop3",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/pop3",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "POP3",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "pop3",
+          "label": "Pop3",
+          "cm-lineage": "health.monitor.method.pop3.pop3",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "POP3 type" 
+          }
+        },
+        { 
+          "key": "pop3-username",
+          "label": "Pop3 Username",
+          "cm-lineage": "health.monitor.method.pop3.pop3-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "pop3",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "pop3-password",
+          "label": "Pop3 Password",
+          "cm-lineage": "health.monitor.method.pop3.pop3-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "pop3-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "pop3-password-string",
+          "label": "Pop3 Password String",
+          "cm-lineage": "health.monitor.method.pop3.pop3-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "pop3-password",
+            "help": "Specify the user password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "pop3-encrypted",
+          "label": "Pop3 Encrypted",
+          "cm-lineage": "health.monitor.method.pop3.pop3-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "pop3-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "pop3-port",
+          "label": "Pop3 Port",
+          "cm-lineage": "health.monitor.method.pop3.pop3-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "pop3-password-string",
+            "help": "Specify the POP3 port, default is 110",
+            "default": "110",
+            "range": "1-65534" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "provider.tenant.app-svc-group",
+  "cm-object-meta": {},
+  "axapi": "provider/{name}/tenant/{name}/app-svc-group/{name}",
+  "pageTitle": "Provider Tenant App Svc-group",
+  "components": {
+    "sections": [
+      {
+        "title": "App Service Group",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "provider.tenant.app-svc-group.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "help": "Application Service group name",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "description",
+            "label": "Description",
+            "type": "textarea",
+            "cm-lineage": "provider.tenant.app-svc-group.description",
+            "cm-meta": {
+              "format": "line",
+              "flags": "ob",
+              "help": "Description"
+            }
+          },
+          {
+            "key": "svc-list",
+            "label": "Service List",
+            "type": "table",
+            "cm-lineage": "provider.tenant.app-svc-group.svc-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "app-svc",
+                "label": "App Service",
+                "type": "select",
+                "cm-lineage": "provider.tenant.app-svc-group.svc-list.app-svc",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mb",
+                  "obj-association": [
+                    "provider.tenant.app-svc"
+                  ],
+                  "multi-field-key": true,
+                  "max-elements": 32,
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "app-svc-type",
+                "label": "App Service Type",
+                "type": "select",
+                "cm-lineage": "provider.tenant.app-svc-group.svc-list.app-svc-type",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mv",
+                  "condition": "app-svc",
+                  "allowed": [
+                    {
+                      "label": "ADC",
+                      "value": "adc",
+                      "help": "ADC"
+                    },
+                    {
+                      "label": "GIFW",
+                      "value": "gifw",
+                      "help": "GIFW"
+                    },
+                    {
+                      "label": "CGN",
+                      "value": "cgn",
+                      "help": "CGN"
+                    },
+                    {
+                      "label": "SSLi",
+                      "value": "ssli",
+                      "help": "SSLi"
+                    }
+                  ],
+                  "help": "Application Service type"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

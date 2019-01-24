@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.ftp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/ftp/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.ftp.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "FTP template name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "active-mode-port",
+          "label": "Active Mode Port",
+          "cm-lineage": "slb.template.ftp.active-mode-port",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Non-Standard FTP Active mode port" 
+          }
+        },
+        { 
+          "key": "active-mode-port-val",
+          "label": "Active Mode Port Val",
+          "cm-lineage": "slb.template.ftp.active-mode-port-val",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "active-mode-port",
+            "help": "Non-Standard FTP Active mode port",
+            "range": "1-65534",
+            "m-exclusion": [  
+             "any" 
+            ]
+          }
+        },
+        { 
+          "key": "any",
+          "label": "Any",
+          "cm-lineage": "slb.template.ftp.any",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "active-mode-port",
+            "help": "Allow any FTP Active mode port",
+            "m-exclusion": [  
+             "active-mode-port-val" 
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy.source",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy/source/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "match-class-list",
+          "label": "Match Class List",
+          "cm-lineage": "slb.template.policy.forward-policy.source.match-class-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Class List Name",
+            "range": "1-63",
+            "m-exclusion": [  
+             "match-any" 
+            ]
+          }
+        },
+        { 
+          "key": "match-any",
+          "label": "Match Any",
+          "cm-lineage": "slb.template.policy.forward-policy.source.match-any",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Match any source",
+            "m-exclusion": [  
+             "match-class-list" 
+            ]
+          }
+        },
+        { 
+          "key": "match-authorize-policy",
+          "label": "Match Authorize Policy",
+          "cm-lineage": "slb.template.policy.forward-policy.source.match-authorize-polic",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Authorize-policy for user and group based policy",
+            "obj-association": [  
+             "aam.authorization.policy" 
+            ],
+            "range": "1-128" 
+          }
+        },
+        { 
+          "key": "priority",
+          "label": "Priority",
+          "cm-lineage": "slb.template.policy.forward-policy.source.priority",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Priority of the source(higher the number higher the priority, default 0)",
+            "range": "1-1024" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

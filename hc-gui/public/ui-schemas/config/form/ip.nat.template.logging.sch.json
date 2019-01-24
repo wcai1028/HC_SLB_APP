@@ -1,0 +1,397 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "ip.nat.template.logging",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "ip/nat/template/logging/{name}",
+  "pageTitle": "IP NAT Logging Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "ip.nat.template.logging.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-63",
+              "help": "NAT logging template name",
+              "object-key": true
+            }
+          },
+          {
+            "key": "log",
+            "label": "Log",
+            "type": "dummy-object",
+            "cm-lineage": "ip.nat.template.logging.log",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "help": "Choose which NAT events to log (default: Log creation and deletion of NAT mappings)"
+            },
+            "fields": [
+              {
+                "key": "port-mappings",
+                "label": "Port Mappings",
+                "type": "select",
+                "cm-lineage": "ip.nat.template.logging.log.port-mappings",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mby",
+                  "condition": "log",
+                  "allowed": [
+                    {
+                      "label": "Creation",
+                      "value": "creation",
+                      "help": "Log creation of NAT mappgins"
+                    },
+                    {
+                      "label": "Disable",
+                      "value": "disable",
+                      "help": "Disable Log creation and deletion of NAT mappings"
+                    }
+                  ],
+                  "help": "Log NAT mapping",
+                  "range": "1-128"
+                }
+              }
+            ]
+          },
+          {
+            "key": "include-destination",
+            "label": "Include Destination",
+            "type": "switch",
+            "cm-lineage": "ip.nat.template.logging.include-destination",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Include the destination IP and port in logs"
+            }
+          },
+          {
+            "key": "include-rip-rport",
+            "label": "Include Rip Rport",
+            "type": "switch",
+            "cm-lineage": "ip.nat.template.logging.include-rip-rport",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Include the IP and port of real server in logs"
+            }
+          },
+          {
+            "key": "facility",
+            "label": "Facility",
+            "type": "select",
+            "cm-lineage": "ip.nat.template.logging.facility",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "Kernel",
+                  "value": "kernel",
+                  "help": "0: Kernel"
+                },
+                {
+                  "label": "User",
+                  "value": "user",
+                  "help": "1: User-level"
+                },
+                {
+                  "label": "Mail",
+                  "value": "mail",
+                  "help": "2: Mail"
+                },
+                {
+                  "label": "Daemon",
+                  "value": "daemon",
+                  "help": "3: System daemons"
+                },
+                {
+                  "label": "Security Authorization",
+                  "value": "security-authorization",
+                  "help": "4: Security/authorization"
+                },
+                {
+                  "label": "Syslog",
+                  "value": "syslog",
+                  "help": "5: Syslog internal"
+                },
+                {
+                  "label": "Line Printer",
+                  "value": "line-printer",
+                  "help": "6: Line printer"
+                },
+                {
+                  "label": "News",
+                  "value": "news",
+                  "help": "7: Network news"
+                },
+                {
+                  "label": "UUCP",
+                  "value": "uucp",
+                  "help": "8: UUCP subsystem"
+                },
+                {
+                  "label": "Cron",
+                  "value": "cron",
+                  "help": "9: Time-related"
+                },
+                {
+                  "label": "Security Authorization Private",
+                  "value": "security-authorization-private",
+                  "help": "10: Private security/authorization"
+                },
+                {
+                  "label": "FTP",
+                  "value": "ftp",
+                  "help": "11: FTP"
+                },
+                {
+                  "label": "NTP",
+                  "value": "ntp",
+                  "help": "12: NTP"
+                },
+                {
+                  "label": "Audit",
+                  "value": "audit",
+                  "help": "13: Audit"
+                },
+                {
+                  "label": "Alert",
+                  "value": "alert",
+                  "help": "14: Alert"
+                },
+                {
+                  "label": "Clock",
+                  "value": "clock",
+                  "help": "15: Clock-related"
+                },
+                {
+                  "label": "Local0",
+                  "value": "local0",
+                  "help": "16: Local use 0"
+                },
+                {
+                  "label": "Local1",
+                  "value": "local1",
+                  "help": "17: Local use 1"
+                },
+                {
+                  "label": "Local2",
+                  "value": "local2",
+                  "help": "18: Local use 2"
+                },
+                {
+                  "label": "Local3",
+                  "value": "local3",
+                  "help": "19: Local use 3"
+                },
+                {
+                  "label": "Local4",
+                  "value": "local4",
+                  "help": "20: Local use 4"
+                },
+                {
+                  "label": "Local5",
+                  "value": "local5",
+                  "help": "21: Local use 5"
+                },
+                {
+                  "label": "Local6",
+                  "value": "local6",
+                  "help": "22: Local use 6"
+                },
+                {
+                  "label": "Local7",
+                  "value": "local7",
+                  "help": "23: Local use 7"
+                }
+              ],
+              "default": "local0",
+              "help": "Set NAT logging facility (default: local0)",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "severity",
+            "label": "Severity",
+            "type": "dummy-object",
+            "cm-lineage": "ip.nat.template.logging.severity",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "help": "Set NAT logging severity (default: debug)"
+            },
+            "fields": [
+              {
+                "key": "severity-string",
+                "label": "Severity String",
+                "type": "select",
+                "cm-lineage": "ip.nat.template.logging.severity.severity-string",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mvy",
+                  "condition": "severity",
+                  "allowed": [
+                    {
+                      "label": "Emergency",
+                      "value": "emergency",
+                      "help": "0: Emergency"
+                    },
+                    {
+                      "label": "Alert",
+                      "value": "alert",
+                      "help": "1: Alert"
+                    },
+                    {
+                      "label": "Critical",
+                      "value": "critical",
+                      "help": "2: Critical"
+                    },
+                    {
+                      "label": "Error",
+                      "value": "error",
+                      "help": "3: Error"
+                    },
+                    {
+                      "label": "Warning",
+                      "value": "warning",
+                      "help": "4: Warning"
+                    },
+                    {
+                      "label": "Notice",
+                      "value": "notice",
+                      "help": "5: Notice"
+                    },
+                    {
+                      "label": "Informational",
+                      "value": "informational",
+                      "help": "6: Informational"
+                    },
+                    {
+                      "label": "Debug",
+                      "value": "debug",
+                      "help": "7: Debug"
+                    }
+                  ],
+                  "default": "debug",
+                  "m-exclusion": [
+                    "severity-val"
+                  ],
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "severity-val",
+                "label": "Severity Value",
+                "type": "input-number",
+                "cm-lineage": "ip.nat.template.logging.severity.severity-val",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mv",
+                  "condition": "severity",
+                  "range": "0-7",
+                  "m-exclusion": [
+                    "severity-string"
+                  ],
+                  "help": "Logging severity level",
+                  "default": 7
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "select",
+            "cm-lineage": "ip.nat.template.logging.service-group",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Set NAT logging service-group",
+              "obj-association": [
+                "slb.service-group"
+              ]
+            }
+          },
+          {
+            "key": "source-port",
+            "label": "Source Port",
+            "type": "dummy-object",
+            "cm-lineage": "ip.nat.template.logging.source-port",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "help": "Set source port for sending NAT syslogs"
+            },
+            "fields": [
+              {
+                "key": "source-port-num",
+                "label": "Source Port Number",
+                "type": "input-number",
+                "cm-lineage": "ip.nat.template.logging.source-port.source-port-num",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mv",
+                  "range": "1-65535",
+                  "condition": "source-port",
+                  "default": 514,
+                  "help": "Set source port for sending NAT syslogs (default: 514)",
+                  "m-exclusion": [
+                    "any"
+                  ]
+                }
+              },
+              {
+                "key": "any",
+                "label": "Any",
+                "type": "switch",
+                "cm-lineage": "ip.nat.template.logging.source-port.any",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mk",
+                  "condition": "source-port",
+                  "m-exclusion": [
+                    "source-port-num"
+                  ],
+                  "help": "Use any source port"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

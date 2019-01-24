@@ -1,0 +1,306 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.dns",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/dns",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "DNS",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "dns",
+          "label": "Dns",
+          "cm-lineage": "health.monitor.method.dns.dns",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "DNS type" 
+          }
+        },
+        { 
+          "key": "dns-ip-key",
+          "label": "Dns Ip Key",
+          "cm-lineage": "health.monitor.method.dns.dns-ip-key",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "dns",
+            "help": "Reverse DNS lookup",
+            "m-exclusion": [  
+             "dns-domain" 
+            ]
+          }
+        },
+        { 
+          "key": "dns-ipv4-addr",
+          "label": "Dns Ipv4 Addr",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv4-addr",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "dns-ip-key",
+            "help": "Specify IPv4 address",
+            "m-exclusion": [  
+             "dns-ipv6-addr" 
+            ]
+          }
+        },
+        { 
+          "key": "dns-ipv6-addr",
+          "label": "Dns Ipv6 Addr",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv6-addr",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "dns-ip-key",
+            "help": "Specify IPv6 address",
+            "m-exclusion": [  
+             "dns-ipv4-addr" 
+            ]
+          }
+        },
+        { 
+          "key": "dns-ipv4-port",
+          "label": "Dns Ipv4 Port",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv4-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "dns-ipv4-addr",
+            "help": "Specify DNS port, default is 53",
+            "default": "53",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "dns-ipv4-response",
+          "label": "Dns Ipv4 Response",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv4-response",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "dns-ipv4-addr",
+            "help": "Specify response code range (e.g. 0,1-5)",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "dns-ipv4-recurse",
+          "label": "Dns Ipv4 Recurse",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv4-recurse",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "dns-ipv4-addr",
+            "allowed": [  
+              { 
+              "label": "Enabled",
+              "value": "enabled",
+              "help": "Set the recursion bit" 
+              },
+              { 
+              "label": "Disabled",
+              "value": "disabled",
+              "help": "Clear the recursion bit" 
+              }
+            ],
+            "default": "enabled" 
+          }
+        },
+        { 
+          "key": "dns-ipv4-tcp",
+          "label": "Dns Ipv4 Tcp",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv4-tcp",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "dns-ipv4-addr",
+            "help": "Configure DNS transport over TCP, default is UDP" 
+          }
+        },
+        { 
+          "key": "dns-ipv6-port",
+          "label": "Dns Ipv6 Port",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv6-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "dns-ipv6-addr",
+            "help": "Specify DNS port, default is 53",
+            "default": "53",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "dns-ipv6-response",
+          "label": "Dns Ipv6 Response",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv6-response",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "dns-ipv6-addr",
+            "help": "Specify response code range (e.g. 0,1-5)",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "dns-ipv6-recurse",
+          "label": "Dns Ipv6 Recurse",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv6-recurse",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "dns-ipv6-addr",
+            "allowed": [  
+              { 
+              "label": "Enabled",
+              "value": "enabled",
+              "help": "Set the recursion bit" 
+              },
+              { 
+              "label": "Disabled",
+              "value": "disabled",
+              "help": "Clear the recursion bit" 
+              }
+            ],
+            "default": "enabled" 
+          }
+        },
+        { 
+          "key": "dns-ipv6-tcp",
+          "label": "Dns Ipv6 Tcp",
+          "cm-lineage": "health.monitor.method.dns.dns-ipv6-tcp",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "dns-ipv6-addr",
+            "help": "Configure DNS transport over TCP, default is UDP" 
+          }
+        },
+        { 
+          "key": "dns-domain",
+          "label": "Dns Domain",
+          "cm-lineage": "health.monitor.method.dns.dns-domain",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "dns",
+            "help": "Specify fully qualified domain name of the host",
+            "range": "1-255",
+            "m-exclusion": [  
+             "dns-ip-key" 
+            ]
+          }
+        },
+        { 
+          "key": "dns-domain-port",
+          "label": "Dns Domain Port",
+          "cm-lineage": "health.monitor.method.dns.dns-domain-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "dns-domain",
+            "help": "Specify DNS port, default is 53",
+            "default": "53",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "dns-domain-response",
+          "label": "Dns Domain Response",
+          "cm-lineage": "health.monitor.method.dns.dns-domain-response",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "dns-domain",
+            "help": "Specify response code range (e.g. 0,1-5)",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "dns-domain-recurse",
+          "label": "Dns Domain Recurse",
+          "cm-lineage": "health.monitor.method.dns.dns-domain-recurse",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "dns-domain",
+            "allowed": [  
+              { 
+              "label": "Enabled",
+              "value": "enabled",
+              "help": "Set the recursion bit" 
+              },
+              { 
+              "label": "Disabled",
+              "value": "disabled",
+              "help": "Clear the recursion bit" 
+              }
+            ],
+            "default": "enabled" 
+          }
+        },
+        { 
+          "key": "dns-domain-tcp",
+          "label": "Dns Domain Tcp",
+          "cm-lineage": "health.monitor.method.dns.dns-domain-tcp",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "dns-domain",
+            "help": "Configure DNS transport over TCP, default is UDP" 
+          }
+        },
+        { 
+          "key": "dns-domain-type",
+          "label": "Dns Domain Type",
+          "cm-lineage": "health.monitor.method.dns.dns-domain-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "dns-domain",
+            "allowed": [  
+              { 
+              "label": "A",
+              "value": "A",
+              "help": "Used for storing Ipv4 address (default)" 
+              },
+              { 
+              "label": "CNAME",
+              "value": "CNAME",
+              "help": "Canonical name for a DNS alias" 
+              },
+              { 
+              "label": "SOA",
+              "value": "SOA",
+              "help": "Start of authority" 
+              },
+              { 
+              "label": "PTR",
+              "value": "PTR",
+              "help": "Domain name pointer" 
+              },
+              { 
+              "label": "MX",
+              "value": "MX",
+              "help": "Mail exchanger" 
+              },
+              { 
+              "label": "TXT",
+              "value": "TXT",
+              "help": "Text string" 
+              },
+              { 
+              "label": "AAAA",
+              "value": "AAAA",
+              "help": "Used for storing Ipv6 128-bits address" 
+              }
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

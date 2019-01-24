@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.fix",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/fix/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.fix.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "FIX Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "logging",
+          "label": "Logging",
+          "cm-lineage": "slb.template.fix.logging",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Init",
+              "value": "init",
+              "help": "init only log" 
+              },
+              { 
+              "label": "Term",
+              "value": "term",
+              "help": "termination only log" 
+              },
+              { 
+              "label": "Both",
+              "value": "both",
+              "help": "both initial and termination log" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "insert-client-ip",
+          "label": "Insert Client Ip",
+          "cm-lineage": "slb.template.fix.insert-client-ip",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Insert client ip to tag 11447" 
+          }
+        },
+        { 
+          "key": "tag-switching",
+          "label": "Tag Switching",
+          "cm-lineage": "slb.template.fix.tag-switching",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "switching-type",
+            "label": "Switching Type",
+            "cm-lineage": "slb.template.fix.switching-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Sender Comp Id",
+                "value": "sender-comp-id",
+                "help": "Select service group based on SenderCompID" 
+                },
+                { 
+                "label": "Target Comp Id",
+                "value": "target-comp-id",
+                "help": "Select service group based on TargetCompID" 
+                }
+              ],
+              "max-elements": "127" 
+            }
+          },
+          { 
+            "key": "equals",
+            "label": "Equals",
+            "cm-lineage": "slb.template.fix.equals",
+            "cm-meta":  { 
+              "format": "string",
+              "condition": "switching-type",
+              "help": "Equals",
+              "multi-field-key": true,
+              "max-elements": "127",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "service-group",
+            "label": "Service Group",
+            "cm-lineage": "slb.template.fix.service-group",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "equals",
+              "help": "Create a Service Group comprising Servers",
+              "max-elements": "127",
+              "obj-association": [  
+               "slb.service-group" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

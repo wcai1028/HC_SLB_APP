@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.persist.ssl-sid",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/persist/ssl-sid/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.persist.ssl-sid.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SSL session ID persistence template name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "dont-honor-conn-rules",
+          "label": "Dont Honor Conn Rules",
+          "cm-lineage": "slb.template.persist.ssl-sid.dont-honor-conn-rules",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Do not observe connection rate rules" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "timeout",
+          "label": "Timeout",
+          "cm-lineage": "slb.template.persist.ssl-sid.timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Persistence timeout",
+            "default": "5",
+            "range": "1-2000" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

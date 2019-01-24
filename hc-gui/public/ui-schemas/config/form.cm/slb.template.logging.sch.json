@@ -1,0 +1,147 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.logging",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/logging/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.logging.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Logging Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "format",
+          "label": "Format",
+          "cm-lineage": "slb.template.logging.format",
+          "cm-meta":  { 
+            "format": "line",
+            "help": "Specify a format string for web logging",
+            "range": "1-250" 
+          }
+        },
+        { 
+          "key": "local-logging",
+          "label": "Local Logging",
+          "cm-lineage": "slb.template.logging.local-logging",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "1 to enable local logging",
+            "default": "0",
+            "range": "0-1" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "service-group",
+          "label": "Service Group",
+          "cm-lineage": "slb.template.logging.service-group",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Bind a Service Group to the logging template",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "pcre-mask",
+          "label": "Pcre Mask",
+          "cm-lineage": "slb.template.logging.pcre-mask",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Mask matched PCRE pattern in the log",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "tcp-proxy",
+          "label": "Tcp Proxy",
+          "cm-lineage": "slb.template.logging.tcp-proxy",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "TCP proxy template",
+            "obj-association": [  
+             "slb.template.tcp-proxy" 
+            ],
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "pool",
+          "label": "Pool",
+          "cm-lineage": "slb.template.logging.pool",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify NAT pool or pool group",
+            "obj-association": [  
+             "ip.nat.pool",
+             " ipv6.nat.pool",
+             " ip.nat.pool-group",
+             " ipv6.nat.pool-group" 
+            ],
+            "range": "1-128",
+            "m-exclusion": [  
+             "shared-partition-pool" 
+            ]
+          }
+        },
+        { 
+          "key": "auto",
+          "label": "Auto",
+          "cm-lineage": "slb.template.logging.auto",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Auto",
+              "value": "auto",
+              "help": "Configure auto NAT for logging, default is auto enabled" 
+              }
+            ],
+            "default": "auto",
+            "m-exclusion": [  
+             "pool" 
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

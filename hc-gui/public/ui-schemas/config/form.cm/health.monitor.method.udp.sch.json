@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.udp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/udp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "UDP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "udp",
+          "label": "Udp",
+          "cm-lineage": "health.monitor.method.udp.udp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "UDP type" 
+          }
+        },
+        { 
+          "key": "udp-port",
+          "label": "Udp Port",
+          "cm-lineage": "health.monitor.method.udp.udp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "udp",
+            "help": "Specify UDP port",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "force-up-with-single-healthcheck",
+          "label": "Force Up With Single Healthcheck",
+          "cm-lineage": "health.monitor.method.udp.force-up-with-single-healthcheck",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "udp-port",
+            "help": "Force Up with no response at the first time" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.radius",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/radius",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "RADIUS",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "radius",
+          "label": "Radius",
+          "cm-lineage": "health.monitor.method.radius.radius",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "RADIUS type" 
+          }
+        },
+        { 
+          "key": "radius-username",
+          "label": "Radius Username",
+          "cm-lineage": "health.monitor.method.radius.radius-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "radius",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "radius-password",
+          "label": "Radius Password",
+          "cm-lineage": "health.monitor.method.radius.radius-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "radius-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "radius-password-string",
+          "label": "Radius Password String",
+          "cm-lineage": "health.monitor.method.radius.radius-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "radius-password",
+            "help": "Configure password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "radius-encrypted",
+          "label": "Radius Encrypted",
+          "cm-lineage": "health.monitor.method.radius.radius-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "radius-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "radius-secret",
+          "label": "Radius Secret",
+          "cm-lineage": "health.monitor.method.radius.radius-secret",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "radius-password-string",
+            "help": "Specify the shared secret of RADIUS server",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "radius-port",
+          "label": "Radius Port",
+          "cm-lineage": "health.monitor.method.radius.radius-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "radius-secret",
+            "help": "Specify the RADIUS port, default is 1812",
+            "default": "1812",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "radius-expect",
+          "label": "Radius Expect",
+          "cm-lineage": "health.monitor.method.radius.radius-expect",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "radius-secret",
+            "help": "Specify what you expect from the response message" 
+          }
+        },
+        { 
+          "key": "radius-response-code",
+          "label": "Radius Response Code",
+          "cm-lineage": "health.monitor.method.radius.radius-response-code",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "radius-expect",
+            "help": "Specify response code range (e.g. 2,4-7)",
+            "range": "1-31" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

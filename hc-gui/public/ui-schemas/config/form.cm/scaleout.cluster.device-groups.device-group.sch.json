@@ -1,0 +1,82 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.device-groups.device-group",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/device-groups/device-group/{device-group}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "device-group",
+          "label": "Device Group",
+          "cm-lineage": "scaleout.cluster.device-groups.device-group.device-group",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "scaleout device group",
+            "object-key": true,
+            "range": "1-16" 
+          }
+        },
+        { 
+          "key": "device-id-list",
+          "label": "Device Id List",
+          "cm-lineage": "scaleout.cluster.device-groups.device-group.device-id-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "device-id-start",
+            "label": "Device Id Start",
+            "cm-lineage": "scaleout.cluster.device-groups.device-group.device-id-start",
+            "cm-meta":  { 
+              "format": "range-start",
+              "help": "device-id" 
+            }
+          },
+          { 
+            "key": "to",
+            "label": "To",
+            "cm-lineage": "scaleout.cluster.device-groups.device-group.to",
+            "cm-meta":  { 
+              "format": "dummy",
+              "condition": "device-id-start",
+              "help": "To an end range" 
+            }
+          },
+          { 
+            "key": "device-id-end",
+            "label": "Device Id End",
+            "cm-lineage": "scaleout.cluster.device-groups.device-group.device-id-end",
+            "cm-meta":  { 
+              "format": "range-end",
+              "condition": "device-id-start",
+              "help": "device-id" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

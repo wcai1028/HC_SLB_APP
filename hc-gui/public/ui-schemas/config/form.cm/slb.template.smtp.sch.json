@@ -1,0 +1,236 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.smtp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/smtp/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.smtp.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SMTP Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "server-domain",
+          "label": "Server Domain",
+          "cm-lineage": "slb.template.smtp.server-domain",
+          "cm-meta":  { 
+            "format": "host",
+            "help": "Config the domain of the email servers",
+            "range": "1-254" 
+          }
+        },
+        { 
+          "key": "service-ready-msg",
+          "label": "Service Ready Msg",
+          "cm-lineage": "slb.template.smtp.service-ready-msg",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Set SMTP service ready message",
+            "default": "ESMTP mail service ready",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "client-starttls-type",
+          "label": "Client Starttls Type",
+          "cm-lineage": "slb.template.smtp.client-starttls-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "de=",
+            "allowed": [  
+              { 
+              "label": "Optional",
+              "value": "optional",
+              "help": "STARTTLS is optional requirement" 
+              },
+              { 
+              "label": "Enforced",
+              "value": "enforced",
+              "help": "Must issue STARTTLS command before mail transaction" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "server-starttls-type",
+          "label": "Server Starttls Type",
+          "cm-lineage": "slb.template.smtp.server-starttls-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "de=",
+            "allowed": [  
+              { 
+              "label": "Optional",
+              "value": "optional",
+              "help": "STARTTLS is optional requirement" 
+              },
+              { 
+              "label": "Enforced",
+              "value": "enforced",
+              "help": "Must issue STARTTLS command before mail transaction" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "client-domain-switching",
+          "label": "Client Domain Switching",
+          "cm-lineage": "slb.template.smtp.client-domain-switching",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "switching-type",
+            "label": "Switching Type",
+            "cm-lineage": "slb.template.smtp.switching-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "de=",
+              "allowed": [  
+                { 
+                "label": "Contains",
+                "value": "contains",
+                "help": "Specify domain name string if domain contains another string" 
+                },
+                { 
+                "label": "Ends With",
+                "value": "ends-with",
+                "help": "Specify domain name string if domain ends with another string" 
+                },
+                { 
+                "label": "Starts With",
+                "value": "starts-with",
+                "help": "Specify domain string if domain starts with another string" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "16" 
+            }
+          },
+          { 
+            "key": "match-string",
+            "label": "Match String",
+            "cm-lineage": "slb.template.smtp.match-string",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "switching-type",
+              "help": "Domain name string",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-31" 
+            }
+          },
+          { 
+            "key": "service-group",
+            "label": "Service Group",
+            "cm-lineage": "slb.template.smtp.service-group",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "match-string",
+              "help": "Select service group",
+              "max-elements": "16",
+              "obj-association": [  
+               "slb.service-group" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "command-disable",
+          "label": "Command Disable",
+          "cm-lineage": "slb.template.smtp.command-disable",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "disable-type",
+            "label": "Disable Type",
+            "cm-lineage": "slb.template.smtp.disable-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "de=",
+              "allowed": [  
+                { 
+                "label": "Expn",
+                "value": "expn",
+                "help": "Disable SMTP EXPN commands" 
+                },
+                { 
+                "label": "Turn",
+                "value": "turn",
+                "help": "Disable SMTP TURN commands" 
+                },
+                { 
+                "label": "Vrfy",
+                "value": "vrfy",
+                "help": "Disable SMTP VRFY commands" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "3" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "logging",
+          "label": "Logging",
+          "cm-lineage": "slb.template.smtp.logging",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "de=",
+            "help": "Logging template",
+            "obj-association": [  
+             "slb.template.logging" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.database",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/database",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Database",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "database",
+          "label": "Database",
+          "cm-lineage": "health.monitor.method.database.database",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "DATABASE type" 
+          }
+        },
+        { 
+          "key": "database-name",
+          "label": "Database Name",
+          "cm-lineage": "health.monitor.method.database.database-name",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "database",
+            "allowed": [  
+              { 
+              "label": "Mssql",
+              "value": "mssql",
+              "help": "Specify MSSQL database" 
+              },
+              { 
+              "label": "Mysql",
+              "value": "mysql",
+              "help": "Specify MySQL database" 
+              },
+              { 
+              "label": "Oracle",
+              "value": "oracle",
+              "help": "Specify Oracle database" 
+              },
+              { 
+              "label": "Postgresql",
+              "value": "postgresql",
+              "help": "Specify PostgreSQL database" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "db-name",
+          "label": "Db Name",
+          "cm-lineage": "health.monitor.method.database.db-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "database-name",
+            "help": "Specify the database name",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "db-username",
+          "label": "Db Username",
+          "cm-lineage": "health.monitor.method.database.db-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "db-name",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "db-password",
+          "label": "Db Password",
+          "cm-lineage": "health.monitor.method.database.db-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "db-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "db-password-str",
+          "label": "Db Password Str",
+          "cm-lineage": "health.monitor.method.database.db-password-str",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "db-password",
+            "help": "Configure password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "db-encrypted",
+          "label": "Db Encrypted",
+          "cm-lineage": "health.monitor.method.database.db-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "db-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "db-send",
+          "label": "Db Send",
+          "cm-lineage": "health.monitor.method.database.db-send",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "db-password-str",
+            "help": "Specify the SQL query",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "db-receive",
+          "label": "Db Receive",
+          "cm-lineage": "health.monitor.method.database.db-receive",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "db-send",
+            "help": "Specify the response string",
+            "range": "1-31",
+            "m-exclusion": [  
+             "db-receive-integer" 
+            ]
+          }
+        },
+        { 
+          "key": "db-row",
+          "label": "Db Row",
+          "cm-lineage": "health.monitor.method.database.db-row",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "db-receive",
+            "help": "Specify the row number for receiving",
+            "range": "1-10" 
+          }
+        },
+        { 
+          "key": "db-column",
+          "label": "Db Column",
+          "cm-lineage": "health.monitor.method.database.db-column",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "db-row",
+            "help": "Specify the column number for receiving",
+            "range": "1-10" 
+          }
+        },
+        { 
+          "key": "db-receive-integer",
+          "label": "Db Receive Integer",
+          "cm-lineage": "health.monitor.method.database.db-receive-integer",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "db-send",
+            "help": "Specify the response integer",
+            "range": "0-2147483647",
+            "m-exclusion": [  
+             "db-receive" 
+            ]
+          }
+        },
+        { 
+          "key": "db-row-integer",
+          "label": "Db Row Integer",
+          "cm-lineage": "health.monitor.method.database.db-row-integer",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "db-receive-integer",
+            "help": "Specify the row number for receiving",
+            "range": "1-10" 
+          }
+        },
+        { 
+          "key": "db-column-integer",
+          "label": "Db Column Integer",
+          "cm-lineage": "health.monitor.method.database.db-column-integer",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "db-row-integer",
+            "help": "Specify the column number for receiving",
+            "range": "1-10" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

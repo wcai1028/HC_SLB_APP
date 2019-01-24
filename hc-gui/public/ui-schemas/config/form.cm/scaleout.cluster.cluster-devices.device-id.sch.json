@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.cluster-devices.device-id",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/cluster-devices/device-id/{device-id}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "device-id",
+          "label": "Device Id",
+          "cm-lineage": "scaleout.cluster.cluster-devices.device-id.device-id",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "scaleout device id",
+            "object-key": true,
+            "range": "1-8" 
+          }
+        },
+        { 
+          "key": "ip",
+          "label": "Ip",
+          "cm-lineage": "scaleout.cluster.cluster-devices.device-id.ip",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "help": "ip" 
+          }
+        },
+        { 
+          "key": "action",
+          "label": "Action",
+          "cm-lineage": "scaleout.cluster.cluster-devices.device-id.action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Enable",
+              "value": "enable",
+              "help": "enable" 
+              },
+              { 
+              "label": "Disable",
+              "value": "disable",
+              "help": "disable" 
+              }
+            ],
+            "default": "enable" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

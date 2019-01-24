@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.persist.destination-ip",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/persist/destination-ip/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.persist.destination-ip.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Destination IP persistence template name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "hash-persist",
+          "label": "Hash Persist",
+          "cm-lineage": "slb.template.persist.destination-ip.hash-persist",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use hash value of destination IP address" 
+          }
+        },
+        { 
+          "key": "match-type",
+          "label": "Match Type",
+          "cm-lineage": "slb.template.persist.destination-ip.match-type",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Persistence type" 
+          }
+        },
+        { 
+          "key": "server",
+          "label": "Server",
+          "cm-lineage": "slb.template.persist.destination-ip.server",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "match-type",
+            "help": "Persist to the same server, default is port",
+            "m-exclusion": [  
+             "service-group" 
+            ]
+          }
+        },
+        { 
+          "key": "service-group",
+          "label": "Service Group",
+          "cm-lineage": "slb.template.persist.destination-ip.service-group",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "match-type",
+            "help": "Persist within the same service group",
+            "m-exclusion": [  
+             "server" 
+            ]
+          }
+        },
+        { 
+          "key": "netmask",
+          "label": "Netmask",
+          "cm-lineage": "slb.template.persist.destination-ip.netmask",
+          "cm-meta":  { 
+            "format": "ipv4-netmask",
+            "help": "IP subnet mask" 
+          }
+        },
+        { 
+          "key": "netmask6",
+          "label": "Netmask6",
+          "cm-lineage": "slb.template.persist.destination-ip.netmask6",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "IPV6 subnet mask",
+            "default": "128",
+            "range": "1-128" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "dont-honor-conn-rules",
+          "label": "Dont Honor Conn Rules",
+          "cm-lineage": "slb.template.persist.destination-ip.dont-honor-conn-rules",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Do not observe connection rate rules" 
+          }
+        },
+        { 
+          "key": "timeout",
+          "label": "Timeout",
+          "cm-lineage": "slb.template.persist.destination-ip.timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Persistence timeout",
+            "default": "5",
+            "range": "1-2000" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

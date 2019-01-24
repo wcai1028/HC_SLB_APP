@@ -1,0 +1,92 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.smpp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/smpp/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.smpp.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SMPP Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "client-enquire-link",
+          "label": "Client Enquire Link",
+          "cm-lineage": "slb.template.smpp.client-enquire-link",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Respond client ENQUIRE_LINK packet directly instead of forwarding to server" 
+          }
+        },
+        { 
+          "key": "server-enquire-link",
+          "label": "Server Enquire Link",
+          "cm-lineage": "slb.template.smpp.server-enquire-link",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send server ENQUIRE_LINK packet for every persist connection when enable conn-reuse" 
+          }
+        },
+        { 
+          "key": "user",
+          "label": "User",
+          "cm-lineage": "slb.template.smpp.user",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Configure the user to bind",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "password",
+          "label": "Password",
+          "cm-lineage": "slb.template.smpp.password",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "user",
+            "help": "Configure the password used to bind",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "server-selection-per-request",
+          "label": "Server Selection Per Request",
+          "cm-lineage": "slb.template.smpp.server-selection-per-request",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Force server selection on every SMPP request when enable conn-reuse" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

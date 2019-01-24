@@ -1,0 +1,159 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy",
+  "cm-object-meta": {
+    "obj-occurences": "single"
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy",
+  "pageTitle": "Policy Forward Policy Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "local-logging",
+            "label": "Local Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.forward-policy.local-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable local logging"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "no-client-conn-reuse",
+            "label": "No Client Connection Reuse",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.forward-policy.no-client-conn-reuse",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Inspects only first request of a connection"
+            }
+          },
+          {
+            "key": "filtering",
+            "label": "Filtering",
+            "type": "table",
+            "cm-lineage": "slb.template.policy.forward-policy.filtering",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ssli-url-filtering",
+                "label": "SSLi URL Filtering",
+                "type": "select",
+                "cm-lineage": "slb.template.policy.forward-policy.filtering.ssli-url-filtering",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ob",
+                  "max-elements": 4,
+                  "help": "Destination filtering controls when policy is used as Transparent proxy in SSLi setup",
+                  "allowed": [
+                    {
+                      "label": "Bypassed SNI Disable",
+                      "value": "bypassed-sni-disable",
+                      "help": "Disable SNI filtering for bypassed URL's(enabled by default)"
+                    },
+                    {
+                      "label": "Intercepted SNI Enable",
+                      "value": "intercepted-sni-enable",
+                      "help": "Enable SNI filtering for intercepted URL's(disabled by default)"
+                    },
+                    {
+                      "label": "Intercepted HTTP Disable",
+                      "value": "intercepted-http-disable",
+                      "help": "Disable HTTP(host/URL) filtering for intercepted URL's(enabled by default)"
+                    },
+                    {
+                      "label": "No SNI Allow",
+                      "value": "no-sni-allow",
+                      "help": "Allow connection if SNI filtering is enabled and SNI header is not present(Drop by default)"
+                    }
+                  ],
+                  "range": "1-128"
+                }
+              }
+            ]
+          },
+          {
+            "key": "san-filtering",
+            "label": "San Filtering",
+            "type": "table",
+            "cm-lineage": "slb.template.policy.forward-policy.san-filtering",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "ssli-url-filtering-san",
+                "label": "SSLi URL Filtering San",
+                "type": "select",
+                "cm-lineage": "slb.template.policy.forward-policy.san-filtering.ssli-url-filtering-san",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ob",
+                  "max-elements": 4,
+                  "help": "Destination filtering controls based on Certificate SAN when policy is used as Transparent proxy in SSLi setup",
+                  "allowed": [
+                    {
+                      "label": "Enable San",
+                      "value": "enable-san",
+                      "help": "Enable SAN filtering(disabled by default)"
+                    },
+                    {
+                      "label": "Bypassed San Disable",
+                      "value": "bypassed-san-disable",
+                      "help": "Disable SAN filtering for bypassed URL's(enabled by default)"
+                    },
+                    {
+                      "label": "Intercepted San Enable",
+                      "value": "intercepted-san-enable",
+                      "help": "Enable SAN filtering for intercepted URL's(disabled by default)"
+                    },
+                    {
+                      "label": "No San Allow",
+                      "value": "no-san-allow",
+                      "help": "Allow connection if SAN filtering is enabled and SAN field is not present(Drop by default)"
+                    }
+                  ],
+                  "range": "1-128"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

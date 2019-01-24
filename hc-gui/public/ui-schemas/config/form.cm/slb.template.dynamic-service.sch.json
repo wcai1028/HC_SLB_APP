@@ -1,0 +1,84 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dynamic-service",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/dynamic-service/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.dynamic-service.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Dynamic Service Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "dns-server",
+          "label": "Dns Server",
+          "cm-lineage": "slb.template.dynamic-service.dns-server",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "server",
+            "label": "Server",
+            "cm-lineage": "slb.template.dynamic-service.server",
+            "cm-meta":  { 
+              "format": "dummy",
+              "help": "DNS Server" 
+            }
+          },
+          { 
+            "key": "ipv4-dns-server",
+            "label": "Ipv4 Dns Server",
+            "cm-lineage": "slb.template.dynamic-service.ipv4-dns-server",
+            "cm-meta":  { 
+              "format": "ipv4-address",
+              "help": "DNS Server IPv4 Address",
+              "multi-field-key": true,
+              "max-elements": "2" 
+            }
+          },
+          { 
+            "key": "ipv6-dns-server",
+            "label": "Ipv6 Dns Server",
+            "cm-lineage": "slb.template.dynamic-service.ipv6-dns-server",
+            "cm-meta":  { 
+              "format": "ipv6-address",
+              "help": "DNS Server IPv6 Address",
+              "multi-field-key": true,
+              "max-elements": "2" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

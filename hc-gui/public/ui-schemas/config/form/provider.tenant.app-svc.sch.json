@@ -1,0 +1,95 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "provider.tenant.app-svc",
+  "cm-object-meta": {},
+  "axapi": "provider/{name}/tenant/{name}/app-svc/{name}",
+  "pageTitle": "Provider Tenant App Service",
+  "components": {
+    "sections": [
+      {
+        "title": "App Service",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "provider.tenant.app-svc.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "help": "Application service name",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "app-svc-type",
+            "label": "App Service Type",
+            "type": "select",
+            "cm-lineage": "provider.tenant.app-svc.app-svc-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mv",
+              "condition": "name",
+              "allowed": [
+                {
+                  "label": "ADC",
+                  "value": "adc",
+                  "help": "ADC"
+                },
+                {
+                  "label": "GIFW",
+                  "value": "gifw",
+                  "help": "GIFW"
+                },
+                {
+                  "label": "CGN",
+                  "value": "cgn",
+                  "help": "CGN"
+                },
+                {
+                  "label": "SSLi",
+                  "value": "ssli",
+                  "help": "SSLi"
+                }
+              ],
+              "default": "adc",
+              "help": "Application Service type"
+            }
+          },
+          {
+            "key": "logical-cluster",
+            "label": "Logical Cluster",
+            "type": "select",
+            "cm-lineage": "provider.tenant.app-svc.logical-cluster",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "obj-association": [
+                "provider.tenant.logical-cluster"
+              ],
+              "range": "1-128"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

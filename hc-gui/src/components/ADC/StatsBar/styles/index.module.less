@@ -1,0 +1,66 @@
+.stats-item-style(@n, @titleColor, @titleSize: 28px, @subTitleSize: 16px) {
+  .ant-col-4:nth-child(@{n}n) {
+    div {
+      &:nth-child(1) {
+        font-size: @titleSize;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: @titleColor;
+      }
+      &:nth-child(2) {
+        font-size: @subTitleSize;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #8e8e8e;
+      }
+    }
+  }
+}
+
+.stats-bar {
+  height: 68px;
+  border-radius: 4px;
+  background-color: #fafdff;
+  border: solid 1px #f1f8ff;
+  text-align: center;
+  :global {
+    .stats-item-style(1, #f5a623);
+    .stats-item-style(2, #00aa6c);
+    .stats-item-style(3, #f5a623);
+    .stats-item-style(4, #f5a623);
+    .stats-item-style(5, #ff2e48);
+    .stats-item-style(6, #ff2e48);
+  }
+}
+
+.small-stats-bar {
+  height: 60px;
+  border-radius: 4px;
+  background-color: #fafdff;
+  border: solid 1px #f1f8ff;
+  text-align: center;
+  :global {
+    .stats-item-style(1, #f5a623, 18px, 14px);
+    .stats-item-style(2, #00aa6c, 18px, 14px);
+    .stats-item-style(3, #f5a623, 18px, 14px);
+    .stats-item-style(4, #f5a623, 18px, 14px);
+    .stats-item-style(5, #ff2e48, 18px, 14px);
+    .stats-item-style(6, #ff2e48, 18px, 14px);
+  }
+}
+
+.stats-unit {
+  font-size: 20px;
+}
+
+.small-stats-unit {
+  font-size: 14px;
+}

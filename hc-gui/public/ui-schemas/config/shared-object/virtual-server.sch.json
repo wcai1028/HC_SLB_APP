@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "template": "shared-object",
+  "type": "virtual-server",
+  "components": [
+    {
+      "label": "Virtual Server",
+      "cm-object-lineage": "slb.template.virtual-server",
+      "referred-by": ["slb.virtual-server"]
+    },
+    {
+      "label": "IP NAT Logging",
+      "cm-object-lineage": "ip.nat.template.logging",
+      "referred-by": ["slb.virtual-server", "slb.virtual-server.port"]
+    },
+    {
+      "label": "Policy",
+      "cm-object-lineage": "slb.template.policy",
+      "referred-by": [
+        "slb.virtual-server",
+        "slb.service-group",
+        "slb.virtual-server.port"
+      ]
+    }
+  ]
+}

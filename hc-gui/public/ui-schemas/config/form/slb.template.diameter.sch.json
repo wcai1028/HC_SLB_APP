@@ -1,0 +1,375 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.diameter",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/diameter/{name}",
+  "pageTitle": "Diameter Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.diameter.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "diameter template Name"
+            }
+          },
+          {
+            "key": "dwr-time",
+            "label": "Dwr Time",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.dwr-time",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "0-2147483647",
+              "default": 100,
+              "help": "dwr health-check timer interval"
+            }
+          },
+          {
+            "key": "idle-timeout",
+            "label": "Idle Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.idle-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "1-65535",
+              "default": 5,
+              "help": "user sesison idle timeout"
+            }
+          },
+          {
+            "key": "multiple-origin-host",
+            "label": "Multiple Origin Host",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.multiple-origin-host",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "allowing multiple origin-host to a single server"
+            }
+          },
+          {
+            "key": "origin-realm",
+            "label": "Origin Realm",
+            "type": "input",
+            "cm-lineage": "slb.template.diameter.origin-realm",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "obr",
+              "range": "1-31",
+              "help": "origin-realm name avp"
+            }
+          },
+          {
+            "key": "product-name",
+            "label": "Product Name",
+            "type": "input",
+            "cm-lineage": "slb.template.diameter.product-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "obr",
+              "range": "1-31",
+              "help": "product name avp"
+            }
+          },
+          {
+            "key": "vendor-id",
+            "label": "Vendor ID",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.vendor-id",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "0-2147483647",
+              "default": 0,
+              "help": "vendor-id avp"
+            }
+          },
+          {
+            "key": "session-age",
+            "label": "Session Age",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.session-age",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "1-65535",
+              "default": 10,
+              "help": "user session age allowed (default 10), this is not idle-time"
+            }
+          },
+          {
+            "key": "terminate-on-cca-t",
+            "label": "Terminate On Cca T",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.terminate-on-cca-t",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "remove diameter session when receiving CCA-T message"
+            }
+          },
+          {
+            "key": "message-code-list",
+            "label": "Message Code List",
+            "type": "table",
+            "cm-lineage": "slb.template.diameter.message-code-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "message-code",
+                "label": "Message Code",
+                "type": "input-number",
+                "cm-lineage": "slb.template.diameter.message-code-list.message-code",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ob",
+                  "range": "1-2147483647",
+                  "multi-field-key": true,
+                  "max-elements": 10,
+                  "help": "specify diameter message code to be load balanced"
+                }
+              }
+            ]
+          },
+          {
+            "key": "avp-list",
+            "label": "Avp List",
+            "type": "table",
+            "cm-lineage": "slb.template.diameter.avp-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "avp",
+                "label": "Avp",
+                "type": "input-number",
+                "cm-lineage": "slb.template.diameter.avp-list.avp",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mby",
+                  "multi-field-key": true,
+                  "max-elements": 6,
+                  "help": "customize avps for cer to the server"
+                }
+              },
+              {
+                "key": "int32",
+                "label": "Int32",
+                "type": "input-number",
+                "cm-lineage": "slb.template.diameter.avp-list.int32",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "help": "32 bits integer",
+                  "m-exclusion": [
+                    "int64",
+                    "string"
+                  ]
+                }
+              },
+              {
+                "key": "int64",
+                "label": "Int64",
+                "type": "input-number",
+                "cm-lineage": "slb.template.diameter.avp-list.int64",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "m-exclusion": [
+                    "int32",
+                    "string"
+                  ],
+                  "help": "64 bits integer"
+                }
+              },
+              {
+                "key": "string",
+                "label": "String",
+                "type": "input",
+                "cm-lineage": "slb.template.diameter.avp-list.string",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "range": "1-127",
+                  "m-exclusion": [
+                    "int64"
+                  ],
+                  "help": "String"
+                }
+              },
+              {
+                "key": "mandatory",
+                "label": "Mandatory",
+                "type": "switch",
+                "cm-lineage": "slb.template.diameter.avp-list.mandatory",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "multi-field-key": true,
+                  "help": "mandatory avp"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "customize-cea",
+            "label": "Customize Cea",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.customize-cea",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "customizing cea response"
+            }
+          },
+          {
+            "key": "duplicate",
+            "label": "Duplicate",
+            "type": "dummy",
+            "cm-lineage": "slb.template.diameter.duplicate",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "copy a message to a different server"
+            }
+          },
+          {
+            "key": "avp-code",
+            "label": "Avp Code",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.avp-code",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mvr",
+              "range": "1-2147483647",
+              "condition": "duplicate",
+              "help": "avp code"
+            }
+          },
+          {
+            "key": "avp-string",
+            "label": "Avp String",
+            "type": "input",
+            "cm-lineage": "slb.template.diameter.avp-string",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvr",
+              "range": "1-127",
+              "condition": "avp-code",
+              "help": "pattern to be matched in the avp string name, max length 127 bytes"
+            }
+          },
+          {
+            "key": "service-group-name",
+            "label": "Service Group Name",
+            "type": "select",
+            "cm-lineage": "slb.template.diameter.service-group-name",
+            "cm-meta": {
+              "format": "long-string",
+              "flags": "mvr",
+              "range": "1-127",
+              "condition": "avp-string",
+              "obj-association": [
+                "slb.service-group"
+              ],
+              "help": "service group name, this is the service group that the message needs to be copied to"
+            }
+          },
+          {
+            "key": "dwr-up-retry",
+            "label": "Dwr Up Retry",
+            "type": "input-number",
+            "cm-lineage": "slb.template.diameter.dwr-up-retry",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obr",
+              "range": "1-7",
+              "default": 3,
+              "help": "number of successful dwr health-check before declaring target up"
+            }
+          },
+          {
+            "key": "forward-unknown-session-id",
+            "label": "Forward Unknown Session ID",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.forward-unknown-session-id",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Forward server message even it has unknown session id"
+            }
+          },
+          {
+            "key": "forward-to-latest-server",
+            "label": "Forward To Latest Server",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.forward-to-latest-server",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Forward client message to the latest server that sends message with the same session id"
+            }
+          },
+          {
+            "key": "load-balance-on-session-id",
+            "label": "Load Balance On Session ID",
+            "type": "switch",
+            "cm-lineage": "slb.template.diameter.load-balance-on-session-id",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Load balance based on the session id"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

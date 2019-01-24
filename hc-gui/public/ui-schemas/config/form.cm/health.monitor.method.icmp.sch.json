@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.icmp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/icmp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "ICMP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "icmp",
+          "label": "Icmp",
+          "cm-lineage": "health.monitor.method.icmp.icmp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "ICMP type" 
+          }
+        },
+        { 
+          "key": "transparent",
+          "label": "Transparent",
+          "cm-lineage": "health.monitor.method.icmp.transparent",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "icmp",
+            "help": "Apply transparent mode" 
+          }
+        },
+        { 
+          "key": "ipv6",
+          "label": "Ipv6",
+          "cm-lineage": "health.monitor.method.icmp.ipv6",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "transparent",
+            "help": "Specify IPv6 address of destination behind monitored node",
+            "m-exclusion": [  
+             "ip" 
+            ]
+          }
+        },
+        { 
+          "key": "ip",
+          "label": "Ip",
+          "cm-lineage": "health.monitor.method.icmp.ip",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "transparent",
+            "help": "Specify IPv4 address of destination behind monitored node",
+            "m-exclusion": [  
+             "ipv6" 
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

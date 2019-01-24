@@ -1,0 +1,286 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.server",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/server/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.server.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Server Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+		{ 
+          "key": "host",
+          "label": "Host",
+          "cm-lineage": "slb.server.host",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+			"object-key": true,
+            "help": "IP Address" 
+          }
+        },
+        { 
+          "key": "action",
+          "label": "Action",
+          "cm-lineage": "slb.server.action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Enable",
+              "value": "enable",
+              "help": "Enable this Real Server" 
+              },
+              { 
+              "label": "Disable",
+              "value": "disable",
+              "help": "Disable this Real Server" 
+              },
+              { 
+              "label": "Disable With Health Check",
+              "value": "disable-with-health-check",
+              "help": "disable real server, but health check work" 
+              }
+            ],
+            "default": "enable" 
+          }
+        },
+        { 
+          "key": "health-check",
+          "label": "Health Check",
+          "cm-lineage": "slb.server.health-check",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Health Check Monitor",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "shared-partition-health-check" 
+            ]
+          }
+        },
+        { 
+          "key": "health-check-shared",
+          "label": "Health Check Shared",
+          "cm-lineage": "slb.server.health-check-shared",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "shared-partition-health-check",
+            "help": "Health Check Monitor",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "health-check-disable" 
+            ]
+          }
+        },
+        { 
+          "key": "health-check-disable",
+          "label": "Health Check Disable",
+          "cm-lineage": "slb.server.health-check-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable configured health check configuration",
+            "m-exclusion": [  
+             "health-check" 
+            ]
+          }
+        },
+        { 
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.server.conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection Limit",
+            "default": "64000000",
+            "range": "1-64000000" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "external-ip",
+          "label": "External Ip",
+          "cm-lineage": "slb.server.external-ip",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "help": "External IP address for NAT of GSLB" 
+          }
+        },
+        { 
+          "key": "ipv6",
+          "label": "Ipv6",
+          "cm-lineage": "slb.server.ipv6",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "help": "IPv6 address Mapping of GSLB" 
+          }
+        },
+        { 
+          "key": "conn-resume",
+          "label": "Conn Resume",
+          "cm-lineage": "slb.server.conn-resume",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection Resume",
+            "range": "1-1000000" 
+          }
+        },
+        { 
+          "key": "weight",
+          "label": "Weight",
+          "cm-lineage": "slb.server.weight",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Weight for this Real Server",
+            "default": "1",
+            "range": "1-1000" 
+          }
+        },
+        { 
+          "key": "slow-start",
+          "label": "Slow Start",
+          "cm-lineage": "slb.server.slow-start",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Slowly ramp up the connection number after server is up (start from 128, then double every 10 sec till 4096)" 
+          }
+        },
+        { 
+          "key": "spoofing-cache",
+          "label": "Spoofing Cache",
+          "cm-lineage": "slb.server.spoofing-cache",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "This server is a spoofing cache" 
+          }
+        },
+        { 
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.server.stats-data-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for real server" 
+              },
+              { 
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for real server" 
+              }
+            ],
+            "default": "stats-data-enable" 
+          }
+        },
+        { 
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.server.extended-stats",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable extended statistics on real server" 
+          }
+        },
+        { 
+          "key": "alternate-server",
+          "label": "Alternate Server",
+          "cm-lineage": "slb.server.alternate-server",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "alternate",
+            "label": "Alternate",
+            "cm-lineage": "slb.server.alternate",
+            "cm-meta":  { 
+              "format": "number",
+              "help": "Alternate Server",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "alternate-name",
+            "label": "Alternate Name",
+            "cm-lineage": "slb.server.alternate-name",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "alternate",
+              "help": "Alternate Name",
+              "max-elements": "16",
+              "obj-association": [  
+               "slb.server" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "template-server",
+          "label": "Template Server",
+          "cm-lineage": "slb.server.template-server",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Server template",
+            "obj-association": [  
+             "slb.template.server" 
+            ],
+            "default": "default",
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

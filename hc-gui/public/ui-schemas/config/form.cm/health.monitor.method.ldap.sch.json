@@ -1,0 +1,169 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.ldap",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/ldap",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "LDAP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "ldap",
+          "label": "Ldap",
+          "cm-lineage": "health.monitor.method.ldap.ldap",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "LDAP type" 
+          }
+        },
+        { 
+          "key": "ldap-port",
+          "label": "Ldap Port",
+          "cm-lineage": "health.monitor.method.ldap.ldap-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "ldap",
+            "help": "Specify the LDAP port",
+            "default": "389",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "ldap-security",
+          "label": "Ldap Security",
+          "cm-lineage": "health.monitor.method.ldap.ldap-security",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "ldap",
+            "allowed": [  
+              { 
+              "label": "Overssl",
+              "value": "overssl",
+              "help": "Set LDAP over SSL" 
+              },
+              { 
+              "label": "StartTLS",
+              "value": "StartTLS",
+              "help": "LDAP switch to TLS" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "ldap-binddn",
+          "label": "Ldap Binddn",
+          "cm-lineage": "health.monitor.method.ldap.ldap-binddn",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ldap",
+            "help": "Specify the distinguished name for bindRequest",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "ldap-password",
+          "label": "Ldap Password",
+          "cm-lineage": "health.monitor.method.ldap.ldap-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ldap-binddn",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "ldap-password-string",
+          "label": "Ldap Password String",
+          "cm-lineage": "health.monitor.method.ldap.ldap-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "ldap-password",
+            "help": "Configure password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "ldap-encrypted",
+          "label": "Ldap Encrypted",
+          "cm-lineage": "health.monitor.method.ldap.ldap-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "ldap-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "ldap-run-search",
+          "label": "Ldap Run Search",
+          "cm-lineage": "health.monitor.method.ldap.ldap-run-search",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ldap",
+            "help": "Specify a query to be executed" 
+          }
+        },
+        { 
+          "key": "BaseDN",
+          "label": "BaseDN",
+          "cm-lineage": "health.monitor.method.ldap.BaseDN",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ldap-run-search",
+            "help": "Specify LDAP DN distinguished name",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "ldap-query",
+          "label": "Ldap Query",
+          "cm-lineage": "health.monitor.method.ldap.ldap-query",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ldap-run-search",
+            "help": "LDAP query to be excuted",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "AcceptResRef",
+          "label": "AcceptResRef",
+          "cm-lineage": "health.monitor.method.ldap.AcceptResRef",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ldap-query",
+            "help": "Mark server up on receiving a search result reference response" 
+          }
+        },
+        { 
+          "key": "AcceptNotFound",
+          "label": "AcceptNotFound",
+          "cm-lineage": "health.monitor.method.ldap.AcceptNotFound",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ldap-query",
+            "help": "Mark server up on receiving a not-found response" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.tcp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/tcp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "TCP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "method-tcp",
+          "label": "Method Tcp",
+          "cm-lineage": "health.monitor.method.tcp.method-tcp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "TCP type" 
+          }
+        },
+        { 
+          "key": "tcp-port",
+          "label": "Tcp Port",
+          "cm-lineage": "health.monitor.method.tcp.tcp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "method-tcp",
+            "help": "Specify TCP port",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "port-halfopen",
+          "label": "Port Halfopen",
+          "cm-lineage": "health.monitor.method.tcp.port-halfopen",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "tcp-port",
+            "help": "Set TCP SYN check",
+            "m-exclusion": [  
+             "port-send" 
+            ]
+          }
+        },
+        { 
+          "key": "port-send",
+          "label": "Port Send",
+          "cm-lineage": "health.monitor.method.tcp.port-send",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "tcp-port",
+            "help": "Send a string to server",
+            "range": "1-511",
+            "m-exclusion": [  
+             "port-halfopen" 
+            ]
+          }
+        },
+        { 
+          "key": "port-contains",
+          "label": "Port Contains",
+          "cm-lineage": "health.monitor.method.tcp.port-contains",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "port-send",
+            "help": "Mark server up if response string contains another string",
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

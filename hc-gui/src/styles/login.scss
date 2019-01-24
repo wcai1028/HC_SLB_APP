@@ -1,0 +1,121 @@
+.login-view {
+  .login-header {
+    color: #66676c;
+    margin: 25px 0 50px;
+    text-align: center;
+  }
+  .forgot-password-cancel-link {
+    /*color: $link-green-color;*/
+    float: right;
+  }
+
+  .brand {
+    height: 130px;
+
+    .a10-globe {
+      height: 50px;
+    }
+
+    .centered {
+      display: -webkit-box;
+    }
+  }
+
+  .panel {
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #ffffff, #f3f3f3);;
+    box-shadow: 0 8px 15px 0px rgba(27, 27, 27, 0.2);
+    padding: 20px 10px;
+    font-family: Roboto;
+  }
+
+  h3 {
+    text-align: center;
+    color: #363636;
+  }
+
+  .login-form {
+    margin-bottom: 0;
+    margin-top: 30px;
+    text-align: left;
+
+    .row {
+      margin: 0;
+    }
+
+    .link {
+      padding-top: 10px;
+      cursor: pointer;
+      color: #4a90e2;
+    }
+
+    .form-control {
+      border-radius: 3px;
+      box-shadow: none;
+    }
+
+    input[type='text'],
+    input[type='password'] {
+      height: 40px;
+    }
+
+    input[type='checkbox'] {
+      vertical-align: top;
+    }
+
+    .clearfix {
+      margin-top: 20px;
+    }
+
+    .login-btn {
+      margin-bottom: 15px;
+    }
+
+    .btn-primary {
+      color: #fff;
+      font-weight: bold;
+      background-color: #4a90e2;
+      border: solid 1px #50bbfe;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
+  hr {
+    margin: 10px 0 10px;
+    width: 100%;
+  }
+  .login-signup-link {
+    // a {
+    //     color: $link-green-color;
+    // }
+    font-size: 18px;
+    text-align: center;
+  }
+  .a10-logo {
+    background: url('../assets/images/A10_logo.svg') no-repeat;
+    text-indent: -999em;
+    background-size: 85px;
+    margin-left: -10px;
+    width: 85px;
+    max-width: 85px;
+    height: 50px;
+    margin-top: 5px;
+  }
+  .product-name {
+    height: 45px;
+    font-family: Roboto;
+    font-size: 28px;
+    text-align: center;
+    color: #fff;
+    padding-top: 10px;
+  }
+  .underline {
+    border-bottom: 1px solid;
+  }
+}
+
+.login-default {
+  background-image: linear-gradient(122deg, #61a7d3, #0078c3);
+  height: 100vh;
+  overflow: auto;
+}

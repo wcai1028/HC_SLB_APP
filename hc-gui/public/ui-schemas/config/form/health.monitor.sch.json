@@ -1,0 +1,3553 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "health.monitor",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "health/monitor/{name}",
+  "pageTitle": "Health Monitor",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "health.monitor.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-63",
+              "help": "Monitor Name"
+            }
+          },
+          {
+            "key": "dsr-l2-strict",
+            "label": "Dsr L2 Strict",
+            "type": "switch",
+            "cm-lineage": "health.monitor.dsr-l2-strict",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable strict L2dsr health-check"
+            }
+          },
+          {
+            "key": "retry",
+            "label": "Retry",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.retry",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-10",
+              "default": 3,
+              "help": "Specify the Healthcheck Retries"
+            }
+          },
+          {
+            "key": "up-retry",
+            "label": "Up Retry",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.up-retry",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-10",
+              "default": 1,
+              "help": "Specify the Healthcheck Retries before declaring target up"
+            }
+          },
+          {
+            "key": "override-ipv4",
+            "label": "Override IPv4",
+            "type": "input",
+            "cm-lineage": "health.monitor.override-ipv4",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "mb",
+              "help": "Override implicitly inherited IPv4 address from target"
+            }
+          },
+          {
+            "key": "override-ipv6",
+            "label": "Override IPv6",
+            "type": "input",
+            "cm-lineage": "health.monitor.override-ipv6",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "mb",
+              "help": "Override implicitly inherited IPv6 address from target"
+            }
+          },
+          {
+            "key": "override-port",
+            "label": "Override Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.override-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-65534",
+              "help": "Override implicitly inherited port from target"
+            }
+          },
+          {
+            "key": "passive",
+            "label": "Passive",
+            "type": "switch",
+            "cm-lineage": "health.monitor.passive",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Specify passive mode"
+            }
+          },
+          {
+            "key": "status-code",
+            "label": "Status Code",
+            "type": "select",
+            "cm-lineage": "health.monitor.status-code",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "passive",
+              "allowed": [
+                {
+                  "label": "Status Code 2xx",
+                  "value": "status-code-2xx",
+                  "help": "Enable passive mode with 2xx http status code"
+                },
+                {
+                  "label": "Status Code Non 5xx",
+                  "value": "status-code-non-5xx",
+                  "help": "Enable passive mode with non-5xx http status code"
+                }
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "passive-interval",
+            "label": "Passive Interval",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.passive-interval",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-180",
+              "condition": "status-code",
+              "default": 10,
+              "help": "Interval to do manual health checking while in passive mode"
+            }
+          },
+          {
+            "key": "sample-threshold",
+            "label": "Sample Threshold",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.sample-threshold",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-10000",
+              "condition": "status-code",
+              "default": 50,
+              "help": "Number of samples in one epoch above which passive HC is enabled. If below or equal to the threshold, passive HC is disabled"
+            }
+          },
+          {
+            "key": "threshold",
+            "label": "Threshold",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.threshold",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "0-100",
+              "condition": "status-code",
+              "default": 75,
+              "help": "Threshold percentage above which passive mode is enabled"
+            }
+          },
+          {
+            "key": "strict-retry-on-server-err-resp",
+            "label": "Strict Retry On Server Err Resp",
+            "type": "switch",
+            "cm-lineage": "health.monitor.strict-retry-on-server-err-resp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Require strictly retry"
+            }
+          },
+          {
+            "key": "disable-after-down",
+            "label": "Disable After Down",
+            "type": "switch",
+            "cm-lineage": "health.monitor.disable-after-down",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Disable the target if health check failed"
+            }
+          },
+          {
+            "key": "interval",
+            "label": "Interval",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.interval",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-180",
+              "default": 5,
+              "help": "Specify the Healthcheck Interval"
+            }
+          },
+          {
+            "key": "timeout",
+            "label": "Timeout",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-180",
+              "condition": "interval",
+              "default": 5,
+              "help": "Specify the Healthcheck Timeout"
+            }
+          },
+          {
+            "key": "ssl-ciphers",
+            "label": "SSL Ciphers",
+            "type": "input",
+            "cm-lineage": "health.monitor.ssl-ciphers",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "default": "DEFAULT",
+              "help": "Specify OpenSSL Cipher Suite name(s) for Health check"
+            }
+          },
+          {
+            "key": "method",
+            "label": "Method",
+            "type": "select",
+            "cm-lineage": "health.monitor.method",
+            "cm-meta": {
+              "gui-as-field": true,
+              "obj-occurences": "intermediate",
+              "allowed": [
+                {
+                  "value": "icmp",
+                  "label": "ICMP"
+                },
+                {
+                  "value": "tcp",
+                  "label": "TCP"
+                },
+                {
+                  "value": "udp",
+                  "label": "UDP"
+                },
+                {
+                  "value": "http",
+                  "label": "HTTP"
+                },
+                {
+                  "value": "ftp",
+                  "label": "FTP"
+                },
+                {
+                  "value": "snmp",
+                  "label": "SNMP"
+                },
+                {
+                  "value": "smtp",
+                  "label": "SMTP"
+                },
+                {
+                  "value": "dns",
+                  "label": "DNS"
+                },
+                {
+                  "value": "pop3",
+                  "label": "POP3"
+                },
+                {
+                  "value": "imap",
+                  "label": "IMAP"
+                },
+                {
+                  "value": "sip",
+                  "label": "SIP"
+                },
+                {
+                  "value": "radius",
+                  "label": "Radius"
+                },
+                {
+                  "value": "ldap",
+                  "label": "LDAP"
+                },
+                {
+                  "value": "rtsp",
+                  "label": "RTSP"
+                },
+                {
+                  "value": "database",
+                  "label": "Database"
+                },
+                {
+                  "value": "external",
+                  "label": "External"
+                },
+                {
+                  "value": "ntp",
+                  "label": "NTP"
+                },
+                {
+                  "value": "compound",
+                  "label": "Compound"
+                },
+                {
+                  "value": "https",
+                  "label": "HTTPS"
+                },
+                {
+                  "value": "kerberos-kdc",
+                  "label": "Kerberos KDC"
+                },
+                {
+                  "value": "tacplus",
+                  "label": "Tacplus"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "title": "Compound",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "compound",
+            "label": "Compound",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.compound.compound",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "Compound type"
+            }
+          },
+          {
+            "key": "rpn-string",
+            "label": "RPN String",
+            "type": "textarea",
+            "cm-lineage": "health.monitor.method.compound.rpn-string",
+            "cm-meta": {
+              "format": "line",
+              "flags": "mv",
+              "condition": "compound",
+              "range": "1-512",
+              "help": "Enter Reverse Polish Notation, example: sub hm1 sub hm2 and"
+            }
+          }
+        ]
+      },
+      {
+        "title": "DNS",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dns",
+            "label": "DNS",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.dns.dns",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "DNS type"
+            }
+          },
+          {
+            "key": "dns-ip-key",
+            "label": "DNS IP Key",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.dns.dns-ip-key",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "dns",
+              "help": "Reverse DNS lookup",
+              "m-exclusion": [
+                "dns-domain"
+              ]
+            }
+          },
+          {
+            "key": "dns-ipv4-addr",
+            "label": "DNS IPv4 Address",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv4-addr",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "mv",
+              "condition": "dns-ip-key",
+              "help": "Specify IPv4 address",
+              "m-exclusion": [
+                "dns-ipv6-addr"
+              ]
+            }
+          },
+          {
+            "key": "dns-ipv6-addr",
+            "label": "DNS IPv6 Address",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv6-addr",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "mv",
+              "condition": "dns-ip-key",
+              "m-exclusion": [
+                "dns-ipv4-addr"
+              ],
+              "help": "Specify IPv6 address"
+            }
+          },
+          {
+            "key": "dns-ipv4-port",
+            "label": "DNS IPv4 Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv4-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "default": 53,
+              "condition": "dns-ipv4-addr",
+              "help": "Specify DNS port, default is 53"
+            }
+          },
+          {
+            "key": "dns-ipv4-expect",
+            "label": "DNS IPv4 Expect",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv4-expect",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "dns-ipv4-addr",
+              "help": "Specify what you expect from the response message",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "dns-ipv4-response",
+                "label": "DNS IPv4 Response",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.dns.dns-ipv4-expect.dns-ipv4-response",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "range": "1-31",
+                  "condition": "dns-ipv4-expect",
+                  "help": "Specify response code range (e.g. 0,1-5)"
+                }
+              }
+            ]
+          },
+          {
+            "key": "dns-ipv4-recurse",
+            "label": "DNS IPv4 Recurse",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv4-recurse",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "Enabled",
+                  "value": "enabled",
+                  "help": "Set the recursion bit"
+                },
+                {
+                  "label": "Disabled",
+                  "value": "disabled",
+                  "help": "Clear the recursion bit"
+                }
+              ],
+              "condition": "dns-ipv4-addr",
+              "help": "enable recursion bit or not (default enabled)",
+              "default": "enabled",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "dns-ipv4-tcp",
+            "label": "DNS IPv4 TCP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv4-tcp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "dns-ipv4-addr",
+              "help": "Configure DNS transport over TCP, default is UDP"
+            }
+          },
+          {
+            "key": "dns-ipv6-port",
+            "label": "DNS IPv6 Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv6-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "default": 53,
+              "condition": "dns-ipv6-addr",
+              "help": "Specify DNS port, default is 53"
+            }
+          },
+          {
+            "key": "dns-ipv6-expect",
+            "label": "DNS IPv6 Expect",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv6-expect",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "dns-ipv6-addr",
+              "help": "Specify what you expect from the response message",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "dns-ipv6-response",
+                "label": "DNS IPv6 Response",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.dns.dns-ipv6-expect.dns-ipv6-response",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "range": "1-31",
+                  "condition": "dns-ipv6-expect",
+                  "help": "Specify response code range (e.g. 0,1-5)"
+                }
+              }
+            ]
+          },
+          {
+            "key": "dns-ipv6-recurse",
+            "label": "DNS IPv6 Recurse",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv6-recurse",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "Enabled",
+                  "value": "enabled",
+                  "help": "Set the recursion bit"
+                },
+                {
+                  "label": "Disabled",
+                  "value": "disabled",
+                  "help": "Clear the recursion bit"
+                }
+              ],
+              "condition": "dns-ipv6-addr",
+              "help": "enable recursion bit or not (default enabled)",
+              "default": "enabled",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "dns-ipv6-tcp",
+            "label": "DNS IPv6 TCP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.dns.dns-ipv6-tcp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "dns-ipv6-addr",
+              "help": "Configure DNS transport over TCP, default is UDP"
+            }
+          },
+          {
+            "key": "dns-domain",
+            "label": "DNS Domain",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.dns.dns-domain",
+            "cm-meta": {
+              "format": "long-string",
+              "flags": "mb",
+              "range": "1-255",
+              "condition": "dns",
+              "m-exclusion": [
+                "dns-ip-key"
+              ],
+              "help": "Specify fully qualified domain name of the host"
+            }
+          },
+          {
+            "key": "dns-domain-port",
+            "label": "DNS Domain Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.dns.dns-domain-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "default": 53,
+              "condition": "dns-domain",
+              "help": "Specify DNS port, default is 53"
+            }
+          },
+          {
+            "key": "dns-domain-expect",
+            "label": "DNS Domain Expect",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.dns.dns-domain-expect",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "dns-domain",
+              "help": "Specify what you expect from the response message",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "dns-domain-response",
+                "label": "DNS Domain Response",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.dns.dns-domain-expect.dns-domain-response",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mb",
+                  "range": "1-31",
+                  "condition": "dns-domain-expect",
+                  "help": "Specify response code range (e.g. 0,1-5)"
+                }
+              }
+            ]
+          },
+          {
+            "key": "dns-domain-recurse",
+            "label": "DNS Domain Recurse",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.dns.dns-domain-recurse",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "Enabled",
+                  "value": "enabled",
+                  "help": "Set the recursion bit"
+                },
+                {
+                  "label": "Disabled",
+                  "value": "disabled",
+                  "help": "Clear the recursion bit"
+                }
+              ],
+              "condition": "dns-domain",
+              "help": "enable recursion bit or not (default enabled)",
+              "default": "enabled",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "dns-domain-tcp",
+            "label": "DNS Domain TCP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.dns.dns-domain-tcp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "dns-domain",
+              "help": "Configure DNS transport over TCP, default is UDP"
+            }
+          },
+          {
+            "key": "dns-domain-type",
+            "label": "DNS Domain Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.dns.dns-domain-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "oby",
+              "allowed": [
+                {
+                  "label": "A",
+                  "value": "A",
+                  "help": "Used for storing Ipv4 address (default)"
+                },
+                {
+                  "label": "CNAME",
+                  "value": "CNAME",
+                  "help": "Canonical name for a DNS alias"
+                },
+                {
+                  "label": "SOA",
+                  "value": "SOA",
+                  "help": "Start of authority"
+                },
+                {
+                  "label": "PTR",
+                  "value": "PTR",
+                  "help": "Domain name pointer"
+                },
+                {
+                  "label": "MX",
+                  "value": "MX",
+                  "help": "Mail exchanger"
+                },
+                {
+                  "label": "TXT",
+                  "value": "TXT",
+                  "help": "Text string"
+                },
+                {
+                  "label": "AAAA",
+                  "value": "AAAA",
+                  "help": "Used for storing Ipv6 128-bits address"
+                }
+              ],
+              "condition": "dns-domain",
+              "help": "Specify query type, default is A"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Database",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "database",
+            "label": "Database",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.database.database",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "DATABASE type"
+            }
+          },
+          {
+            "key": "database-name",
+            "label": "Database Name",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.database.database-name",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "allowed": [
+                {
+                  "label": "Mssql",
+                  "value": "mssql",
+                  "help": "Specify MSSQL database"
+                },
+                {
+                  "label": "Mysql",
+                  "value": "mysql",
+                  "help": "Specify MySQL database"
+                },
+                {
+                  "label": "Oracle",
+                  "value": "oracle",
+                  "help": "Specify Oracle database"
+                },
+                {
+                  "label": "Postgresql",
+                  "value": "postgresql",
+                  "help": "Specify PostgreSQL database"
+                }
+              ],
+              "condition": "database"
+            }
+          },
+          {
+            "key": "db-name",
+            "label": "DB Name",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.database.db-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "database-name",
+              "help": "Specify the database name"
+            }
+          },
+          {
+            "key": "db-username",
+            "label": "DB Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.database.db-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "db-name",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "db-password",
+            "label": "DB Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.database.db-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "db-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "db-password-str",
+            "label": "DB Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.database.db-password-str",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "db-password",
+              "help": "Configure password"
+            }
+          },
+          {
+            "key": "db-encrypted",
+            "label": "DB Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.database.db-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "db-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "db-send",
+            "label": "DB Send",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.database.db-send",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "condition": "db-encrypted",
+              "help": "Specify the SQL query"
+            }
+          },
+          {
+            "key": "db-receive",
+            "label": "DB Receive",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.database.db-receive",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "oby",
+              "range": "1-31",
+              "condition": "db-send",
+              "help": "Specify the response string",
+              "m-exclusion": [
+                "db-receive-integer"
+              ]
+            }
+          },
+          {
+            "key": "db-row",
+            "label": "DB Row",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.database.db-row",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-10",
+              "condition": "db-receive",
+              "help": "Specify the row number for receiving"
+            }
+          },
+          {
+            "key": "db-column",
+            "label": "DB Column",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.database.db-column",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-10",
+              "condition": "db-row",
+              "help": "Specify the column number for receiving"
+            }
+          },
+          {
+            "key": "db-receive-integer",
+            "label": "DB Receive Integer",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.database.db-receive-integer",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "m-exclusion": [
+                "db-receive"
+              ],
+              "range": "0-2147483647",
+              "condition": "db-send",
+              "help": "Specify the response integer"
+            }
+          },
+          {
+            "key": "db-row-integer",
+            "label": "DB Row Integer",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.database.db-row-integer",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-10",
+              "condition": "db-receive-integer",
+              "help": "Specify the row number for receiving"
+            }
+          },
+          {
+            "key": "db-column-integer",
+            "label": "DB Column Integer",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.database.db-column-integer",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-10",
+              "condition": "db-row-integer",
+              "help": "Specify the column number for receiving"
+            }
+          }
+        ]
+      },
+      {
+        "title": "External",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "external",
+            "label": "External",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.external.external",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "EXTERNAL type"
+            }
+          },
+          {
+            "key": "external-program",
+            "label": "External Program",
+            "type": "dummy",
+            "cm-lineage": "health.monitor.method.external.external-program",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "range": "1-31",
+              "condition": "external",
+              "help": "Specify external application"
+            }
+          },
+          {
+            "key": "ext-program",
+            "label": "Ext Program",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.external.ext-program",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "external-program",
+              "help": "Specify external application"
+            }
+          },
+          {
+            "key": "p-ext-program",
+            "label": "P Ext Program",
+            "type": "dummy",
+            "cm-lineage": "health.monitor.method.external.p-ext-program",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okS",
+              "condition": "external-program",
+              "help": "Specify external application"
+            }
+          },
+          {
+            "key": "shared-partition-program",
+            "label": "Shared Partition Program",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.external.shared-partition-program",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-ext-program",
+              "help": "external application from shared partition"
+            }
+          },
+          {
+            "key": "ext-program-shared",
+            "label": "Ext Program Shared",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.external.ext-program-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "shared-partition-program",
+              "help": "Specify external application"
+            }
+          },
+          {
+            "key": "ext-port",
+            "label": "Ext Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.external.ext-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "ext-program",
+              "help": "Specify the server port"
+            }
+          },
+          {
+            "key": "ext-arguments",
+            "label": "Ext Arguments",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.external.ext-arguments",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "condition": "ext-program",
+              "help": "Specify external application's arguments"
+            }
+          },
+          {
+            "key": "ext-preference",
+            "label": "Ext Preference",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.external.ext-preference",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "ext-program",
+              "help": "Get server's perference"
+            }
+          }
+        ]
+      },
+      {
+        "title": "FTP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ftp",
+            "label": "FTP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ftp.ftp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "FTP type"
+            }
+          },
+          {
+            "key": "ftp-port",
+            "label": "FTP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.ftp.ftp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "ftp",
+              "default": 21,
+              "help": "Specify FTP port"
+            }
+          },
+          {
+            "key": "ftp-username",
+            "label": "FTP Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.ftp.ftp-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "condition": "ftp",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "ftp-password",
+            "label": "FTP Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ftp.ftp-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "ftp-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "ftp-password-string",
+            "label": "FTP Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.ftp.ftp-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "ftp-password",
+              "help": "Specify the user password, '''' means empty password"
+            }
+          },
+          {
+            "key": "ftp-encrypted",
+            "label": "FTP Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.ftp.ftp-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "ftp-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          }
+        ]
+      },
+      {
+        "title": "HTTP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "http",
+            "label": "HTTP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.http.http",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "HTTP type"
+            }
+          },
+          {
+            "key": "http-port",
+            "label": "HTTP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.http.http-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "http",
+              "default": 80,
+              "help": "Specify HTTP Port"
+            }
+          },
+          {
+            "key": "http-expect",
+            "label": "HTTP Expect",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.http.http-expect",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "http",
+              "help": "Specify what you expect from the response message"
+            }
+          },
+          {
+            "key": "http-response-code",
+            "label": "HTTP Response Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-response-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "http-expect",
+              "help": "Specify response code range (e.g. 200,400-430)",
+              "m-exclusion": [
+                "response-code-regex",
+                "http-text"
+              ]
+            }
+          },
+          {
+            "key": "response-code-regex",
+            "label": "Response Code Regex",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.response-code-regex",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "http-expect",
+              "m-exclusion": [
+                "http-response-code"
+              ],
+              "help": "Specify response code range with Regex"
+            }
+          },
+          {
+            "key": "http-text",
+            "label": "HTTP Text",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-text",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "m-exclusion": [
+                "http-response-code",
+                "text-regex"
+              ],
+              "condition": "http-expect",
+              "help": "Specify text expected"
+            }
+          },
+          {
+            "key": "text-regex",
+            "label": "Text Regex",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.text-regex",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "m-exclusion": [
+                "http-text"
+              ],
+              "condition": "http-expect",
+              "help": "Specify text expected  with Regex"
+            }
+          },
+          {
+            "key": "http-host",
+            "label": "HTTP Host",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-host",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-63",
+              "condition": "http",
+              "help": "Specify \"Host:\" header used in request (enclose IPv6 address in [])"
+            }
+          },
+          {
+            "key": "http-maintenance-code",
+            "label": "HTTP Maintenance Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-maintenance-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "condition": "http",
+              "help": "Specify response code for maintenance"
+            }
+          },
+          {
+            "key": "http-url",
+            "label": "HTTP URL",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.http.http-url",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "http",
+              "help": "Specify URL string, default is GET /"
+            }
+          },
+          {
+            "key": "url-type",
+            "label": "URL Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.http.url-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "http-url",
+              "allowed": [
+                {
+                  "label": "GET",
+                  "value": "GET",
+                  "help": "HTTP GET method"
+                },
+                {
+                  "label": "POST",
+                  "value": "POST",
+                  "help": "HTTP POST method"
+                },
+                {
+                  "label": "HEAD",
+                  "value": "HEAD",
+                  "help": "HTTP HEAD method"
+                }
+              ]
+            }
+          },
+          {
+            "key": "url-path",
+            "label": "URL Path",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.url-path",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-500",
+              "condition": "url-type",
+              "disabled": [
+                "url-type",
+                [
+                  "POST"
+                ]
+              ],
+              "help": "Specify URL path, default is \"/\""
+            }
+          },
+          {
+            "key": "post-path",
+            "label": "Post Path",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.post-path",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-500",
+              "condition": "url-type",
+              "enabled": [
+                "url-type",
+                [
+                  "POST"
+                ]
+              ],
+              "help": "Specify URL path, default is \"/\""
+            }
+          },
+          {
+            "key": "post-type",
+            "label": "Post Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.http.post-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "post-path",
+              "allowed": [
+                {
+                  "label": "Postdata",
+                  "value": "postdata",
+                  "help": "Specify the HTTP post data"
+                },
+                {
+                  "label": "Postfile",
+                  "value": "postfile",
+                  "help": "Specify the HTTP post data"
+                }
+              ]
+            }
+          },
+          {
+            "key": "http-postdata",
+            "label": "HTTP Postdata",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-postdata",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-255",
+              "condition": "post-type",
+              "enabled": [
+                "post-type",
+                [
+                  "postdata"
+                ]
+              ],
+              "help": "Specify the HTTP post data"
+            }
+          },
+          {
+            "key": "http-postfile",
+            "label": "HTTP Postfile",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-postfile",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "post-type",
+              "enabled": [
+                "post-type",
+                [
+                  "postfile"
+                ]
+              ],
+              "help": "Specify the HTTP post data"
+            }
+          },
+          {
+            "key": "http-username",
+            "label": "HTTP Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "condition": "http",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "http-password",
+            "label": "HTTP Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.http.http-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "http-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "http-password-string",
+            "label": "HTTP Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.http.http-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "http-password",
+              "help": "Specify password, '''' means empty password"
+            }
+          },
+          {
+            "key": "http-encrypted",
+            "label": "HTTP Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.http.http-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "http-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "http-kerberos-auth",
+            "label": "HTTP Kerberos Auth",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.http.http-kerberos-auth",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "http",
+              "help": "Http Kerberos Auth"
+            }
+          },
+          {
+            "key": "http-kerberos-realm",
+            "label": "HTTP Kerberos Realm",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.http.http-kerberos-realm",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "condition": "http-kerberos-auth",
+              "help": "Specify realm of Kerberos server"
+            }
+          },
+          {
+            "key": "http-kerberos-kdc",
+            "label": "HTTP Kerberos KDC",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.http.http-kerberos-kdc",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "condition": "http-kerberos-realm",
+              "help": "Specify the kdc"
+            },
+            "fields": [
+              {
+                "key": "http-kerberos-hostip",
+                "label": "HTTP Kerberos Host IP",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.http.http-kerberos-kdc.http-kerberos-hostip",
+                "cm-meta": {
+                  "format": "host",
+                  "flags": "mv",
+                  "range": "1-31",
+                  "condition": "http-kerberos-kdc",
+                  "help": "Kdc's hostname(length:1-31) or IP address",
+                  "m-exclusion": [
+                    "http-kerberos-hostipv6"
+                  ]
+                }
+              },
+              {
+                "key": "http-kerberos-hostipv6",
+                "label": "HTTP Kerberos Host IPv6",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.http.http-kerberos-kdc.http-kerberos-hostipv6",
+                "cm-meta": {
+                  "format": "ipv6-address",
+                  "flags": "mv",
+                  "condition": "http-kerberos-kdc",
+                  "m-exclusion": [
+                    "http-kerberos-hostip"
+                  ],
+                  "help": "Server's IPV6 address"
+                }
+              },
+              {
+                "key": "http-kerberos-port",
+                "label": "HTTP Kerberos Port",
+                "type": "input-number",
+                "cm-lineage": "health.monitor.method.http.http-kerberos-kdc.http-kerberos-port",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "range": "1-65535",
+                  "condition": "http-kerberos-hostip",
+                  "help": "Specify the kdc port"
+                }
+              },
+              {
+                "key": "http-kerberos-portv6",
+                "label": "HTTP Kerberos Portv6",
+                "type": "input-number",
+                "cm-lineage": "health.monitor.method.http.http-kerberos-kdc.http-kerberos-portv6",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "range": "1-65535",
+                  "condition": "http-kerberos-hostipv6",
+                  "help": "Specify the kdc port"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "HTTPS",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.https",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "HTTPS type"
+            }
+          },
+          {
+            "key": "web-port",
+            "label": "Web Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.https.web-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "condition": "https",
+              "range": "1-65534",
+              "default": 443,
+              "help": "Specify HTTPS port"
+            }
+          },
+          {
+            "key": "https-expect",
+            "label": "HTTPS Expect",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.https-expect",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "https",
+              "help": "Specify what you expect from the response message"
+            }
+          },
+          {
+            "key": "https-response-code",
+            "label": "HTTPS Response Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-response-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "https-expect",
+              "help": "Specify response code range (e.g. 200,400-430)",
+              "m-exclusion": [
+                "response-code-regex",
+                "https-text"
+              ]
+            }
+          },
+          {
+            "key": "response-code-regex",
+            "label": "Response Code Regex",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.response-code-regex",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "https-expect",
+              "m-exclusion": [
+                "https-response-code"
+              ],
+              "help": "Specify response code range with Regex"
+            }
+          },
+          {
+            "key": "https-text",
+            "label": "HTTPS Text",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-text",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "m-exclusion": [
+                "https-response-code",
+                "text-regex"
+              ],
+              "range": "1-127",
+              "condition": "https-expect",
+              "help": "Specify text expected"
+            }
+          },
+          {
+            "key": "text-regex",
+            "label": "Text Regex",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.text-regex",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "m-exclusion": [
+                "https-text"
+              ],
+              "condition": "https-expect",
+              "help": "Specify text expected  with Regex"
+            }
+          },
+          {
+            "key": "https-host",
+            "label": "HTTPS Host",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-host",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "condition": "https",
+              "range": "1-63",
+              "help": "Specify \"Host:\" header used in request (enclose IPv6 address in [])"
+            }
+          },
+          {
+            "key": "https-maintenance-code",
+            "label": "HTTPS Maintenance Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-maintenance-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "condition": "https",
+              "range": "1-31",
+              "help": "Specify response code for maintenance"
+            }
+          },
+          {
+            "key": "https-url",
+            "label": "HTTPS URL",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.https-url",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "https",
+              "help": "Specify URL string, default is GET /"
+            }
+          },
+          {
+            "key": "url-type",
+            "label": "URL Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.https.url-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "https-url",
+              "allowed": [
+                {
+                  "label": "GET",
+                  "value": "GET",
+                  "help": "HTTP GET method"
+                },
+                {
+                  "label": "POST",
+                  "value": "POST",
+                  "help": "HTTP POST method"
+                },
+                {
+                  "label": "HEAD",
+                  "value": "HEAD",
+                  "help": "HTTP HEAD method"
+                }
+              ]
+            }
+          },
+          {
+            "key": "url-path",
+            "label": "URL Path",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.url-path",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-500",
+              "condition": "url-type",
+              "disabled": [
+                "url-type",
+                [
+                  "POST"
+                ]
+              ],
+              "help": "Specify URL path, default is \"/\""
+            }
+          },
+          {
+            "key": "post-path",
+            "label": "Post Path",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.post-path",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-500",
+              "condition": "url-type",
+              "enabled": [
+                "url-type",
+                [
+                  "POST"
+                ]
+              ],
+              "help": "Specify URL path, default is \"/\""
+            }
+          },
+          {
+            "key": "post-type",
+            "label": "Post Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.https.post-type",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "mvy",
+              "condition": "post-path",
+              "allowed": [
+                {
+                  "label": "Postdata",
+                  "value": "postdata",
+                  "help": "Specify the HTTP post data"
+                },
+                {
+                  "label": "Postfile",
+                  "value": "postfile",
+                  "help": "Specify the HTTP post data"
+                }
+              ]
+            }
+          },
+          {
+            "key": "https-postdata",
+            "label": "HTTPS Postdata",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-postdata",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mv",
+              "range": "1-255",
+              "condition": "post-type",
+              "enabled": [
+                "post-type",
+                [
+                  "postdata"
+                ]
+              ],
+              "help": "Specify the HTTP post data"
+            }
+          },
+          {
+            "key": "https-postfile",
+            "label": "HTTPS Postfile",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-postfile",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "post-type",
+              "enabled": [
+                "post-type",
+                [
+                  "postfile"
+                ]
+              ],
+              "help": "Specify the HTTP post data"
+            }
+          },
+          {
+            "key": "https-username",
+            "label": "HTTPS Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "condition": "https",
+              "range": "1-31",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "https-password",
+            "label": "HTTPS Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.https-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "https-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "https-password-string",
+            "label": "HTTPS Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.https.https-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "https-password",
+              "help": "Configure password, '''' means empty password"
+            }
+          },
+          {
+            "key": "https-encrypted",
+            "label": "HTTPS Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.https.https-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "https-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "disable-sslv2hello",
+            "label": "Disable Sslv2hello",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.disable-sslv2hello",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "https",
+              "help": "Disable SSLv2Hello for HTTPs"
+            }
+          },
+          {
+            "key": "https-kerberos-auth",
+            "label": "HTTPS Kerberos Auth",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.https-kerberos-auth",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "https",
+              "help": "Https Kerberos Auth"
+            }
+          },
+          {
+            "key": "https-kerberos-realm",
+            "label": "HTTPS Kerberos Realm",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.https-kerberos-realm",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "condition": "https-kerberos-auth",
+              "help": "Specify realm of Kerberos server"
+            }
+          },
+          {
+            "key": "https-kerberos-kdc",
+            "label": "HTTPS Kerberos KDC",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.https.https-kerberos-kdc",
+            "cm-meta": {
+              "format": "dummy",
+              "start": true,
+              "condition": "https-kerberos-realm",
+              "help": "Specify the kdc"
+            },
+            "fields": [
+              {
+                "key": "https-kerberos-hostip",
+                "label": "HTTPS Kerberos Host IP",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.https.https-kerberos-kdc.https-kerberos-hostip",
+                "cm-meta": {
+                  "format": "host",
+                  "flags": "mv",
+                  "range": "1-31",
+                  "condition": "https-kerberos-kdc",
+                  "help": "Kdc's hostname(length:1-31) or IP address",
+                  "m-exclusion": [
+                    "https-kerberos-hostipv6"
+                  ]
+                }
+              },
+              {
+                "key": "https-kerberos-hostipv6",
+                "label": "HTTPS Kerberos Host IPv6",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.https.https-kerberos-kdc.https-kerberos-hostipv6",
+                "cm-meta": {
+                  "format": "ipv6-address",
+                  "flags": "mv",
+                  "condition": "https-kerberos-kdc",
+                  "m-exclusion": [
+                    "https-kerberos-hostip"
+                  ],
+                  "help": "Server's IPV6 address"
+                }
+              },
+              {
+                "key": "https-kerberos-port",
+                "label": "HTTPS Kerberos Port",
+                "type": "input-number",
+                "cm-lineage": "health.monitor.method.https.https-kerberos-kdc.https-kerberos-port",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "range": "1-65535",
+                  "condition": "https-kerberos-hostip",
+                  "help": "Specify the kdc port"
+                }
+              },
+              {
+                "key": "https-kerberos-portv6",
+                "label": "HTTPS Kerberos Portv6",
+                "type": "input-number",
+                "cm-lineage": "health.monitor.method.https.https-kerberos-kdc.https-kerberos-portv6",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mb",
+                  "range": "1-65535",
+                  "condition": "https-kerberos-hostipv6",
+                  "help": "Specify the kdc port"
+                }
+              }
+            ]
+          },
+          {
+            "key": "partition",
+            "label": "Partition",
+            "type": "dummy",
+            "cm-lineage": "health.monitor.method.https.partition",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okS",
+              "condition": "https",
+              "help": "Select partition name for cert and key"
+            }
+          },
+          {
+            "key": "cert-key-shared",
+            "label": "Cert Key Shared",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.cert-key-shared",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "partition",
+              "help": "Select shared partition"
+            }
+          },
+          {
+            "key": "cert",
+            "label": "Cert",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.cert",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "condition": "https",
+              "range": "1-255",
+              "help": "Specify client certificate"
+            }
+          },
+          {
+            "key": "key",
+            "label": "Key",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.https.key",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-255",
+              "condition": "cert",
+              "help": "Specify client private key"
+            }
+          },
+          {
+            "key": "key-pass-phrase",
+            "label": "Key Pass Phrase",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.https.key-pass-phrase",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "key",
+              "help": "Client private key password phrase"
+            }
+          },
+          {
+            "key": "key-phrase",
+            "label": "Key Phrase",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.https.key-phrase",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "key-pass-phrase",
+              "help": "Password Phrase"
+            }
+          },
+          {
+            "key": "https-key-encrypted",
+            "label": "HTTPS Key Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.https.https-key-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "key-pass-phrase",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          }
+        ]
+      },
+      {
+        "title": "ICMP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "icmp",
+            "label": "ICMP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.icmp.icmp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "ICMP type",
+              "default": 1
+            }
+          },
+          {
+            "key": "transparent",
+            "label": "Transparent",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.icmp.transparent",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "icmp",
+              "help": "Apply transparent mode"
+            }
+          },
+          {
+            "key": "ipv6",
+            "label": "IPv6",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.icmp.ipv6",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "mv",
+              "condition": "transparent",
+              "help": "Specify IPv6 address of destination behind monitored node",
+              "m-exclusion": [
+                "ip"
+              ]
+            }
+          },
+          {
+            "key": "ip",
+            "label": "IP",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.icmp.ip",
+            "cm-meta": {
+              "format": "ipv4-address",
+              "flags": "mv",
+              "condition": "transparent",
+              "m-exclusion": [
+                "ipv6"
+              ],
+              "help": "Specify IPv4 address of destination behind monitored node"
+            }
+          }
+        ]
+      },
+      {
+        "title": "IMAP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "imap",
+            "label": "IMAP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.imap",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "IMAP type"
+            }
+          },
+          {
+            "key": "imap-port",
+            "label": "IMAP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.imap.imap-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-65534",
+              "condition": "imap",
+              "default": 143,
+              "help": "Specify the IMAP port, default is 143"
+            }
+          },
+          {
+            "key": "imap-username",
+            "label": "IMAP Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.imap.imap-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "imap",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "imap-password",
+            "label": "IMAP Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.imap-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "imap-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "imap-password-string",
+            "label": "IMAP Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.imap.imap-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "imap-password",
+              "help": "Configure password, '''' means empty password"
+            }
+          },
+          {
+            "key": "imap-encrypted",
+            "label": "IMAP Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.imap.imap-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "imap-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "pwd-auth",
+            "label": "Pwd Auth",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.pwd-auth",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "imap-password-string",
+              "help": "Specify the Authentication method"
+            }
+          },
+          {
+            "key": "imap-plain",
+            "label": "IMAP Plain",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.imap-plain",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "pwd-auth",
+              "help": "Plain text"
+            }
+          },
+          {
+            "key": "imap-cram-md5",
+            "label": "IMAP Cram Md5",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.imap-cram-md5",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "pwd-auth",
+              "help": "Challenge-response authentication mechanism"
+            }
+          },
+          {
+            "key": "imap-login",
+            "label": "IMAP Login",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.imap.imap-login",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "pwd-auth",
+              "help": "Simple login"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Kerberos",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "kerberos-cfg",
+            "label": "Kerberos CFG",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg",
+            "cm-meta": {
+              "format": "fields",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "kinit",
+                "label": "Kinit",
+                "type": "switch",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kinit",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "oky",
+                  "help": "Kerberos KDC",
+                  "m-exclusion": [
+                    "kadmin",
+                    "kpasswd"
+                  ]
+                }
+              },
+              {
+                "key": "kinit-pricipal-name",
+                "label": "Kinit Pricipal Name",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kinit-pricipal-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-127",
+                  "condition": "kinit",
+                  "help": "Specify the principal name"
+                }
+              },
+              {
+                "key": "kinit-password",
+                "label": "Kinit Password",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kinit-password",
+                "cm-meta": {
+                  "format": "password",
+                  "flags": "mv",
+                  "range": "1-31",
+                  "condition": "kinit-pricipal-name",
+                  "help": "Password"
+                }
+              },
+              {
+                "key": "kinit-encrypted",
+                "label": "Kinit Encrypted",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kinit-encrypted",
+                "cm-meta": {
+                  "format": "encrypted",
+                  "flags": "mb",
+                  "condition": "kinit-pricipal-name",
+                  "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+                }
+              },
+              {
+                "key": "kinit-kdc",
+                "label": "Kinit KDC",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kinit-kdc",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "ov",
+                  "range": "1-63",
+                  "condition": "kinit-password",
+                  "help": "Specify the kdc server, host|ip [:port]"
+                }
+              },
+              {
+                "key": "tcp-only",
+                "label": "TCP Only",
+                "type": "switch",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.tcp-only",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "kinit-kdc",
+                  "help": "Specify the kerberos tcp only"
+                }
+              },
+              {
+                "key": "kadmin",
+                "label": "Kadmin",
+                "type": "switch",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "oky",
+                  "m-exclusion": [
+                    "kinit",
+                    "kpasswd"
+                  ],
+                  "help": "Kerberos admin"
+                }
+              },
+              {
+                "key": "kadmin-realm",
+                "label": "Kadmin Realm",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-realm",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "condition": "kadmin",
+                  "help": "Specify the realm"
+                }
+              },
+              {
+                "key": "kadmin-pricipal-name",
+                "label": "Kadmin Pricipal Name",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-pricipal-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-127",
+                  "condition": "kadmin-realm",
+                  "help": "Specify the principal name"
+                }
+              },
+              {
+                "key": "kadmin-password",
+                "label": "Kadmin Password",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-password",
+                "cm-meta": {
+                  "format": "password",
+                  "flags": "mv",
+                  "range": "1-31",
+                  "condition": "kadmin-pricipal-name",
+                  "help": "Password"
+                }
+              },
+              {
+                "key": "kadmin-encrypted",
+                "label": "Kadmin Encrypted",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-encrypted",
+                "cm-meta": {
+                  "format": "encrypted",
+                  "flags": "mb",
+                  "condition": "kadmin-pricipal-name",
+                  "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+                }
+              },
+              {
+                "key": "kadmin-server",
+                "label": "Kadmin Server",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-server",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "condition": "kadmin-password",
+                  "help": "Specify the admin server, host|ip [:port]"
+                }
+              },
+              {
+                "key": "kadmin-kdc",
+                "label": "Kadmin KDC",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kadmin-kdc",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "ov",
+                  "range": "1-63",
+                  "condition": "kadmin-server",
+                  "help": "Specify the kdc server, host|ip [:port]"
+                }
+              },
+              {
+                "key": "kpasswd",
+                "label": "Kpasswd",
+                "type": "switch",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "mky",
+                  "m-exclusion": [
+                    "kadmin"
+                  ],
+                  "help": "Kerberos change passwd"
+                }
+              },
+              {
+                "key": "kpasswd-pricipal-name",
+                "label": "Kpasswd Pricipal Name",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd-pricipal-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-127",
+                  "condition": "kpasswd",
+                  "help": "Specify the principal name"
+                }
+              },
+              {
+                "key": "kpasswd-password",
+                "label": "Kpasswd Password",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd-password",
+                "cm-meta": {
+                  "format": "password",
+                  "flags": "mv",
+                  "range": "1-31",
+                  "condition": "kpasswd-pricipal-name",
+                  "help": "Password"
+                }
+              },
+              {
+                "key": "kpasswd-encrypted",
+                "label": "Kpasswd Encrypted",
+                "type": "password",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd-encrypted",
+                "cm-meta": {
+                  "format": "encrypted",
+                  "flags": "mb",
+                  "condition": "kpasswd-pricipal-name",
+                  "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+                }
+              },
+              {
+                "key": "kpasswd-server",
+                "label": "Kpasswd Server",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd-server",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "condition": "kpasswd-password",
+                  "help": "Specify the Kerberos password server, host|ip [:port]"
+                }
+              },
+              {
+                "key": "kpasswd-kdc",
+                "label": "Kpasswd KDC",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.kerberos-kdc.kerberos-cfg.kpasswd-kdc",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "ov",
+                  "range": "1-63",
+                  "condition": "kpasswd-server",
+                  "help": "Specify the kdc server, host|ip [:port]"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "LDAP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ldap",
+            "label": "LDAP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ldap.ldap",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "LDAP type"
+            }
+          },
+          {
+            "key": "ldap-port",
+            "label": "LDAP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.ldap.ldap-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "ldap",
+              "default": 389,
+              "help": "Specify the LDAP port"
+            }
+          },
+          {
+            "key": "ldap-security",
+            "label": "LDAP Security",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.ldap.ldap-security",
+            "cm-meta": {
+              "format": "enum",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Overssl",
+                  "value": "overssl",
+                  "help": "Set LDAP over SSL"
+                },
+                {
+                  "label": "StartTLS",
+                  "value": "StartTLS",
+                  "help": "LDAP switch to TLS"
+                }
+              ],
+              "condition": "ldap"
+            }
+          },
+          {
+            "key": "ldap-binddn",
+            "label": "LDAP Binddn",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.ldap.ldap-binddn",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-127",
+              "condition": "ldap",
+              "help": "Specify the distinguished name for bindRequest"
+            }
+          },
+          {
+            "key": "ldap-password",
+            "label": "LDAP Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ldap.ldap-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "ldap-binddn",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "ldap-password-string",
+            "label": "LDAP Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.ldap.ldap-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "ldap-password",
+              "help": "Configure password, '''' means empty password"
+            }
+          },
+          {
+            "key": "ldap-encrypted",
+            "label": "LDAP Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.ldap.ldap-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "ldap-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "ldap-run-search",
+            "label": "LDAP Run Search",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ldap.ldap-run-search",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "ldap",
+              "help": "Specify a query to be executed"
+            }
+          },
+          {
+            "key": "BaseDN",
+            "label": "BaseDN",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.ldap.BaseDN",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "ldap-run-search",
+              "help": "Specify LDAP DN distinguished name"
+            }
+          },
+          {
+            "key": "ldap-query",
+            "label": "LDAP Query",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.ldap.ldap-query",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-255",
+              "condition": "ldap-run-search",
+              "help": "LDAP query to be excuted"
+            }
+          },
+          {
+            "key": "AcceptResRef",
+            "label": "AcceptResRef",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ldap.AcceptResRef",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "condition": "ldap-query",
+              "help": "Mark server up on receiving a search result reference response"
+            }
+          },
+          {
+            "key": "AcceptNotFound",
+            "label": "AcceptNotFound",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ldap.AcceptNotFound",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "ldap-query",
+              "help": "Mark server up on receiving a not-found response"
+            }
+          }
+        ]
+      },
+      {
+        "title": "NTP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "ntp",
+            "label": "NTP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.ntp.ntp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "NTP type"
+            }
+          },
+          {
+            "key": "ntp-port",
+            "label": "NTP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.ntp.ntp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "ntp",
+              "default": 123,
+              "help": "Specify the NTP port, default is 123"
+            }
+          }
+        ]
+      },
+      {
+        "title": "POP3",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pop3",
+            "label": "POP3",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.pop3.pop3",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "POP3 type"
+            }
+          },
+          {
+            "key": "pop3-username",
+            "label": "POP3 Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.pop3.pop3-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "pop3",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "pop3-password",
+            "label": "POP3 Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.pop3.pop3-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "pop3-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "pop3-password-string",
+            "label": "POP3 Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.pop3.pop3-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "pop3-password",
+              "help": "Specify the user password, '''' means empty password"
+            }
+          },
+          {
+            "key": "pop3-encrypted",
+            "label": "POP3 Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.pop3.pop3-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "pop3-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "pop3-port",
+            "label": "POP3 Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.pop3.pop3-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "pop3-encrypted",
+              "default": 110,
+              "help": "Specify the POP3 port, default is 110"
+            }
+          }
+        ]
+      },
+      {
+        "title": "RADIUS",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "radius",
+            "label": "Radius",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.radius.radius",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "RADIUS type"
+            }
+          },
+          {
+            "key": "radius-username",
+            "label": "Radius Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.radius.radius-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "radius",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "radius-password",
+            "label": "Radius Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.radius.radius-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "radius-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "radius-password-string",
+            "label": "Radius Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.radius.radius-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "radius-password",
+              "help": "Configure password, '''' means empty password"
+            }
+          },
+          {
+            "key": "radius-encrypted",
+            "label": "Radius Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.radius.radius-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "radius-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "radius-secret",
+            "label": "Radius Secret",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.radius.radius-secret",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "radius-encrypted",
+              "help": "Specify the shared secret of RADIUS server"
+            }
+          },
+          {
+            "key": "radius-port",
+            "label": "Radius Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.radius.radius-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "radius-secret",
+              "default": 1812,
+              "help": "Specify the RADIUS port, default is 1812"
+            }
+          },
+          {
+            "key": "radius-expect",
+            "label": "Radius Expect",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.radius.radius-expect",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "radius-secret",
+              "help": "Specify what you expect from the response message"
+            }
+          },
+          {
+            "key": "radius-response-code",
+            "label": "Radius Response Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.radius.radius-response-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "radius-expect",
+              "help": "Specify response code range (e.g. 2,4-7)"
+            }
+          }
+        ]
+      },
+      {
+        "title": "RTSP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "rtsp",
+            "label": "RTSP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.rtsp.rtsp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "RTSP type"
+            }
+          },
+          {
+            "key": "rtspurl",
+            "label": "Rtspurl",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.rtsp.rtspurl",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "rtsp",
+              "help": "Specify URL string"
+            }
+          },
+          {
+            "key": "rtsp-port",
+            "label": "RTSP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.rtsp.rtsp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "rtspurl",
+              "default": 554,
+              "help": "Specify RTSP port, default is 554"
+            }
+          }
+        ]
+      },
+      {
+        "title": "SIP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "sip",
+            "label": "SIP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.sip.sip",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "SIP type"
+            }
+          },
+          {
+            "key": "register",
+            "label": "Register",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.sip.register",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "sip",
+              "help": "Send SIP REGISTER message, default is to send OPTION message"
+            }
+          },
+          {
+            "key": "sip-port",
+            "label": "SIP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.sip.sip-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "sip",
+              "default": 5060,
+              "help": "Specify the SIP port, default is 5060"
+            }
+          },
+          {
+            "key": "expect-response-code",
+            "label": "Expect Response Code",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.sip.expect-response-code",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "condition": "sip",
+              "help": "Specify accepted response codes (e.g. 200, 400-430, any)"
+            }
+          },
+          {
+            "key": "sip-tcp",
+            "label": "SIP TCP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.sip.sip-tcp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "sip",
+              "help": "Use TCP for transmission, default is UDP"
+            }
+          }
+        ]
+      },
+      {
+        "title": "SMTP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "smtp",
+            "label": "SMTP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.smtp.smtp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "SMTP type"
+            }
+          },
+          {
+            "key": "smtp-domain",
+            "label": "SMTP Domain",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.smtp.smtp-domain",
+            "cm-meta": {
+              "format": "host",
+              "flags": "mb",
+              "condition": "smtp",
+              "range": "1-254",
+              "help": "Specify domain name of 'helo' command"
+            }
+          },
+          {
+            "key": "smtp-port",
+            "label": "SMTP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.smtp.smtp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "default": 25,
+              "condition": "smtp-domain",
+              "help": "Specify SMTP port, default is 25"
+            }
+          },
+          {
+            "key": "smtp-starttls",
+            "label": "SMTP Starttls",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.smtp.smtp-starttls",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "smtp-domain",
+              "help": "Check the STARTTLS support at helo response"
+            }
+          },
+          {
+            "key": "mail-from",
+            "label": "Mail From",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.smtp.mail-from",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-255",
+              "condition": "smtp-domain",
+              "help": "Specify SMTP Sender"
+            }
+          },
+          {
+            "key": "rcpt-to",
+            "label": "Rcpt To",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.smtp.rcpt-to",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-255",
+              "condition": "mail-from",
+              "help": "Specify SMTP Receiver"
+            }
+          }
+        ]
+      },
+      {
+        "title": "SNMP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "snmp",
+            "label": "SNMP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.snmp.snmp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "SNMP type"
+            }
+          },
+          {
+            "key": "snmp-port",
+            "label": "SNMP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.snmp.snmp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "snmp",
+              "help": "Specify SNMP port, default is 161",
+              "default": 161
+            }
+          },
+          {
+            "key": "community",
+            "label": "Community",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.snmp.community",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ob",
+              "range": "1-31",
+              "condition": "snmp",
+              "help": "Specify SNMP community, default is \"public\"",
+              "default": "public"
+            }
+          },
+          {
+            "key": "oid",
+            "label": "Oid",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.snmp.oid",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "snmp",
+              "help": "Specify MIB-2 OID, default is sysDescr (MIB-2 OID 1.3.6.1.2.1 prepended)",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "mib",
+                "label": "Mib",
+                "type": "select",
+                "cm-lineage": "health.monitor.method.snmp.oid.mib",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "allowed": [
+                    {
+                      "label": "SysDescr",
+                      "value": "sysDescr",
+                      "help": "The MIB-2 OID of system description, 1.1.0"
+                    },
+                    {
+                      "label": "SysUpTime",
+                      "value": "sysUpTime",
+                      "help": "The MIB-2 OID of system up time, 1.3.0"
+                    },
+                    {
+                      "label": "SysName",
+                      "value": "sysName",
+                      "help": "The MIB-2 OID of system nume, 1.5.0"
+                    }
+                  ],
+                  "condition": "oid",
+                  "m-exclusion": [
+                    "asn"
+                  ]
+                }
+              },
+              {
+                "key": "asn",
+                "label": "Asn",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.snmp.oid.asn",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mv",
+                  "range": "1-128",
+                  "condition": "oid",
+                  "m-exclusion": [
+                    "mib"
+                  ],
+                  "help": "Specify the format in ASN.1 style"
+                }
+              }
+            ]
+          },
+          {
+            "key": "operation",
+            "label": "Operation",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.snmp.operation",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "snmp",
+              "help": "Specify SNMP command, default is get",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "oper-type",
+                "label": "Oper Type",
+                "type": "select",
+                "cm-lineage": "health.monitor.method.snmp.operation.oper-type",
+                "cm-meta": {
+                  "format": "enum",
+                  "flags": "mvy",
+                  "condition": "operation",
+                  "allowed": [
+                    {
+                      "label": "Getnext",
+                      "value": "getnext",
+                      "help": "Get-Next-Request command"
+                    },
+                    {
+                      "label": "Get",
+                      "value": "get",
+                      "help": "Get-Request command"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "TACACS+",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "tacplus",
+            "label": "Tacplus",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "TACACS+ type"
+            }
+          },
+          {
+            "key": "tacplus-username",
+            "label": "Tacplus Username",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-username",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-31",
+              "condition": "tacplus",
+              "help": "Specify the username"
+            }
+          },
+          {
+            "key": "tacplus-password",
+            "label": "Tacplus Password",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-password",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "tacplus-username",
+              "help": "Specify the user password"
+            }
+          },
+          {
+            "key": "tacplus-password-string",
+            "label": "Tacplus Password String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-password-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "0-31",
+              "condition": "tacplus-password",
+              "help": "Configure password, '''' means empty password"
+            }
+          },
+          {
+            "key": "tacplus-encrypted",
+            "label": "Tacplus Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "tacplus-password",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)"
+            }
+          },
+          {
+            "key": "tacplus-secret",
+            "label": "Tacplus Secret",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-secret",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "tacplus-encrypted",
+              "help": "Specify the shared secret of TACACS+ server"
+            }
+          },
+          {
+            "key": "tacplus-secret-string",
+            "label": "Tacplus Secret String",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-secret-string",
+            "cm-meta": {
+              "format": "password",
+              "flags": "mv",
+              "range": "1-31",
+              "condition": "tacplus-secret",
+              "help": "Shared Crypto Key"
+            }
+          },
+          {
+            "key": "secret-encrypted",
+            "label": "Secret Encrypted",
+            "type": "password",
+            "cm-lineage": "health.monitor.method.tacplus.secret-encrypted",
+            "cm-meta": {
+              "format": "encrypted",
+              "flags": "mb",
+              "condition": "tacplus-secret"
+            }
+          },
+          {
+            "key": "tacplus-port",
+            "label": "Tacplus Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-65534",
+              "condition": "secret-encrypted",
+              "default": 49,
+              "help": "Specify the TACACS+ port, default 49"
+            }
+          },
+          {
+            "key": "tacplus-type",
+            "label": "Tacplus Type",
+            "type": "select",
+            "cm-lineage": "health.monitor.method.tacplus.tacplus-type",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ob",
+              "condition": "secret-encrypted",
+              "allowed": [
+                {
+                  "label": "Inbound Ascii Login",
+                  "value": "inbound-ascii-login",
+                  "help": "Specify Inbound ASCII Login type"
+                }
+              ],
+              "default": "inbound-ascii-login",
+              "help": "Specify what you expect from the response message",
+              "range": "1-128"
+            }
+          }
+        ]
+      },
+      {
+        "title": "TCP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "method-tcp",
+            "label": "Method TCP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.tcp.method-tcp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "TCP type"
+            }
+          },
+          {
+            "key": "tcp-port",
+            "label": "TCP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.tcp.tcp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-65534",
+              "condition": "method-tcp",
+              "help": "Specify TCP port"
+            }
+          },
+          {
+            "key": "port-halfopen",
+            "label": "Port Halfopen",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.tcp.port-halfopen",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "tcp-port",
+              "help": "Set TCP SYN check",
+              "m-exclusion": [
+                "port-send"
+              ]
+            }
+          },
+          {
+            "key": "port-send",
+            "label": "Port Send",
+            "type": "input",
+            "cm-lineage": "health.monitor.method.tcp.port-send",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-511",
+              "condition": "tcp-port",
+              "m-exclusion": [
+                "port-halfopen"
+              ],
+              "help": "Send a string to server"
+            }
+          },
+          {
+            "key": "port-resp",
+            "label": "Port Resp",
+            "type": "dummy-object",
+            "cm-lineage": "health.monitor.method.tcp.port-resp",
+            "cm-meta": {
+              "format": "dummy",
+              "condition": "port-send",
+              "help": "Specify what you expect from the response message",
+              "start": true
+            },
+            "fields": [
+              {
+                "key": "port-contains",
+                "label": "Port Contains",
+                "type": "input",
+                "cm-lineage": "health.monitor.method.tcp.port-resp.port-contains",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mb",
+                  "range": "1-127",
+                  "condition": "port-resp",
+                  "help": "Mark server up if response string contains another string"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "UDP",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "udp",
+            "label": "UDP",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.udp.udp",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "help": "UDP type"
+            }
+          },
+          {
+            "key": "udp-port",
+            "label": "UDP Port",
+            "type": "input-number",
+            "cm-lineage": "health.monitor.method.udp.udp-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-65534",
+              "condition": "udp",
+              "help": "Specify UDP port"
+            }
+          },
+          {
+            "key": "force-up-with-single-healthcheck",
+            "label": "Force Up With Single Healthcheck",
+            "type": "switch",
+            "cm-lineage": "health.monitor.method.udp.force-up-with-single-healthcheck",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "udp-port",
+              "help": "Force Up with no response at the first time"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dns.class-list.lid",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/dns/{name}/class-list/lid/{lidnum}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "lidnum",
+          "label": "Lidnum",
+          "cm-lineage": "slb.template.dns.class-list.lid.lidnum",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify a limit ID",
+            "object-key": true,
+            "range": "1-1023" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit",
+          "label": "Conn Rate Limit",
+          "cm-lineage": "slb.template.dns.class-list.lid.conn-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection rate limit",
+            "range": "1-2147483647" 
+          }
+        },
+        { 
+          "key": "per",
+          "label": "Per",
+          "cm-lineage": "slb.template.dns.class-list.lid.per",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "conn-rate-limit",
+            "help": "Per",
+            "range": "1-65535" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "over-limit-action",
+          "label": "Over Limit Action",
+          "cm-lineage": "slb.template.dns.class-list.lid.over-limit-action",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Action when exceeds limit" 
+          }
+        },
+        { 
+          "key": "action-value",
+          "label": "Action Value",
+          "cm-lineage": "slb.template.dns.class-list.lid.action-value",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "over-limit-action",
+            "allowed": [  
+              { 
+              "label": "Dns Cache Disable",
+              "value": "dns-cache-disable",
+              "help": "Disable DNS cache when it exceeds limit" 
+              },
+              { 
+              "label": "Dns Cache Enable",
+              "value": "dns-cache-enable",
+              "help": "Enable DNS cache when it exceeds limit" 
+              },
+              { 
+              "label": "Forward",
+              "value": "forward",
+              "help": "Forward the traffic even it exceeds limit" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "cache-action",
+          "label": "Cache Action",
+          "cm-lineage": "slb.template.dns.class-list.lid.cache-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Cache Disable",
+              "value": "cache-disable",
+              "help": "Disable dns cache" 
+              },
+              { 
+              "label": "Cache Enable",
+              "value": "cache-enable",
+              "help": "Enable dns cache" 
+              }
+            ],
+            "default": "cache-disable" 
+          }
+        },
+        { 
+          "key": "ttl",
+          "label": "Ttl",
+          "cm-lineage": "slb.template.dns.class-list.lid.ttl",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "TTL for cache entry",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "weight",
+          "label": "Weight",
+          "cm-lineage": "slb.template.dns.class-list.lid.weight",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Weight for cache entry",
+            "range": "1-7" 
+          }
+        },
+        { 
+          "key": "honor-server-response-ttl",
+          "label": "Honor Server Response Ttl",
+          "cm-lineage": "slb.template.dns.class-list.lid.honor-server-response-ttl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Honor the server reponse TTL" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

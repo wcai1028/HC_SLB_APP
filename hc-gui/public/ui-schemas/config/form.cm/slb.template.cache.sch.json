@@ -1,0 +1,278 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.cache",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/cache/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.cache.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify cache template name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "accept-reload-req",
+          "label": "Accept Reload Req",
+          "cm-lineage": "slb.template.cache.accept-reload-req",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Accept reload requests via cache-control directives in HTTP headers" 
+          }
+        },
+        { 
+          "key": "age",
+          "label": "Age",
+          "cm-lineage": "slb.template.cache.age",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify duration in seconds cached content valid, default is 3600 seconds",
+            "default": "3600",
+            "range": "1-999999" 
+          }
+        },
+        { 
+          "key": "default-policy-nocache",
+          "label": "Default Policy Nocache",
+          "cm-lineage": "slb.template.cache.default-policy-nocache",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Specify default policy to be to not cache" 
+          }
+        },
+        { 
+          "key": "max-cache-size",
+          "label": "Max Cache Size",
+          "cm-lineage": "slb.template.cache.max-cache-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify maximum cache size in megabytes, default is 80MB",
+            "default": "80",
+            "range": "1-4096" 
+          }
+        },
+        { 
+          "key": "min-content-size",
+          "label": "Min Content Size",
+          "cm-lineage": "slb.template.cache.min-content-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Minimum size (bytes) of response that can be cached - default 512",
+            "default": "512",
+            "range": "0-268435455" 
+          }
+        },
+        { 
+          "key": "max-content-size",
+          "label": "Max Content Size",
+          "cm-lineage": "slb.template.cache.max-content-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Maximum size (bytes) of response that can be cached - default 81920 (80KB)",
+            "default": "81920",
+            "range": "0-268435455" 
+          }
+        },
+        { 
+          "key": "remove-cookies",
+          "label": "Remove Cookies",
+          "cm-lineage": "slb.template.cache.remove-cookies",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Remove cookies in response and cache" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "disable-insert-age",
+          "label": "Disable Insert Age",
+          "cm-lineage": "slb.template.cache.disable-insert-age",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable insertion of age header in response served from RAM cache" 
+          }
+        },
+        { 
+          "key": "disable-insert-via",
+          "label": "Disable Insert Via",
+          "cm-lineage": "slb.template.cache.disable-insert-via",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable insertion of via header in response served from RAM cache" 
+          }
+        },
+        { 
+          "key": "verify-host",
+          "label": "Verify Host",
+          "cm-lineage": "slb.template.cache.verify-host",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Verify request using host before sending response from RAM cache" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Policy",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "local-uri-policy",
+          "label": "Local Uri Policy",
+          "cm-lineage": "slb.template.cache.local-uri-policy",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "local-uri",
+            "label": "Local Uri",
+            "cm-lineage": "slb.template.cache.local-uri",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Specify Local URI for caching",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "uri-policy",
+          "label": "Uri Policy",
+          "cm-lineage": "slb.template.cache.uri-policy",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "uri",
+            "label": "Uri",
+            "cm-lineage": "slb.template.cache.uri",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Specify URI for cache policy",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "cache-action",
+            "label": "Cache Action",
+            "cm-lineage": "slb.template.cache.cache-action",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "uri",
+              "allowed": [  
+                { 
+                "label": "Cache",
+                "value": "cache",
+                "help": "Specify if certain URIs should be cached" 
+                },
+                { 
+                "label": "Nocache",
+                "value": "nocache",
+                "help": "Specify if certain URIs should not be cached" 
+                }
+              ],
+              "max-elements": "16" 
+            }
+          },
+          { 
+            "key": "cache-value",
+            "label": "Cache Value",
+            "cm-lineage": "slb.template.cache.cache-value",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "cache-action",
+              "help": "Specify seconds that content should be cached, default is age specified in cache template",
+              "max-elements": "16",
+              "range": "1-999999" 
+            }
+          },
+          { 
+            "key": "invalidate",
+            "label": "Invalidate",
+            "cm-lineage": "slb.template.cache.invalidate",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "uri",
+              "help": "Specify if URI should invalidate cache entries matching pattern",
+              "max-elements": "16",
+              "range": "1-128" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "replacement-policy",
+          "label": "Replacement Policy",
+          "cm-lineage": "slb.template.cache.replacement-policy",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "LFU",
+              "value": "LFU",
+              "help": "LFU" 
+              }
+            ],
+            "default": "LFU" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "logging",
+          "label": "Logging",
+          "cm-lineage": "slb.template.cache.logging",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify logging template",
+            "obj-association": [  
+             "slb.template.logging" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

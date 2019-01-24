@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "provider.tenant.app-svc-group",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "provider/{name}/tenant/{name}/app-svc-group/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "App Service Group",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "provider.tenant.app-svc-group.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Application Service group name",
+            "object-key": true,
+            "range": "1-128" 
+          }
+        },
+        { 
+          "key": "description",
+          "label": "Description",
+          "cm-lineage": "provider.tenant.app-svc-group.description",
+          "cm-meta":  { 
+            "format": "line",
+            "help": "Description" 
+          }
+        },
+        { 
+          "key": "svc-list",
+          "label": "Svc List",
+          "cm-lineage": "provider.tenant.app-svc-group.svc-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "app-svc",
+            "label": "App Svc",
+            "cm-lineage": "provider.tenant.app-svc-group.app-svc",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "app-svc",
+              "multi-field-key": true,
+              "max-elements": "32",
+              "obj-association": [  
+               "provider.tenant.app-svc" 
+              ],
+              "range": "1-128" 
+            }
+          },
+          { 
+            "key": "app-svc-type",
+            "label": "App Svc Type",
+            "cm-lineage": "provider.tenant.app-svc-group.app-svc-type",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "app-svc",
+              "allowed": [  
+                { 
+                "label": "Adc",
+                "value": "adc",
+                "help": "adc" 
+                },
+                { 
+                "label": "Gifw",
+                "value": "gifw",
+                "help": "gifw" 
+                },
+                { 
+                "label": "Cgn",
+                "value": "cgn",
+                "help": "cgn" 
+                },
+                { 
+                "label": "Ssli",
+                "value": "ssli",
+                "help": "ssli" 
+                }
+              ],
+              "max-elements": "32" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

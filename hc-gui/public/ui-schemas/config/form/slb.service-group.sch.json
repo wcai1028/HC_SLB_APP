@@ -1,0 +1,1019 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.service-group",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/service-group/{name}",
+  "pageTitle": "Service Group",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.service-group.name",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mvm",
+              "range": "1-127",
+              "object-key": true,
+              "help": "SLB Service Name"
+            }
+          },
+          {
+            "key": "protocol",
+            "label": "Protocol",
+            "type": "select",
+            "cm-lineage": "slb.service-group.protocol",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvd",
+              "modify-ineligible": true,
+              "allowed": [
+                {
+                  "label": "TCP",
+                  "value": "tcp",
+                  "help": "TCP LB service"
+                },
+                {
+                  "label": "UDP",
+                  "value": "udp",
+                  "help": "UDP LB service"
+                }
+              ],
+              "condition": "name",
+              "help": "LB service",
+              "range": "1-128"
+            },
+            "required": true
+          },
+          {
+            "key": "method",
+            "label": "Method",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.method",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Load Balancing Method, Default is Round-Robin"
+            }
+          },
+          {
+            "key": "lb-method",
+            "label": "LB Method",
+            "type": "select",
+            "cm-lineage": "slb.service-group.lb-method",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "allowed": [
+                {
+                  "label": "Destination IP Hash",
+                  "value": "dst-ip-hash",
+                  "help": "Load-balancing based on only Dst IP and Port hash"
+                },
+                {
+                  "label": "Destination IP Only Hash",
+                  "value": "dst-ip-only-hash",
+                  "help": "Load-balancing based on only Dst IP hash"
+                },
+                {
+                  "label": "Fastest Response",
+                  "value": "fastest-response",
+                  "help": "Fastest response time on service port level"
+                },
+                {
+                  "label": "Least Request",
+                  "value": "least-request",
+                  "help": "Least request on service port level"
+                },
+                {
+                  "label": "Source IP Hash",
+                  "value": "src-ip-hash",
+                  "help": "Load-balancing based on only Src IP and Port hash"
+                },
+                {
+                  "label": "Source IP Only Hash",
+                  "value": "src-ip-only-hash",
+                  "help": "Load-balancing based on only Src IP hash"
+                },
+                {
+                  "label": "Weighted RR",
+                  "value": "weighted-rr",
+                  "help": "Weighted round robin on server level"
+                },
+                {
+                  "label": "Round Robin",
+                  "value": "round-robin",
+                  "help": "Round robin on server level"
+                },
+                {
+                  "label": "Round Robin Strict",
+                  "value": "round-robin-strict",
+                  "help": "Strict mode round robin on server level"
+                },
+                {
+                  "label": "Odd Even Hash",
+                  "value": "odd-even-hash",
+                  "help": "odd/even hash based of client src-ip"
+                }
+              ],
+              "condition": "method",
+              "help": "LB method",
+              "default": "round-robin",
+              "m-exclusion": [
+                "lc-method",
+                "stateless-lb-method"
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "lc-method",
+            "label": "LC Method",
+            "type": "select",
+            "cm-lineage": "slb.service-group.lc-method",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "allowed": [
+                {
+                  "label": "Least Connection",
+                  "value": "least-connection",
+                  "help": "Least connection on server level"
+                },
+                {
+                  "label": "Service Least Connection",
+                  "value": "service-least-connection",
+                  "help": "Least connection on service port level"
+                },
+                {
+                  "label": "Weighted Least Connection",
+                  "value": "weighted-least-connection",
+                  "help": "Weighted least connection on server level"
+                },
+                {
+                  "label": "Service Weighted Least Connection",
+                  "value": "service-weighted-least-connection",
+                  "help": "Weighted least connection on service port level"
+                }
+              ],
+              "condition": "method",
+              "help": "Least connection method",
+              "m-exclusion": [
+                "lb-method",
+                "stateless-lb-method"
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "stateless-lb-method",
+            "label": "Stateless LB Method",
+            "type": "select",
+            "cm-lineage": "slb.service-group.stateless-lb-method",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Stateless Destination IP Hash",
+                  "value": "stateless-dst-ip-hash",
+                  "help": "Stateless load-balancing based on Dst IP and Dst port hash"
+                },
+                {
+                  "label": "Stateless Per Packet Round Robin",
+                  "value": "stateless-per-pkt-round-robin",
+                  "help": "Stateless load-balancing using per-packet round-robin"
+                },
+                {
+                  "label": "Stateless Source Destination IP Hash",
+                  "value": "stateless-src-dst-ip-hash",
+                  "help": "Stateless load-balancing based on IP and port hash for both Src and Dst"
+                },
+                {
+                  "label": "Stateless Source Destination IP Only Hash",
+                  "value": "stateless-src-dst-ip-only-hash",
+                  "help": "Stateless load-balancing based on only IP hash for both Src and Dst"
+                },
+                {
+                  "label": "Stateless Source IP Hash",
+                  "value": "stateless-src-ip-hash",
+                  "help": "Stateless load-balancing based on Src IP and Src port hash"
+                },
+                {
+                  "label": "Stateless Source IP Only Hash",
+                  "value": "stateless-src-ip-only-hash",
+                  "help": "Stateless load-balancing based on only Src IP hash"
+                }
+              ],
+              "condition": "method",
+              "m-exclusion": [
+                "lc-method",
+                "lb-method"
+              ],
+              "help": "Stateless LB method",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "pseudo-round-robin",
+            "label": "Pseudo Round Robin",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.pseudo-round-robin",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "lc-method",
+              "help": "PRR, select the oldest node for sub-select"
+            }
+          },
+          {
+            "key": "stateless-auto-switch",
+            "label": "Stateless Auto Switch",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.stateless-auto-switch",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "lc-method",
+              "help": "Enable auto stateless method"
+            }
+          },
+          {
+            "key": "stateless-lb-method2",
+            "label": "Stateless LB Method2",
+            "type": "select",
+            "cm-lineage": "slb.service-group.stateless-lb-method2",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Stateless Destination IP Hash",
+                  "value": "stateless-dst-ip-hash",
+                  "help": "Stateless load-balancing based on Dst IP and Dst port hash"
+                },
+                {
+                  "label": "Stateless Per Packet Round Robin",
+                  "value": "stateless-per-pkt-round-robin",
+                  "help": "Stateless load-balancing using per-packet round-robin"
+                },
+                {
+                  "label": "Stateless Source Destination IP Hash",
+                  "value": "stateless-src-dst-ip-hash",
+                  "help": "Stateless load-balancing based on IP and port hash for both Src and Dst"
+                },
+                {
+                  "label": "Stateless Source Destination IP Only Hash",
+                  "value": "stateless-src-dst-ip-only-hash",
+                  "help": "Stateless load-balancing based on only IP hash for both Src and Dst"
+                },
+                {
+                  "label": "Stateless Source IP Hash",
+                  "value": "stateless-src-ip-hash",
+                  "help": "Stateless load-balancing based on Src IP and Src port hash"
+                },
+                {
+                  "label": "Stateless Source IP Only Hash",
+                  "value": "stateless-src-ip-only-hash",
+                  "help": "Stateless load-balancing based on only Src IP hash"
+                }
+              ],
+              "condition": "stateless-auto-switch",
+              "help": "Stateless LB method",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "conn-rate",
+            "label": "Connection Rate",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.conn-rate",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-1000000",
+              "condition": "stateless-lb-method2",
+              "help": "Dynamically enable stateless method by conn-rate"
+            }
+          },
+          {
+            "key": "conn-rate-duration",
+            "label": "Connection Rate Duration",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.conn-rate-duration",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-600",
+              "condition": "conn-rate",
+              "help": "Period that trigger condition consistently happens(seconds)"
+            }
+          },
+          {
+            "key": "conn-revert-rate",
+            "label": "Connection Revert Rate",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.conn-revert-rate",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ov",
+              "range": "1-1000000",
+              "condition": "conn-rate-duration",
+              "help": "Rate to revert to statelful method (conn/sec)"
+            }
+          },
+          {
+            "key": "conn-rate-revert-duration",
+            "label": "Connection Rate Revert Duration",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.conn-rate-revert-duration",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-600",
+              "condition": "conn-revert-rate",
+              "help": "Period that revert condition consistently happens(seconds)"
+            }
+          },
+          {
+            "key": "conn-rate-grace-period",
+            "label": "Connection Rate Grace Period",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.conn-rate-grace-period",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-600",
+              "condition": "conn-rate-duration",
+              "help": "Define the grace period during transition"
+            }
+          },
+          {
+            "key": "conn-rate-log",
+            "label": "Connection Rate Log",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.conn-rate-log",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-rate-duration",
+              "help": "Send log if transition happens"
+            }
+          },
+          {
+            "key": "l4-session-usage",
+            "label": "L4 Session Usage",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.l4-session-usage",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-100",
+              "condition": "stateless-lb-method2",
+              "help": "Dynamically enable stateless method by session usage"
+            }
+          },
+          {
+            "key": "l4-session-usage-duration",
+            "label": "L4 Session Usage Duration",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.l4-session-usage-duration",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-600",
+              "condition": "l4-session-usage",
+              "help": "Period that trigger condition consistently happens(seconds)"
+            }
+          },
+          {
+            "key": "l4-session-usage-revert-rate",
+            "label": "L4 Session Usage Revert Rate",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.l4-session-usage-revert-rate",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ov",
+              "range": "1-100",
+              "condition": "l4-session-usage-duration",
+              "help": "Usage to revert to statelful method"
+            }
+          },
+          {
+            "key": "l4-session-revert-duration",
+            "label": "L4 Session Revert Duration",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.l4-session-revert-duration",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-600",
+              "condition": "l4-session-usage-revert-rate",
+              "help": "Period that revert condition consistently happens(seconds)"
+            }
+          },
+          {
+            "key": "l4-session-usage-grace-period",
+            "label": "L4 Session Usage Grace Period",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.l4-session-usage-grace-period",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-600",
+              "condition": "l4-session-usage-duration",
+              "help": "Define the grace period during transition"
+            }
+          },
+          {
+            "key": "l4-session-usage-log",
+            "label": "L4 Session Usage Log",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.l4-session-usage-log",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "l4-session-usage-duration",
+              "help": "Send log if transition happens"
+            }
+          },
+          {
+            "key": "strict-select",
+            "label": "Strict Select",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.strict-select",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "strict selection"
+            }
+          },
+          {
+            "key": "svcgrp-health-check",
+            "label": "Svcgrp Health Check",
+            "type": "select",
+            "cm-lineage": "slb.service-group.svcgrp-health-check",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "range": "1-63",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ]
+            }
+          },
+          {
+            "key": "health-check",
+            "label": "Health Check",
+            "type": "select",
+            "cm-lineage": "slb.service-group.health-check",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "svcgrp-health-check",
+              "range": "1-63",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ],
+              "m-exclusion": [
+                "shared-partition-svcgrp-health-check",
+                "health-check-disable"
+              ]
+            }
+          },
+          {
+            "key": "p-svcgrp-health-check",
+            "label": "P Svcgrp Health Check",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.p-svcgrp-health-check",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "svcgrp-health-check",
+              "help": "Reference a health-check from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-svcgrp-health-check",
+            "label": "Shared Partition Svcgrp Health Check",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.shared-partition-svcgrp-health-check",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-svcgrp-health-check",
+              "m-exclusion": [
+                "health-check",
+                "health-check-disable"
+              ],
+              "help": "Reference a health-check from shared partition"
+            }
+          },
+          {
+            "key": "svcgrp-health-check-shared",
+            "label": "Svcgrp Health Check Shared",
+            "type": "select",
+            "cm-lineage": "slb.service-group.svcgrp-health-check-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "condition": "shared-partition-svcgrp-health-check",
+              "range": "1-63",
+              "help": "Health Check",
+              "obj-association": [
+                "health.monitor"
+              ],
+              "m-exclusion": [
+                "health-check-disable"
+              ]
+            }
+          },
+          {
+            "key": "health-check-disable",
+            "label": "Health Check Disable",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.health-check-disable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "m-exclusion": [
+                "shared-partition-svcgrp-health-check"
+              ],
+              "help": "Disable health check"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "template",
+            "label": "Template",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Apply template to service-group"
+            }
+          },
+          {
+            "key": "template-port",
+            "label": "Template Port",
+            "type": "select",
+            "cm-lineage": "slb.service-group.template-port",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "template",
+              "obj-association": [
+                "slb.template.port"
+              ],
+              "help": "Port template"
+            }
+          },
+          {
+            "key": "template-server",
+            "label": "Template Server",
+            "type": "select",
+            "cm-lineage": "slb.service-group.template-server",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-127",
+              "condition": "template",
+              "obj-association": [
+                "slb.template.server"
+              ],
+              "help": "Server template"
+            }
+          },
+          {
+            "key": "policy-template",
+            "label": "Policy Template",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.policy-template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "help": "Policy template"
+            }
+          },
+          {
+            "key": "template-policy",
+            "label": "Template Policy",
+            "type": "select",
+            "cm-lineage": "slb.service-group.template-policy",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "policy-template",
+              "obj-association": [
+                "slb.template.policy"
+              ],
+              "help": "Policy template",
+              "m-exclusion": [
+                "shared-partition-policy-template"
+              ]
+            }
+          },
+          {
+            "key": "p-policy",
+            "label": "P Policy",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.p-policy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "policy-template",
+              "help": "Reference a policy template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-policy-template",
+            "label": "Shared Partition Policy Template",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.shared-partition-policy-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-policy",
+              "m-exclusion": [
+                "template-policy"
+              ],
+              "help": "Reference a policy template from shared partition"
+            }
+          },
+          {
+            "key": "template-policy-shared",
+            "label": "Template Policy Shared",
+            "type": "select",
+            "cm-lineage": "slb.service-group.template-policy-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-policy-template",
+              "obj-association": [
+                "slb.template.policy"
+              ],
+              "help": "Policy template"
+            }
+          },
+          {
+            "key": "min-active-member",
+            "label": "Min Active Member",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.min-active-member",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-1024",
+              "help": "Minimum Active Member Per Priority"
+            }
+          },
+          {
+            "key": "min-active-member-action",
+            "label": "Min Active Member Action",
+            "type": "select",
+            "cm-lineage": "slb.service-group.min-active-member-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "condition": "min-active-member",
+              "allowed": [
+                {
+                  "label": "Dynamic Priority",
+                  "value": "dynamic-priority",
+                  "help": "dynamic change member priority to met the min-active-member requirement"
+                },
+                {
+                  "label": "Skip Pri Set",
+                  "value": "skip-pri-set",
+                  "help": "Skip Current Priority Set If Min not met"
+                }
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "reset-on-server-selection-fail",
+            "label": "Reset On Server Selection Fail",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.reset-on-server-selection-fail",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "disabled": [
+                "protocol",
+                [
+                  "udp"
+                ]
+              ],
+              "help": "Send reset to client if server selection fails"
+            }
+          },
+          {
+            "key": "priority-affinity",
+            "label": "Priority Affinity",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.priority-affinity",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "Priority affinity. Persist to the same priority if possible."
+            }
+          },
+          {
+            "key": "reset-priority-affinity",
+            "label": "Reset Priority Affinity",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.reset-priority-affinity",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "priority-affinity",
+              "help": "Reset"
+            }
+          },
+          {
+            "key": "backup-server-event-log",
+            "label": "Backup Server Event Log",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.backup-server-event-log",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send log info on back up server events"
+            }
+          },
+          {
+            "key": "stats-data-action",
+            "label": "Stats Data Action",
+            "type": "select",
+            "cm-lineage": "slb.service-group.stats-data-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ovy",
+              "allowed": [
+                {
+                  "label": "Stats Data Enable",
+                  "value": "stats-data-enable",
+                  "help": "Enable statistical data collection for service group"
+                },
+                {
+                  "label": "Stats Data Disable",
+                  "value": "stats-data-disable",
+                  "help": "Disable statistical data collection for service group"
+                }
+              ],
+              "default": "stats-data-enable",
+              "help": "Statistical data collection",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "extended-stats",
+            "label": "Extended Stats",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.extended-stats",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enable extended statistics on service group"
+            }
+          },
+          {
+            "key": "traffic-replication-type",
+            "label": "Traffic Replication Type",
+            "type": "dummy",
+            "cm-lineage": "slb.service-group.traffic-replication-type",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Enable traffic replication on service group"
+            }
+          },
+          {
+            "key": "traffic-replication-mirror",
+            "label": "Traffic Replication Mirror",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.traffic-replication-mirror",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "traffic-replication-type",
+              "help": "Mirror Bi-directional Packet"
+            }
+          },
+          {
+            "key": "traffic-replication-mirror-da-repl",
+            "label": "Traffic Replication Mirror DA Repl",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.traffic-replication-mirror-da-repl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "traffic-replication-type",
+              "help": "Replace Destination MAC"
+            }
+          },
+          {
+            "key": "traffic-replication-mirror-ip-repl",
+            "label": "Traffic Replication Mirror IP Repl",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.traffic-replication-mirror-ip-repl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "traffic-replication-type",
+              "help": "Replaces IP with server-IP"
+            }
+          },
+          {
+            "key": "traffic-replication-mirror-sa-da-repl",
+            "label": "Traffic Replication Mirror SA DA Repl",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.traffic-replication-mirror-sa-da-repl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "traffic-replication-type",
+              "help": "Replace Source MAC and Destination MAC"
+            }
+          },
+          {
+            "key": "traffic-replication-mirror-sa-repl",
+            "label": "Traffic Replication Mirror SA Repl",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.traffic-replication-mirror-sa-repl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "traffic-replication-type",
+              "help": "Replace Source MAC"
+            }
+          },
+          {
+            "key": "priorities",
+            "label": "Priorities",
+            "type": "table",
+            "cm-lineage": "slb.service-group.priorities",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "priority",
+                "label": "Priority",
+                "type": "input-number",
+                "cm-lineage": "slb.service-group.priorities.priority",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mby",
+                  "range": "1-16",
+                  "multi-field-key": true,
+                  "max-elements": 16,
+                  "help": "Priority option. Define different action for each priority node."
+                }
+              },
+              {
+                "key": "priority-action",
+                "label": "Priority Action",
+                "type": "select",
+                "cm-lineage": "slb.service-group.priorities.priority-action",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ovy",
+                  "condition": "priority",
+                  "allowed": [
+                    {
+                      "label": "Drop",
+                      "value": "drop",
+                      "help": "Drop request when all priority nodes fail"
+                    },
+                    {
+                      "label": "Drop If Exceed Limit",
+                      "value": "drop-if-exceed-limit",
+                      "help": "Drop request when connection over limit"
+                    },
+                    {
+                      "label": "Proceed",
+                      "value": "proceed",
+                      "help": "Proceed to next priority when all priority nodes fail(default)"
+                    },
+                    {
+                      "label": "Reset",
+                      "value": "reset",
+                      "help": "Send client reset when all priority nodes fail"
+                    },
+                    {
+                      "label": "Reset If Exceed Limit",
+                      "value": "reset-if-exceed-limit",
+                      "help": "Send client reset when connection over limit"
+                    }
+                  ],
+                  "help": "Priority action",
+                  "default": "proceed",
+                  "range": "1-128"
+                }
+              }
+            ]
+          },
+          {
+            "key": "sample-rsp-time",
+            "label": "Sample Rsp Time",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.sample-rsp-time",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "sample server response time"
+            }
+          },
+          {
+            "key": "rpt-ext-server",
+            "label": "Rpt Ext Server",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.rpt-ext-server",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "sample-rsp-time",
+              "help": "Report top 10 fastest/slowest servers"
+            }
+          },
+          {
+            "key": "report-delay",
+            "label": "Report Delay",
+            "type": "input-number",
+            "cm-lineage": "slb.service-group.report-delay",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-7200",
+              "condition": "rpt-ext-server",
+              "help": "Reporting frequency (in minutes)"
+            }
+          },
+          {
+            "key": "top-slowest",
+            "label": "Top Slowest",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.top-slowest",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "rpt-ext-server",
+              "help": "Report top 10 slowest servers"
+            }
+          },
+          {
+            "key": "top-fastest",
+            "label": "Top Fastest",
+            "type": "switch",
+            "cm-lineage": "slb.service-group.top-fastest",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "rpt-ext-server",
+              "help": "Report top 10 fastest servers"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

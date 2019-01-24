@@ -1,0 +1,505 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.port",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/port/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.port.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Port template name",
+            "object-key": true,
+            "default": "default",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "conn-limit",
+          "label": "Conn Limit",
+          "cm-lineage": "slb.template.port.conn-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection limit",
+            "default": "64000000",
+            "range": "1-64000000" 
+          }
+        },
+        { 
+          "key": "resume",
+          "label": "Resume",
+          "cm-lineage": "slb.template.port.resume",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "conn-limit",
+            "help": "Resume accepting new connection after connection number drops below threshold",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit",
+          "label": "Conn Rate Limit",
+          "cm-lineage": "slb.template.port.conn-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Connection rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "rate-interval",
+          "label": "Rate Interval",
+          "cm-lineage": "slb.template.port.rate-interval",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "conn-rate-limit",
+            "allowed": [  
+              { 
+              "label": "100ms",
+              "value": "100ms",
+              "help": "Use 100 ms as sampling interval" 
+              },
+              { 
+              "label": "Second",
+              "value": "second",
+              "help": "Use 1 second as sampling interval" 
+              }
+            ],
+            "default": "second" 
+          }
+        },
+        { 
+          "key": "conn-rate-limit-no-logging",
+          "label": "Conn Rate Limit No Logging",
+          "cm-lineage": "slb.template.port.conn-rate-limit-no-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "conn-rate-limit",
+            "help": "Do not log connection over limit event" 
+          }
+        },
+        { 
+          "key": "request-rate-limit",
+          "label": "Request Rate Limit",
+          "cm-lineage": "slb.template.port.request-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Request rate limit",
+            "range": "1-1048575" 
+          }
+        },
+        { 
+          "key": "health-check",
+          "label": "Health Check",
+          "cm-lineage": "slb.template.port.health-check",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Health Check Monitor",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "health-check-disable" 
+            ]
+          }
+        },
+        { 
+          "key": "health-check-disable",
+          "label": "Health Check Disable",
+          "cm-lineage": "slb.template.port.health-check-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable configured health check configuration",
+            "m-exclusion": [  
+             "health-check" 
+            ]
+          }
+        },
+        { 
+          "key": "inband-health-check",
+          "label": "Inband Health Check",
+          "cm-lineage": "slb.template.port.inband-health-check",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use inband traffic to detect port's health status" 
+          }
+        },
+        { 
+          "key": "retry",
+          "label": "Retry",
+          "cm-lineage": "slb.template.port.retry",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "inband-health-check",
+            "help": "Maximum retry times before reassign this connection to another server/port (default is 2)",
+            "default": "2",
+            "range": "0-7" 
+          }
+        },
+        { 
+          "key": "reassign",
+          "label": "Reassign",
+          "cm-lineage": "slb.template.port.reassign",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "inband-health-check",
+            "help": "Maximum reassign times before declear the server/port down (default is 25)",
+            "default": "25",
+            "range": "0-255" 
+          }
+        },
+        { 
+          "key": "resel-on-reset",
+          "label": "Resel On Reset",
+          "cm-lineage": "slb.template.port.resel-on-reset",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "inband-health-check",
+            "help": "When receiving reset from server, do the server/port reselection (default is 0, don't do reselection)" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Flow",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "reset",
+          "label": "Reset",
+          "cm-lineage": "slb.template.port.reset",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "request-rate-limit",
+            "help": "Send client reset when connection rate over limit" 
+          }
+        },
+        { 
+          "key": "request-rate-no-logging",
+          "label": "Request Rate No Logging",
+          "cm-lineage": "slb.template.port.request-rate-no-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "request-rate-limit",
+            "help": "Do not log connection over limit event" 
+          }
+        },
+        { 
+          "key": "dest-nat",
+          "label": "Dest Nat",
+          "cm-lineage": "slb.template.port.dest-nat",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Destination NAT" 
+          }
+        },
+        { 
+          "key": "source-nat",
+          "label": "Source Nat",
+          "cm-lineage": "slb.template.port.source-nat",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Source NAT",
+            "obj-association": [  
+             "ip.nat.pool",
+             " ipv6.nat.pool",
+             " ip.nat.pool-group",
+             " ipv6.nat.pool-group" 
+            ],
+            "range": "1-128",
+            "m-exclusion": [  
+             "shared-partition-pool" 
+            ]
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "down-grace-period",
+          "label": "Down Grace Period",
+          "cm-lineage": "slb.template.port.down-grace-period",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Port down grace period",
+            "range": "1-86400" 
+          }
+        },
+        { 
+          "key": "del-session-on-server-down",
+          "label": "Del Session On Server Down",
+          "cm-lineage": "slb.template.port.del-session-on-server-down",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Delete session if the server/port goes down (either disabled/hm down)" 
+          }
+        },
+        { 
+          "key": "dynamic-member-priority",
+          "label": "Dynamic Member Priority",
+          "cm-lineage": "slb.template.port.dynamic-member-priority",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Set dynamic member's priority",
+            "default": "16",
+            "range": "1-16" 
+          }
+        },
+        { 
+          "key": "decrement",
+          "label": "Decrement",
+          "cm-lineage": "slb.template.port.decrement",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "dynamic-member-priority",
+            "help": "Decrease after every round of DNS query (default is 0)",
+            "default": "0",
+            "range": "0-7" 
+          }
+        },
+        { 
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.template.port.extended-stats",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable extended statistics on real server port" 
+          }
+        },
+        { 
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.template.port.stats-data-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for real server port" 
+              },
+              { 
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for real server port" 
+              }
+            ],
+            "default": "stats-data-enable" 
+          }
+        },
+        { 
+          "key": "down-timer",
+          "label": "Down Timer",
+          "cm-lineage": "slb.template.port.down-timer",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "inband-health-check",
+            "help": "The timer to bring the marked down server/port to up (default is 0, never bring up)",
+            "default": "0",
+            "range": "0-255" 
+          }
+        },
+        { 
+          "key": "weight",
+          "label": "Weight",
+          "cm-lineage": "slb.template.port.weight",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Weight",
+            "default": "1",
+            "range": "1-1000" 
+          }
+        },
+        { 
+          "key": "dampening-flaps",
+          "label": "Dampening Flaps",
+          "cm-lineage": "slb.template.port.dampening-flaps",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "service dampening flaps count",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "flap-period",
+          "label": "Flap Period",
+          "cm-lineage": "slb.template.port.flap-period",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "dampening-flaps",
+            "help": "take service out of rotation if max-flaps exceeded within time in seconds",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "restore-svc-time",
+          "label": "Restore Svc Time",
+          "cm-lineage": "slb.template.port.restore-svc-time",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "flap-period",
+            "help": "put the service back to the rotation after time in seconds",
+            "range": "1-4095" 
+          }
+        },
+        { 
+          "key": "sub-group",
+          "label": "Sub Group",
+          "cm-lineage": "slb.template.port.sub-group",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Divide service group members into different sub groups",
+            "default": "0",
+            "range": "0-15" 
+          }
+        },
+        { 
+          "key": "slow-start",
+          "label": "Slow Start",
+          "cm-lineage": "slb.template.port.slow-start",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Slowly ramp up the connection number after port is up" 
+          }
+        },
+        { 
+          "key": "initial-slow-start",
+          "label": "Initial Slow Start",
+          "cm-lineage": "slb.template.port.initial-slow-start",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Initial slow start connection limit (default 128)",
+            "default": "128",
+            "range": "1-4095" 
+          }
+        },
+        { 
+          "key": "add",
+          "label": "Add",
+          "cm-lineage": "slb.template.port.add",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit add by a number every interval",
+            "range": "1-4095",
+            "m-exclusion": [  
+             "times" 
+            ]
+          }
+        },
+        { 
+          "key": "times",
+          "label": "Times",
+          "cm-lineage": "slb.template.port.times",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit multiply by a number every interval (default 2)",
+            "default": "2",
+            "range": "2-10",
+            "m-exclusion": [  
+             "add" 
+            ]
+          }
+        },
+        { 
+          "key": "every",
+          "label": "Every",
+          "cm-lineage": "slb.template.port.every",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start connection limit increment interval (default 10)",
+            "default": "10",
+            "range": "1-60" 
+          }
+        },
+        { 
+          "key": "till",
+          "label": "Till",
+          "cm-lineage": "slb.template.port.till",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "slow-start",
+            "help": "Slow start ends when slow start connection limit reaches a number (default 4096)",
+            "default": "4096",
+            "range": "1-65535" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit",
+          "label": "Bw Rate Limit",
+          "cm-lineage": "slb.template.port.bw-rate-limit",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Configure bandwidth rate limit on real server port",
+            "range": "1-16777216" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit-resume",
+          "label": "Bw Rate Limit Resume",
+          "cm-lineage": "slb.template.port.bw-rate-limit-resume",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "bw-rate-limit",
+            "help": "Resume server selection after bandwidth drops below this threshold (in Kbps)",
+            "range": "1-16777216" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit-duration",
+          "label": "Bw Rate Limit Duration",
+          "cm-lineage": "slb.template.port.bw-rate-limit-duration",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "bw-rate-limit-resume",
+            "help": "Duration in seconds the observed rate needs to honor",
+            "range": "1-250" 
+          }
+        },
+        { 
+          "key": "bw-rate-limit-no-logging",
+          "label": "Bw Rate Limit No Logging",
+          "cm-lineage": "slb.template.port.bw-rate-limit-no-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "bw-rate-limit-duration",
+            "help": "Do not log bandwidth rate limit related state transitions" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

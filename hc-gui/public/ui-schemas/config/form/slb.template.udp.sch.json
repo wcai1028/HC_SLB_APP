@@ -1,0 +1,174 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.udp",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/udp/{name}",
+  "pageTitle": "UDP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.udp.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Fast UDP Template Name"
+            }
+          },
+          {
+            "key": "idle-timeout",
+            "label": "Idle Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.udp.idle-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "default": 120,
+              "range": "1-2097151",
+              "help": "Idle Timeout value (Interval of 60 seconds), default 120 seconds",
+              "round-off": [
+                "60",
+                "30",
+                "60"
+              ]
+            }
+          },
+          {
+            "key": "qos",
+            "label": "QoS",
+            "type": "input-number",
+            "cm-lineage": "slb.template.udp.qos",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "QOS level"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "stateless-conn-timeout",
+            "label": "Stateless Connection Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.udp.stateless-conn-timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "5-120",
+              "help": "Stateless Current Connection Timeout value (5 - 120 seconds)",
+              "default": 120
+            }
+          },
+          {
+            "key": "aging",
+            "label": "Aging",
+            "type": "dummy",
+            "cm-lineage": "slb.template.udp.aging",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Aging Control"
+            }
+          },
+          {
+            "key": "immediate",
+            "label": "Immediate",
+            "type": "switch",
+            "cm-lineage": "slb.template.udp.immediate",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "aging",
+              "help": "Immediate Removal after Transaction",
+              "m-exclusion": [
+                "short"
+              ]
+            }
+          },
+          {
+            "key": "short",
+            "label": "Short",
+            "type": "switch",
+            "cm-lineage": "slb.template.udp.short",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "condition": "aging",
+              "m-exclusion": [
+                "immediate"
+              ],
+              "help": "Short lived session"
+            }
+          },
+          {
+            "key": "age",
+            "label": "Age",
+            "type": "input-number",
+            "cm-lineage": "slb.template.udp.age",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ov",
+              "range": "1-30",
+              "condition": "short",
+              "help": "short age (in sec), default is 30"
+            }
+          },
+          {
+            "key": "re-select-if-server-down",
+            "label": "Reselect If Server Down",
+            "type": "switch",
+            "cm-lineage": "slb.template.udp.re-select-if-server-down",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "re-select another server if service port is down"
+            }
+          },
+          {
+            "key": "disable-clear-session",
+            "label": "Disable Clear Session",
+            "type": "switch",
+            "cm-lineage": "slb.template.udp.disable-clear-session",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "re-select-if-server-down",
+              "help": "Disable immediate clearing of session"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

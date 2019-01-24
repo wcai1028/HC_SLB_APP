@@ -1,0 +1,254 @@
+@import '~a10-gui-framework/dist/less/compatible-reset.less';
+@import '~a10-gui-widgets/dist/index.less';
+/** could change theme **/
+// @import "./themes/light.less";
+@import './variables.less';
+@import './list.less';
+@import './list_detail.less';
+
+/** your main logical write here:test **/
+body {
+  background-color: @backgroundColor;
+}
+
+.ant-table {
+  .a10-dropdown-menu {
+    display: inline-grid;
+  }
+}
+.ant-table-expand-icon-th,
+.ant-table-row-expand-icon-cell {
+  width: 30px !important;
+  min-width: 30px !important;
+}
+
+.ant-table-row-expanded {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 6px 0 6px;
+  border-color: #bdcadb transparent transparent transparent;
+  background: none;
+  &:after {
+    content: ' ';
+  }
+}
+
+.ant-table-row-collapsed {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent #bdcadb;
+  background: none;
+  &:after {
+    content: ' ';
+  }
+}
+
+.ant-table-expanded-row {
+  background-color: #ffffff !important;
+}
+
+.ant-collapse-header {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #363636;
+  > .arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent #bdcadb;
+    background: none;
+    position: absolute;
+    line-height: 46px;
+    top: 16px !important;
+    &:before {
+      content: ' ' !important;
+    }
+  }
+}
+
+.slide-pane__content {
+  background-color: #f9f9f9;
+}
+
+.action-button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #4a90e2;
+  height: 32px;
+  border-radius: 19.5px;
+  border: solid 1px rgba(255, 255, 255, 0);
+
+  &:disabled {
+    border: solid 1px rgba(255, 255, 255, 0);
+    background: none;
+    .fa {
+      color: #efefef;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    height: 32px;
+    background-color: #ffffff;
+    border: solid 1px #d0e2f5;
+  }
+
+  .action-icon {
+    color: #000;
+    margin-right: 4px;
+  }
+}
+
+.table-header {
+  float: right;
+  .vertical-split-divider {
+    border-left: 1px dashed #d2d2d2;
+    height: 40px;
+    width: 2px;
+    margin: 0px 20px;
+  }
+
+  &-inner {
+    margin-bottom: 12px;
+  }
+}
+
+.inner-table {
+  margin-top: 12px;
+}
+
+.searchbar-container {
+  display: inline-block;
+}
+
+.ant-popover {
+  .ant-menu {
+    list-style-type: none;
+    margin: 0 -10px;
+    padding: 0;
+    min-width: 150px;
+    color: #525151;
+    border: none;
+    .ant-menu-item {
+      cursor: pointer;
+      border: @basic-border-placeholder;
+      padding: 0 4px;
+      height: 34px;
+      line-height: 34px;
+      &:hover {
+        color: @text-color-active;
+        border-radius: 2px;
+        background-color: #d1e7fd;
+        border: @basic-dropdown-item-active-border;
+      }
+    }
+  }
+}
+
+.a10-collapse-list {
+  .ant-collapse {
+    border: none;
+    background-color: #ffffff;
+
+    &-item {
+      background-color: #f1f8ff;
+      margin-bottom: 9px;
+      border: 1px solid #e7ecf1;
+      border-radius: 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &-content {
+      background-color: unset;
+      border-top: none;
+      overflow: unset;
+    }
+  }
+}
+
+.a10-report-collapse {
+  .ant-collapse-header {
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    .arrow {
+      margin-top: 14px;
+    }
+  }
+}
+
+.a10-normal-collapse {
+  .ant-collapse-header {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    .arrow {
+      margin-top: 0px;
+    }
+  }
+
+  .ant-collapse-item {
+    border: none;
+  }
+}
+
+.a10-table-single {
+  margin-top: -55px;
+  .ant-table {
+    table {
+      border-collapse: collapse;
+      thead {
+        border: none;
+      }
+    }
+
+    &-tbody {
+      > tr {
+        background: none;
+        & > td {
+          border: none;
+        }
+
+        &:hover {
+          // border: 1px solid #e7ecf1;
+          // border-radius: 4px;
+          // background-color: #fafdff;
+        }
+      }
+    }
+
+    &-thead > tr {
+      background: #ffffff00;
+      border: none;
+      & > th {
+        background: #ffffff00 0;
+        font-size: 12px;
+        color: #a6a6a6;
+        padding: 8px;
+        border: none;
+      }
+
+      & > td {
+        border: none;
+      }
+    }
+  }
+}
+
+.pullup-container {
+  .search-input-container {
+    margin: unset;
+    box-shadow: none;
+    border-top: none;
+  }
+}

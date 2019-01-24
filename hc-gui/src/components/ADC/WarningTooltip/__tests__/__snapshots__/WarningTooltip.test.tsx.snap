@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit Test: WarningTooltip  should render properly:  should render properly when props changes 1`] = `
+<div
+  className="mock-a10-tooltip"
+>
+  <span
+    className="warningIcon"
+  />
+  <div
+    className="dirtyList"
+  >
+    <h2
+      className="title"
+    >
+      Test Title
+    </h2>
+    <ul
+      className="description"
+    >
+      <li>
+        <span
+          className="warningIcon"
+        />
+        <span>
+          Test description1
+        </span>
+      </li>
+      <li>
+        <span
+          className="warningIcon"
+        />
+        <span>
+          Test descriptions2
+        </span>
+      </li>
+    </ul>
+    <div
+      className="action"
+    >
+      <a
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        Save
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unit Test: WarningTooltip  should render properly:  should render properly with common props 1`] = `
+<div
+  className="mock-a10-tooltip"
+>
+  <span
+    className="warningIcon"
+  />
+  <div>
+    Warning...
+  </div>
+  <div>
+    <span>
+      Test description1
+    </span>
+    <span>
+      Test descriptions2
+    </span>
+  </div>
+  <div
+    onClick={[Function]}
+  >
+    Save
+  </div>
+</div>
+`;
+
+exports[`Unit Test: WarningTooltip  should render properly:  should render properly with min props 1`] = `
+<div
+  className="mock-a10-tooltip"
+>
+  <span
+    className="warningIcon"
+  />
+  <div
+    className="dirtyList"
+  >
+    <h2
+      className="title"
+    >
+      No Data.
+    </h2>
+    <ul
+      className="description"
+    />
+    <div
+      className="action"
+    >
+      <a
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        Confirm
+      </a>
+    </div>
+  </div>
+</div>
+`;

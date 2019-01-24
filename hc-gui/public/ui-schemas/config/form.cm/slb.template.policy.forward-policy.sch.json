@@ -1,0 +1,158 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "no-client-conn-reuse",
+          "label": "No Client Conn Reuse",
+          "cm-lineage": "slb.template.policy.forward-policy.no-client-conn-reuse",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Inspects only first request of a connection" 
+          }
+        },
+        { 
+          "key": "filtering",
+          "label": "Filtering",
+          "cm-lineage": "slb.template.policy.forward-policy.filtering",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "ssli-url-filtering",
+            "label": "Ssli Url Filtering",
+            "cm-lineage": "slb.template.policy.forward-policy.ssli-url-filtering",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Bypassed Sni Disable",
+                "value": "bypassed-sni-disable",
+                "help": "Disable SNI filtering for bypassed URL's(enabled by default)" 
+                },
+                { 
+                "label": "Intercepted Sni Enable",
+                "value": "intercepted-sni-enable",
+                "help": "Enable SNI filtering for intercepted URL's(disabled by default)" 
+                },
+                { 
+                "label": "Intercepted Http Disable",
+                "value": "intercepted-http-disable",
+                "help": "Disable HTTP(host/URL) filtering for intercepted URL's(enabled by default)" 
+                },
+                { 
+                "label": "No Sni Allow",
+                "value": "no-sni-allow",
+                "help": "Allow connection if SNI filtering is enabled and SNI header is not present(Drop by default)" 
+                }
+              ],
+              "max-elements": "4" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "san-filtering",
+          "label": "San Filtering",
+          "cm-lineage": "slb.template.policy.forward-policy.san-filtering",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "ssli-url-filtering-san",
+            "label": "Ssli Url Filtering San",
+            "cm-lineage": "slb.template.policy.forward-policy.ssli-url-filtering-san",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Enable San",
+                "value": "enable-san",
+                "help": "Enable SAN filtering(disabled by default)" 
+                },
+                { 
+                "label": "Bypassed San Disable",
+                "value": "bypassed-san-disable",
+                "help": "Disable SAN filtering for bypassed URL's(enabled by default)" 
+                },
+                { 
+                "label": "Intercepted San Enable",
+                "value": "intercepted-san-enable",
+                "help": "Enable SAN filtering for intercepted URL's(disabled by default)" 
+                },
+                { 
+                "label": "No San Allow",
+                "value": "no-san-allow",
+                "help": "Allow connection if SAN filtering is enabled and SAN field is not present(Drop by default)" 
+                }
+              ],
+              "max-elements": "4" 
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "local-logging",
+          "label": "Local Logging",
+          "cm-lineage": "slb.template.policy.forward-policy.local-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable local logging" 
+          }
+        },
+        { 
+          "key": "log-format",
+          "label": "Log Format",
+          "cm-lineage": "slb.template.policy.forward-policy.log-format",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Syslog",
+              "value": "syslog",
+              "help": "Syslog format (default)" 
+              },
+              { 
+              "label": "Cef",
+              "value": "cef",
+              "help": "Common Eevent Format" 
+              }
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.http-policy",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/http-policy/{name}",
+  "pageTitle": "HTTP Policy Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.http-policy.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "http-policy template name"
+            }
+          },
+          {
+            "key": "cookie-name",
+            "label": "Cookie Name",
+            "type": "input",
+            "cm-lineage": "slb.template.http-policy.cookie-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "help": "name of cookie to match"
+            }
+          },
+          {
+            "key": "http-policy-match",
+            "label": "HTTP Policy Match",
+            "type": "table",
+            "cm-lineage": "slb.template.http-policy.http-policy-match",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "type",
+                "label": "Type",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.type",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "allowed": [
+                    {
+                      "label": "Cookie",
+                      "value": "cookie",
+                      "help": "cookie value match"
+                    },
+                    {
+                      "label": "Host",
+                      "value": "host",
+                      "help": "hostname match"
+                    },
+                    {
+                      "label": "URL",
+                      "value": "url",
+                      "help": "URL match"
+                    }
+                  ],
+                  "max-elements": 64,
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "match-type",
+                "label": "Match Type",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.match-type",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mvy",
+                  "multi-field-key": true,
+                  "allowed": [
+                    {
+                      "label": "Contains",
+                      "value": "contains",
+                      "help": "Select service group if URL string contains another string"
+                    },
+                    {
+                      "label": "Ends With",
+                      "value": "ends-with",
+                      "help": "Select service group if URL string ends with another string"
+                    },
+                    {
+                      "label": "Equals",
+                      "value": "equals",
+                      "help": "Select service group if URL string equals another string"
+                    },
+                    {
+                      "label": "Starts With",
+                      "value": "starts-with",
+                      "help": "Select service group if URL string starts with another string"
+                    }
+                  ],
+                  "max-elements": 64,
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "match-string",
+                "label": "Match String",
+                "type": "input",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.match-string",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "help": "URL String",
+                  "max-elements": 64,
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "service-group",
+                "label": "Service Group",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.service-group",
+                "cm-meta": {
+                  "format": "long-string",
+                  "flags": "mbr",
+                  "range": "1-127",
+                  "obj-association": [
+                    "slb.service-group"
+                  ],
+                  "help": "Service Group to be used"
+                }
+              },
+              {
+                "key": "template",
+                "label": "Template",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.template",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mbr",
+                  "plat-neg-list": [
+                    "fireeye"
+                  ],
+                  "allowed": [
+                    {
+                      "label": "Waf",
+                      "value": "waf",
+                      "help": "Waf"
+                    }
+                  ],
+                  "help": "WAF template to be used",
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "template-name",
+                "label": "Template Name",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.http-policy-match.template-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mvr",
+                  "plat-neg-list": [
+                    "fireeye"
+                  ],
+                  "range": "1-63",
+                  "help": "WAF template to be used",
+                  "obj-association": [
+                    "waf.template"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "key": "geo-location-match",
+            "label": "Geo Location Match",
+            "type": "table",
+            "cm-lineage": "slb.template.http-policy.geo-location-match",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "geo-location",
+                "label": "Geo Location",
+                "type": "input",
+                "cm-lineage": "slb.template.http-policy.geo-location-match.geo-location",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mb",
+                  "multi-field-key": true,
+                  "max-elements": 64,
+                  "help": "Geolocation name",
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "geo-location-service-group",
+                "label": "Geo Location Service Group",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.geo-location-match.geo-location-service-group",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mbr",
+                  "range": "1-127",
+                  "obj-association": [
+                    "slb.service-group"
+                  ],
+                  "help": "Service Group to be used"
+                },
+                "name-label": "Service Group"
+              },
+              {
+                "key": "geo-location-template",
+                "label": "Geo Location Template",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.geo-location-match.geo-location-template",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mbr",
+                  "plat-neg-list": [
+                    "fireeye"
+                  ],
+                  "allowed": [
+                    {
+                      "label": "Waf",
+                      "value": "waf",
+                      "help": "Waf"
+                    }
+                  ],
+                  "help": "WAF template to be used",
+                  "range": "1-128"
+                },
+                "name-label": "Template"
+              },
+              {
+                "key": "geo-location-template-name",
+                "label": "Geo Location Template Name",
+                "type": "select",
+                "cm-lineage": "slb.template.http-policy.geo-location-match.geo-location-template-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mvr",
+                  "plat-neg-list": [
+                    "fireeye"
+                  ],
+                  "range": "1-127",
+                  "help": "WAF template to be used",
+                  "obj-association": [
+                    "waf.template"
+                  ]
+                },
+                "name-label": "Template Name"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

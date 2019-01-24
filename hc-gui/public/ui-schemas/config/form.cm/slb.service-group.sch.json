@@ -1,0 +1,497 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.service-group",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/service-group/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.service-group.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SLB Service Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "protocol",
+          "label": "Protocol",
+          "cm-lineage": "slb.service-group.protocol",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "name",
+            "allowed": [  
+              { 
+              "label": "Tcp",
+              "value": "tcp",
+              "help": "TCP LB service" 
+              },
+              { 
+              "label": "Udp",
+              "value": "udp",
+              "help": "UDP LB service" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "lb-method",
+          "label": "Lb Method",
+          "cm-lineage": "slb.service-group.lb-method",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Dst Ip Hash",
+              "value": "dst-ip-hash",
+              "help": "Load-balancing based on only Dst IP and Port hash" 
+              },
+              { 
+              "label": "Dst Ip Only Hash",
+              "value": "dst-ip-only-hash",
+              "help": "Load-balancing based on only Dst IP hash" 
+              },
+              { 
+              "label": "Fastest Response",
+              "value": "fastest-response",
+              "help": "Fastest response time on service port level" 
+              },
+              { 
+              "label": "Least Request",
+              "value": "least-request",
+              "help": "Least request on service port level" 
+              },
+              { 
+              "label": "Src Ip Hash",
+              "value": "src-ip-hash",
+              "help": "Load-balancing based on only Src IP and Port hash" 
+              },
+              { 
+              "label": "Src Ip Only Hash",
+              "value": "src-ip-only-hash",
+              "help": "Load-balancing based on only Src IP hash" 
+              },
+              { 
+              "label": "Weighted Rr",
+              "value": "weighted-rr",
+              "help": "Weighted round robin on server level" 
+              },
+              { 
+              "label": "Round Robin",
+              "value": "round-robin",
+              "help": "Round robin on server level" 
+              },
+              { 
+              "label": "Round Robin Strict",
+              "value": "round-robin-strict",
+              "help": "Strict mode round robin on server level" 
+              },
+              { 
+              "label": "Odd Even Hash",
+              "value": "odd-even-hash",
+              "help": "odd/even hash based of client src-ip" 
+              }
+            ],
+            "default": "round-robin",
+            "m-exclusion": [  
+             "lc-method",
+             "stateless-lb-method" 
+            ]
+          }
+        },
+        { 
+          "key": "lc-method",
+          "label": "Lc Method",
+          "cm-lineage": "slb.service-group.lc-method",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Least Connection",
+              "value": "least-connection",
+              "help": "Least connection on server level" 
+              },
+              { 
+              "label": "Service Least Connection",
+              "value": "service-least-connection",
+              "help": "Least connection on service port level" 
+              },
+              { 
+              "label": "Weighted Least Connection",
+              "value": "weighted-least-connection",
+              "help": "Weighted least connection on server level" 
+              },
+              { 
+              "label": "Service Weighted Least Connection",
+              "value": "service-weighted-least-connection",
+              "help": "Weighted least connection on service port level" 
+              }
+            ],
+            "m-exclusion": [  
+             "lb-method" 
+            ]
+          }
+        },
+        { 
+          "key": "strict-select",
+          "label": "Strict Select",
+          "cm-lineage": "slb.service-group.strict-select",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "strict selection" 
+          }
+        },
+        { 
+          "key": "health-check",
+          "label": "Health Check",
+          "cm-lineage": "slb.service-group.health-check",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Health Check",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "shared-partition-svcgrp-health-check" 
+            ]
+          }
+        },
+        { 
+          "key": "svcgrp-health-check-shared",
+          "label": "Svcgrp Health Check Shared",
+          "cm-lineage": "slb.service-group.svcgrp-health-check-shared",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "shared-partition-svcgrp-health-check",
+            "help": "Health Check",
+            "obj-association": [  
+             "health.monitor" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "health-check-disable" 
+            ]
+          }
+        },
+        { 
+          "key": "health-check-disable",
+          "label": "Health Check Disable",
+          "cm-lineage": "slb.service-group.health-check-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable health check",
+            "m-exclusion": [  
+             "health-check" 
+            ]
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "template-port",
+          "label": "Template Port",
+          "cm-lineage": "slb.service-group.template-port",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Port template",
+            "obj-association": [  
+             "slb.template.port" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "template-server",
+          "label": "Template Server",
+          "cm-lineage": "slb.service-group.template-server",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Server template",
+            "obj-association": [  
+             "slb.template.server" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "template-policy",
+          "label": "Template Policy",
+          "cm-lineage": "slb.service-group.template-policy",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Policy template",
+            "obj-association": [  
+             "slb.template.policy" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "shared-partition-policy-template" 
+            ]
+          }
+        },
+        { 
+          "key": "min-active-member",
+          "label": "Min Active Member",
+          "cm-lineage": "slb.service-group.min-active-member",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Minimum Active Member Per Priority",
+            "range": "1-1024" 
+          }
+        },
+        { 
+          "key": "reset-on-server-selection-fail",
+          "label": "Reset On Server Selection Fail",
+          "cm-lineage": "slb.service-group.reset-on-server-selection-fail",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send reset to client if server selection fails" 
+          }
+        },
+        { 
+          "key": "priority-affinity",
+          "label": "Priority Affinity",
+          "cm-lineage": "slb.service-group.priority-affinity",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Priority affinity. Persist to the same priority if possible." 
+          }
+        },
+        { 
+          "key": "reset-priority-affinity",
+          "label": "Reset Priority Affinity",
+          "cm-lineage": "slb.service-group.reset-priority-affinity",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "priority-affinity",
+            "help": "Reset" 
+          }
+        },
+        { 
+          "key": "backup-server-event-log",
+          "label": "Backup Server Event Log",
+          "cm-lineage": "slb.service-group.backup-server-event-log",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send log info on back up server events" 
+          }
+        },
+        { 
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.service-group.stats-data-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for service group" 
+              },
+              { 
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for service group" 
+              }
+            ],
+            "default": "stats-data-enable" 
+          }
+        },
+        { 
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.service-group.extended-stats",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable extended statistics on service group" 
+          }
+        },
+        { 
+          "key": "traffic-replication-mirror",
+          "label": "Traffic Replication Mirror",
+          "cm-lineage": "slb.service-group.traffic-replication-mirror",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Mirror Bi-directional Packet" 
+          }
+        },
+        { 
+          "key": "traffic-replication-mirror-da-repl",
+          "label": "Traffic Replication Mirror Da Repl",
+          "cm-lineage": "slb.service-group.traffic-replication-mirror-da-repl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Replace Destination MAC" 
+          }
+        },
+        { 
+          "key": "traffic-replication-mirror-ip-repl",
+          "label": "Traffic Replication Mirror Ip Repl",
+          "cm-lineage": "slb.service-group.traffic-replication-mirror-ip-repl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Replaces IP with server-IP" 
+          }
+        },
+        { 
+          "key": "traffic-replication-mirror-sa-da-repl",
+          "label": "Traffic Replication Mirror Sa Da Repl",
+          "cm-lineage": "slb.service-group.traffic-replication-mirror-sa-da-repl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Replace Source MAC and Destination MAC" 
+          }
+        },
+        { 
+          "key": "traffic-replication-mirror-sa-repl",
+          "label": "Traffic Replication Mirror Sa Repl",
+          "cm-lineage": "slb.service-group.traffic-replication-mirror-sa-repl",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Replace Source MAC" 
+          }
+        },
+        { 
+          "key": "priorities",
+          "label": "Priorities",
+          "cm-lineage": "slb.service-group.priorities",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "priority",
+            "label": "Priority",
+            "cm-lineage": "slb.service-group.priority",
+            "cm-meta":  { 
+              "format": "number",
+              "help": "Priority option. Define different action for each priority node.",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-16" 
+            }
+          },
+          { 
+            "key": "priority-action",
+            "label": "Priority Action",
+            "cm-lineage": "slb.service-group.priority-action",
+            "cm-meta":  { 
+              "format": "enum",
+              "condition": "priority",
+              "allowed": [  
+                { 
+                "label": "Drop",
+                "value": "drop",
+                "help": "Drop request when all priority nodes fail" 
+                },
+                { 
+                "label": "Drop If Exceed Limit",
+                "value": "drop-if-exceed-limit",
+                "help": "Drop request when connection over limit" 
+                },
+                { 
+                "label": "Proceed",
+                "value": "proceed",
+                "help": "Proceed to next priority when all priority nodes fail(default)" 
+                },
+                { 
+                "label": "Reset",
+                "value": "reset",
+                "help": "Send client reset when all priority nodes fail" 
+                },
+                { 
+                "label": "Reset If Exceed Limit",
+                "value": "reset-if-exceed-limit",
+                "help": "Send client reset when connection over limit" 
+                }
+              ],
+              "max-elements": "16",
+              "default": "proceed" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "sample-rsp-time",
+          "label": "Sample Rsp Time",
+          "cm-lineage": "slb.service-group.sample-rsp-time",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "sample server response time" 
+          }
+        },
+        { 
+          "key": "rpt-ext-server",
+          "label": "Rpt Ext Server",
+          "cm-lineage": "slb.service-group.rpt-ext-server",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "sample-rsp-time",
+            "help": "Report top 10 fastest/slowest servers" 
+          }
+        },
+        { 
+          "key": "report-delay",
+          "label": "Report Delay",
+          "cm-lineage": "slb.service-group.report-delay",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "rpt-ext-server",
+            "help": "Reporting frequency (in minutes)",
+            "range": "1-7200" 
+          }
+        },
+        { 
+          "key": "top-slowest",
+          "label": "Top Slowest",
+          "cm-lineage": "slb.service-group.top-slowest",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "rpt-ext-server",
+            "help": "Report top 10 slowest servers" 
+          }
+        },
+        { 
+          "key": "top-fastest",
+          "label": "Top Fastest",
+          "cm-lineage": "slb.service-group.top-fastest",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "rpt-ext-server",
+            "help": "Report top 10 fastest servers" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

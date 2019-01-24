@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.smtp",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/smtp",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "SMTP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "smtp",
+          "label": "Smtp",
+          "cm-lineage": "health.monitor.method.smtp.smtp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "SMTP type" 
+          }
+        },
+        { 
+          "key": "smtp-domain",
+          "label": "Smtp Domain",
+          "cm-lineage": "health.monitor.method.smtp.smtp-domain",
+          "cm-meta":  { 
+            "format": "host",
+            "condition": "smtp",
+            "help": "Specify domain name of 'helo' command",
+            "range": "1-254" 
+          }
+        },
+        { 
+          "key": "smtp-port",
+          "label": "Smtp Port",
+          "cm-lineage": "health.monitor.method.smtp.smtp-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "smtp-domain",
+            "help": "Specify SMTP port, default is 25",
+            "default": "25",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "smtp-starttls",
+          "label": "Smtp Starttls",
+          "cm-lineage": "health.monitor.method.smtp.smtp-starttls",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "smtp-domain",
+            "help": "Check the STARTTLS support at helo response" 
+          }
+        },
+        { 
+          "key": "mail-from",
+          "label": "Mail From",
+          "cm-lineage": "health.monitor.method.smtp.mail-from",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "smtp-domain",
+            "help": "Specify SMTP Sender",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "rcpt-to",
+          "label": "Rcpt To",
+          "cm-lineage": "health.monitor.method.smtp.rcpt-to",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "mail-from",
+            "help": "Specify SMTP Receiver",
+            "range": "1-255" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

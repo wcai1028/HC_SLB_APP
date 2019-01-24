@@ -1,0 +1,457 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.reqmod-icap",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/reqmod-icap/{name}",
+  "pageTitle": "Reqmod ICAP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.reqmod-icap.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Reqmod ICAP Template Name"
+            }
+          },
+          {
+            "key": "allowed-http-methods",
+            "label": "Allowed HTTP Methods",
+            "type": "input",
+            "cm-lineage": "slb.template.reqmod-icap.allowed-http-methods",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "oby",
+              "range": "1-255",
+              "help": "List of allowed HTTP methods. Default is \"Allow All\"."
+            }
+          },
+          {
+            "key": "fail-close",
+            "label": "Fail Close",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.fail-close",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "default": 0,
+              "help": "When template sg is down mark vport down"
+            }
+          },
+          {
+            "key": "min-payload-size",
+            "label": "Min Payload Size",
+            "type": "input-number",
+            "cm-lineage": "slb.template.reqmod-icap.min-payload-size",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "0-65535",
+              "default": 0,
+              "help": "min-payload-size value 0 - 65535, default is 0"
+            }
+          },
+          {
+            "key": "preview",
+            "label": "Preview",
+            "type": "input-number",
+            "cm-lineage": "slb.template.reqmod-icap.preview",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-32768",
+              "default": 32768,
+              "help": "Preview value 1 - 32768, default is 32768"
+            }
+          },
+          {
+            "key": "service-url",
+            "label": "Service URL",
+            "type": "input",
+            "cm-lineage": "slb.template.reqmod-icap.service-url",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "ob",
+              "range": "1-255",
+              "help": "URL to send to ICAP server"
+            }
+          },
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.service-group",
+            "cm-meta": {
+              "format": "long-string-rlx",
+              "flags": "mbr",
+              "range": "1-127",
+              "obj-association": [
+                "slb.service-group"
+              ],
+              "help": "Bind a Service Group to the template"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "include-protocol-in-uri",
+            "label": "Include Protocol In URI",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.include-protocol-in-uri",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "default": 0,
+              "help": "Include protocol and port in HTTP URI"
+            }
+          },
+          {
+            "key": "bypass-ip-cfg",
+            "label": "Bypass IP CFG",
+            "type": "table",
+            "cm-lineage": "slb.template.reqmod-icap.bypass-ip-cfg",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "bypass-ip",
+                "label": "Bypass IP",
+                "type": "input",
+                "cm-lineage": "slb.template.reqmod-icap.bypass-ip-cfg.bypass-ip",
+                "cm-meta": {
+                  "format": "ipv4-address",
+                  "flags": "mbh",
+                  "multi-field-key": true,
+                  "help": "ip address to bypass reqmod-icap service",
+                  "max-elements": 20
+                }
+              },
+              {
+                "key": "mask",
+                "label": "Mask",
+                "type": "input",
+                "cm-lineage": "slb.template.reqmod-icap.bypass-ip-cfg.mask",
+                "cm-meta": {
+                  "format": "ipv4-netmask",
+                  "flags": "mv",
+                  "multi-field-key": true,
+                  "condition": "bypass-ip",
+                  "help": "IP prefix mask"
+                }
+              }
+            ]
+          },
+          {
+            "key": "failure-action",
+            "label": "Failure Action",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.failure-action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mbh",
+              "allowed": [
+                {
+                  "label": "Continue",
+                  "value": "continue",
+                  "help": "Continue"
+                },
+                {
+                  "label": "Drop",
+                  "value": "drop",
+                  "help": "Drop"
+                },
+                {
+                  "label": "Reset",
+                  "value": "reset",
+                  "help": "Reset"
+                }
+              ],
+              "help": "Action to take after failure, default is continue",
+              "default": "continue",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "cylance",
+            "label": "Cylance",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.cylance",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "default": 0,
+              "help": "cylance external server"
+            }
+          },
+          {
+            "key": "disable-http-server-reset",
+            "label": "Disable HTTP Server Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.disable-http-server-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "default": 0,
+              "help": "Don't reset http server"
+            }
+          },
+          {
+            "key": "log-only-allowed-method",
+            "label": "Log Only Allowed Method",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.log-only-allowed-method",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "default": 0,
+              "help": "Only log allowed HTTP method"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Template",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "template",
+            "label": "Template",
+            "type": "dummy",
+            "cm-lineage": "slb.template.reqmod-icap.template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Apply a tcp-proxy/persist/logging/server-ssl template to this template"
+            }
+          },
+          {
+            "key": "tcp-proxy-d",
+            "label": "TCP Proxy D",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.tcp-proxy-d",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "obj-association": [
+                "slb.template.tcp-proxy"
+              ],
+              "help": "TCP proxy template"
+            }
+          },
+          {
+            "key": "tcp-proxy",
+            "label": "TCP Proxy",
+            "type": "input",
+            "cm-lineage": "slb.template.reqmod-icap.tcp-proxy",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "tcp-proxy-d",
+              "help": "TCP Proxy Template Name",
+              "m-exclusion": [
+                "shared-partition-tcp-proxy-template"
+              ]
+            }
+          },
+          {
+            "key": "p-tcp-proxy",
+            "label": "P TCP Proxy",
+            "type": "dummy",
+            "cm-lineage": "slb.template.reqmod-icap.p-tcp-proxy",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "tcp-proxy-d",
+              "help": "Reference a TCP Proxy template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-tcp-proxy-template",
+            "label": "Shared Partition TCP Proxy Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.shared-partition-tcp-proxy-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-tcp-proxy",
+              "m-exclusion": [
+                "tcp-proxy"
+              ],
+              "help": "Reference a TCP Proxy template from shared partition"
+            }
+          },
+          {
+            "key": "template-tcp-proxy-shared",
+            "label": "Template TCP Proxy Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.template-tcp-proxy-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-tcp-proxy-template",
+              "obj-association": [
+                "slb.template.tcp-proxy"
+              ],
+              "help": "TCP Proxy Template name"
+            }
+          },
+          {
+            "key": "logging",
+            "label": "Logging",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.logging",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mbr",
+              "range": "1-127",
+              "condition": "template",
+              "help": "logging template",
+              "obj-association": [
+                "slb.template.logging"
+              ]
+            }
+          },
+          {
+            "key": "server-ssl",
+            "label": "Server SSL",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.server-ssl",
+            "cm-meta": {
+              "format": "name",
+              "flags": "mbr",
+              "range": "1-127",
+              "condition": "template",
+              "help": "Server SSL template",
+              "obj-association": [
+                "slb.template.server-ssl"
+              ]
+            }
+          },
+          {
+            "key": "persist",
+            "label": "Persist",
+            "type": "dummy",
+            "cm-lineage": "slb.template.reqmod-icap.persist",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "template",
+              "help": "Persistence templates"
+            }
+          },
+          {
+            "key": "persist-source-ip-template",
+            "label": "Persist Source IP Template",
+            "type": "dummy",
+            "cm-lineage": "slb.template.reqmod-icap.persist-source-ip-template",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "condition": "persist",
+              "help": "Source IP persistence template"
+            }
+          },
+          {
+            "key": "source-ip",
+            "label": "Source IP",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.source-ip",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "persist-source-ip-template",
+              "obj-association": [
+                "slb.template.persist.source-ip"
+              ],
+              "help": "Source IP persistence template",
+              "m-exclusion": [
+                "shared-partition-persist-source-ip-template"
+              ]
+            }
+          },
+          {
+            "key": "p-persist-source-ip",
+            "label": "P Persist Source IP",
+            "type": "dummy",
+            "cm-lineage": "slb.template.reqmod-icap.p-persist-source-ip",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "okpS",
+              "condition": "persist-source-ip-template",
+              "help": "Reference a persist source ip template from shared partition"
+            }
+          },
+          {
+            "key": "shared-partition-persist-source-ip-template",
+            "label": "Shared Partition Persist Source IP Template",
+            "type": "switch",
+            "cm-lineage": "slb.template.reqmod-icap.shared-partition-persist-source-ip-template",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "p-persist-source-ip",
+              "m-exclusion": [
+                "source-ip"
+              ],
+              "help": "Reference a persist source ip template from shared partition"
+            }
+          },
+          {
+            "key": "template-persist-source-ip-shared",
+            "label": "Template Persist Source IP Shared",
+            "type": "select",
+            "cm-lineage": "slb.template.reqmod-icap.template-persist-source-ip-shared",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "range": "1-127",
+              "condition": "shared-partition-persist-source-ip-template",
+              "obj-association": [
+                "slb.template.persist.source-ip"
+              ],
+              "help": "Source IP Persistence Template Name"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

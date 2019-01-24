@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.tacplus",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/tacplus",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "TACACS+",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "tacplus",
+          "label": "Tacplus",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "TACACS+ type" 
+          }
+        },
+        { 
+          "key": "tacplus-username",
+          "label": "Tacplus Username",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "tacplus",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "tacplus-password",
+          "label": "Tacplus Password",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "tacplus-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "tacplus-password-string",
+          "label": "Tacplus Password String",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "tacplus-password",
+            "help": "Configure password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "tacplus-encrypted",
+          "label": "Tacplus Encrypted",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "tacplus-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "tacplus-secret",
+          "label": "Tacplus Secret",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-secret",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "tacplus-password-string",
+            "help": "Specify the shared secret of TACACS+ server" 
+          }
+        },
+        { 
+          "key": "tacplus-secret-string",
+          "label": "Tacplus Secret String",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-secret-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "tacplus-secret",
+            "help": "Shared Crypto Key",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "secret-encrypted",
+          "label": "Secret Encrypted",
+          "cm-lineage": "health.monitor.method.tacplus.secret-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "tacplus-secret",
+            "help": "secret-encrypted" 
+          }
+        },
+        { 
+          "key": "tacplus-port",
+          "label": "Tacplus Port",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "tacplus-secret-string",
+            "help": "Specify the TACACS+ port, default 49",
+            "default": "49",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "tacplus-type",
+          "label": "Tacplus Type",
+          "cm-lineage": "health.monitor.method.tacplus.tacplus-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "tacplus-secret-string",
+            "allowed": [  
+              { 
+              "label": "Inbound Ascii Login",
+              "value": "inbound-ascii-login",
+              "help": "Specify Inbound ASCII Login type" 
+              }
+            ],
+            "default": "inbound-ascii-login" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.cipher",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/cipher/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.cipher.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Cipher Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "cipher-cfg",
+          "label": "Cipher Cfg",
+          "cm-lineage": "slb.template.cipher.cipher-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "cipher-suite",
+            "label": "Cipher Suite",
+            "cm-lineage": "slb.template.cipher.cipher-suite",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "SSL3_RSA_DES_192_CBC3_SHA",
+                "value": "SSL3_RSA_DES_192_CBC3_SHA",
+                "help": "SSL3_RSA_DES_192_CBC3_SHA" 
+                },
+                { 
+                "label": "SSL3_RSA_RC4_128_MD5",
+                "value": "SSL3_RSA_RC4_128_MD5",
+                "help": "SSL3_RSA_RC4_128_MD5" 
+                },
+                { 
+                "label": "SSL3_RSA_RC4_128_SHA",
+                "value": "SSL3_RSA_RC4_128_SHA",
+                "help": "SSL3_RSA_RC4_128_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_SHA",
+                "value": "TLS1_RSA_AES_128_SHA",
+                "help": "TLS1_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_SHA",
+                "value": "TLS1_RSA_AES_256_SHA",
+                "help": "TLS1_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_SHA256",
+                "value": "TLS1_RSA_AES_128_SHA256",
+                "help": "TLS1_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_SHA256",
+                "value": "TLS1_RSA_AES_256_SHA256",
+                "help": "TLS1_RSA_AES_256_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_DHE_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_SHA",
+                "value": "TLS1_DHE_RSA_AES_128_SHA",
+                "help": "TLS1_DHE_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_SHA256",
+                "value": "TLS1_DHE_RSA_AES_128_SHA256",
+                "help": "TLS1_DHE_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_DHE_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_SHA",
+                "value": "TLS1_DHE_RSA_AES_256_SHA",
+                "help": "TLS1_DHE_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_SHA256",
+                "value": "TLS1_DHE_RSA_AES_256_SHA256",
+                "help": "TLS1_DHE_RSA_AES_256_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_SHA",
+                "value": "TLS1_ECDHE_RSA_AES_128_SHA",
+                "help": "TLS1_ECDHE_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                "value": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                "help": "TLS1_ECDHE_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_SHA",
+                "value": "TLS1_ECDHE_RSA_AES_256_SHA",
+                "help": "TLS1_ECDHE_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                "value": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                "help": "TLS1_ECDHE_RSA_AES_256_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_SHA384" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "32" 
+            }
+          },
+          { 
+            "key": "priority",
+            "label": "Priority",
+            "cm-lineage": "slb.template.cipher.priority",
+            "cm-meta":  { 
+              "format": "number",
+              "condition": "cipher-suite",
+              "help": "Cipher priority",
+              "max-elements": "32",
+              "default": "1",
+              "range": "1-100" 
+            }
+          }
+          ]
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

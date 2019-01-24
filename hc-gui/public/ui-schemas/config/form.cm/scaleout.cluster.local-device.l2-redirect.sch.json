@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.local-device.l2-redirect",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/local-device/l2-redirect",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "redirect-eth",
+          "label": "Redirect Eth",
+          "cm-lineage": "scaleout.cluster.local-device.l2-redirect.redirect-eth",
+          "cm-meta":  { 
+            "format": "interface",
+            "help": "Ethernet port",
+            "range": "3-64",
+            "m-exclusion": [  
+             "redirect-trunk" 
+            ]
+          }
+        },
+        { 
+          "key": "ethernet-vlan",
+          "label": "Ethernet Vlan",
+          "cm-lineage": "scaleout.cluster.local-device.l2-redirect.ethernet-vlan",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "redirect-eth",
+            "help": "VLAN ID",
+            "range": "2-4094" 
+          }
+        },
+        { 
+          "key": "redirect-trunk",
+          "label": "Redirect Trunk",
+          "cm-lineage": "scaleout.cluster.local-device.l2-redirect.redirect-trunk",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "L2 Trunk group",
+            "range": "1-4096",
+            "m-exclusion": [  
+             "redirect-eth" 
+            ]
+          }
+        },
+        { 
+          "key": "trunk-vlan",
+          "label": "Trunk Vlan",
+          "cm-lineage": "scaleout.cluster.local-device.l2-redirect.trunk-vlan",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "redirect-trunk",
+            "help": "VLAN ID",
+            "range": "2-4094" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

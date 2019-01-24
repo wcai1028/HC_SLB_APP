@@ -1,0 +1,98 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "ipv6.nat.pool-group",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "ipv6/nat/pool-group/{pool-group-name}",
+  "pageTitle": "IPv6 NAT Pool Group",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pool-group-name",
+            "label": "Pool Group Name",
+            "type": "input",
+            "cm-lineage": "ipv6.nat.pool-group.pool-group-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-63",
+              "help": "Specify pool group name",
+              "object-key": true
+            }
+          },
+          {
+            "key": "vrid",
+            "label": "VRID",
+            "type": "input-number",
+            "cm-lineage": "ipv6.nat.pool-group.vrid",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obsp",
+              "range": "1-31",
+              "range-in-partition": "1-7",
+              "condition": "pool-group-name",
+              "help": "Specify VRRP-A vrid",
+              "modify-ineligible": true
+            }
+          }
+        ]
+      },
+      {
+        "title": "Member",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "member-list",
+            "label": "Member List",
+            "type": "table",
+            "cm-lineage": "ipv6.nat.pool-group.member-list",
+            "cm-meta": {
+              "gui-as-field": true,
+              "obj-occurences": "multi",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "pool-name",
+                "label": "Pool Name",
+                "type": "select",
+                "cm-lineage": "ipv6.nat.pool-group.member-list.pool-name",
+                "cm-meta": {
+                  "format": "string-rlx",
+                  "flags": "mv",
+                  "range": "1-63",
+                  "help": "Specify NAT pool name",
+                  "obj-association": [
+                    "ipv6.nat.pool"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

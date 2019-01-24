@@ -1,0 +1,253 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.external-service",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/external-service/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.external-service.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "External Service Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "bypass-ip-cfg",
+          "label": "Bypass Ip Cfg",
+          "cm-lineage": "slb.template.external-service.bypass-ip-cfg",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "bypass-ip",
+            "label": "Bypass Ip",
+            "cm-lineage": "slb.template.external-service.bypass-ip",
+            "cm-meta":  { 
+              "format": "ipv4-address",
+              "help": "ip address to bypass external service",
+              "multi-field-key": true,
+              "max-elements": "20" 
+            }
+          },
+          { 
+            "key": "mask",
+            "label": "Mask",
+            "cm-lineage": "slb.template.external-service.mask",
+            "cm-meta":  { 
+              "format": "ipv4-netmask",
+              "condition": "bypass-ip",
+              "help": "IP prefix mask",
+              "multi-field-key": true,
+              "max-elements": "20" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "request-header-forward-list",
+          "label": "Request Header Forward List",
+          "cm-lineage": "slb.template.external-service.request-header-forward-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "request-header-forward",
+            "label": "Request Header Forward",
+            "cm-lineage": "slb.template.external-service.request-header-forward",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Request header to be forwarded to external service",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "service-group",
+          "label": "Service Group",
+          "cm-lineage": "slb.template.external-service.service-group",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Bind a Service Group to the template",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "type",
+          "label": "Type",
+          "cm-lineage": "slb.template.external-service.type",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Skyfire Icap",
+              "value": "skyfire-icap",
+              "help": "Skyfire ICAP service" 
+              },
+              { 
+              "label": "Url Filter",
+              "value": "url-filter",
+              "help": "URL filtering service" 
+              }
+            ],
+            "default": "url-filter" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "failure-action",
+          "label": "Failure Action",
+          "cm-lineage": "slb.template.external-service.failure-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "Continue" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "Drop" 
+              },
+              { 
+              "label": "Reset",
+              "value": "reset",
+              "help": "Reset" 
+              }
+            ],
+            "default": "continue" 
+          }
+        },
+        { 
+          "key": "timeout",
+          "label": "Timeout",
+          "cm-lineage": "slb.template.external-service.timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Timeout value 1 - 200 in units of 200ms, default is 5 (default is 1000ms)",
+            "default": "5",
+            "range": "1-200" 
+          }
+        },
+        { 
+          "key": "action",
+          "label": "Action",
+          "cm-lineage": "slb.template.external-service.action",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "timeout",
+            "allowed": [  
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "Continue" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "Drop" 
+              },
+              { 
+              "label": "Reset",
+              "value": "reset",
+              "help": "Reset" 
+              }
+            ],
+            "default": "continue" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "tcp-proxy",
+          "label": "Tcp Proxy",
+          "cm-lineage": "slb.template.external-service.tcp-proxy",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "",
+            "help": "TCP proxy template",
+            "obj-association": [  
+             "slb.template.tcp-proxy" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "source-ip",
+          "label": "Source Ip",
+          "cm-lineage": "slb.template.external-service.source-ip",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "",
+            "help": "Source IP persistence template",
+            "obj-association": [  
+             "slb.template.persist.source-ip" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "shared-partition-persist-source-ip-template" 
+            ]
+          }
+        },
+        { 
+          "key": "template-persist-source-ip-shared",
+          "label": "Template Persist Source Ip Shared",
+          "cm-lineage": "slb.template.external-service.template-persist-source-ip-shared",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "shared-partition-persist-source-ip-template",
+            "help": "Source IP Persistence Template Name",
+            "obj-association": [  
+             "slb.template.persist.source-ip" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

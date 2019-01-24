@@ -1,0 +1,218 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "health.monitor.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Monitor Name",
+            "object-key": true,
+            "default": "ping",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "dsr-l2-strict",
+          "label": "Dsr L2 Strict",
+          "cm-lineage": "health.monitor.dsr-l2-strict",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable strict L2dsr health-check" 
+          }
+        },
+        { 
+          "key": "retry",
+          "label": "Retry",
+          "cm-lineage": "health.monitor.retry",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify the Healthcheck Retries",
+            "range": "1-10" 
+          }
+        },
+        { 
+          "key": "up-retry",
+          "label": "Up Retry",
+          "cm-lineage": "health.monitor.up-retry",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify the Healthcheck Retries before declaring target up",
+            "range": "1-10" 
+          }
+        },
+        { 
+          "key": "override-ipv4",
+          "label": "Override Ipv4",
+          "cm-lineage": "health.monitor.override-ipv4",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "help": "Override implicitly inherited IPv4 address from target" 
+          }
+        },
+        { 
+          "key": "override-ipv6",
+          "label": "Override Ipv6",
+          "cm-lineage": "health.monitor.override-ipv6",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "help": "Override implicitly inherited IPv6 address from target" 
+          }
+        },
+        { 
+          "key": "override-port",
+          "label": "Override Port",
+          "cm-lineage": "health.monitor.override-port",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Override implicitly inherited port from target",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "passive",
+          "label": "Passive",
+          "cm-lineage": "health.monitor.passive",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Specify passive mode" 
+          }
+        },
+        { 
+          "key": "status-code",
+          "label": "Status Code",
+          "cm-lineage": "health.monitor.status-code",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "passive",
+            "allowed": [  
+              { 
+              "label": "Status Code 2xx",
+              "value": "status-code-2xx",
+              "help": "Enable passive mode with 2xx http status code" 
+              },
+              { 
+              "label": "Status Code Non 5xx",
+              "value": "status-code-non-5xx",
+              "help": "Enable passive mode with non-5xx http status code" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "passive-interval",
+          "label": "Passive Interval",
+          "cm-lineage": "health.monitor.passive-interval",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "status-code",
+            "help": "Interval to do manual health checking while in passive mode",
+            "default": "10",
+            "range": "1-180" 
+          }
+        },
+        { 
+          "key": "sample-threshold",
+          "label": "Sample Threshold",
+          "cm-lineage": "health.monitor.sample-threshold",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "status-code",
+            "help": "Number of samples in one epoch above which passive HC is enabled. If below or equal to the threshold, passive HC is disabled",
+            "default": "50",
+            "range": "1-10000" 
+          }
+        },
+        { 
+          "key": "threshold",
+          "label": "Threshold",
+          "cm-lineage": "health.monitor.threshold",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "status-code",
+            "help": "Threshold percentage above which passive mode is enabled",
+            "default": "75",
+            "range": "0-100" 
+          }
+        },
+        { 
+          "key": "strict-retry-on-server-err-resp",
+          "label": "Strict Retry On Server Err Resp",
+          "cm-lineage": "health.monitor.strict-retry-on-server-err-resp",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Require strictly retry" 
+          }
+        },
+        { 
+          "key": "disable-after-down",
+          "label": "Disable After Down",
+          "cm-lineage": "health.monitor.disable-after-down",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable the target if health check failed" 
+          }
+        },
+        { 
+          "key": "interval",
+          "label": "Interval",
+          "cm-lineage": "health.monitor.interval",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Specify the Healthcheck Interval",
+            "range": "1-180" 
+          }
+        },
+        { 
+          "key": "timeout",
+          "label": "Timeout",
+          "cm-lineage": "health.monitor.timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "interval",
+            "help": "Specify the Healthcheck Timeout",
+            "range": "1-180" 
+          }
+        },
+        { 
+          "key": "ssl-ciphers",
+          "label": "Ssl Ciphers",
+          "cm-lineage": "health.monitor.ssl-ciphers",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify OpenSSL Cipher Suite name(s) for Health check",
+            "default": "DEFAULT",
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

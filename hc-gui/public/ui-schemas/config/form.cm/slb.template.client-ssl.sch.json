@@ -1,0 +1,1600 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.client-ssl",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/client-ssl/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.client-ssl.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Client SSL Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "auth-username",
+          "label": "Auth Username",
+          "cm-lineage": "slb.template.client-ssl.auth-username",
+          "cm-meta":  { 
+            "format": "line",
+            "help": "Specify the Username Field in the Client Certificate(If multi-fields are specificed, prior one has higher priority)",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "common-name",
+          "label": "Common Name",
+          "cm-lineage": "slb.template.client-ssl.common-name",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "auth-username",
+            "help": "Certificate subject common came" 
+          }
+        },
+        { 
+          "key": "subject-alt-name-othername",
+          "label": "Subject Alt Name Othername",
+          "cm-lineage": "slb.template.client-ssl.subject-alt-name-othername",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "auth-username",
+            "help": "Subject Alternative Name - other name" 
+          }
+        },
+        { 
+          "key": "subject-alt-name-email",
+          "label": "Subject Alt Name Email",
+          "cm-lineage": "slb.template.client-ssl.subject-alt-name-email",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "auth-username",
+            "help": "Subject Alternative Name - extension email" 
+          }
+        },
+        { 
+          "key": "ca-certs",
+          "label": "Ca Certs",
+          "cm-lineage": "slb.template.client-ssl.ca-certs",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "ca-cert",
+            "label": "Ca Cert",
+            "cm-lineage": "slb.template.client-ssl.ca-cert",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "CA Certificate",
+              "multi-field-key": true,
+              "max-elements": "128",
+              "range": "1-245" 
+            }
+          },
+          { 
+            "key": "client-ocsp",
+            "label": "Client Ocsp",
+            "cm-lineage": "slb.template.client-ssl.client-ocsp",
+            "cm-meta":  { 
+              "format": "flag",
+              "condition": "ca-cert",
+              "help": "Specify ocsp authentication server(s) for client certificate verification",
+              "max-elements": "128" 
+            }
+          },
+          { 
+            "key": "client-ocsp-srvr",
+            "label": "Client Ocsp Srvr",
+            "cm-lineage": "slb.template.client-ssl.client-ocsp-srvr",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "client-ocsp",
+              "help": "Specify authentication server",
+              "max-elements": "128",
+              "obj-association": [  
+               "aam.authentication.server.ocsp.instance" 
+              ],
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "client-ocsp-sg",
+            "label": "Client Ocsp Sg",
+            "cm-lineage": "slb.template.client-ssl.client-ocsp-sg",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "condition": "client-ocsp",
+              "help": "Specify service-group",
+              "max-elements": "128",
+              "obj-association": [  
+               "aam.authentication.service-group" 
+              ],
+              "range": "1-127" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "chain-cert",
+          "label": "Chain Cert",
+          "cm-lineage": "slb.template.client-ssl.chain-cert",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Chain Certificate",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "cert",
+          "label": "Cert",
+          "cm-lineage": "slb.template.client-ssl.cert",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "cert-str",
+            "label": "Cert Str",
+            "cm-lineage": "slb.template.client-ssl.cert-str",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "Server Certificate",
+              "max-elements": "2",
+              "range": "1-245" 
+            }
+          },
+          { 
+            "key": "cert-alternate",
+            "label": "Cert Alternate",
+            "cm-lineage": "slb.template.client-ssl.cert-alternate",
+            "cm-meta":  { 
+              "format": "flag",
+              "condition": "cert-str",
+              "help": "Specific the second oncertifcate",
+              "multi-field-key": true,
+              "max-elements": "2" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "client-certificate",
+          "label": "Client Certificate",
+          "cm-lineage": "slb.template.client-ssl.client-certificate",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Ignore",
+              "value": "Ignore",
+              "help": "Don't request client certificate" 
+              },
+              { 
+              "label": "Require",
+              "value": "Require",
+              "help": "Require client certificate" 
+              },
+              { 
+              "label": "Request",
+              "value": "Request",
+              "help": "Request client certificate" 
+              }
+            ],
+            "default": "Ignore" 
+          }
+        },
+        { 
+          "key": "req-ca-lists",
+          "label": "Req Ca Lists",
+          "cm-lineage": "slb.template.client-ssl.req-ca-lists",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "client-certificate-Request-CA",
+            "label": "Client Certificate Request CA",
+            "cm-lineage": "slb.template.client-ssl.client-certificate-Request-CA",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "Send CA lists in certificate request",
+              "max-elements": "10",
+              "range": "1-245" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "crl-certs",
+          "label": "Crl Certs",
+          "cm-lineage": "slb.template.client-ssl.crl-certs",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "crl",
+            "label": "Crl",
+            "cm-lineage": "slb.template.client-ssl.crl",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "Certificate Revocation Lists",
+              "max-elements": "128",
+              "range": "1-255" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "forward-proxy-ca-cert",
+          "label": "Forward Proxy Ca Cert",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-ca-cert",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "CA Certificate for forward proxy",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "forward-proxy-ca-key",
+          "label": "Forward Proxy Ca Key",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-ca-key",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "CA Private Key for forward proxy",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "forward-passphrase",
+          "label": "Forward Passphrase",
+          "cm-lineage": "slb.template.client-ssl.forward-passphrase",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "forward-proxy-ca-key",
+            "help": "Password Phrase",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "forward-encrypted",
+          "label": "Forward Encrypted",
+          "cm-lineage": "slb.template.client-ssl.forward-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "forward-proxy-ca-key",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "forward-proxy-alt-sign",
+          "label": "Forward Proxy Alt Sign",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-alt-sign",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Forward proxy alternate signing cert and key" 
+          }
+        },
+        { 
+          "key": "fp-alt-cert",
+          "label": "Fp Alt Cert",
+          "cm-lineage": "slb.template.client-ssl.fp-alt-cert",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "forward-proxy-alt-sign",
+            "help": "CA Certificate for forward proxy alternate signing",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "fp-alt-key",
+          "label": "Fp Alt Key",
+          "cm-lineage": "slb.template.client-ssl.fp-alt-key",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "fp-alt-cert",
+            "help": "CA Private Key for forward proxy alternate signing",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "fp-alt-passphrase",
+          "label": "Fp Alt Passphrase",
+          "cm-lineage": "slb.template.client-ssl.fp-alt-passphrase",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "fp-alt-key",
+            "help": "Password Phrase",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "fp-alt-encrypted",
+          "label": "Fp Alt Encrypted",
+          "cm-lineage": "slb.template.client-ssl.fp-alt-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "fp-alt-key",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "forward-proxy-trusted-ca-lists",
+          "label": "Forward Proxy Trusted Ca Lists",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-trusted-ca-lists",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "forward-proxy-trusted-ca",
+            "label": "Forward Proxy Trusted Ca",
+            "cm-lineage": "slb.template.client-ssl.forward-proxy-trusted-ca",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "Forward proxy trusted CA file",
+              "max-elements": "128",
+              "range": "1-255" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "forward-proxy-ssl-version",
+          "label": "Forward Proxy Ssl Version",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-ssl-version",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "TLS/SSL version, default is TLS1.2",
+            "default": "33",
+            "range": "31-33" 
+          }
+        },
+        { 
+          "key": "key",
+          "label": "Key",
+          "cm-lineage": "slb.template.client-ssl.key",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "key-str",
+            "label": "Key Str",
+            "cm-lineage": "slb.template.client-ssl.key-str",
+            "cm-meta":  { 
+              "format": "string",
+              "help": "Server Private Key",
+              "max-elements": "2",
+              "range": "1-245" 
+            }
+          },
+          { 
+            "key": "key-pass-phrase",
+            "label": "Key Pass Phrase",
+            "cm-lineage": "slb.template.client-ssl.key-pass-phrase",
+            "cm-meta":  { 
+              "format": "dummy",
+              "condition": "key-str",
+              "help": "Password Phrase",
+              "max-elements": "2" 
+            }
+          },
+          { 
+            "key": "key-passphrase",
+            "label": "Key Passphrase",
+            "cm-lineage": "slb.template.client-ssl.key-passphrase",
+            "cm-meta":  { 
+              "format": "password",
+              "condition": "key-str",
+              "help": "Password Phrase",
+              "max-elements": "2",
+              "range": "1-63" 
+            }
+          },
+          { 
+            "key": "key-encrypted",
+            "label": "Key Encrypted",
+            "cm-lineage": "slb.template.client-ssl.key-encrypted",
+            "cm-meta":  { 
+              "format": "encrypted",
+              "condition": "key-str",
+              "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)",
+              "max-elements": "2" 
+            }
+          },
+          { 
+            "key": "key-alternate",
+            "label": "Key Alternate",
+            "cm-lineage": "slb.template.client-ssl.key-alternate",
+            "cm-meta":  { 
+              "format": "flag",
+              "condition": "key-str",
+              "help": "Specific the second certifcate",
+              "multi-field-key": true,
+              "max-elements": "2" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "template-cipher",
+          "label": "Template Cipher",
+          "cm-lineage": "slb.template.client-ssl.template-cipher",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Cipher Template Name",
+            "obj-association": [  
+             "slb.template.cipher" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "shared-partition-cipher-template" 
+            ]
+          }
+        },
+        { 
+          "key": "cipher-without-prio-list",
+          "label": "Cipher Without Prio List",
+          "cm-lineage": "slb.template.client-ssl.cipher-without-prio-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "cipher-wo-prio",
+            "label": "Cipher Wo Prio",
+            "cm-lineage": "slb.template.client-ssl.cipher-wo-prio",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "SSL3_RSA_DES_192_CBC3_SHA",
+                "value": "SSL3_RSA_DES_192_CBC3_SHA",
+                "help": "SSL3_RSA_DES_192_CBC3_SHA" 
+                },
+                { 
+                "label": "SSL3_RSA_RC4_128_MD5",
+                "value": "SSL3_RSA_RC4_128_MD5",
+                "help": "SSL3_RSA_RC4_128_MD5" 
+                },
+                { 
+                "label": "SSL3_RSA_RC4_128_SHA",
+                "value": "SSL3_RSA_RC4_128_SHA",
+                "help": "SSL3_RSA_RC4_128_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_SHA",
+                "value": "TLS1_RSA_AES_128_SHA",
+                "help": "TLS1_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_SHA",
+                "value": "TLS1_RSA_AES_256_SHA",
+                "help": "TLS1_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_SHA256",
+                "value": "TLS1_RSA_AES_128_SHA256",
+                "help": "TLS1_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_SHA256",
+                "value": "TLS1_RSA_AES_256_SHA256",
+                "help": "TLS1_RSA_AES_256_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_DHE_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_DHE_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_SHA",
+                "value": "TLS1_DHE_RSA_AES_128_SHA",
+                "help": "TLS1_DHE_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_128_SHA256",
+                "value": "TLS1_DHE_RSA_AES_128_SHA256",
+                "help": "TLS1_DHE_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_DHE_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_DHE_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_SHA",
+                "value": "TLS1_DHE_RSA_AES_256_SHA",
+                "help": "TLS1_DHE_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_DHE_RSA_AES_256_SHA256",
+                "value": "TLS1_DHE_RSA_AES_256_SHA256",
+                "help": "TLS1_DHE_RSA_AES_256_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_SHA",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                "value": "TLS1_ECDHE_ECDSA_AES_128_SHA256",
+                "help": "TLS1_ECDHE_ECDSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_SHA",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_ECDHE_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_SHA",
+                "value": "TLS1_ECDHE_RSA_AES_128_SHA",
+                "help": "TLS1_ECDHE_RSA_AES_128_SHA" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                "value": "TLS1_ECDHE_RSA_AES_128_SHA256",
+                "help": "TLS1_ECDHE_RSA_AES_128_SHA256" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_ECDHE_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_SHA",
+                "value": "TLS1_ECDHE_RSA_AES_256_SHA",
+                "help": "TLS1_ECDHE_RSA_AES_256_SHA" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_128_GCM_SHA256",
+                "value": "TLS1_RSA_AES_128_GCM_SHA256",
+                "help": "TLS1_RSA_AES_128_GCM_SHA256" 
+                },
+                { 
+                "label": "TLS1_RSA_AES_256_GCM_SHA384",
+                "value": "TLS1_RSA_AES_256_GCM_SHA384",
+                "help": "TLS1_RSA_AES_256_GCM_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                "value": "TLS1_ECDHE_RSA_AES_256_SHA384",
+                "help": "TLS1_ECDHE_RSA_AES_256_SHA384" 
+                },
+                { 
+                "label": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                "value": "TLS1_ECDHE_ECDSA_AES_256_SHA384",
+                "help": "TLS1_ECDHE_ECDSA_AES_256_SHA384" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "32",
+              "m-exclusion": [  
+               "template-cipher" 
+              ]
+            }
+          }
+          ]
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "dh-type",
+          "label": "Dh Type",
+          "cm-lineage": "slb.template.client-ssl.dh-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "1024",
+              "value": "1024",
+              "help": "1024" 
+              },
+              { 
+              "label": "1024 Dsa",
+              "value": "1024-dsa",
+              "help": "1024-dsa" 
+              },
+              { 
+              "label": "2048",
+              "value": "2048",
+              "help": "2048" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "ec-list",
+          "label": "Ec List",
+          "cm-lineage": "slb.template.client-ssl.ec-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "ec",
+            "label": "Ec",
+            "cm-lineage": "slb.template.client-ssl.ec",
+            "cm-meta":  { 
+              "format": "enum",
+              "allowed": [  
+                { 
+                "label": "Secp256r1",
+                "value": "secp256r1",
+                "help": "X9_62_prime256v1" 
+                },
+                { 
+                "label": "Secp384r1",
+                "value": "secp384r1",
+                "help": "secp384r1" 
+                }
+              ],
+              "multi-field-key": true,
+              "max-elements": "2" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "ocsp-stapling",
+          "label": "Ocsp Stapling",
+          "cm-lineage": "slb.template.client-ssl.ocsp-stapling",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Config OCSP stapling support" 
+          }
+        },
+        { 
+          "key": "ocspst-ca-cert",
+          "label": "Ocspst Ca Cert",
+          "cm-lineage": "slb.template.client-ssl.ocspst-ca-cert",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "ocsp-stapling",
+            "help": "CA certificate",
+            "range": "1-245" 
+          }
+        },
+        { 
+          "key": "ocspst-ocsp",
+          "label": "Ocspst Ocsp",
+          "cm-lineage": "slb.template.client-ssl.ocspst-ocsp",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "ocspst-ca-cert",
+            "help": "Specify OCSP Authentication" 
+          }
+        },
+        { 
+          "key": "ocspst-srvr",
+          "label": "Ocspst Srvr",
+          "cm-lineage": "slb.template.client-ssl.ocspst-srvr",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ocspst-ocsp",
+            "help": "Specify OCSP authentication server",
+            "obj-association": [  
+             "aam.authentication.server.ocsp" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "ocspst-sg" 
+            ]
+          }
+        },
+        { 
+          "key": "ocspst-sg",
+          "label": "Ocspst Sg",
+          "cm-lineage": "slb.template.client-ssl.ocspst-sg",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ocspst-ocsp",
+            "help": "Specify authentication service group",
+            "obj-association": [  
+             "aam.authentication.service-group" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "ocspst-srvr" 
+            ]
+          }
+        },
+        { 
+          "key": "close-notify",
+          "label": "Close Notify",
+          "cm-lineage": "slb.template.client-ssl.close-notify",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Send close notification when terminate connection" 
+          }
+        },
+        { 
+          "key": "forward-proxy-decrypted-dscp",
+          "label": "Forward Proxy Decrypted Dscp",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-decrypted-dscp",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Apply a DSCP to decrypted and bypassed traffic",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "forward-proxy-decrypted-dscp-bypass",
+          "label": "Forward Proxy Decrypted Dscp Bypass",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-decrypted-dscp-bypass",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "forward-proxy-decrypted-dscp",
+            "help": "DSCP to apply to bypassed traffic",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "cache-persistence-list-name",
+          "label": "Cache Persistence List Name",
+          "cm-lineage": "slb.template.client-ssl.cache-persistence-list-name",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Class List Name",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "forward-proxy-hash-persistence-interval",
+          "label": "Forward Proxy Hash Persistence Interval",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-hash-persistence-interval",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Set the time interval to save the hash persistence certs",
+            "default": "30",
+            "range": "1-720" 
+          }
+        },
+        { 
+          "key": "forward-proxy-ocsp-disable",
+          "label": "Forward Proxy Ocsp Disable",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-ocsp-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable ocsp-stapling for forward proxy" 
+          }
+        },
+        { 
+          "key": "forward-proxy-crl-disable",
+          "label": "Forward Proxy Crl Disable",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-crl-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable Certificate Revocation List checking for forward proxy" 
+          }
+        },
+        { 
+          "key": "forward-proxy-selfsign-redir",
+          "label": "Forward Proxy Selfsign Redir",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-selfsign-redir",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Redirect connections to pages with self signed certs to a warning page" 
+          }
+        },
+        { 
+          "key": "forward-proxy-failsafe-disable",
+          "label": "Forward Proxy Failsafe Disable",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-failsafe-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable Failsafe for SSL forward proxy" 
+          }
+        },
+        { 
+          "key": "sslv2-bypass-service-group",
+          "label": "Sslv2 Bypass Service Group",
+          "cm-lineage": "slb.template.client-ssl.sslv2-bypass-service-group",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Service Group for Bypass SSLV2",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Logging",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "ssli-logging",
+          "label": "Ssli Logging",
+          "cm-lineage": "slb.template.client-ssl.ssli-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "SSLi logging level, default is error logging only" 
+          }
+        },
+        { 
+          "key": "sslilogging",
+          "label": "Sslilogging",
+          "cm-lineage": "slb.template.client-ssl.sslilogging",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "ssli-logging",
+            "allowed": [  
+              { 
+              "label": "Disable",
+              "value": "disable",
+              "help": "Disable all logging" 
+              },
+              { 
+              "label": "All",
+              "value": "all",
+              "help": "enable all logging(error, info)" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "enable-tls-alert-logging",
+          "label": "Enable Tls Alert Logging",
+          "cm-lineage": "slb.template.client-ssl.enable-tls-alert-logging",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable TLS alert logging" 
+          }
+        },
+        { 
+          "key": "alert-type",
+          "label": "Alert Type",
+          "cm-lineage": "slb.template.client-ssl.alert-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "enable-tls-alert-logging",
+            "allowed": [  
+              { 
+              "label": "Fatal",
+              "value": "fatal",
+              "help": "Log fatal alerts" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "forward-proxy-log-disable",
+          "label": "Forward Proxy Log Disable",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-log-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable SSL forward proxy logging" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "SSL-Action",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "forward-proxy-verify-cert-fail-action",
+          "label": "Forward Proxy Verify Cert Fail Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-verify-cert-fail-action",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Action taken if certificate verification fails, close the connection by default" 
+          }
+        },
+        { 
+          "key": "verify-cert-fail-action",
+          "label": "Verify Cert Fail Action",
+          "cm-lineage": "slb.template.client-ssl.verify-cert-fail-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "forward-proxy-verify-cert-fail-action",
+            "allowed": [  
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass SSLi processing" 
+              },
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "continue the connection" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "close the connection" 
+              },
+              { 
+              "label": "Block",
+              "value": "block",
+              "help": "block the connection with a warning page" 
+              }
+            ],
+            "default": "drop" 
+          }
+        },
+        { 
+          "key": "forward-proxy-cert-revoke-action",
+          "label": "Forward Proxy Cert Revoke Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-revoke-action",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Action taken if a certificate is irreversibly revoked, bypass SSLi processing by default" 
+          }
+        },
+        { 
+          "key": "cert-revoke-action",
+          "label": "Cert Revoke Action",
+          "cm-lineage": "slb.template.client-ssl.cert-revoke-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "forward-proxy-cert-revoke-action",
+            "allowed": [  
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass SSLi processing" 
+              },
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "continue the connection" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "close the connection" 
+              },
+              { 
+              "label": "Block",
+              "value": "block",
+              "help": "block the connection with a warning page" 
+              }
+            ],
+            "default": "bypass" 
+          }
+        },
+        { 
+          "key": "forward-proxy-no-shared-cipher-action",
+          "label": "Forward Proxy No Shared Cipher Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-no-shared-cipher-action",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Action taken if handshake fails due to no shared ciper, close the connection by default" 
+          }
+        },
+        { 
+          "key": "no-shared-cipher-action",
+          "label": "No Shared Cipher Action",
+          "cm-lineage": "slb.template.client-ssl.no-shared-cipher-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "forward-proxy-no-shared-cipher-action",
+            "allowed": [  
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass SSLi processing" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "close the connection" 
+              }
+            ],
+            "default": "drop" 
+          }
+        },
+        { 
+          "key": "forward-proxy-cert-unknown-action",
+          "label": "Forward Proxy Cert Unknown Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-unknown-action",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Action taken if a certificate revocation status is unknown, bypass SSLi processing by default" 
+          }
+        },
+        { 
+          "key": "cert-unknown-action",
+          "label": "Cert Unknown Action",
+          "cm-lineage": "slb.template.client-ssl.cert-unknown-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "forward-proxy-cert-unknown-action",
+            "allowed": [  
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass SSLi processing" 
+              },
+              { 
+              "label": "Continue",
+              "value": "continue",
+              "help": "continue the connection" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "close the connection" 
+              },
+              { 
+              "label": "Block",
+              "value": "block",
+              "help": "block the connection with a warning page" 
+              }
+            ],
+            "default": "bypass" 
+          }
+        },
+        { 
+          "key": "forward-proxy-block-message",
+          "label": "Forward Proxy Block Message",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-block-message",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Message to be included on the block page",
+            "range": "1-1023" 
+          }
+        },
+        { 
+          "key": "forward-proxy-no-sni-action",
+          "label": "Forward Proxy No Sni Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-no-sni-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Intercept",
+              "value": "intercept",
+              "help": "intercept in no SNI case" 
+              },
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass in no SNI case" 
+              },
+              { 
+              "label": "Reset",
+              "value": "reset",
+              "help": "reset in no SNI case" 
+              }
+            ],
+            "default": "intercept" 
+          }
+        },
+        { 
+          "key": "forward-proxy-cert-not-ready-action",
+          "label": "Forward Proxy Cert Not Ready Action",
+          "cm-lineage": "slb.template.client-ssl.forward-proxy-cert-not-ready-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Bypass",
+              "value": "bypass",
+              "help": "bypass the connection" 
+              },
+              { 
+              "label": "Reset",
+              "value": "reset",
+              "help": "reset the connection" 
+              }
+            ],
+            "default": "bypass" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "SSL-Policies",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "case-insensitive",
+          "label": "Case Insensitive",
+          "cm-lineage": "slb.template.client-ssl.case-insensitive",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Case insensitive forward proxy bypass" 
+          }
+        },
+        { 
+          "key": "class-list-name",
+          "label": "Class List Name",
+          "cm-lineage": "slb.template.client-ssl.class-list-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Class List Name",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63",
+            "m-exclusion": [  
+             "multi-clist-name" 
+            ]
+          }
+        },
+        { 
+          "key": "multi-class-list",
+          "label": "Multi Class List",
+          "cm-lineage": "slb.template.client-ssl.multi-class-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "multi-clist-name",
+            "label": "Multi Clist Name",
+            "cm-lineage": "slb.template.client-ssl.multi-clist-name",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Class List Name",
+              "multi-field-key": true,
+              "max-elements": "16",
+              "obj-association": [  
+               "class-list" 
+              ],
+              "range": "1-63",
+              "m-exclusion": [  
+               "class-list-name" 
+              ]
+            }
+          }
+          ]
+        },
+        { 
+          "key": "user-name-list",
+          "label": "User Name List",
+          "cm-lineage": "slb.template.client-ssl.user-name-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy bypass if user-name matches class-list",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "ad-group-list",
+          "label": "Ad Group List",
+          "cm-lineage": "slb.template.client-ssl.ad-group-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy bypass if ad-group matches class-list",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "exception-user-name-list",
+          "label": "Exception User Name List",
+          "cm-lineage": "slb.template.client-ssl.exception-user-name-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Exceptions to forward proxy bypass if user-name matches class-list",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "exception-ad-group-list",
+          "label": "Exception Ad Group List",
+          "cm-lineage": "slb.template.client-ssl.exception-ad-group-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Exceptions to forward proxy bypass if ad-group matches class-list",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "exception-sni-cl-name",
+          "label": "Exception Sni Cl Name",
+          "cm-lineage": "slb.template.client-ssl.exception-sni-cl-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Exceptions to forward-proxy-bypass",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "inspect-list-name",
+          "label": "Inspect List Name",
+          "cm-lineage": "slb.template.client-ssl.inspect-list-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Class List Name",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "inspect-certificate-subject-cl-name",
+          "label": "Inspect Certificate Subject Cl Name",
+          "cm-lineage": "slb.template.client-ssl.inspect-certificate-subject-cl-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy Inspect if Certificate Subject matches class-list",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "inspect-certificate-issuer-cl-name",
+          "label": "Inspect Certificate Issuer Cl Name",
+          "cm-lineage": "slb.template.client-ssl.inspect-certificate-issuer-cl-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy Inspect if Certificate issuer matches class-list",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "inspect-certificate-san-cl-name",
+          "label": "Inspect Certificate San Cl Name",
+          "cm-lineage": "slb.template.client-ssl.inspect-certificate-san-cl-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy Inspect if Certificate Subject Alternative Name matches class-list",
+            "obj-association": [  
+             "class-list" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "contains-list",
+          "label": "Contains List",
+          "cm-lineage": "slb.template.client-ssl.contains-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "contains",
+            "label": "Contains",
+            "cm-lineage": "slb.template.client-ssl.contains",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string contains another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "ends-with-list",
+          "label": "Ends With List",
+          "cm-lineage": "slb.template.client-ssl.ends-with-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "ends-with",
+            "label": "Ends With",
+            "cm-lineage": "slb.template.client-ssl.ends-with",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string ends with another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "equals-list",
+          "label": "Equals List",
+          "cm-lineage": "slb.template.client-ssl.equals-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "equals",
+            "label": "Equals",
+            "cm-lineage": "slb.template.client-ssl.equals",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string equals another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "starts-with-list",
+          "label": "Starts With List",
+          "cm-lineage": "slb.template.client-ssl.starts-with-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "starts-with",
+            "label": "Starts With",
+            "cm-lineage": "slb.template.client-ssl.starts-with",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string starts with another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "client-auth-case-insensitive",
+          "label": "Client Auth Case Insensitive",
+          "cm-lineage": "slb.template.client-ssl.client-auth-case-insensitive",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Case insensitive forward proxy client auth bypass" 
+          }
+        },
+        { 
+          "key": "client-auth-class-list",
+          "label": "Client Auth Class List",
+          "cm-lineage": "slb.template.client-ssl.client-auth-class-list",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward proxy client auth bypass if SNI string matches class-list",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "client-auth-contains-list",
+          "label": "Client Auth Contains List",
+          "cm-lineage": "slb.template.client-ssl.client-auth-contains-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "client-auth-contains",
+            "label": "Client Auth Contains",
+            "cm-lineage": "slb.template.client-ssl.client-auth-contains",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string contains another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "client-auth-ends-with-list",
+          "label": "Client Auth Ends With List",
+          "cm-lineage": "slb.template.client-ssl.client-auth-ends-with-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "client-auth-ends-with",
+            "label": "Client Auth Ends With",
+            "cm-lineage": "slb.template.client-ssl.client-auth-ends-with",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string ends with another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "client-auth-equals-list",
+          "label": "Client Auth Equals List",
+          "cm-lineage": "slb.template.client-ssl.client-auth-equals-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "client-auth-equals",
+            "label": "Client Auth Equals",
+            "cm-lineage": "slb.template.client-ssl.client-auth-equals",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string equals another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "client-auth-starts-with-list",
+          "label": "Client Auth Starts With List",
+          "cm-lineage": "slb.template.client-ssl.client-auth-starts-with-list",
+          "cm-meta":  { 
+            "multi": true 
+          },
+          "fields": [ { 
+            "key": "client-auth-starts-with",
+            "label": "Client Auth Starts With",
+            "cm-lineage": "slb.template.client-ssl.client-auth-starts-with",
+            "cm-meta":  { 
+              "format": "string-rlx",
+              "help": "Forward proxy bypass if SNI string starts with another string",
+              "multi-field-key": true,
+              "max-elements": "64",
+              "range": "1-63" 
+            }
+          }
+          ]
+        },
+        { 
+          "key": "uncategorized",
+          "label": "Uncategorized",
+          "cm-lineage": "slb.template.client-ssl.uncategorized",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Uncategorized URLs" 
+          }
+        },
+        { 
+          "key": "non-ssl-bypass-service-group",
+          "label": "Non Ssl Bypass Service Group",
+          "cm-lineage": "slb.template.client-ssl.non-ssl-bypass-service-group",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Service Group for Bypass non-ssl traffic",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Others",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "session-cache-size",
+          "label": "Session Cache Size",
+          "cm-lineage": "slb.template.client-ssl.session-cache-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Session Cache Size",
+            "default": "0",
+            "range": "$platform-specific" 
+          }
+        },
+        { 
+          "key": "session-cache-timeout",
+          "label": "Session Cache Timeout",
+          "cm-lineage": "slb.template.client-ssl.session-cache-timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Session Cache Timeout",
+            "default": "0",
+            "range": "0-604800" 
+          }
+        },
+        { 
+          "key": "session-ticket-lifetime",
+          "label": "Session Ticket Lifetime",
+          "cm-lineage": "slb.template.client-ssl.session-ticket-lifetime",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Session ticket lifetime in seconds from stateless session resumption",
+            "default": "0",
+            "range": "0-2147483647" 
+          }
+        },
+        { 
+          "key": "ssl-false-start-disable",
+          "label": "Ssl False Start Disable",
+          "cm-lineage": "slb.template.client-ssl.ssl-false-start-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "disable SSL False Start" 
+          }
+        },
+        { 
+          "key": "disable-sslv3",
+          "label": "Disable Sslv3",
+          "cm-lineage": "slb.template.client-ssl.disable-sslv3",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Reject Client requests for SSL version 3" 
+          }
+        },
+        { 
+          "key": "version",
+          "label": "Version",
+          "cm-lineage": "slb.template.client-ssl.version",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "TLS/SSL version, default is the highest number supported",
+            "default": "33",
+            "range": "30-33" 
+          }
+        },
+        { 
+          "key": "dgversion",
+          "label": "Dgversion",
+          "cm-lineage": "slb.template.client-ssl.dgversion",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "version",
+            "help": "Lower TLS/SSL version can be downgraded",
+            "default": "31",
+            "range": "30-33" 
+          }
+        },
+        { 
+          "key": "renegotiation-disable",
+          "label": "Renegotiation Disable",
+          "cm-lineage": "slb.template.client-ssl.renegotiation-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable SSL renegotiation" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

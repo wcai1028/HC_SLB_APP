@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "provider.tenant.app-svc",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "provider/{name}/tenant/{name}/app-svc/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "App Service",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "provider.tenant.app-svc.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Application service name",
+            "object-key": true,
+            "range": "1-128" 
+          }
+        },
+        { 
+          "key": "app-svc-type",
+          "label": "App Svc Type",
+          "cm-lineage": "provider.tenant.app-svc.app-svc-type",
+          "cm-meta":  { 
+            "format": "enum",
+            "condition": "name",
+            "allowed": [  
+              { 
+              "label": "Adc",
+              "value": "adc",
+              "help": "adc" 
+              },
+              { 
+              "label": "Gifw",
+              "value": "gifw",
+              "help": "gifw" 
+              },
+              { 
+              "label": "Cgn",
+              "value": "cgn",
+              "help": "cgn" 
+              },
+              { 
+              "label": "Ssli",
+              "value": "ssli",
+              "help": "ssli" 
+              }
+            ],
+            "default": "adc" 
+          }
+        },
+        { 
+          "key": "logical-cluster",
+          "label": "Logical Cluster",
+          "cm-lineage": "provider.tenant.app-svc.logical-cluster",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "logical-cluster",
+            "obj-association": [  
+             "provider.tenant.logical-cluster" 
+            ],
+            "range": "1-128" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

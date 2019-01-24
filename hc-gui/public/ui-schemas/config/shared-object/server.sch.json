@@ -1,0 +1,14 @@
+{
+	"version": "1.0.0",
+	"template": "shared-object",
+	"type": "server",
+	"components": [{
+			"label": "Server",
+			"cm-obj-lineage": "slb.template.server",
+			"referred-by": [
+				"slb.virtual-server.port",
+				"slb.server",
+				"slb.service-group"]
+		}
+	]
+}

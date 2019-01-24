@@ -1,0 +1,104 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy.source",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy/source/{name}",
+  "pageTitle": "Policy Forward Policy Source Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.policy.forward-policy.source.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "range": "1-63",
+              "help": "source destination match rule name",
+              "object-key": true
+            }
+          },
+          {
+            "key": "match-class-list",
+            "label": "Match Class List",
+            "type": "input",
+            "cm-lineage": "slb.template.policy.forward-policy.source.match-class-list",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "help": "Class List Name",
+              "m-exclusion": [
+                "match-any"
+              ]
+            }
+          },
+          {
+            "key": "match-any",
+            "label": "Match Any",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.forward-policy.source.match-any",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Match any source",
+              "m-exclusion": [
+                "match-class-list"
+              ]
+            }
+          },
+          {
+            "key": "match-authorize-policy",
+            "label": "Match Authorize Policy",
+            "type": "select",
+            "cm-lineage": "slb.template.policy.forward-policy.source.match-authorize-policy",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "obj-association": [
+                "aam.authorization.policy"
+              ],
+              "help": "Authorize-policy for user and group based policy",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "priority",
+            "label": "Priority",
+            "type": "input-number",
+            "cm-lineage": "slb.template.policy.forward-policy.source.priority",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-1024",
+              "help": "Priority of the source(higher the number higher the priority, default 0)"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

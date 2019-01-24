@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy.action",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy/action/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "action1",
+          "label": "Action1",
+          "cm-lineage": "slb.template.policy.forward-policy.action.action1",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Forward To Internet",
+              "value": "forward-to-internet",
+              "help": "Forward request to Internet" 
+              },
+              { 
+              "label": "Forward To Service Group",
+              "value": "forward-to-service-group",
+              "help": "Forward request to service group" 
+              },
+              { 
+              "label": "Forward To Proxy",
+              "value": "forward-to-proxy",
+              "help": "Forward request to HTTP proxy server" 
+              },
+              { 
+              "label": "Drop",
+              "value": "drop",
+              "help": "Drop request" 
+              }
+            ]
+          }
+        },
+        { 
+          "key": "fake-sg",
+          "label": "Fake Sg",
+          "cm-lineage": "slb.template.policy.forward-policy.action.fake-sg",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "action1",
+            "help": "service group to forward the packets to Internet",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "real-sg",
+          "label": "Real Sg",
+          "cm-lineage": "slb.template.policy.forward-policy.action.real-sg",
+          "cm-meta":  { 
+            "format": "string",
+            "condition": "action1",
+            "help": "service group to forward the packets",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "log",
+          "label": "Log",
+          "cm-lineage": "slb.template.policy.forward-policy.action.log",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "enable logging" 
+          }
+        },
+        { 
+          "key": "drop-message",
+          "label": "Drop Message",
+          "cm-lineage": "slb.template.policy.forward-policy.action.drop-message",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "drop-message sent to the client as webpage(html tags are included and quotation marks are required for white spaces)",
+            "range": "1-1023",
+            "m-exclusion": [  
+             "drop-redirect-url" 
+            ]
+          }
+        },
+        { 
+          "key": "drop-redirect-url",
+          "label": "Drop Redirect Url",
+          "cm-lineage": "slb.template.policy.forward-policy.action.drop-redirect-url",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify URL to which client request is redirected upon being dropped",
+            "range": "1-1023",
+            "m-exclusion": [  
+             "drop-message" 
+            ]
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

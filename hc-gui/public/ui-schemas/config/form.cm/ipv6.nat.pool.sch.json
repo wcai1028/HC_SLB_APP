@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "ipv6.nat.pool",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "ipv6/nat/pool/{pool-name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "pool-name",
+          "label": "Pool Name",
+          "cm-lineage": "ipv6.nat.pool.pool-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Specify pool name",
+            "object-key": true,
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "start-address",
+          "label": "Start Address",
+          "cm-lineage": "ipv6.nat.pool.start-address",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "pool-name",
+            "help": "Configure start IP address of NAT pool" 
+          }
+        },
+        { 
+          "key": "end-address",
+          "label": "End Address",
+          "cm-lineage": "ipv6.nat.pool.end-address",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "start-address",
+            "help": "Configure end IP address of NAT pool" 
+          }
+        },
+        { 
+          "key": "netmask",
+          "label": "Netmask",
+          "cm-lineage": "ipv6.nat.pool.netmask",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "end-address",
+            "help": "Configure mask for pool",
+            "range": "64-128" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "gateway",
+          "label": "Gateway",
+          "cm-lineage": "ipv6.nat.pool.gateway",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "netmask",
+            "help": "Configure gateway IP" 
+          }
+        },
+        { 
+          "key": "vrid",
+          "label": "Vrid",
+          "cm-lineage": "ipv6.nat.pool.vrid",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "netmask",
+            "help": "Specify VRRP-A vrid",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "scaleout-device-id",
+          "label": "Scaleout Device Id",
+          "cm-lineage": "ipv6.nat.pool.scaleout-device-id",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "netmask",
+            "help": "Configure Scaleout device id to which this NAT pool is to be bound",
+            "range": "1-64" 
+          }
+        },
+        { 
+          "key": "ip-rr",
+          "label": "Ip Rr",
+          "cm-lineage": "ipv6.nat.pool.ip-rr",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "netmask",
+            "help": "Use IP address round-robin behavior" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

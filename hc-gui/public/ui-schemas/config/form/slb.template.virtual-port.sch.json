@@ -1,0 +1,400 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.virtual-port",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/virtual-port/{name}",
+  "pageTitle": "Virtual Port Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.virtual-port.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Virtual port template name"
+            }
+          },
+          {
+            "key": "aflow",
+            "label": "aFlow",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.aflow",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Use aFlow to eliminate the traffic surge"
+            }
+          },
+          {
+            "key": "allow-syn-otherflags",
+            "label": "Allow Syn Other Flags",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.allow-syn-otherflags",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Allow initial SYN packet with other flags"
+            }
+          },
+          {
+            "key": "conn-limit",
+            "label": "Connection Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.conn-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-64000000",
+              "default": 64000000,
+              "help": "Connection limit"
+            }
+          },
+          {
+            "key": "conn-limit-reset",
+            "label": "Connection Limit Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.conn-limit-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-limit",
+              "help": "Send client reset when connection over limit"
+            }
+          },
+          {
+            "key": "conn-limit-no-logging",
+            "label": "Connection Limit No Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.conn-limit-no-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-limit",
+              "help": "Do not log connection over limit event"
+            }
+          },
+          {
+            "key": "conn-rate-limit",
+            "label": "Connection Rate Limit",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.conn-rate-limit",
+            "cm-meta": {
+              "format": "number",
+              "flags": "oby",
+              "range": "1-1048575",
+              "help": "Connection rate limit"
+            }
+          },
+          {
+            "key": "rate-interval",
+            "label": "Rate Interval",
+            "type": "select",
+            "cm-lineage": "slb.template.virtual-port.rate-interval",
+            "cm-meta": {
+              "format": "string",
+              "flags": "oby",
+              "condition": "conn-rate-limit",
+              "help": "Set the sampling interval",
+              "allowed": [
+                {
+                  "label": "100ms",
+                  "value": "100ms",
+                  "help": "Use 100 ms as sampling interval"
+                },
+                {
+                  "label": "Second",
+                  "value": "second",
+                  "help": "Use 1 second as sampling interval"
+                }
+              ],
+              "default": "second",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "conn-rate-limit-reset",
+            "label": "Connection Rate Limit Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.conn-rate-limit-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-rate-limit",
+              "help": "Send client reset when connection rate over limit"
+            }
+          },
+          {
+            "key": "conn-rate-limit-no-logging",
+            "label": "Connection Rate Limit No Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.conn-rate-limit-no-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "conn-rate-limit",
+              "help": "Do not log connection over limit event"
+            }
+          },
+          {
+            "key": "pkt-rate-limit",
+            "label": "Packet Rate Limit",
+            "type": "dummy",
+            "cm-lineage": "slb.template.virtual-port.pkt-rate-limit",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "ok",
+              "help": "Source port packet rate limit"
+            }
+          },
+          {
+            "key": "pkt-rate-type",
+            "label": "Packet Rate Type",
+            "type": "select",
+            "cm-lineage": "slb.template.virtual-port.pkt-rate-type",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mvy",
+              "condition": "pkt-rate-limit",
+              "allowed": [
+                {
+                  "label": "Source IP Port",
+                  "value": "src-ip-port",
+                  "help": "Source IP and port rate limit"
+                },
+                {
+                  "label": "Source Port",
+                  "value": "src-port",
+                  "help": "Source port rate limit"
+                }
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "rate",
+            "label": "Rate",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.rate",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mby",
+              "condition": "pkt-rate-type",
+              "range": "1-1048575",
+              "help": "Source IP and port rate limit"
+            }
+          },
+          {
+            "key": "pkt-rate-interval",
+            "label": "Packet Rate Interval",
+            "type": "select",
+            "cm-lineage": "slb.template.virtual-port.pkt-rate-interval",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ob",
+              "condition": "rate",
+              "help": "Source port rate limit interval",
+              "allowed": [
+                {
+                  "label": "100ms",
+                  "value": "100ms",
+                  "help": "Source IP and port rate limit per 100ms"
+                },
+                {
+                  "label": "Second",
+                  "value": "second",
+                  "help": "Source IP and port rate limit per second (default)"
+                }
+              ],
+              "default": "second",
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "pkt-rate-limit-reset",
+            "label": "Packet Rate Limit Reset",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.pkt-rate-limit-reset",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "condition": "rate",
+              "range": "0-1048575",
+              "default": 0,
+              "help": "send client-side reset"
+            }
+          },
+          {
+            "key": "log-options",
+            "label": "Log Options",
+            "type": "select",
+            "cm-lineage": "slb.template.virtual-port.log-options",
+            "cm-meta": {
+              "format": "string",
+              "flags": "ov",
+              "condition": "rate",
+              "allowed": [
+                {
+                  "label": "No Logging",
+                  "value": "no-logging",
+                  "help": "Do not log over limit event"
+                },
+                {
+                  "label": "No Repeat Logging",
+                  "value": "no-repeat-logging",
+                  "help": "log once for over limit event. Default is log once per minute"
+                }
+              ],
+              "range": "1-128"
+            }
+          },
+          {
+            "key": "when-rr-enable",
+            "label": "When RR Enable",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.when-rr-enable",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "rate",
+              "help": "Only do rate limit if CPU RR triggered"
+            }
+          },
+          {
+            "key": "allow-vip-to-rport-mapping",
+            "label": "Allow VIP To Rport Mapping",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.allow-vip-to-rport-mapping",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Allow mapping of VIP to real port"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dscp",
+            "label": "DSCP",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.dscp",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-63",
+              "help": "Differentiated Services Code Point"
+            }
+          },
+          {
+            "key": "drop-unknown-conn",
+            "label": "Drop Unknown Connection",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.drop-unknown-conn",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Drop conection if receives TCP packet without SYN or RST flag and it does not belong to any existing connections"
+            }
+          },
+          {
+            "key": "reset-unknown-conn",
+            "label": "Reset Unknown Connection",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.reset-unknown-conn",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send reset back if receives TCP packet without SYN or RST flag and it does not belong to any existing connections"
+            }
+          },
+          {
+            "key": "reset-l7-on-failover",
+            "label": "Reset L7 On Failover",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.reset-l7-on-failover",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Send reset to L7 client and server connection upon a failover"
+            }
+          },
+          {
+            "key": "ignore-tcp-msl",
+            "label": "Ignore TCP MSL",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.ignore-tcp-msl",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "reclaim TCP resource immediately without MSL"
+            }
+          },
+          {
+            "key": "snat-msl",
+            "label": "SNAT MSL",
+            "type": "input-number",
+            "cm-lineage": "slb.template.virtual-port.snat-msl",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-1800",
+              "help": "Source NAT MSL"
+            }
+          },
+          {
+            "key": "snat-port-preserve",
+            "label": "SNAT Port Preserve",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.snat-port-preserve",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Source NAT Port Preservation"
+            }
+          },
+          {
+            "key": "non-syn-initiation",
+            "label": "Non Syn Initiation",
+            "type": "switch",
+            "cm-lineage": "slb.template.virtual-port.non-syn-initiation",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Allow initial TCP packet to be non-SYN"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

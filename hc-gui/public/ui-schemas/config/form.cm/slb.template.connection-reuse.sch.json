@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.connection-reuse",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/connection-reuse/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.connection-reuse.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Connection Reuse Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "limit-per-server",
+          "label": "Limit Per Server",
+          "cm-lineage": "slb.template.connection-reuse.limit-per-server",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Max Server Connections allowed",
+            "default": "1000",
+            "range": "0-65535" 
+          }
+        },
+        { 
+          "key": "timeout",
+          "label": "Timeout",
+          "cm-lineage": "slb.template.connection-reuse.timeout",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Timeout in seconds. Multiple of 60 (default 2400)",
+            "default": "2400",
+            "range": "60-3600" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "keep-alive-conn",
+          "label": "Keep Alive Conn",
+          "cm-lineage": "slb.template.connection-reuse.keep-alive-conn",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Keep a number of server connections open" 
+          }
+        },
+        { 
+          "key": "preopen",
+          "label": "Preopen",
+          "cm-lineage": "slb.template.connection-reuse.preopen",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "keep-alive-conn",
+            "help": "Preopen server connection" 
+          }
+        },
+        { 
+          "key": "num-conn-per-port",
+          "label": "Num Conn Per Port",
+          "cm-lineage": "slb.template.connection-reuse.num-conn-per-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "keep-alive-conn",
+            "help": "Connections per Server Port (default 100)",
+            "default": "100",
+            "range": "1-1024" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

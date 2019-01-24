@@ -1,0 +1,101 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "provider.tenant.logical-cluster",
+  "cm-object-meta": {},
+  "axapi": "provider/{name}/tenant/{name}/logical-cluster/{name}",
+  "pageTitle": "Provider Tenant Logical Cluster",
+  "components": {
+    "sections": [
+      {
+        "title": "Logical Cluster",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "provider.tenant.logical-cluster.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Logical cluster name"
+            }
+          },
+          {
+            "key": "physical-cluster-list",
+            "label": "Physical Cluster List",
+            "type": "table",
+            "cm-lineage": "provider.tenant.logical-cluster.physical-cluster-list",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "cluster",
+                "label": "Cluster",
+                "type": "select",
+                "cm-lineage": "provider.tenant.logical-cluster.physical-cluster-list.cluster",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mb",
+                  "obj-association": [
+                    "provider.cluster"
+                  ],
+                  "multi-field-key": true,
+                  "max-elements": 32,
+                  "help": "Physical Cluster name",
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "partition",
+                "label": "Partition",
+                "type": "input",
+                "cm-lineage": "provider.tenant.logical-cluster.physical-cluster-list.partition",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "mb",
+                  "condition": "cluster",
+                  "help": "Partition name",
+                  "range": "1-128"
+                }
+              }
+            ]
+          },
+          {
+            "key": "description",
+            "label": "Description",
+            "type": "input",
+            "cm-lineage": "provider.tenant.logical-cluster.description",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "ov",
+              "range": "1-1024",
+              "help": "Description"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

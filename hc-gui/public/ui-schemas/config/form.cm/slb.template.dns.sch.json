@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.dns",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/dns/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.dns.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "DNS Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "disable-dns-template",
+          "label": "Disable Dns Template",
+          "cm-lineage": "slb.template.dns.disable-dns-template",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable DNS template" 
+          }
+        },
+        { 
+          "key": "drop",
+          "label": "Drop",
+          "cm-lineage": "slb.template.dns.drop",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Drop the malformed query",
+            "m-exclusion": [  
+             "forward" 
+            ]
+          }
+        },
+        { 
+          "key": "forward",
+          "label": "Forward",
+          "cm-lineage": "slb.template.dns.forward",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Forward to service group",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "drop" 
+            ]
+          }
+        },
+        { 
+          "key": "max-query-length",
+          "label": "Max Query Length",
+          "cm-lineage": "slb.template.dns.max-query-length",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Define Maximum DNS Query Length, default is unlimited",
+            "range": "1-4095" 
+          }
+        },
+        { 
+          "key": "redirect-to-tcp-port",
+          "label": "Redirect To Tcp Port",
+          "cm-lineage": "slb.template.dns.redirect-to-tcp-port",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Direct the client to retry with TCP for DNS UDP request" 
+          }
+        },
+        { 
+          "key": "query-id-switch",
+          "label": "Query Id Switch",
+          "cm-lineage": "slb.template.dns.query-id-switch",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Use DNS query ID to create sesion" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "default-policy",
+          "label": "Default Policy",
+          "cm-lineage": "slb.template.dns.default-policy",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Nocache",
+              "value": "nocache",
+              "help": "Cache disable" 
+              },
+              { 
+              "label": "Cache",
+              "value": "cache",
+              "help": "Cache enable" 
+              }
+            ],
+            "default": "nocache" 
+          }
+        },
+        { 
+          "key": "period",
+          "label": "Period",
+          "cm-lineage": "slb.template.dns.period",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Period in minutes",
+            "range": "1-10000" 
+          }
+        },
+        { 
+          "key": "max-cache-entry-size",
+          "label": "Max Cache Entry Size",
+          "cm-lineage": "slb.template.dns.max-cache-entry-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Define maximum cache entry size",
+            "range": "1-4096" 
+          }
+        },
+        { 
+          "key": "max-cache-size",
+          "label": "Max Cache Size",
+          "cm-lineage": "slb.template.dns.max-cache-size",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Define maximum cache size",
+            "range": "$platform-specific" 
+          }
+        },
+        { 
+          "key": "enable-cache-sharing",
+          "label": "Enable Cache Sharing",
+          "cm-lineage": "slb.template.dns.enable-cache-sharing",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable DNS cache sharing" 
+          }
+        },
+        { 
+          "key": "dnssec-service-group",
+          "label": "Dnssec Service Group",
+          "cm-lineage": "slb.template.dns.dnssec-service-group",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Use different service group if DNSSEC DO bit set",
+            "obj-association": [  
+             "slb.service-group" 
+            ],
+            "range": "1-127" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

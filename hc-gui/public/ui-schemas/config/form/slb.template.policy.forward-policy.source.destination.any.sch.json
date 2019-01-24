@@ -1,0 +1,47 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy.forward-policy.source.destination.any",
+  "cm-object-meta": {
+    "obj-occurences": "single"
+  },
+  "axapi": "slb/template/policy/{name}/forward-policy/source/{name}/destination/any",
+  "pageTitle": "Policy Forward Policy Source Destination Any Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "action",
+            "label": "Action",
+            "type": "input",
+            "cm-lineage": "slb.template.policy.forward-policy.source.destination.any.action",
+            "cm-meta": {
+              "format": "string",
+              "flags": "mb",
+              "range": "1-63",
+              "help": "Action to be performed"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

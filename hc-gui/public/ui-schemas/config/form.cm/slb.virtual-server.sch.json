@@ -1,0 +1,376 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.virtual-server",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/virtual-server/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.virtual-server.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "SLB Virtual Server Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "ipv6-address",
+          "label": "Ipv6 Address",
+          "cm-lineage": "slb.virtual-server.ipv6-address",
+          "cm-meta":  { 
+            "format": "ipv6-address",
+            "condition": "name",
+            "help": "IPV6 address",
+            "m-exclusion": [  
+             "ip-address" 
+            ]
+          }
+        },
+        { 
+          "key": "ip-address",
+          "label": "Ip Address",
+          "cm-lineage": "slb.virtual-server.ip-address",
+          "cm-meta":  { 
+            "format": "ipv4-address",
+            "condition": "name",
+            "help": "IP Address",
+            "m-exclusion": [  
+             "ipv6-address" 
+            ]
+          }
+        },
+        { 
+          "key": "netmask",
+          "label": "Netmask",
+          "cm-lineage": "slb.virtual-server.netmask",
+          "cm-meta":  { 
+            "format": "ipv4-netmask-brief",
+            "condition": "ip-address",
+            "help": "IP subnet mask" 
+          }
+        },
+        { 
+          "key": "ipv6-acl",
+          "label": "Ipv6 Acl",
+          "cm-lineage": "slb.virtual-server.ipv6-acl",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ipv6-address",
+            "help": "ipv6 acl name",
+            "obj-association": [  
+             "ipv6.access-list" 
+            ],
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "acl-id",
+          "label": "Acl Id",
+          "cm-lineage": "slb.virtual-server.acl-id",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "ip-address",
+            "help": "acl id",
+            "obj-association": [  
+             "access-list.standard",
+             " access-list.extended" 
+            ],
+            "range": "1-199" 
+          }
+        },
+        { 
+          "key": "acl-name",
+          "label": "Acl Name",
+          "cm-lineage": "slb.virtual-server.acl-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "ip-address",
+            "help": "Access List name",
+            "obj-association": [  
+             "ip.access-list" 
+            ],
+            "range": "1-16" 
+          }
+        },
+        { 
+          "key": "use-if-ip",
+          "label": "Use If Ip",
+          "cm-lineage": "slb.virtual-server.use-if-ip",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "name",
+            "help": "Use Interface IP",
+            "m-exclusion": [  
+             "ipv6-address",
+             "ip-address" 
+            ]
+          }
+        },
+        { 
+          "key": "ethernet",
+          "label": "Ethernet",
+          "cm-lineage": "slb.virtual-server.ethernet",
+          "cm-meta":  { 
+            "format": "interface",
+            "condition": "use-if-ip",
+            "help": "Ethernet interface",
+            "range": "1-103" 
+          }
+        },
+        { 
+          "key": "enable-disable-action",
+          "label": "Enable Disable Action",
+          "cm-lineage": "slb.virtual-server.enable-disable-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Enable",
+              "value": "enable",
+              "help": "Enable Virtual Server (default)" 
+              },
+              { 
+              "label": "Disable",
+              "value": "disable",
+              "help": "Disable Virtual Server" 
+              },
+              { 
+              "label": "Disable When All Ports Down",
+              "value": "disable-when-all-ports-down",
+              "help": "Disable Virtual Server when all member ports are down" 
+              },
+              { 
+              "label": "Disable When Any Port Down",
+              "value": "disable-when-any-port-down",
+              "help": "Disable Virtual Server when any member port is down" 
+              }
+            ],
+            "default": "enable" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "description",
+          "label": "Description",
+          "cm-lineage": "slb.virtual-server.description",
+          "cm-meta":  { 
+            "format": "line",
+            "help": "Create a description for VIP",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "redistribution-flagged",
+          "label": "Redistribution Flagged",
+          "cm-lineage": "slb.virtual-server.redistribution-flagged",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Flag VIP for special redistribution handling" 
+          }
+        },
+        { 
+          "key": "suppress-internal-loopback",
+          "label": "Suppress Internal Loopback",
+          "cm-lineage": "slb.virtual-server.suppress-internal-loopback",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Suppress VIP internal loopback programming" 
+          }
+        },
+        { 
+          "key": "arp-disable",
+          "label": "Arp Disable",
+          "cm-lineage": "slb.virtual-server.arp-disable",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable Respond to Virtual Server ARP request" 
+          }
+        },
+        { 
+          "key": "stats-data-action",
+          "label": "Stats Data Action",
+          "cm-lineage": "slb.virtual-server.stats-data-action",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Stats Data Enable",
+              "value": "stats-data-enable",
+              "help": "Enable statistical data collection for virtual server" 
+              },
+              { 
+              "label": "Stats Data Disable",
+              "value": "stats-data-disable",
+              "help": "Disable statistical data collection for virtual server" 
+              }
+            ],
+            "default": "stats-data-enable" 
+          }
+        },
+        { 
+          "key": "extended-stats",
+          "label": "Extended Stats",
+          "cm-lineage": "slb.virtual-server.extended-stats",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Enable extended statistics on virtual server" 
+          }
+        },
+        { 
+          "key": "vrid",
+          "label": "Vrid",
+          "cm-lineage": "slb.virtual-server.vrid",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Join a vrrp group",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "disable-vip-adv",
+          "label": "Disable Vip Adv",
+          "cm-lineage": "slb.virtual-server.disable-vip-adv",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable virtual server GARP" 
+          }
+        },
+        { 
+          "key": "ha-dynamic",
+          "label": "Ha Dynamic",
+          "cm-lineage": "slb.virtual-server.ha-dynamic",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Dynamic failover based on vip status",
+            "range": "1-255" 
+          }
+        },
+        { 
+          "key": "redistribute-route-map",
+          "label": "Redistribute Route Map",
+          "cm-lineage": "slb.virtual-server.redistribute-route-map",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Route map reference",
+            "range": "1-128" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Template",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "template-policy",
+          "label": "Template Policy",
+          "cm-lineage": "slb.virtual-server.template-policy",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Policy template",
+            "obj-association": [  
+             "slb.template.policy" 
+            ],
+            "range": "1-127",
+            "m-exclusion": [  
+             "shared-partition-policy-template" 
+            ]
+          }
+        },
+        { 
+          "key": "shared-partition-policy-template",
+          "label": "Shared Partition Policy Template",
+          "cm-lineage": "slb.virtual-server.shared-partition-policy-template",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Reference a policy template from shared partition",
+            "m-exclusion": [  
+             "template-policy" 
+            ]
+          }
+        },
+        { 
+          "key": "template-policy-shared",
+          "label": "Template Policy Shared",
+          "cm-lineage": "slb.virtual-server.template-policy-shared",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "shared-partition-policy-template",
+            "help": "Policy Template Name",
+            "obj-association": [  
+             "slb.template.policy" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "template-virtual-server",
+          "label": "Template Virtual Server",
+          "cm-lineage": "slb.virtual-server.template-virtual-server",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Virtual server template",
+            "obj-association": [  
+             "slb.template.virtual-server" 
+            ],
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "template-logging",
+          "label": "Template Logging",
+          "cm-lineage": "slb.virtual-server.template-logging",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "NAT Logging template",
+            "obj-association": [  
+             "ip.nat.template.logging" 
+            ],
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "template-scaleout",
+          "label": "Template Scaleout",
+          "cm-lineage": "slb.virtual-server.template-scaleout",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "Scaleout template",
+            "range": "1-63" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

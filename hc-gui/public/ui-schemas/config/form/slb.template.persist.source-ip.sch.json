@@ -1,0 +1,188 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.persist.source-ip",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/persist/source-ip/{name}",
+  "pageTitle": "Persist Source IP Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.persist.source-ip.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Source IP persistence template name"
+            }
+          },
+          {
+            "key": "hash-persist",
+            "label": "Hash Persist",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.hash-persist",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Use hash value of source IP address"
+            }
+          },
+          {
+            "key": "incl-dst-ip",
+            "label": "Incl Destination IP",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.incl-dst-ip",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Include destination IP on the persist"
+            }
+          },
+          {
+            "key": "incl-sport",
+            "label": "Incl Sport",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.incl-sport",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Include source port on the persist"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "dont-honor-conn-rules",
+            "label": "Don't Honor Connection Rules",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.dont-honor-conn-rules",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Do not observe connection rate rules"
+            }
+          },
+          {
+            "key": "enforce-higher-priority",
+            "label": "Enforce Higher Priority",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.enforce-higher-priority",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "help": "Enforce to use high priority node if available"
+            }
+          },
+          {
+            "key": "timeout",
+            "label": "Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.persist.source-ip.timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-2000",
+              "default": 5,
+              "help": "Persistence timeout"
+            }
+          },
+          {
+            "key": "match-type",
+            "label": "Match Type",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.match-type",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "oky",
+              "help": "Persistence type"
+            }
+          },
+          {
+            "key": "server",
+            "label": "Server",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.server",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "match-type",
+              "help": "Persist to the same server, default is port",
+              "m-exclusion": [
+                "service-group"
+              ]
+            }
+          },
+          {
+            "key": "primary-port",
+            "label": "Primary Port",
+            "type": "input-number",
+            "cm-lineage": "slb.template.persist.source-ip.primary-port",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "condition": "server",
+              "range": "1-65534",
+              "help": "Primary port to create the persist session"
+            }
+          },
+          {
+            "key": "service-group",
+            "label": "Service Group",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.service-group",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "match-type",
+              "m-exclusion": [
+                "server"
+              ],
+              "help": "Persist within the same service group"
+            }
+          },
+          {
+            "key": "scan-all-members",
+            "label": "Scan All Members",
+            "type": "switch",
+            "cm-lineage": "slb.template.persist.source-ip.scan-all-members",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "server",
+              "help": "Persist with SCAN of all members"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

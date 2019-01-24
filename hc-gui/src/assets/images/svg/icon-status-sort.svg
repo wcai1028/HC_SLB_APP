@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21" height="21" viewBox="0 0 21 21">
+    <defs>
+        <rect id="b" width="18" height="18" x="79" y="214" rx="9"/>
+        <filter id="a" width="133.3%" height="133.3%" x="-8.3%" y="-8.3%" filterUnits="objectBoundingBox">
+            <feOffset dx="3" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feComposite in="shadowOffsetOuter1" in2="SourceAlpha" operator="out" result="shadowOffsetOuter1"/>
+            <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0.828948767 0 0 0 0 0.828948767 0 0 0 0 0.828948767 0 0 0 0.5 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(-79 -214)">
+        <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+        <use fill="#FFF" xlink:href="#b"/>
+        <rect width="17" height="17" x="79.5" y="214.5" stroke="#E4E4E4" rx="8.5"/>
+    </g>
+</svg>

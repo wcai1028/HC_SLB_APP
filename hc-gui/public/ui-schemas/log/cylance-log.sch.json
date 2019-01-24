@@ -1,0 +1,265 @@
+{
+  "template": "log",
+  "version": "1.0.0",
+  "axapi": {
+    "vipPortList": {
+      "endpoint": "/axapi/v3/slb/virtual-server",
+      "method": "GET"
+    },
+    "logs": {
+      "endpoint": "/axapi/v3/acos-cm-logdb/cylance",
+      "method": "GET"
+    },
+    "stats": {
+      "endpoint": "/axapi/v3/acos-cm-logdb/cylance",
+      "method": "GET"
+    },
+    "blacklist": {
+      "endpoint": "/axapi/v3/cylance/blacklist",
+      "method": "POST",
+      "params": ["type", "value"]
+    },
+    "whitelist": {
+      "endpoint": "/axapi/v3/cylance/whitelist",
+      "method": "POST",
+      "params": ["type", "value"]
+    }
+  },
+  "components": {
+    "statsBar": {
+      "$axapi": "stats",
+      "fields": [
+        {
+          "$dataKey": "cylance.stats.avg-latency",
+          "label": "Avg. Latency",
+          "unit": "ms",
+          "color": "#00aa6",
+          "items": [
+            {
+              "$dataKey": "cylance.stats.avg-latency-min",
+              "label": "Min",
+              "unit": "ms",
+              "color": "#ff2e4"
+            },
+            {
+              "$dataKey": "cylance.stats.avg-latency",
+              "label": "Max",
+              "unit": "ms",
+              "color": "#00aa6"
+            }
+          ]
+        },
+        {
+          "$dataKey": "cylance.stats.file-transaction",
+          "label": "File Transaction",
+          "unit": "K",
+          "color": "#97979"
+        },
+        {
+          "$dataKey": "cylance.stats.threat-detected",
+          "label": "Threat Detected",
+          "unit": "K",
+          "color": "#ff2e48"
+        },
+        {
+          "$dataKey": "cylance.stats.bypassed",
+          "label": "Bypassed",
+          "unit": "K",
+          "color": "#00aa6c"
+        },
+        {
+          "$dataKey": "cylance.stats.failed",
+          "label": "Failed",
+          "unit": "",
+          "color": "##8e8e8"
+        },
+        {
+          "$dataKey": "cylance.stats.action-taken",
+          "label": "Action Taken",
+          "unit": "%",
+          "color": "#00aa6"
+        }
+      ]
+    },
+    "logSearchBar": {
+      "title": {
+        "$axapi": "logs",
+        "$dataKey": "total-count",
+        "label": "LOGS"
+      },
+      "input": {
+        "placeholder":
+          "violation='failed'; user_name='joe'; file='abc.doc'; file_type='pdf'; url='http://test.com'; location='USA';"
+      }
+    },
+    "filter": {
+      "$axapi": "logs",
+      "groups": [
+        {
+          "$dataKey": "cylance.filter-groups.violation",
+          "label": "Violation"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.user_name",
+          "label": "Users"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.file",
+          "label": "Files"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.file_type",
+          "label": "File types"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.url",
+          "label": "Urls"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.location",
+          "label": "Locations"
+        },
+        {
+          "$dataKey": "cylance.filter-groups.status",
+          "label": "Status"
+        }
+      ]
+    },
+    "logTable": {
+      "$axapi": "logs",
+      "$dataKey": "cylance.logs",
+      "columns": [
+        {
+          "$dataKey": "timestamp",
+          "label": "Timestamp"
+        },
+        {
+          "$dataKey": "violation",
+          "label": "Violation"
+        },
+        {
+          "$dataKey": "user_ip",
+          "label": "User IP"
+        },
+        {
+          "$dataKey": "url",
+          "label": "URL"
+        },
+        {
+          "$dataKey": "bandwidth",
+          "label": "Bandwidth"
+        },
+        {
+          "$dataKey": "size",
+          "label": "Size"
+        },
+        {
+          "$dataKey": "status",
+          "label": "Status"
+        }
+      ]
+    },
+    "logDetail": {
+      "$axapi": "logs",
+      "fields": [
+        {
+          "$dataKey": "event_id",
+          "label": "Event ID"
+        },
+        {
+          "$dataKey": "url",
+          "label": "URL",
+          "contextMenu": true
+        },
+        [
+          {
+            "$dataKey": "violation",
+            "label": "Violation",
+            "span": "6"
+          },
+          {
+            "$dataKey": "user_name",
+            "label": "User Name",
+            "contextMenu": true,
+            "icon": "file",
+            "span": "10"
+          },
+          {
+            "$dataKey": "transfer_start",
+            "label": "Transfer Start",
+            "span": "8"
+          }
+        ],
+        [
+          {
+            "$dataKey": "status",
+            "label": "Status",
+            "span": "6"
+          },
+          {
+            "$dataKey": "inspection",
+            "label": "Inspection",
+            "span": "10"
+          },
+          {
+            "$dataKey": "transfer_end",
+            "label": "Transfer End",
+            "span": "8"
+          }
+        ],
+        {
+          "$dataKey": "file",
+          "label": "File",
+          "contextMenu": true
+        },
+        [
+          {
+            "$dataKey": "file_type",
+            "label": "File Type",
+            "contextMenu": true,
+            "span": "6",
+            "icon": "file"
+          },
+          {
+            "$dataKey": "user_ip",
+            "label": "User IP",
+            "contextMenu": true,
+            "span": "10",
+            "icon": "times-circle"
+          }
+        ],
+        [
+          {
+            "$dataKey": "size",
+            "label": "Size",
+            "span": "6"
+          },
+          {
+            "$dataKey": "location",
+            "label": "Location",
+            "contextMenu": true,
+            "span": "10",
+            "icon": "flag"
+          }
+        ]
+      ],
+      "contextMenu": [
+        {
+          "$axapi": "blacklist",
+          "label": "Add Blacklist"
+        },
+        {
+          "$axapi": "whitelist",
+          "label": "Remove from Whitelis"
+        },
+        {
+          "divider": true
+        },
+        {
+          "$axapi": "logFilter",
+          "label": "Add to Log Filter"
+        }
+      ]
+    }
+  }
+}

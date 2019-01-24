@@ -1,0 +1,153 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "ipv6.nat.pool",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "ipv6/nat/pool/{pool-name}",
+  "pageTitle": "IPv6 NAT Pool",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "pool-name",
+            "label": "Pool Name",
+            "type": "input",
+            "cm-lineage": "ipv6.nat.pool.pool-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mv",
+              "object-key": true,
+              "range": "1-63",
+              "help": "Specify pool name"
+            }
+          },
+          {
+            "key": "start-address",
+            "label": "Start Address",
+            "type": "input",
+            "cm-lineage": "ipv6.nat.pool.start-address",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "mvd",
+              "modify-ineligible": true,
+              "condition": "pool-name",
+              "help": "Configure start IP address of NAT pool"
+            },
+            "required": true
+          },
+          {
+            "key": "end-address",
+            "label": "End Address",
+            "type": "input",
+            "cm-lineage": "ipv6.nat.pool.end-address",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "mv",
+              "condition": "start-address",
+              "modify-ineligible": true,
+              "help": "Configure end IP address of NAT pool"
+            },
+            "required": true
+          },
+          {
+            "key": "netmask",
+            "label": "Netmask",
+            "type": "input-number",
+            "cm-lineage": "ipv6.nat.pool.netmask",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mby",
+              "range": "64-128",
+              "condition": "end-address",
+              "modify-ineligible": true,
+              "help": "Configure mask for pool"
+            },
+            "required": true
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "gateway",
+            "label": "Gateway",
+            "type": "input",
+            "cm-lineage": "ipv6.nat.pool.gateway",
+            "cm-meta": {
+              "format": "ipv6-address",
+              "flags": "ob",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Configure gateway IP"
+            }
+          },
+          {
+            "key": "vrid",
+            "label": "VRID",
+            "type": "input-number",
+            "cm-lineage": "ipv6.nat.pool.vrid",
+            "cm-meta": {
+              "format": "number",
+              "flags": "obsp",
+              "range": "1-31",
+              "range-in-partition": "1-7",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Specify VRRP-A vrid"
+            }
+          },
+          {
+            "key": "scaleout-device-id",
+            "label": "Scaleout Device ID",
+            "type": "input-number",
+            "cm-lineage": "ipv6.nat.pool.scaleout-device-id",
+            "cm-meta": {
+              "format": "number",
+              "flags": "ob",
+              "range": "1-64",
+              "range-in-partition": "1-63",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Configure Scaleout device id to which this NAT pool is to be bound"
+            }
+          },
+          {
+            "key": "ip-rr",
+            "label": "IP RR",
+            "type": "switch",
+            "cm-lineage": "ipv6.nat.pool.ip-rr",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "ok",
+              "condition": "netmask",
+              "modify-ineligible": true,
+              "help": "Use IP address round-robin behavior"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

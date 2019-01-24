@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.imap",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/imap",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "IMAP",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "imap",
+          "label": "Imap",
+          "cm-lineage": "health.monitor.method.imap.imap",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "IMAP type" 
+          }
+        },
+        { 
+          "key": "imap-port",
+          "label": "Imap Port",
+          "cm-lineage": "health.monitor.method.imap.imap-port",
+          "cm-meta":  { 
+            "format": "number",
+            "condition": "imap",
+            "help": "Specify the IMAP port, default is 143",
+            "default": "143",
+            "range": "1-65534" 
+          }
+        },
+        { 
+          "key": "imap-username",
+          "label": "Imap Username",
+          "cm-lineage": "health.monitor.method.imap.imap-username",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "imap",
+            "help": "Specify the username",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "imap-password",
+          "label": "Imap Password",
+          "cm-lineage": "health.monitor.method.imap.imap-password",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "imap-username",
+            "help": "Specify the user password" 
+          }
+        },
+        { 
+          "key": "imap-password-string",
+          "label": "Imap Password String",
+          "cm-lineage": "health.monitor.method.imap.imap-password-string",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "imap-password",
+            "help": "Configure password, '' means empty password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "imap-encrypted",
+          "label": "Imap Encrypted",
+          "cm-lineage": "health.monitor.method.imap.imap-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "imap-password",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "pwd-auth",
+          "label": "Pwd Auth",
+          "cm-lineage": "health.monitor.method.imap.pwd-auth",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "imap-password-string",
+            "help": "Specify the Authentication method" 
+          }
+        },
+        { 
+          "key": "imap-plain",
+          "label": "Imap Plain",
+          "cm-lineage": "health.monitor.method.imap.imap-plain",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "pwd-auth",
+            "help": "Plain text" 
+          }
+        },
+        { 
+          "key": "imap-cram-md5",
+          "label": "Imap Cram Md5",
+          "cm-lineage": "health.monitor.method.imap.imap-cram-md5",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "pwd-auth",
+            "help": "Challenge-response authentication mechanism" 
+          }
+        },
+        { 
+          "key": "imap-login",
+          "label": "Imap Login",
+          "cm-lineage": "health.monitor.method.imap.imap-login",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "pwd-auth",
+            "help": "Simple login" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

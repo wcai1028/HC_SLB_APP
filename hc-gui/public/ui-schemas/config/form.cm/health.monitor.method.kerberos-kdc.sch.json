@@ -1,0 +1,241 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "health.monitor.method.kerberos-kdc",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "health/monitor/{name}/method/kerberos-kdc",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Kerberos",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "kinit",
+          "label": "Kinit",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kinit",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Kerberos KDC",
+            "m-exclusion": [  
+             "kadmin" 
+            ]
+          }
+        },
+        { 
+          "key": "kinit-pricipal-name",
+          "label": "Kinit Pricipal Name",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kinit-pricipal-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kinit",
+            "help": "Specify the principal name",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "kinit-password",
+          "label": "Kinit Password",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kinit-password",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "kinit-pricipal-name",
+            "help": "Password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "kinit-encrypted",
+          "label": "Kinit Encrypted",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kinit-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "kinit-pricipal-name",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "kinit-kdc",
+          "label": "Kinit Kdc",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kinit-kdc",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kinit-password",
+            "help": "Specify the kdc server, host|ip [:port]",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "tcp-only",
+          "label": "Tcp Only",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.tcp-only",
+          "cm-meta":  { 
+            "format": "flag",
+            "condition": "kinit-kdc",
+            "help": "Specify the kerberos tcp only" 
+          }
+        },
+        { 
+          "key": "kadmin",
+          "label": "Kadmin",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Kerberos admin",
+            "m-exclusion": [  
+             "kinit" 
+            ]
+          }
+        },
+        { 
+          "key": "kadmin-realm",
+          "label": "Kadmin Realm",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-realm",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kadmin",
+            "help": "Specify the realm",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "kadmin-pricipal-name",
+          "label": "Kadmin Pricipal Name",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-pricipal-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kadmin-realm",
+            "help": "Specify the principal name",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "kadmin-password",
+          "label": "Kadmin Password",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-password",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "kadmin-pricipal-name",
+            "help": "Password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "kadmin-encrypted",
+          "label": "Kadmin Encrypted",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "kadmin-pricipal-name",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "kadmin-server",
+          "label": "Kadmin Server",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-server",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kadmin-password",
+            "help": "Specify the admin server, host|ip [:port]",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "kadmin-kdc",
+          "label": "Kadmin Kdc",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kadmin-kdc",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kadmin-server",
+            "help": "Specify the kdc server, host|ip [:port]",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "kpasswd",
+          "label": "Kpasswd",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Kerberos change passwd",
+            "m-exclusion": [  
+             "kinit" 
+            ]
+          }
+        },
+        { 
+          "key": "kpasswd-pricipal-name",
+          "label": "Kpasswd Pricipal Name",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd-pricipal-name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kpasswd",
+            "help": "Specify the principal name",
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "kpasswd-password",
+          "label": "Kpasswd Password",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd-password",
+          "cm-meta":  { 
+            "format": "password",
+            "condition": "kpasswd-pricipal-name",
+            "help": "Password",
+            "range": "1-31" 
+          }
+        },
+        { 
+          "key": "kpasswd-encrypted",
+          "label": "Kpasswd Encrypted",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd-encrypted",
+          "cm-meta":  { 
+            "format": "encrypted",
+            "condition": "kpasswd-pricipal-name",
+            "help": "Do NOT use this option manually. (This is an A10 reserved keyword.)" 
+          }
+        },
+        { 
+          "key": "kpasswd-server",
+          "label": "Kpasswd Server",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd-server",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kpasswd-password",
+            "help": "Specify the Kerberos password server, host|ip [:port]",
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "kpasswd-kdc",
+          "label": "Kpasswd Kdc",
+          "cm-lineage": "health.monitor.method.kerberos-kdc.kpasswd-kdc",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "condition": "kpasswd-server",
+            "help": "Specify the kdc server, host|ip [:port]",
+            "range": "1-63" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

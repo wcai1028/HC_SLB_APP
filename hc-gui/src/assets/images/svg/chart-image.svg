@@ -1,0 +1,541 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1159" height="89" viewBox="0 0 1159 89">
+    <defs>
+        <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="97.413%">
+            <stop offset="0%" stop-color="#559F65"/>
+            <stop offset="32.035%" stop-color="#55B887"/>
+            <stop offset="32.601%" stop-color="#FFD58C"/>
+            <stop offset="51.618%" stop-color="#FFA100"/>
+            <stop offset="53.41%" stop-color="#EF6B62"/>
+            <stop offset="81.37%" stop-color="#EF6262"/>
+            <stop offset="81.979%" stop-color="#B1B1B1"/>
+            <stop offset="100%" stop-color="#B1B1B1"/>
+        </linearGradient>
+        <path id="b" d="M0 49h12v40H0z"/>
+        <path id="c" d="M11 45h12v44H11z"/>
+        <path id="d" d="M22 32h12v57H22z"/>
+        <path id="e" d="M33 41h12v48H33z"/>
+        <path id="f" d="M44 62h12v27H44z"/>
+        <path id="g" d="M55 34h12v55H55z"/>
+        <path id="h" d="M66 49h12v40H66z"/>
+        <path id="i" d="M77 23h12v66H77z"/>
+        <path id="j" d="M88 34h12v55H88z"/>
+        <path id="k" d="M99 62h12v27H99z"/>
+        <path id="l" d="M110 23h12v66h-12z"/>
+        <path id="m" d="M121 49h12v40h-12z"/>
+        <path id="n" d="M132 41h12v48h-12z"/>
+        <path id="o" d="M143 62h12v27h-12z"/>
+        <path id="p" d="M154 34h12v55h-12z"/>
+        <path id="q" d="M165 49h12v40h-12z"/>
+        <path id="r" d="M176 23h12v66h-12z"/>
+        <path id="s" d="M187 32h12v57h-12z"/>
+        <path id="t" d="M198 49h12v40h-12z"/>
+        <path id="u" d="M209 41h12v48h-12z"/>
+        <path id="v" d="M220 23h12v66h-12z"/>
+        <path id="w" d="M231 41h12v48h-12z"/>
+        <path id="x" d="M242 34h12v55h-12z"/>
+        <path id="y" d="M253 23h12v66h-12z"/>
+        <path id="z" d="M264 62h12v27h-12z"/>
+        <path id="A" d="M275 49h12v40h-12z"/>
+        <path id="B" d="M286 32h12v57h-12z"/>
+        <path id="C" d="M297 10h12v79h-12z"/>
+        <path id="D" d="M308 8h12v81h-12z"/>
+        <path id="E" d="M319 0h12v89h-12z"/>
+        <path id="F" d="M330 19h12v70h-12z"/>
+        <path id="G" d="M341 38h12v51h-12z"/>
+        <path id="H" d="M352 49h12v40h-12z"/>
+        <path id="I" d="M363 34h12v55h-12z"/>
+        <path id="J" d="M374 41h12v48h-12z"/>
+        <path id="K" d="M385 49h12v40h-12z"/>
+        <path id="L" d="M396 34h12v55h-12z"/>
+        <path id="M" d="M407 49h12v40h-12z"/>
+        <path id="N" d="M418 62h12v27h-12z"/>
+        <path id="O" d="M429 49h12v40h-12z"/>
+        <path id="P" d="M440 32h12v57h-12z"/>
+        <path id="Q" d="M451 49h12v40h-12z"/>
+        <path id="R" d="M462 49h12v40h-12z"/>
+        <path id="S" d="M473 49h12v40h-12z"/>
+        <path id="T" d="M484 62h12v27h-12z"/>
+        <path id="U" d="M495 49h12v40h-12z"/>
+        <path id="V" d="M506 34h12v55h-12z"/>
+        <path id="W" d="M517 49h12v40h-12z"/>
+        <path id="X" d="M528 41h12v48h-12z"/>
+        <path id="Y" d="M539 49h12v40h-12z"/>
+        <path id="Z" d="M550 49h12v40h-12z"/>
+        <path id="aa" d="M561 23h12v66h-12z"/>
+        <path id="ab" d="M572 62h12v27h-12z"/>
+        <path id="ac" d="M583 49h12v40h-12z"/>
+        <path id="ad" d="M594 34h12v55h-12z"/>
+        <path id="ae" d="M605 49h12v40h-12z"/>
+        <path id="af" d="M616 34h12v55h-12z"/>
+        <path id="ag" d="M627 49h12v40h-12z"/>
+        <path id="ah" d="M638 49h12v40h-12z"/>
+        <path id="ai" d="M649 32h12v57h-12z"/>
+        <path id="aj" d="M660 62h12v27h-12z"/>
+        <path id="ak" d="M671 23h12v66h-12z"/>
+        <path id="al" d="M682 49h12v40h-12z"/>
+        <path id="am" d="M693 34h12v55h-12z"/>
+        <path id="an" d="M704 49h12v40h-12z"/>
+        <path id="ao" d="M715 41h12v48h-12z"/>
+        <path id="ap" d="M726 49h12v40h-12z"/>
+        <path id="aq" d="M737 62h12v27h-12z"/>
+        <path id="ar" d="M748 49h12v40h-12z"/>
+        <path id="as" d="M759 32h12v57h-12z"/>
+        <path id="at" d="M770 49h12v40h-12z"/>
+        <path id="au" d="M781 49h12v40h-12z"/>
+        <path id="av" d="M792 41h12v48h-12z"/>
+        <path id="aw" d="M803 49h12v40h-12z"/>
+        <path id="ax" d="M814 23h12v66h-12z"/>
+        <path id="ay" d="M825 34h12v55h-12z"/>
+        <path id="az" d="M836 49h12v40h-12z"/>
+        <path id="aA" d="M847 41h12v48h-12z"/>
+        <path id="aB" d="M858 49h12v40h-12z"/>
+        <path id="aC" d="M869 49h12v40h-12z"/>
+        <path id="aD" d="M880 62h12v27h-12z"/>
+        <path id="aE" d="M891 49h12v40h-12z"/>
+        <path id="aF" d="M902 32h12v57h-12z"/>
+        <path id="aG" d="M913 49h12v40h-12z"/>
+        <path id="aH" d="M924 62h12v27h-12z"/>
+        <path id="aI" d="M935 49h12v40h-12z"/>
+        <path id="aJ" d="M946 49h12v40h-12z"/>
+        <path id="aK" d="M957 62h12v27h-12z"/>
+        <path id="aL" d="M968 23h12v66h-12z"/>
+        <path id="aM" d="M979 49h12v40h-12z"/>
+        <path id="aN" d="M990 41h12v48h-12z"/>
+        <path id="aO" d="M1001 23h12v66h-12z"/>
+        <path id="aP" d="M1124 41h12v48h-12z"/>
+        <path id="aQ" d="M1135 23h12v66h-12z"/>
+        <path id="aR" d="M1012 49h12v40h-12z"/>
+        <path id="aS" d="M1023 32h12v57h-12z"/>
+        <path id="aT" d="M1034 62h12v27h-12z"/>
+        <path id="aU" d="M1045 49h12v40h-12z"/>
+        <path id="aV" d="M1056 62h12v27h-12z"/>
+        <path id="aW" d="M1067 49h12v40h-12z"/>
+        <path id="aX" d="M1079 62h12v27h-12z"/>
+        <path id="aY" d="M1090 49h12v40h-12z"/>
+        <path id="aZ" d="M1101 62h12v27h-12z"/>
+        <path id="ba" d="M1112 49h12v40h-12z"/>
+        <path id="bb" d="M1147 41h12v48h-12z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#b"/>
+            <path stroke="#FFF" d="M.5 49.5h11v39H.5z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#c"/>
+            <path stroke="#FFF" d="M11.5 45.5h11v43h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#d"/>
+            <path stroke="#FFF" d="M22.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#e"/>
+            <path stroke="#FFF" d="M33.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#f"/>
+            <path stroke="#FFF" d="M44.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#g"/>
+            <path stroke="#FFF" d="M55.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#h"/>
+            <path stroke="#FFF" d="M66.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#i"/>
+            <path stroke="#FFF" d="M77.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#j"/>
+            <path stroke="#FFF" d="M88.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#k"/>
+            <path stroke="#FFF" d="M99.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#l"/>
+            <path stroke="#FFF" d="M110.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#m"/>
+            <path stroke="#FFF" d="M121.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#n"/>
+            <path stroke="#FFF" d="M132.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#o"/>
+            <path stroke="#FFF" d="M143.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#p"/>
+            <path stroke="#FFF" d="M154.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#q"/>
+            <path stroke="#FFF" d="M165.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#r"/>
+            <path stroke="#FFF" d="M176.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#s"/>
+            <path stroke="#FFF" d="M187.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#t"/>
+            <path stroke="#FFF" d="M198.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#u"/>
+            <path stroke="#FFF" d="M209.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#v"/>
+            <path stroke="#FFF" d="M220.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#w"/>
+            <path stroke="#FFF" d="M231.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#x"/>
+            <path stroke="#FFF" d="M242.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#y"/>
+            <path stroke="#FFF" d="M253.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#z"/>
+            <path stroke="#FFF" d="M264.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#A"/>
+            <path stroke="#FFF" d="M275.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#B"/>
+            <path stroke="#FFF" d="M286.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#C"/>
+            <path stroke="#FFF" d="M297.5 10.5h11v78h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#D"/>
+            <path stroke="#FFF" d="M308.5 8.5h11v80h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#E"/>
+            <path stroke="#FFF" d="M319.5.5h11v88h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#F"/>
+            <path stroke="#FFF" d="M330.5 19.5h11v69h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#G"/>
+            <path stroke="#FFF" d="M341.5 38.5h11v50h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#H"/>
+            <path stroke="#FFF" d="M352.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#I"/>
+            <path stroke="#FFF" d="M363.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#J"/>
+            <path stroke="#FFF" d="M374.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#K"/>
+            <path stroke="#FFF" d="M385.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#L"/>
+            <path stroke="#FFF" d="M396.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#M"/>
+            <path stroke="#FFF" d="M407.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#N"/>
+            <path stroke="#FFF" d="M418.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#O"/>
+            <path stroke="#FFF" d="M429.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#P"/>
+            <path stroke="#FFF" d="M440.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#Q"/>
+            <path stroke="#FFF" d="M451.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#R"/>
+            <path stroke="#FFF" d="M462.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#S"/>
+            <path stroke="#FFF" d="M473.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#T"/>
+            <path stroke="#FFF" d="M484.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#U"/>
+            <path stroke="#FFF" d="M495.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#V"/>
+            <path stroke="#FFF" d="M506.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#W"/>
+            <path stroke="#FFF" d="M517.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#X"/>
+            <path stroke="#FFF" d="M528.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#Y"/>
+            <path stroke="#FFF" d="M539.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#Z"/>
+            <path stroke="#FFF" d="M550.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aa"/>
+            <path stroke="#FFF" d="M561.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ab"/>
+            <path stroke="#FFF" d="M572.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ac"/>
+            <path stroke="#FFF" d="M583.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ad"/>
+            <path stroke="#FFF" d="M594.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ae"/>
+            <path stroke="#FFF" d="M605.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#af"/>
+            <path stroke="#FFF" d="M616.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ag"/>
+            <path stroke="#FFF" d="M627.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ah"/>
+            <path stroke="#FFF" d="M638.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ai"/>
+            <path stroke="#FFF" d="M649.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aj"/>
+            <path stroke="#FFF" d="M660.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ak"/>
+            <path stroke="#FFF" d="M671.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#al"/>
+            <path stroke="#FFF" d="M682.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#am"/>
+            <path stroke="#FFF" d="M693.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#an"/>
+            <path stroke="#FFF" d="M704.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ao"/>
+            <path stroke="#FFF" d="M715.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ap"/>
+            <path stroke="#FFF" d="M726.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aq"/>
+            <path stroke="#FFF" d="M737.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ar"/>
+            <path stroke="#FFF" d="M748.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#as"/>
+            <path stroke="#FFF" d="M759.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#at"/>
+            <path stroke="#FFF" d="M770.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#au"/>
+            <path stroke="#FFF" d="M781.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#av"/>
+            <path stroke="#FFF" d="M792.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aw"/>
+            <path stroke="#FFF" d="M803.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ax"/>
+            <path stroke="#FFF" d="M814.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ay"/>
+            <path stroke="#FFF" d="M825.5 34.5h11v54h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#az"/>
+            <path stroke="#FFF" d="M836.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aA"/>
+            <path stroke="#FFF" d="M847.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aB"/>
+            <path stroke="#FFF" d="M858.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aC"/>
+            <path stroke="#FFF" d="M869.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aD"/>
+            <path stroke="#FFF" d="M880.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aE"/>
+            <path stroke="#FFF" d="M891.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aF"/>
+            <path stroke="#FFF" d="M902.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aG"/>
+            <path stroke="#FFF" d="M913.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aH"/>
+            <path stroke="#FFF" d="M924.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aI"/>
+            <path stroke="#FFF" d="M935.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aJ"/>
+            <path stroke="#FFF" d="M946.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aK"/>
+            <path stroke="#FFF" d="M957.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aL"/>
+            <path stroke="#FFF" d="M968.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aM"/>
+            <path stroke="#FFF" d="M979.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aN"/>
+            <path stroke="#FFF" d="M990.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aO"/>
+            <path stroke="#FFF" d="M1001.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aP"/>
+            <path stroke="#FFF" d="M1124.5 41.5h11v47h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aQ"/>
+            <path stroke="#FFF" d="M1135.5 23.5h11v65h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aR"/>
+            <path stroke="#FFF" d="M1012.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aS"/>
+            <path stroke="#FFF" d="M1023.5 32.5h11v56h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aT"/>
+            <path stroke="#FFF" d="M1034.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aU"/>
+            <path stroke="#FFF" d="M1045.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aV"/>
+            <path stroke="#FFF" d="M1056.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aW"/>
+            <path stroke="#FFF" d="M1067.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aX"/>
+            <path stroke="#FFF" d="M1079.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aY"/>
+            <path stroke="#FFF" d="M1090.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#aZ"/>
+            <path stroke="#FFF" d="M1101.5 62.5h11v26h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#ba"/>
+            <path stroke="#FFF" d="M1112.5 49.5h11v39h-11z"/>
+        </g>
+        <g>
+            <use fill="url(#a)" fill-opacity=".64" xlink:href="#bb"/>
+            <path stroke="#FFF" d="M1147.5 41.5h11v47h-11z"/>
+        </g>
+    </g>
+</svg>

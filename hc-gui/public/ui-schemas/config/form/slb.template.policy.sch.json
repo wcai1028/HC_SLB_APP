@@ -1,0 +1,354 @@
+{
+  "version": "1.0.1",
+  "template": "form",
+  "cm-object-lineage": "slb.template.policy",
+  "cm-object-meta": {
+    "obj-occurences": "multi"
+  },
+  "axapi": "slb/template/policy/{name}",
+  "pageTitle": "Policy Template",
+  "components": {
+    "sections": [
+      {
+        "title": "Basic",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "name",
+            "label": "Name",
+            "type": "input",
+            "cm-lineage": "slb.template.policy.name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mvm",
+              "object-key": true,
+              "range": "1-127",
+              "help": "Policy template name"
+            }
+          },
+          {
+            "key": "bw-list",
+            "label": "BW List",
+            "type": "dummy",
+            "cm-lineage": "slb.template.policy.bw-list",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "help": "Blacklist/whitelist"
+            }
+          },
+          {
+            "key": "bw-list-name",
+            "label": "BW List Name",
+            "type": "input",
+            "cm-lineage": "slb.template.policy.bw-list-name",
+            "cm-meta": {
+              "format": "string-rlx",
+              "flags": "mb",
+              "range": "1-63",
+              "condition": "bw-list",
+              "help": "Specify a blacklist/whitelist name"
+            }
+          },
+          {
+            "key": "timeout",
+            "label": "Timeout",
+            "type": "input-number",
+            "cm-lineage": "slb.template.policy.timeout",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-127",
+              "default": 5,
+              "condition": "bw-list",
+              "help": "Define timeout value of PBSLB dynamic entry"
+            }
+          },
+          {
+            "key": "use-destination-ip",
+            "label": "Use Destination IP",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.use-destination-ip",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "bw-list",
+              "help": "Use destination IP to match the policy"
+            }
+          },
+          {
+            "key": "over-limit",
+            "label": "Over Limit",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.over-limit",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mky",
+              "condition": "bw-list",
+              "help": "Specify operation in case over limit"
+            }
+          },
+          {
+            "key": "over-limit-reset",
+            "label": "Over Limit Reset",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.over-limit-reset",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Reset the connection when it exceeds limit"
+            }
+          },
+          {
+            "key": "over-limit-logging",
+            "label": "Over Limit Logging",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.over-limit-logging",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "help": "Log a message"
+            }
+          },
+          {
+            "key": "interval",
+            "label": "Interval",
+            "type": "input-number",
+            "cm-lineage": "slb.template.policy.interval",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mv",
+              "range": "1-255",
+              "help": "Log interval (minute)"
+            }
+          },
+          {
+            "key": "bw-list-id",
+            "label": "BW List ID",
+            "type": "table",
+            "cm-lineage": "slb.template.policy.bw-list-id",
+            "cm-meta": {
+              "format": "fields",
+              "start": true,
+              "multi": true
+            },
+            "fields": [
+              {
+                "key": "id",
+                "label": "ID",
+                "type": "input-number",
+                "cm-lineage": "slb.template.policy.bw-list-id.id",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "mby",
+                  "multi-field-key": true,
+                  "range": "0-1023",
+                  "condition": "bw-list",
+                  "max-elements": 1024,
+                  "help": "Specify id that maps to service group"
+                }
+              },
+              {
+                "key": "service-group",
+                "label": "Service Group",
+                "type": "select",
+                "cm-lineage": "slb.template.policy.bw-list-id.service-group",
+                "cm-meta": {
+                  "format": "long-string-rlx",
+                  "flags": "mb",
+                  "range": "1-127",
+                  "condition": "id",
+                  "obj-association": [
+                    "slb.service-group"
+                  ],
+                  "help": "Specify a service group",
+                  "m-exclusion": [
+                    "bw-list-action"
+                  ]
+                }
+              },
+              {
+                "key": "pbslb-logging",
+                "label": "Pbslb Logging",
+                "type": "switch",
+                "cm-lineage": "slb.template.policy.bw-list-id.pbslb-logging",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "service-group",
+                  "help": "Configure PBSLB logging"
+                },
+                "name-label": "Logging"
+              },
+              {
+                "key": "pbslb-interval",
+                "label": "Pbslb Interval",
+                "type": "input-number",
+                "cm-lineage": "slb.template.policy.bw-list-id.pbslb-interval",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ov",
+                  "default": 3,
+                  "range": "0-60",
+                  "condition": "pbslb-logging",
+                  "help": "Specify logging interval in minutes"
+                },
+                "name-label": "Interval"
+              },
+              {
+                "key": "fail",
+                "label": "Fail",
+                "type": "switch",
+                "cm-lineage": "slb.template.policy.bw-list-id.fail",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "pbslb-logging",
+                  "help": "Only log unsuccessful connections"
+                }
+              },
+              {
+                "key": "bw-list-action",
+                "label": "BW List Action",
+                "type": "select",
+                "cm-lineage": "slb.template.policy.bw-list-id.bw-list-action",
+                "cm-meta": {
+                  "format": "string",
+                  "flags": "ov",
+                  "condition": "id",
+                  "m-exclusion": [
+                    "service-group"
+                  ],
+                  "allowed": [
+                    {
+                      "label": "Drop",
+                      "value": "drop",
+                      "help": "drop the packet"
+                    },
+                    {
+                      "label": "Reset",
+                      "value": "reset",
+                      "help": "Send reset back"
+                    }
+                  ],
+                  "range": "1-128"
+                }
+              },
+              {
+                "key": "logging-drp-rst",
+                "label": "Logging Drp Rst",
+                "type": "switch",
+                "cm-lineage": "slb.template.policy.bw-list-id.logging-drp-rst",
+                "cm-meta": {
+                  "format": "flag",
+                  "flags": "ok",
+                  "condition": "bw-list-action",
+                  "help": "Configure PBSLB logging"
+                },
+                "name-label": "Logging"
+              },
+              {
+                "key": "action-interval",
+                "label": "Action Interval",
+                "type": "input-number",
+                "cm-lineage": "slb.template.policy.bw-list-id.action-interval",
+                "cm-meta": {
+                  "format": "number",
+                  "flags": "ov",
+                  "default": 3,
+                  "range": "0-60",
+                  "condition": "logging-drp-rst",
+                  "help": "Specify logging interval in minute (default is 3)"
+                },
+                "name-label": "Interval"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced",
+        "icon": "desktop",
+        "fields": [
+          {
+            "key": "over-limit-lockup",
+            "label": "Over Limit Lockup",
+            "type": "input-number",
+            "cm-lineage": "slb.template.policy.over-limit-lockup",
+            "cm-meta": {
+              "format": "number",
+              "flags": "mb",
+              "range": "1-127",
+              "help": "Don't accept any new connection for certain time"
+            }
+          },
+          {
+            "key": "geo-location",
+            "label": "Geo Location",
+            "type": "dummy",
+            "cm-lineage": "slb.template.policy.geo-location",
+            "cm-meta": {
+              "format": "dummy",
+              "flags": "mk",
+              "plat-neg-list": [
+                "fireeye"
+              ],
+              "help": "Geo-location Config"
+            }
+          },
+          {
+            "key": "overlap",
+            "label": "Overlap",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.overlap",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "geo-location",
+              "help": "Use overlap mode for geo-location to do longest match"
+            }
+          },
+          {
+            "key": "share",
+            "label": "Share",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.share",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "geo-location",
+              "help": "Share counters between virtual ports and virtual servers"
+            }
+          },
+          {
+            "key": "full-domain-tree",
+            "label": "Full Domain Tree",
+            "type": "switch",
+            "cm-lineage": "slb.template.policy.full-domain-tree",
+            "cm-meta": {
+              "format": "flag",
+              "flags": "mk",
+              "condition": "geo-location",
+              "help": "Share counters between geo-location and sub regions"
+            }
+          }
+        ]
+      }
+    ],
+    "actionButtons": [
+      {
+        "type": "back",
+        "label": "Back"
+      },
+      {
+        "type": "submit",
+        "label": "Create",
+        "labelForUpdate": "Update"
+      },
+      {
+        "type": "cancel",
+        "label": "Cancel"
+      }
+    ]
+  }
+}

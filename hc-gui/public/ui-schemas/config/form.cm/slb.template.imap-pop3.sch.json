@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "slb.template.imap-pop3",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "slb/template/imap-pop3/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "slb.template.imap-pop3.name",
+          "cm-meta":  { 
+            "format": "string-rlx",
+            "help": "IMAP-POP3 Template Name",
+            "object-key": true,
+            "range": "1-127" 
+          }
+        },
+        { 
+          "key": "starttls",
+          "label": "Starttls",
+          "cm-lineage": "slb.template.imap-pop3.starttls",
+          "cm-meta":  { 
+            "format": "enum",
+            "allowed": [  
+              { 
+              "label": "Disabled",
+              "value": "disabled",
+              "help": "Disable STARTTLS" 
+              },
+              { 
+              "label": "Optional",
+              "value": "optional",
+              "help": "STARTTLS is optional requirement" 
+              },
+              { 
+              "label": "Enforced",
+              "value": "enforced",
+              "help": "Must issue STARTTLS command before imap transaction" 
+              }
+            ],
+            "default": "disabled" 
+          }
+        }
+      ]
+    },
+    { 
+      "title": "Advanced",
+      "icon": "desktop",
+      "defaultExpanded": false,
+
+      "fields": [ { 
+          "key": "logindisabled",
+          "label": "Logindisabled",
+          "cm-lineage": "slb.template.imap-pop3.logindisabled",
+          "cm-meta":  { 
+            "format": "flag",
+            "help": "Disable Login before STARTTLS.Works only for imap" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}

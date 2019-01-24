@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "template": "form",
+  "cm-object-lineage": "scaleout.cluster.service-config.template",
+    "cm-object-meta":  { 
+    "obj-json-suffix": "-list" 
+  },
+  "axapi": "scaleout/cluster/{cluster-id}/service-config/template/{name}",
+  "pageTitle": "Add new Instance",
+  "pageTitleForUpdate": "Modify Instance ",
+  "components":  { 
+    "sections": [ { 
+      "title": "Basic",
+      "icon": "desktop",
+
+      "fields": [ { 
+          "key": "name",
+          "label": "Name",
+          "cm-lineage": "scaleout.cluster.service-config.template.name",
+          "cm-meta":  { 
+            "format": "string",
+            "help": "Scaleout template Name",
+            "object-key": true,
+            "range": "1-63" 
+          }
+        },
+        { 
+          "key": "bucket-count",
+          "label": "Bucket Count",
+          "cm-lineage": "scaleout.cluster.service-config.template.bucket-count",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Number of traffic buckets",
+            "default": "256",
+            "range": "1-256" 
+          }
+        },
+        { 
+          "key": "device-group",
+          "label": "Device Group",
+          "cm-lineage": "scaleout.cluster.service-config.template.device-group",
+          "cm-meta":  { 
+            "format": "number",
+            "help": "Device group id",
+            "range": "1-16" 
+          }
+        }
+      ]
+  }],
+  "actionButtons": [ { 
+      "type": "back",
+      "label": "Back" 
+    },
+    { 
+      "type": "submit",
+      "label": "Create",
+      "labelForUpdate": "Update" 
+    },
+    { 
+      "type": "cancel",
+      "label": "Cancel" 
+    }
+  ]
+  }
+}
