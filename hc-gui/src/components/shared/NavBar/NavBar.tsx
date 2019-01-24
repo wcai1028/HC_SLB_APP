@@ -5,22 +5,12 @@ import {
   A10Col,
   A10Icon,
   A10Avatar,
-  A10Message,
-  A10Modal,
 } from 'a10-gui-widgets'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-import CONFIG from 'src/settings'
-// import DropdownMenu from 'src/components/ADC/DropdownMenu'
-// import TenantSelector from 'src/components/ADC/TenantSelector'
-// import { HelpSupport } from 'src/components/shared/HelpSupport'
-// import { httpClient } from 'src/libraries/httpClient'
-// import { getItem } from 'src/libraries/storage'
 // tslint:disable-next-line:no-var-requires
 const styles = require('./styles/index.module.less')
-
-// const { APP_ROUTE_PATH } = CONFIG
 
 export interface INavBarProps {
   // tenant: string
@@ -86,14 +76,6 @@ class NavBar extends A10Container<any, INavBarState> {
                 <A10Col xs={10} sm={10} md={10} lg={10}>
                   <div id={styles.a10Icon} className={styles.logoBlock} />
                 </A10Col>
-                {/* <A10Col xs={14} sm={14} md={14} lg={14}>
-                  <div className={styles.appBlock}>
-                    <DropdownMenu
-                      options={['thunder', 'controller']}
-                      onCurrentChange={this.changeApp}
-                    />
-                  </div>
-                </A10Col> */}
               </A10Col>
               <A10Col xs={6} sm={8} md={10} lg={0} />
               <A10Col xs={4} sm={4} md={4} lg={0}>
@@ -129,7 +111,7 @@ class NavBar extends A10Container<any, INavBarState> {
                     className={styles.navLink}
                   >
                     <div
-                      id={styles.analyticIcon}
+                      id={styles.dashboardIcon}
                       className={styles.lbFuncBtn}
                     />
                     <span className={styles.lbFuncLabel}>Dashboard</span>
@@ -141,17 +123,17 @@ class NavBar extends A10Container<any, INavBarState> {
                   md={8}
                   lg={8}
                   className={
-                    page === 'app_svc'
+                    page === 'appservice'
                       ? styles.lbFuncSelectBlock
                       : styles.lbFuncBlock
                   }
-                  onClick={this.handleChange.bind(this, 'asg')}
+                  onClick={this.handleChange.bind(this, 'appservice')}
                 >
                   <Link
                     to={'/appservice'}
                     className={styles.navLink}
                   >
-                    <div id={styles.oeIcon} className={styles.lbFuncBtn} />
+                    <div id={styles.serviceIcon} className={styles.lbFuncBtn} />
                     <span className={styles.lbFuncLabel}>App Service</span>
                   </Link>
                 </A10Col>
@@ -176,15 +158,6 @@ class NavBar extends A10Container<any, INavBarState> {
             </A10Row>
           </A10Col>
         </A10Row>
-        {/* <A10Modal
-          title="Help & Support"
-          width={640}
-          visible={this.state.helpModalState}
-          footer={null}
-          onCancel={this.showHelpModal.bind(this, false)}
-        >
-          <HelpSupport helpFunction={this.helpFunction} />
-        </A10Modal> */}
       </>
     )
   }

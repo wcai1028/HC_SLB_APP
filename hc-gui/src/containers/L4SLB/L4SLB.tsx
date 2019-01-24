@@ -15,7 +15,6 @@ import { getItem } from 'src/libraries/storage'
 import { Dashboard } from 'src/containers/L4SLB/Dashboard'
 // import { SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
 import { SLBWizard } from 'src/containers/L4SLB/Wizard'
-import { } from 'src/containers/L4SLB/Wizard'
 // End importing applications
 
 export interface IControllerParams {
