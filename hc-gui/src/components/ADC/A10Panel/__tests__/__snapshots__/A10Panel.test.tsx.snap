@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test component: A10Panel should render properly 1`] = `
+<div
+  className="a10WidgetsPanel"
+>
+  <div
+    className="a10WidgetsPanelHeader"
+  >
+    <div
+      className="a10WidgetsPanelHeaderTitle"
+    />
+  </div>
+  <div
+    className="a10-gui-widgets-panel-body"
+  />
+</div>
+`;
+
+exports[`test component: A10Panel should render properly with props: Props is not default 1`] = `
+<div
+  className="a10WidgetsPanel"
+>
+  <div
+    className="a10WidgetsPanelHeader"
+  >
+    <div
+      className="a10WidgetsPanelHeaderTitle"
+    />
+    <div
+      className="a10WidgetsPanelHeaderMenu"
+    >
+      Test page
+    </div>
+  </div>
+  <div
+    className="a10-gui-widgets-panel-body"
+  />
+</div>
+`;
