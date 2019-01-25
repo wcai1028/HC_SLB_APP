@@ -20,8 +20,8 @@ import {
 } from 'a10-gui-widgets'
 import './styles/SLBConfig.less'
 import { L4SLBUtilitis } from '../Utilities'
-import A10Panel from 'src/components/ADC/A10Panel'
-import A10IconTextGroup from 'src/components/ADC/A10IconTextGroup'
+import A10Panel from 'src/components/shared/A10Panel'
+import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 
 export interface IVirtualService {
   appServiceName: string
