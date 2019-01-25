@@ -14,11 +14,14 @@ export interface IStep {
 interface IWizardProps {
   title: string
   steps: IStep[]
+  actions?: { [key:string]: () => void }
 }
 interface IWizardState {
   current: number
   stepsForRendering: IStep[]
 }
+
+export interface IActions { [key:string]: () => void }
 
 interface IDotOptions {
   index: number
@@ -31,11 +34,13 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
   constructor(props: IWizardProps) {
     super(props)
 
+    const {steps, actions} = props
     const defaultProps: IAbstractStepProps = {
       onPrev: this.prev,
       onNext: this.next,
+      actions
     }
-    const stepsForRendering = props.steps.map(({ title, content }) => {
+    const stepsForRendering = steps.map(({ title, content }) => {
       return {
         title,
         content: React.cloneElement(content, defaultProps),
@@ -49,13 +54,11 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
   }
 
   prev = () => {
-    console.log('Wizard prev')
     const current = this.state.current - 1
     this.setState({ current })
   }
 
   next = () => {
-    console.log('Wizard next')
     const current = this.state.current + 1
     this.setState({ current })
   }

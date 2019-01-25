@@ -159,7 +159,7 @@ class SLBConfigurationForm extends A10Container<
             title={
               <A10IconTextGroup
                 text={`vPort ${index + 1}`}
-                icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+                icon={<A10Icon type="desktop" />}
               />
             }
           >
@@ -332,7 +332,7 @@ class SLBConfigurationForm extends A10Container<
           title={
             <A10IconTextGroup
               text="Virtual Server"
-              icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+              icon={<A10Icon type="desktop" />}
             />
           }
         >

@@ -1,6 +1,6 @@
 import React from 'react'
 import { A10Container } from 'a10-gui-framework'
-import { A10Button ,A10Layout} from 'a10-gui-widgets'
+import { A10Layout} from 'a10-gui-widgets'
 import { Wizard } from 'src/components/shared'
 import { SLBConfig } from '../SLBConfiguration'
 import {
@@ -22,6 +22,7 @@ interface IL4SLBWizardState {
 
 class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   private steps: IStep[]
+  private actions: { [key:string]: () => void }
 
   constructor(props: any) {
     super(props)
@@ -46,14 +47,14 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
             <SLBConfig />
           ) : (
             <>
-              <Wizard title="SLB Wizard" steps={this.steps} />
-              <A10Button
+              <Wizard title="SLB Wizard" steps={this.steps} actions={this.actions} />
+              {/* <A10Button
                 className="pull-right"
                 style={{ marginTop: '-50px', marginRight: '50px' }}
                 onClick={this.skipToConfigClick}
               >
                 Skip Wizard to configuration
-              </A10Button>
+              </A10Button> */}
             </>
           )}
         </Content>
@@ -62,7 +63,6 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   }
 
   private init() {
-    console.log('L4SLBWizard init')
     this.steps = [
       {
         title: 'Virtual Server',
@@ -81,6 +81,10 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
         content: <Review />,
       },
     ]
+
+    this.actions = {
+      skipToConfigClick: this.skipToConfigClick
+    }
   }
 }
 

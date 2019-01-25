@@ -52,18 +52,17 @@ export default class DeploymentForm extends AbstractStep<
   }
 
   onPrev = (event: React.SyntheticEvent) => {
-    console.log('Deployment Form onPrev')
     event.preventDefault()
     event.stopPropagation()
     this.props.onPrev()
   }
 
   onNext = () => {
-    console.log('Deployment Form onNext')
     this.props.onNext()
   }
 
   render() {
+    const { actions } = this.props
     const { currentDeploymentType } = this.state
     return (
       <React.Fragment>
@@ -71,7 +70,7 @@ export default class DeploymentForm extends AbstractStep<
           title={
             <A10IconTextGroup
               text="Select a deployment choice…"
-              icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+              icon={<A10Icon type="desktop" />}
             />
           }
           shouldShowTitle={true}
@@ -112,7 +111,7 @@ export default class DeploymentForm extends AbstractStep<
           title={
             <A10IconTextGroup
               text="Associate Cluster & Partition…"
-              icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+              icon={<A10Icon type="desktop" />}
             />
           }
           shouldShowTitle={true}
@@ -131,13 +130,15 @@ export default class DeploymentForm extends AbstractStep<
             </A10Col>
           </A10Row>
         </A10Panel>
-        <div>
+        <div className="footer">
           <a href="" className="btn-back" onClick={this.onPrev}>
-            <A10Icon type="double-left" />
-            Back
+            « Back
           </a>
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
+          </A10Button>
+          <A10Button className="btn-action" onClick={actions.skipToConfigClick}>
+            Skip Wizard to configuration
           </A10Button>
         </div>
       </React.Fragment>

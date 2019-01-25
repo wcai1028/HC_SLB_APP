@@ -17,25 +17,24 @@ import AbstractStep from '../../../AbstractStep'
 
 export default class ServiceGroupForm extends AbstractStep {
   onPrev = (event: React.SyntheticEvent) => {
-    console.log('Service Group Form onPrev')
     event.preventDefault()
     event.stopPropagation()
     this.props.onPrev()
   }
 
   onNext = () => {
-    console.log('Service Group Form onNext')
     this.props.onNext()
   }
 
   render() {
+    const { actions } = this.props
     return (
       <React.Fragment>
         <A10Panel
           title={
             <A10IconTextGroup
               text="Provide Service Group info.."
-              icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+              icon={<A10Icon type="desktop" />}
             />
           }
         >
@@ -74,13 +73,15 @@ export default class ServiceGroupForm extends AbstractStep {
             </A10Col>
           </A10Row>
         </A10Panel>
-        <div>
+        <div className="footer">
           <a href="" className="btn-back" onClick={this.onPrev}>
-            <A10Icon type="double-left" />
-            Back
+            « Back
           </a>
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
+          </A10Button>
+          <A10Button className="btn-action" onClick={actions.skipToConfigClick}>
+            Skip Wizard to configuration
           </A10Button>
         </div>
       </React.Fragment>
