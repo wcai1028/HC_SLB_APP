@@ -1,0 +1,66 @@
+.l4slb-app-service-list {
+  padding: 30px 40px;
+  background-color: #fafafa;
+  color: #363636;
+
+  > header {
+
+    > h1 {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 20px;
+      font-size: 26px;
+    }
+
+    .ant-badge {
+      > .ant-badge-count {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 100%;
+        background-color: #777;
+        font-size: 14px;
+        color: #fff;
+      }
+    }
+
+    .table-actions {
+      float: right;
+      button {
+        border: none;
+        background-color: transparent;
+        > i.anticon {
+          vertical-align: top;
+          color: #686868;
+        }
+
+        span {
+          color: #4a90e2;
+        }
+      }
+    }
+  }
+
+  .ant-table {
+    .ant-table-thead > tr > th {
+      font-size: 14px;
+      padding: 8px 16px;
+      background-color: #fff;
+    }
+
+    .ant-table-tbody > tr > td {
+      font-size: 14px;
+      font-weight: 300;
+      color: #363636;
+
+      .link {
+        color: #4a90e2;
+        cursor: pointer;
+      }
+
+      &.action-list {
+        text-align: right;
+      }
+    }
+  }
+}

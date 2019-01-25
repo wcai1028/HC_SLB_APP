@@ -15,6 +15,7 @@ import { getItem } from 'src/libraries/storage'
 import { Dashboard } from 'src/containers/L4SLB/Dashboard'
 // import { SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
 import { L4SLBWizard } from 'src/containers/L4SLB/L4SLBWizard'
+import { AppServiceList } from 'src/containers/L4SLB/AppServiceList'
 // End importing applications
 
 export interface IControllerParams {
@@ -78,7 +79,7 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
       )
     } else {
       return (
-        <L4SLBWizard />
+        <AppServiceList />
       )
     } 
   }
