@@ -21,7 +21,7 @@ class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
     const { tops, charts } = dashboards[0]
     return (
       <div>
-        <GridLayout {...tops} />
+        <GridLayout {...tops} styles={{'padding-top': '20px'}}/>
         <GridLayout {...charts} />
       </div>
     )

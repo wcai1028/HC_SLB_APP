@@ -1,0 +1,307 @@
+@mixin subMenuHighlight {
+    .menu-icon {
+        background-color: #0082d6; 
+    }
+    font-weight: bold;
+}
+
+.header{
+    background-color: #04486d;
+    min-height: 59px !important;
+    padding-left: 30px !important;
+    z-index: 2050;
+    border-color: #e7e7e7;
+    top: 0;
+    border-width: 0 0 1px;
+    display: -webkit-box;
+
+    .label{
+        color: #FFF;
+        font-size: 14px;
+        margin-top: 20px;
+        margin-left: 5px;
+    }
+}
+.logo{
+    background: url(~src/assets/images/a10_logo_gold_white.png) no-repeat;
+    text-indent: -999em;
+    background-repeat: no-repeat;
+    background-size: 70px;
+    margin-left: 1px;
+    width: 68px;
+    height: 45px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+.product-dropdown{
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 5px;
+    background: url(~src/assets/images/icon-controller.svg) no-repeat;
+    line-height: 20px;
+    width: 35px;
+    height: 35px;
+    background-size: 35px;
+}
+
+a {
+    &.is-active {
+        background: #0082d6;
+    }
+    &:hover {
+        text-decoration: none !important;
+        background: #0082d6;
+    }
+    .menu-item {
+        border: 1px solid #0c608e;
+        cursor: pointer;
+        padding: 7px 15px;
+        font-size: 14px;
+        width: 120px;
+        text-align: center;
+        height: 100%;
+        color: #FFF;
+    }
+}
+
+.sticky-top{
+    position: fixed !important;
+    width: 100%;
+}
+
+.subHeader {
+    font-size: 16px;
+    height: 84px;
+    background-color: #F8F7F7;
+    border-bottom: solid 1px #e4e4e4;
+    padding: 3px !important;
+}
+
+.nav-header{
+    padding-left: 15px;
+}
+
+.navbar-right{
+    display: contents !important;
+    color: #FFF;
+    float: right !important;
+    font-size: 14px;
+
+    li {
+        margin-top: 5px;
+    }
+
+    li.dropdown-hover-menu {
+        margin-top: 15px;
+    }
+}
+.maincontainer {
+    margin-top: 67px;
+    
+    .navbar-nav {
+        li {
+            a {
+                font-size: 14px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                line-height: 10px;
+                
+                span.header-main-menu-item{
+                    font-size: 14px;
+                }
+            }
+            a.header-main-menu-item{
+                font-size: 14px;
+            }
+
+            &.nav-tab {
+                a {
+                    border: 1px solid #0c608e;
+                }
+            }
+        }
+    }
+    .header-main-menu-item {
+        color: #FFFFFF;
+    }
+
+    .header-sub-menu-item {
+        background-color:#04486d;
+        left: auto;
+        right: -2px;
+        margin-top: 25px;
+
+
+        li a {
+            color: #FFFFFF !important;
+            padding: 7px 5px;
+            display: block;
+            cursor: pointer;
+        }
+    }
+}
+  
+.subMenuItems {
+    width: 75px;
+    border: 1px solid;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-left: 5px;
+    height: 55px;
+    box-shadow: black 1px 2px;
+    margin-left: 10px;
+}
+
+.sub-menu-item {
+    cursor: pointer;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+    .menu-icon {
+        width: 48px;
+        height: 48px;
+        background-color: #0c608e;
+        padding: 4px;
+        background-size: 24px;
+        text-align: center;
+        margin: auto;
+        border-radius: 4px;
+    }
+
+    &:hover {
+        @include subMenuHighlight;
+    }
+    &.active {
+        @include subMenuHighlight;
+    }
+}
+
+.providerTenantMenu {
+    .provider-name {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: inline-block;
+        .fa {
+            &.fa-chevron-right {
+                font-size: 12px;
+                margin-right: 3px;
+            }
+        }
+    }
+    .tenant-dropdown {
+        display: inline-block;
+        button {
+            width: 200px;
+            text-align: left;
+        }
+        .tenant-icon {
+            font-size: 22px;
+            color: #68d075 !important;
+            vertical-align: bottom;
+            margin-right: 3px;
+            .tenant-symbol {
+                font-size: 12px;
+                position: absolute;
+                top: 15px;
+                left: 19px;
+                font-family: sans-serif;
+                color: white;
+            }
+        }
+        .label {
+            max-width: 140px;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+            display: inline-block;
+            vertical-align: sub;
+            color: #0177c5 !important;
+        }
+        .fa {
+            &.fa-chevron-down {
+                font-size: 10px;
+                vertical-align: text-top;
+                margin-top: 2px;
+                float: right;
+            }
+        }
+    }
+}
+
+
+
+.icon {
+    background-position: 50% 50%;
+    background-size: 26px;
+    height: 30px;
+    background-repeat: no-repeat;
+}
+.analytics-icon {
+    background-image: url(../assets/images/svg/hc-icons/Dashboard.svg);
+}
+
+.services-icon {
+    background-image: url(../assets/images/svg/hc-icons/AppService.svg);
+}
+
+.infra-icon {
+    background-image: url(../assets/images/svg/hc-icons/Infrastructure.svg);
+}
+
+.organization-icon {
+    background-image: url(../assets/images/svg/hc-icons/organization.svg);
+}
+
+.monitor-icon {
+    background-image: url(../assets/images/svg/hc-icons/Monitor1.svg);
+}
+
+.apps-icon {
+    background-image: url(../assets/images/svg/hc-icons/Apps.svg);
+}
+
+.cluster-icon {
+    background-image: url(../assets/images/svg/hc-icons/Cluster1.svg);
+}
+
+.devicemanager-icon {
+    background-image: url(../assets/images/svg/hc-icons/Devices.svg);
+}
+
+.cred-icon {
+    background-image: url(../assets/images/svg/hc-icons/Credential.svg);
+}
+
+.providers-icon {
+    background-image: url(../assets/images/svg/hc-icons/Provider.svg);
+}
+
+.tenants-icon {
+    background-image: url(../assets/images/svg/hc-icons/Tenant.svg);
+}
+
+.users-icon {
+    background-image: url(../assets/images/svg/hc-icons/Users.svg);
+}
+
+.my-apps-icon {
+    background-image: url(../assets/images/svg/hc-icons/my-apps.svg);
+}
+
+.installed-apps-icon {
+    background-image: url(../assets/images/svg/hc-icons/installed-apps.svg);
+}
+
+.app-catalog-icon {
+    background-image: url(../assets/images/svg/hc-icons/apps-catalog.svg);
+}
+
+.installed-apps-icon-black {
+    background-image: url(../assets/images/svg/black/hc-icons/InstalledApps.svg);
+}

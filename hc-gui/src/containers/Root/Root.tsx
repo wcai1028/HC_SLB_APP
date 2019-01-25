@@ -11,6 +11,7 @@ import { Switch } from 'react-router-dom'
 import './styles/root.scss'
 import { L4SLB } from 'src/containers/L4SLB'
 import { Login } from 'src/components/shared/Login'
+import { TenantSelect } from 'src/components/shared/TenantSelect'
 import 'node_modules/pace-progress/themes/yellow/pace-theme-flash.css'
 // import { AppContext } from '../../constants/index'
 // tslint:disable-next-line
@@ -38,6 +39,7 @@ class Root extends A10Container {
         <div>
           <Switch>
             <A10Route path="/login/:provider" component={Login} />
+            <A10Route path="/tenantselect" component={TenantSelect} />
             <A10Route
               path="/:applicationName"
               component={L4SLB}
