@@ -16,7 +16,7 @@ import {
   A10Collapse,
   A10Select,
   A10CompoundConfigList,
-  A10Button
+  A10Button,
 } from 'a10-gui-widgets'
 import './styles/SLBConfig.less'
 import { L4SLBUtilitis } from '../Utilities'
@@ -154,7 +154,8 @@ class SLBConfigurationForm extends A10Container<
             </div>
           ) : null}
 
-          <A10Panel className="l4slb-wizard-config--panel"
+          <A10Panel
+            className="l4slb-wizard-config--panel"
             key={`vPort-${index}`}
             title={
               <A10IconTextGroup
@@ -232,7 +233,7 @@ class SLBConfigurationForm extends A10Container<
 
   renderVPortAdvanceFiled = (formItemLayout: IObject, Vport: IVport) => {
     return (
-      <A10Collapse bordered={false} >
+      <A10Collapse bordered={false}>
         <A10Collapse.Panel
           header={
             <>
@@ -322,73 +323,76 @@ class SLBConfigurationForm extends A10Container<
     const { Vports } = this.state
 
     return (
-      <A10Form hideRequiredMark={true} layout="horizontal">
-        <A10Row className="l4slb-wizard-config--header">
-          <A10Col span={8}>
-            <h1>SLB Configuration</h1>
-          </A10Col>
-        </A10Row>
-        <A10Panel className="l4slb-wizard-config--panel"
-          title={
-            <A10IconTextGroup
-              text="Virtual Server"
-              icon={<A10Icon type="desktop" />}
-            />
-          }
-        >
-          <A10Form.Item {...formItemLayout} label="App Service Name">
-            <A10Input
-              value={this.state.VirtualService.appServiceName}
-              onChange={this.onAppServiceNameChange}
-            />
-          </A10Form.Item>
-          <A10Form.Item {...formItemLayout} label="VIP">
-            <A10Input onChange={this.onAddIpChange} />
-          </A10Form.Item>
+      <div className="l4slb-wizard-config">
+        <A10Form hideRequiredMark={true} layout="horizontal">
+          <A10Row className="l4slb-wizard-config--header">
+            <A10Col span={8}>
+              <h1>SLB Configuration</h1>
+            </A10Col>
+          </A10Row>
+          <A10Panel
+            className="l4slb-wizard-config--panel"
+            title={
+              <A10IconTextGroup
+                text="Virtual Server"
+                icon={<A10Icon type="desktop" />}
+              />
+            }
+          >
+            <A10Form.Item {...formItemLayout} label="App Service Name">
+              <A10Input
+                value={this.state.VirtualService.appServiceName}
+                onChange={this.onAppServiceNameChange}
+              />
+            </A10Form.Item>
+            <A10Form.Item {...formItemLayout} label="VIP">
+              <A10Input onChange={this.onAddIpChange} />
+            </A10Form.Item>
 
-          <A10Collapse bordered={false}>
-            <A10Collapse.Panel
-              header={
-                <>
-                  <div className="l4slb-wizard-config--collapse">Advance</div>
-                </>
-              }
-              key="1"
-              className="no-border"
-            >
-              <A10Form.Item {...formItemLayout} label="Connection Limit">
-                <A10Switch defaultChecked />
-              </A10Form.Item>
+            <A10Collapse bordered={false}>
+              <A10Collapse.Panel
+                header={
+                  <>
+                    <div className="l4slb-wizard-config--collapse">Advance</div>
+                  </>
+                }
+                key="1"
+                className="no-border"
+              >
+                <A10Form.Item {...formItemLayout} label="Connection Limit">
+                  <A10Switch defaultChecked />
+                </A10Form.Item>
 
-              <A10Form.Item {...formItemLayout} label="Thredshold">
-                <A10Input />
-              </A10Form.Item>
+                <A10Form.Item {...formItemLayout} label="Thredshold">
+                  <A10Input />
+                </A10Form.Item>
 
-              <A10Form.Item {...formItemLayout} label="Connection Rate Limit">
-                <A10Switch defaultChecked />
-              </A10Form.Item>
+                <A10Form.Item {...formItemLayout} label="Connection Rate Limit">
+                  <A10Switch defaultChecked />
+                </A10Form.Item>
 
-              <A10Form.Item {...formItemLayout} label="Thredshold">
-                <A10Input />
-              </A10Form.Item>
-              <A10Form.Item {...formItemLayout} label="Cluster">
-                <A10Select />
-              </A10Form.Item>
-              <A10Form.Item {...formItemLayout} label="Partition">
-                <A10Select />
-              </A10Form.Item>
-            </A10Collapse.Panel>
-          </A10Collapse>
-        </A10Panel>
-        {this.renderVportPanel(formItemLayout, Vports)}
-        <A10Button
-          onClick={this.addVPort}
-          className="ant-btn action-button ant-btn-lg"
-        >
-          <A10Icon app="global" type="add-another" />
-          <span style={{marginLeft:'10px'}}>Add another vPort</span>
-        </A10Button>
-      </A10Form>
+                <A10Form.Item {...formItemLayout} label="Thredshold">
+                  <A10Input />
+                </A10Form.Item>
+                <A10Form.Item {...formItemLayout} label="Cluster">
+                  <A10Select />
+                </A10Form.Item>
+                <A10Form.Item {...formItemLayout} label="Partition">
+                  <A10Select />
+                </A10Form.Item>
+              </A10Collapse.Panel>
+            </A10Collapse>
+          </A10Panel>
+          {this.renderVportPanel(formItemLayout, Vports)}
+          <A10Button
+            onClick={this.addVPort}
+            className="ant-btn action-button ant-btn-lg"
+          >
+            <A10Icon app="global" type="add-another" />
+            <span style={{ marginLeft: '10px' }}>Add another vPort</span>
+          </A10Button>
+        </A10Form>
+      </div>
     )
   }
 }
