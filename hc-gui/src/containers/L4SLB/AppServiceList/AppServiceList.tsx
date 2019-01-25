@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   A10Container,
@@ -196,7 +197,7 @@ class AppServiceList extends A10Container<
           />
           <div className="table-actions">
             <A10Button type="primary" icon="plus">
-              Add App Service
+              <Link to="/wizard">Add App Service</Link>
             </A10Button>
           </div>
         </header>

@@ -3,14 +3,12 @@ import { A10Component } from 'a10-gui-framework'
 export interface IAbstractStepProps {
   onPrev?: () => void
   onNext?: () => void
-  actions?: { [key:string]: () => void }
 }
 
 export default abstract class AbstractStep<
   P extends IAbstractStepProps = {
     onPrev?: () => void
     onNext?: () => void
-    actions?: { [key:string]: () => void }
   },
   S = {}
 > extends A10Component<P, S> {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   A10Button,
@@ -27,7 +28,6 @@ export default class ServiceGroupForm extends AbstractStep {
   }
 
   render() {
-    const { actions } = this.props
     return (
       <React.Fragment>
         <A10Panel
@@ -80,8 +80,8 @@ export default class ServiceGroupForm extends AbstractStep {
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          <A10Button className="btn-action" onClick={actions.skipToConfigClick}>
-            Skip Wizard to configuration
+          <A10Button className="btn-action">
+            <Link to="/configuration">Skip Wizard to configuration</Link>
           </A10Button>
         </div>
       </React.Fragment>
