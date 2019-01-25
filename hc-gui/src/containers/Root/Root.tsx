@@ -6,6 +6,7 @@ import {
   setupA10Container,
 } from 'a10-gui-framework'
 import { Switch } from 'react-router-dom'
+import { Redirect } from 'react-router'
 // import * as Loadable from 'react-loadable'
 
 import './styles/root.scss'
@@ -44,6 +45,7 @@ class Root extends A10Container {
               path="/:applicationName"
               component={L4SLB}
             />
+            <Redirect from="/" exact to="/login/root" />
           </Switch>
         </div>
       </A10Router.Browser>
