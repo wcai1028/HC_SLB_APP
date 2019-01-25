@@ -1,0 +1,33 @@
+.health-status {
+  &--icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    margin-right: 6px;
+    font-size: 10px;
+    text-align: center;
+    color: #fff;
+
+    &.ongoing {
+      background-color: #7ed321;
+    }
+
+    &.stopped {
+      background-color: #ff2e48;
+    }
+  }
+
+  &--description {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 300;
+    color: #363636;
+  }
+
+  & + .health-status {
+      margin-left: 12px;
+  }
+}

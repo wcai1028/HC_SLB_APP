@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   A10Button,
@@ -16,15 +17,7 @@ import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep from '../../../AbstractStep'
 
 export default class VirtualServerForm extends AbstractStep {
-  onPrev = (event: React.SyntheticEvent) => {
-    console.log('Virtual Server Form onPrev')
-    event.preventDefault()
-    event.stopPropagation()
-    this.props.onPrev()
-  }
-
   onNext = () => {
-    console.log('Virtual Server Form onNext')
     this.props.onNext()
   }
 
@@ -35,7 +28,7 @@ export default class VirtualServerForm extends AbstractStep {
           title={
             <A10IconTextGroup
               text="Put virtual server info.."
-              icon={<A10Icon style={{ fontSize: 48 }} type="desktop" />}
+              icon={<A10Icon type="desktop" />}
             />
           }
         >
@@ -61,13 +54,15 @@ export default class VirtualServerForm extends AbstractStep {
             </A10Col>
           </A10Row>
         </A10Panel>
-        <div>
-          <a href="" className="btn-back" onClick={this.onPrev}>
-            <A10Icon type="double-left" />
-            Back
-          </a>
+        <div className="footer">
+          <Link to="/appservice" className="btn-back">
+            « Back
+          </Link>
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
+          </A10Button>
+          <A10Button className="btn-action">
+            <Link to="/configuration">Skip Wizard to configuration</Link>
           </A10Button>
         </div>
       </React.Fragment>

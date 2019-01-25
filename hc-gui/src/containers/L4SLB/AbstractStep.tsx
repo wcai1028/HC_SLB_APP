@@ -22,6 +22,4 @@ export default abstract class AbstractStep<
       sm: { span: 16 },
     },
   }
-  abstract onPrev(event: React.SyntheticEvent): void
-  abstract onNext(event: React.SyntheticEvent): void
 }

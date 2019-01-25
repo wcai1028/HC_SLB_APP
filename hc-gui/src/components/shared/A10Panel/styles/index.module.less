@@ -1,6 +1,7 @@
 @font-color: #363636;
 .a10-widgets-panel {
-  background-color: #FFFFFF;
+  background-color: #fff;
+  border: 1px solid #e7ecf1;
 
   & + .a10-widgets-panel {
     margin-top: 16px;
@@ -14,7 +15,7 @@
 
     &-title {
       line-height: 60px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500;
       font-style: normal;
       font-stretch: normal;
@@ -22,6 +23,15 @@
       text-align: left;
       color: @font-color;
       float: left;
+      :global {
+        i.anticon.anticon-desktop {
+          svg {
+          
+            font-size: 32px;
+          }
+        }
+      }
+
     }
 
     &-menu {

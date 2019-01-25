@@ -1,8 +1,6 @@
 import React from 'react'
 import { A10Container } from 'a10-gui-framework'
-import { A10Button ,A10Layout} from 'a10-gui-widgets'
 import { Wizard } from 'src/components/shared'
-import { SLBConfig } from '../SLBConfiguration'
 import {
   VirtualServerForm,
   ServiceGroupForm,
@@ -32,37 +30,15 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
     this.init()
   }
 
-  skipToConfigClick = () => {
-    this.setState({ isSkipToConfig: true })
-  }
-
   render() {
-    const { isSkipToConfig } = this.state
-    const { Content } = A10Layout
     return (
-      <A10Layout key="L4SLB-wizard">
-        <Content className="l4slb-wizard">
-          {isSkipToConfig ? (
-            <SLBConfig />
-          ) : (
-            <>
-              <Wizard title="SLB Wizard" steps={this.steps} />
-              <A10Button
-                className="pull-right"
-                style={{ marginTop: '-50px', marginRight: '50px' }}
-                onClick={this.skipToConfigClick}
-              >
-                Skip Wizard to configuration
-              </A10Button>
-            </>
-          )}
-        </Content>
-      </A10Layout>
+      <div className="l4slb-wizard">
+        <Wizard title="SLB Wizard" steps={this.steps} />
+      </div>
     )
   }
 
   private init() {
-    console.log('L4SLBWizard init')
     this.steps = [
       {
         title: 'Virtual Server',
