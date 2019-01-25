@@ -8,6 +8,7 @@ import {
 } from 'a10-gui-widgets'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { getItem } from 'src/libraries/storage';
 
 // tslint:disable-next-line:no-var-requires
 const styles = require('./styles/index.module.less')
@@ -153,6 +154,14 @@ class NavBar extends A10Container<any, INavBarState> {
                     <A10Icon type="down" />
                   </div>
                   <div className={styles.seperater} />
+                </A10Col>
+                <A10Col className={styles.tenantContainer}>
+                  <div>
+                    <span title={getItem('tenant')}>{getItem('tenant')}</span>
+                  </div>
+                </A10Col>
+                <A10Col className={styles.deployContainer}>
+                  <div id={styles.deployIcon} className={styles.lbFuncBtn} />
                 </A10Col>
               </A10Col>
             </A10Row>
