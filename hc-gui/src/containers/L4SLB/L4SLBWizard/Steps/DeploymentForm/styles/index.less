@@ -1,4 +1,4 @@
-.slb-wizard {
+.l4slb-wizard {
   &--deployment-type {
     width: 100%;
     height: 280px;
@@ -6,8 +6,28 @@
     display: inline-block;
     border-radius: 7px;
     border: 1px solid #afd7ff;
+    cursor: pointer;
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #363636;
+    }
+
+    .a10-widget-appicon {
+      display: none;
+      margin-left: 8px;
+    }
 
     &.selected {
+      border-color: #7ed321;
+
+      .a10-widget-appicon {
+        display: inline-block;
+      }
+    }
+
+    &:hover {
       border-color: #7ed321;
     }
 

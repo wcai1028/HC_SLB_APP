@@ -10,13 +10,26 @@ import {
   A10Col,
   A10Select,
   A10Switch,
+  A10InputNumber,
 } from 'a10-gui-widgets'
 
 import A10Panel from 'src/components/shared/A10Panel'
 import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
-import AbstractStep from '../../../AbstractStep'
+import AbstractStep, {
+  IAbstractStepProps,
+} from 'src/components/shared/Wizard/AbstractStep'
 
-export default class ServiceGroupForm extends AbstractStep {
+import { IWizardData, LBMethod } from '../../interface'
+
+import './styles/index.less'
+
+interface IServiceGroupFormProps extends IAbstractStepProps {
+  data?: IWizardData
+}
+
+export default class ServiceGroupForm extends AbstractStep<
+  IServiceGroupFormProps
+> {
   onPrev = (event: React.SyntheticEvent) => {
     event.preventDefault()
     event.stopPropagation()
@@ -27,9 +40,118 @@ export default class ServiceGroupForm extends AbstractStep {
     this.props.onNext()
   }
 
-  render() {
+  onChangeLBMethod = (method: LBMethod) => {
+    const data = { ...this.props.data }
+    data['service-group']['lb-method'] = method
+    this.props.onChange(data)
+  }
+
+  onChangePersistence = (isChecked: boolean) => {
+    const data = { ...this.props.data }
+    data['service-group'].persistence = isChecked
+    this.props.onChange(data)
+  }
+
+  onChangeHealthMonitor = (isChecked: boolean) => {
+    const data = { ...this.props.data }
+    data['service-group']['health-check'] = isChecked
+    this.props.onChange(data)
+  }
+
+  onChangeServerIPAddress = (index: number) => (
+    event: React.SyntheticEvent<HTMLInputElement>,
+  ) => {
+    const data = { ...this.props.data }
+    data.servers[index].host = event.currentTarget.value
+    this.props.onChange(data)
+  }
+
+  onChangeServerPort = (index: number) => (port: number) => {
+    const data = { ...this.props.data }
+    data.servers[index].port[0]['port-number'] = port
+    this.props.onChange(data)
+  }
+
+  onClickAddServer = () => {
+    const data = { ...this.props.data }
+    data.servers.push({
+      host: null,
+      port: [
+        {
+          'port-number': null,
+        },
+      ],
+    })
+    this.props.onChange(data)
+  }
+
+  onClickRemoveServer = (index: number) => () => {
+    const data = { ...this.props.data }
+    data.servers.splice(index, 1)
+    this.props.onChange(data)
+  }
+
+  renderServers() {
+    const { data } = this.props
+    const { servers } = data
+    const rows = servers.map((server, index: number) => {
+      return (
+        <div key={index}>
+          <A10Row gutter={16} type="flex" align="top">
+            <A10Col span={12}>
+              <A10Input
+                placeholder="IP address of application server"
+                value={server.host}
+                onChange={this.onChangeServerIPAddress(index)}
+              />
+            </A10Col>
+            <A10Col span={4}>
+              <div style={{ textAlign: 'right' }}>Port</div>
+            </A10Col>
+            <A10Col span={6}>
+              <A10InputNumber
+                value={server.port[0]['port-number']}
+                onChange={this.onChangeServerPort(index)}
+              />
+            </A10Col>
+            <A10Col span={2}>
+              <A10Button
+                size="default"
+                shape="circle"
+                icon="minus"
+                onClick={this.onClickRemoveServer(index)}
+              />
+            </A10Col>
+          </A10Row>
+        </div>
+      )
+    })
+
     return (
       <React.Fragment>
+        {rows}
+        <div>
+          <span
+            className="a10-configlist__addlink"
+            onClick={this.onClickAddServer}
+          >
+            <A10Button
+              className="a10-configlist__add"
+              size="default"
+              shape="circle"
+              icon="plus"
+            />
+            <span>Add another Server</span>
+          </span>
+        </div>
+      </React.Fragment>
+    )
+  }
+
+  render() {
+    const { data } = this.props
+    return (
+      <div className="l4slb-wizard--service-group">
         <A10Panel
           title={
             <A10IconTextGroup
@@ -39,10 +161,13 @@ export default class ServiceGroupForm extends AbstractStep {
           }
         >
           <A10Row>
-            <A10Col span={12}>
+            <A10Col lg={18}>
               <A10Form>
                 <A10Form.Item label="LB Method" {...this.formItemLayout}>
-                  <A10Select>
+                  <A10Select
+                    value={data['service-group']['lb-method']}
+                    onChange={this.onChangeLBMethod}
+                  >
                     <A10Select.Option value="least-connection">
                       least-connection
                     </A10Select.Option>
@@ -61,13 +186,19 @@ export default class ServiceGroupForm extends AbstractStep {
                   </A10Select>
                 </A10Form.Item>
                 <A10Form.Item label="Persistence" {...this.formItemLayout}>
-                  <A10Switch />
+                  <A10Switch
+                    checked={data['service-group'].persistence}
+                    onChange={this.onChangePersistence}
+                  />
                 </A10Form.Item>
                 <A10Form.Item label="Health Monitor" {...this.formItemLayout}>
-                  <A10Switch />
+                  <A10Switch
+                    checked={data['service-group']['health-check']}
+                    onChange={this.onChangeHealthMonitor}
+                  />
                 </A10Form.Item>
                 <A10Form.Item label="Servers" {...this.formItemLayout}>
-                  <A10Input />
+                  {this.renderServers()}
                 </A10Form.Item>
               </A10Form>
             </A10Col>
@@ -84,7 +215,7 @@ export default class ServiceGroupForm extends AbstractStep {
             <Link to="/configuration">Skip Wizard to configuration</Link>
           </A10Button>
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }
