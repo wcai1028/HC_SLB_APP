@@ -1,30 +1,35 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 
-import {
-  A10Container,
-  setupA10Container,
-  IA10ContainerDefaultProps,
-} from 'a10-gui-framework'
+import { _, A10Container } from 'a10-gui-framework'
 
 import { A10Button, A10Badge, A10Table, A10DropdownMenu } from 'a10-gui-widgets'
 
 import { HealthStatus } from 'src/components/shared'
+import { getItem } from 'src/libraries/storage'
+import { httpClient } from 'src/libraries/httpClient'
 
 import './styles/index.less'
+import {
+  IAppServiceList,
+  IAppService,
+  IVirtualPortList,
+  ILogicalCluster,
+  IPhysicalCluster,
+} from '../interface'
 
 interface IDeployed {
-  cluster: string
-  partition: string
+  name: string
+  physicalClusterList: IPhysicalCluster[]
 }
 
-export interface IAppServiceListProps extends IA10ContainerDefaultProps {}
+export interface IAppServiceListProps {}
 
 export interface IAppServiceState {
   data: any
 }
 
-class AppServiceList extends A10Container<
+export default class AppServiceList extends A10Container<
   IAppServiceListProps,
   IAppServiceState
 > {
@@ -48,33 +53,36 @@ class AppServiceList extends A10Container<
     },
     {
       title: '# Servers',
-      dataIndex: 'servers',
-      key: 'servers',
+      dataIndex: 'serverCount',
+      key: 'serverCount',
     },
     {
       title: 'Deployed',
       dataIndex: 'deployed',
       key: 'deployed',
-      render: (deployed: IDeployed, record: any, index: number) => {
-        if (!deployed) {
+      render: (deployed: IPhysicalCluster[]) => {
+        if (!Array.isArray(deployed) || deployed.length === 0) {
           return <span className="link">Deploy</span>
         }
-        return (
-          <div>
-            <HealthStatus
-              type="ongoing"
-              tooltip="Cluster"
-              text="C"
-              description={deployed.cluster}
-            />
-            <HealthStatus
-              type="ongoing"
-              tooltip="Partition"
-              text="P"
-              description={deployed.partition}
-            />
-          </div>
-        )
+
+        return deployed.map((deploy: IPhysicalCluster, index: number) => {
+          return (
+            <div key={index}>
+              <HealthStatus
+                type="ongoing"
+                tooltip="Cluster"
+                text="C"
+                description={deploy.cluster}
+              />
+              <HealthStatus
+                type="ongoing"
+                tooltip="Partition"
+                text="P"
+                description={deploy.partition}
+              />
+            </div>
+          )
+        })
       },
     },
     {
@@ -108,79 +116,141 @@ class AppServiceList extends A10Container<
   constructor(props: IAppServiceListProps) {
     super(props)
     this.state = {
-      data: [
-        {
-          name: 'testAppSvc',
-          'app-svc-type': 'adc',
-          'logical-cluster': 'Cluster_e2e_A.Partition_e2e_A',
-          vport: {
-            'obj-references': [
-              {
-                'app-svc': 'testAppSvc',
-                'port-number': 80,
-                protocol: 'tcp',
-                uuid: '8335e3a0-206c-11e9-832d-6a8a4cfd3ce7',
-                'a10-url': '/hccapi/v3/slb/virtual-server/vip1/port/80+tcp',
-              },
-            ],
-            'obj-refcnt': 1,
-            'obj-class': 'slb.virtual-server.port',
-          },
-          vip: {
-            'obj-references': [
-              {
-                name: 'vip1',
-                uuid: '7cbf6b40-206c-11e9-832d-6a8a4cfd3ce7',
-                'a10-url': '/hccapi/v3/slb/virtual-server/vip1',
-              },
-            ],
-            'obj-refcnt': 1,
-            'obj-class': 'slb.virtual-server',
-          },
-          servers: 0,
-          uuid: '598526ae-1fa6-11e9-832d-6a8a4cfd3ce7',
-          'a10-url':
-            '/hccapi/v3/provider/root/tenant/Tenant_e2e_A/app-svc/testAppSvc',
-        },
-        {
-          name: 'testAppSvc2',
-          'app-svc-type': 'adc',
-          'logical-cluster': 'Cluster_e2e_A.Partition_e2e_A',
-          vport: {
-            'obj-references': [
-              {
-                'app-svc': 'testAppSvc2',
-                'port-number': 80,
-                protocol: 'tcp',
-                uuid: '8335e3a0-206c-11e9-832d-6a8a4cfd3ce7',
-                'a10-url': '/hccapi/v3/slb/virtual-server/vip2/port/80+tcp',
-              },
-            ],
-            'obj-refcnt': 1,
-            'obj-class': 'slb.virtual-server.port',
-          },
-          vip: {
-            'obj-references': [
-              {
-                name: 'vip2',
-                uuid: '7cbf6b40-206c-11e9-832d-6a8a4cfd3ce7',
-                'a10-url': '/hccapi/v3/slb/virtual-server/vip2',
-              },
-            ],
-            'obj-refcnt': 1,
-            'obj-class': 'slb.virtual-server',
-          },
-          servers: 3,
-          deployed: {
-            cluster: 'Cluster4',
-            partition: 'Partition1',
-          },
-          uuid: '598526ae-1fa6-11e9-832d-6a8a4cfd3ce7',
-          'a10-url':
-            '/hccapi/v3/provider/root/tenant/Tenant_e2e_A/app-svc/testAppSvc',
-        },
-      ],
+      data: [],
     }
+  }
+
+  getData = async () => {
+    const response = await this.getAppServiceListData()
+    const appServiceList = _.get(response, 'app-svc-list', []) as IAppService[]
+    const vipNamesForQueryServers: string[] = []
+    const appsWithLogicalCluster: { [key: string]: string } = {}
+
+    appServiceList.forEach(appService => {
+      // filter out app services which don't contain ant vport
+      if (Array.isArray(_.get(appService, 'vport.obj-references'))) {
+        // app service and virtual server is one to one mapping
+        vipNamesForQueryServers.push(appService.vip['obj-references'][0].name)
+      }
+
+      if (_.isString(appService['logical-cluster'])) {
+        appsWithLogicalCluster[appService.name] = appService['logical-cluster']
+      }
+    })
+
+    const numberOfServers = await this.getNumberOfServersByVIPNames(
+      vipNamesForQueryServers,
+    )
+
+    const deployedApps = await this.getDeployed(appsWithLogicalCluster)
+
+    this.tidyRenderingData(appServiceList, numberOfServers, deployedApps)
+  }
+
+  getAppServiceListData = async () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    return httpClient
+      .get<IAppServiceList>(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc?detail=true`,
+      )
+      .then(({ data }) => data)
+  }
+
+  getNumberOfServersByVIPNames = async (vipNames: string[]) => {
+    const promises: Array<Promise<IVirtualPortList>> = []
+
+    vipNames.forEach(vipName => {
+      promises.push(this.getVPortDetail(vipName))
+    })
+
+    const numberOfServers: { [key: string]: number } = {}
+    await Promise.all(promises).then((results: IVirtualPortList[]) => {
+      results.forEach(({ 'port-list': portList }) => {
+        portList.forEach(port => {
+          const appServiceName = port['app-svc']
+          if (_.isUndefined(numberOfServers[appServiceName])) {
+            numberOfServers[appServiceName] = 0
+          }
+          numberOfServers[appServiceName] =
+            numberOfServers[appServiceName] +
+            _.get(port, 'service-group.member-list', []).length
+        })
+      })
+    })
+
+    return numberOfServers
+  }
+
+  getVPortDetail = async (vipName: string) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    return httpClient
+      .get<IVirtualPortList>(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/app1/slb/virtual-server/${vipName}/port?detail=true`,
+      )
+      .then(({ data }) => data)
+  }
+
+  getDeployed = async (appsWithLogicalCluster: { [key: string]: string }) => {
+    const promises: Array<Promise<IDeployed>> = []
+    const deployed: { [key: string]: IPhysicalCluster[] } = {}
+
+    Object.keys(appsWithLogicalCluster).forEach(appName => {
+      promises.push(
+        this.getPhysicalClusterList(appName, appsWithLogicalCluster[appName]),
+      )
+    })
+
+    await Promise.all(promises).then((results: IDeployed[]) => {
+      results.forEach(({ name, physicalClusterList }) => {
+        deployed[name] = physicalClusterList
+      })
+    })
+
+    return deployed
+  }
+
+  getPhysicalClusterList = async (
+    appServiceName: string,
+    logicalClusterName: string,
+  ) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    return httpClient
+      .get<ILogicalCluster>(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/logical-cluster/${logicalClusterName}?detail=true`,
+      )
+      .then(({ data }) => ({
+        name: appServiceName,
+        physicalClusterList: _.get(
+          data,
+          'logical-cluster.physical-cluster-list',
+          [],
+        ),
+      }))
+  }
+
+  tidyRenderingData = (
+    appServiceList: IAppService[],
+    numberOfServers: { [key: string]: number },
+    deployedApps: {
+      [key: string]: IPhysicalCluster[]
+    },
+  ) => {
+    const appServiceForRendering = appServiceList.map(appService => {
+      const serverCount = numberOfServers[appService.name] || 0
+      const deployed = deployedApps[appService.name] || []
+
+      return { ...appService, serverCount, deployed }
+    })
+    this.setState({ data: appServiceForRendering })
+  }
+
+  componentDidMount() {
+    this.getData()
   }
 
   render() {
@@ -210,8 +280,3 @@ class AppServiceList extends A10Container<
     )
   }
 }
-
-const mapStateToProps = (state: any, props: IAppServiceListProps) => {
-  return {}
-}
-export default setupA10Container(AppServiceList, mapStateToProps)
