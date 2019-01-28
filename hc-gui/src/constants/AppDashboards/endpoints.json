@@ -1,0 +1,238 @@
+{
+  "endPoints" :   {
+        "RPT" :{
+            "ladc" : {
+
+            },
+            "thunder-adc" : {
+                "slb_virtual_server_port" :{
+                    "histogramField" : "ts",
+                    "fields" : [
+                        "total_mf_dns_pkts",
+                        "compression_miss",
+                        "curr_resp_rate",
+                        "total_ssl_conn",
+                        "last_rsp_time",
+                        "loc_deny",
+                        "total_l7_conn",
+                        "out_latency",
+                        "es_total_failure_actions",
+                        "total_fwd_bytes_out",
+                        "peak_conn",
+                        "total_tcp_conn",
+                        "total_resp",
+                        "total_conn",
+                        "fastest_rsp_time",
+                        "in_latency",
+                        "slowest_rsp_time",
+                        "backend_time_to_first_byte",
+                        "total_fwd_bytes",
+                        "total_rev_bytes",
+                        "total_req",
+                        "curr_conn",
+                        "curr_conn_rate",
+                        "compression_bytes_after",
+                        "total_l4_conn",
+                        "total_fwd_pkts",
+                        "total_rev_pkts",
+                        "total_dns_pkts",
+                        "curr_req",
+                        "total_rev_bytes_out",
+                        "total_resp_succ",
+                        "loc_conn",
+                        "compression_bytes_before",
+                        "backend_time_to_last_byte",
+                        "curr_req_rate",
+                        "curr_resp",
+                        "compression_miss_no_client",
+                        "total_req_succ",
+                        "curr_conn_overflow",
+                        "compression_miss_template_exclusion",
+                        "compression_hit",
+                        "loc_permit",
+                        "total_rev_pkts_out",
+                        "curr_ssl_conn",
+                        "total_fwd_pkts_out"
+                    ],
+                    "filters" :[
+                        "app_svc_id",
+                        "app_svc_type",
+                        "account_id"
+                    ],
+                    "groupBy" :[
+                        "o_ha_state",
+                        "o_oper_state",
+                        "p_ver",
+                        "device_uuid",
+                        "cluster_id"
+                    ]
+                },
+                "slb_virtual_server" :{
+                    "histogramField" : "ts",
+                    "fields" : [
+                        "packet_in",
+                        "packet_out",
+                        "total_req"
+                    ],
+                    "filters" :[
+                        "appserverId",
+                        "accountId",
+                        "providerid"
+                    ],
+                    "groupBy" :[
+                        "appserverId",
+                        "clusterId",
+                        "serverip",
+                        "port"
+                    ]
+                },
+                "pr" : {
+                    "histogramField" : "timestamp",
+                    "fields" : [
+                        "numOfMethodType",
+                        "appServerPort",
+                        "peakInLatency",
+                        "totalRequestSize",
+                        "peakOutLatency",
+                        "peakAppServerRequestEndTime",
+                        "numOfProtocol",
+                        "totalRequestEndTime",
+                        "totalClientSRTT",
+                        "peakRequestSize",
+                        "peakClientSRTT",
+                        "peakAppServerConnStartTime",
+                        "totalAppServerResponseStartTime",
+                        "totalAppServerConnEstablishTime",
+                        "peakAppServerRequestStartTime",
+                        "numOfapplicationId",
+                        "peakBandwidth",
+                        "totalInLatency",
+                        "totalCompressedResponseSize",
+                        "totalOutLatency",
+                        "totalDuration",
+                        "totalRequestDataTransfer",
+                        "peakRequestDataTransfer",
+                        "peakResponseSize",
+                        "numOfResponseCode",
+                        "totalResponseEndTime",
+                        "totalUncompressedResponseSize",
+                        "numOfRecords",
+                        "totalRequestStartTime",
+                        "totalAppServerConnStartTime",
+                        "peakAppServerResponseStartTime",
+                        "totalResponseSize",
+                        "totalAppServerResponseEndTime",
+                        "totalResponseDataTransfer",
+                        "peakResponseDataTransfer",
+                        "totalAppLatency",
+                        "peakAppServerResponseEndTime",
+                        "peakAppServerConnEstablishTime",
+                        "peakRequestEndTime",
+                        "peakResponseStartTime",
+                        "numOfClientSSL",
+                        "totalAppServerRequestStartTime",
+                        "totalResponseStartTime",
+                        "totalAppServerRequestEndTime",
+                        "numOfServedByAppServer",
+                        "totalAppServerSRTT",
+                        "peakResponseEndTime",
+                        "peakDuration",
+                        "totalE2EResponseTime",
+                        "numOfCompressed",
+                        "numOfCached",
+                        "numOfAppServerSSL",
+                        "numOfAcknowledged",
+                        "totalBandwidth",
+                        "peakAppLatency",
+                        "peakAppServerSRTT",
+                        "peakRequestStartTime"
+                    ],
+                    "filters" :[
+                        "applicationId",
+                        "accountId"
+                    ],
+                    "groupBy" :[
+                        "virtualHost",
+                        "serviceId",
+                        "flowId",
+                        "domainId",
+                        "appServerIP"
+                    ]
+                    
+                }
+            }
+        },
+        "Splunk" :{
+            "Test1" : {
+
+            },
+            "Test2" : {
+                "ABC" :{
+                    "histogramField" : "ts",
+                    "fields" : [
+                        "bytes_in",
+                        "bytes_out",
+                        "total_req"
+                    ],
+                    "filters" :[
+                        "appserverId",
+                        "accountId",
+                        "providerid"
+                    ],
+                    "groupBy" :[
+                        "appserverId",
+                        "clusterId",
+                        "serverip",
+                        "port"
+                    ]
+                },
+                "DEF" :{
+                    "histogramField" : "ts",
+                    "fields" : [
+                        "bytes_in",
+                        "bytes_out",
+                        "total_req"
+                    ],
+                    "filters" :[
+                        "appserverId",
+                        "accountId",
+                        "providerid"
+                    ],
+                    "groupBy" :[
+                        "appserverId",
+                        "clusterId",
+                        "serverip",
+                        "port"
+                    ]
+                }
+            }
+        }
+    },
+    "aggregations" : [
+        "sum",
+        "avg",
+        "max",
+        "min",
+        "count"
+    ],
+    "vizTypes" : {
+        "histograms" : [
+            "line",
+            "column",
+            "area",
+            "stackedArea",
+            "stackedColumn"
+        ],
+        "nonHistograms" : [
+            "line",
+            "column",
+            "area",
+            "areaspline",
+            "pie",
+            "donut",
+            "number", 
+            "map",
+            "table"
+        ]
+    }
+}

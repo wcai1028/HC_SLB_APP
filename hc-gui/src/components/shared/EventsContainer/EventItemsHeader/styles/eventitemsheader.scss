@@ -1,0 +1,27 @@
+.bigSelect {
+  min-width: 70%;
+}
+.info {
+  .ant-switch-checked:before,
+  .ant-switch-checked:after {
+    background-color: rgba(4, 93, 227, 0.952);
+  }
+}
+.notice {
+  .ant-switch-checked:before,
+  .ant-switch-checked:after {
+    background-color: yellow;
+  }
+}
+.warning {
+  .ant-switch-checked:before,
+  .ant-switch-checked:after {
+    background-color: orange;
+  }
+}
+.error {
+  .ant-switch-checked:before,
+  .ant-switch-checked:after {
+    background-color: red;
+  }
+}

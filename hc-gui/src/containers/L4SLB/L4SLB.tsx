@@ -13,11 +13,13 @@ import { NavBar } from 'src/components/shared/NavBar'
 import { AppRoot } from 'src/settings/appRoot'
 import { getItem } from 'src/libraries/storage'
 
-import { Dashboard } from 'src/containers/L4SLB/Dashboard'
+import { Dashboards } from 'src/containers/L4SLB/Dashboards'
 import { SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
 import { L4SLBWizard } from 'src/containers/L4SLB/L4SLBWizard'
 import { AppServiceList } from 'src/containers/L4SLB/AppServiceList'
 // End importing applications
+
+export interface IDefaultMethods {}
 
 export interface IControllerParams {
   applicationName: string
@@ -72,18 +74,6 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
     }
   }
 
-  // appTobeLoaded = () => {
-  //   const { applicationName } = this.state
-  //   if (applicationName === 'dashboard') {
-  //     return <Dashboard />
-  //   } else {
-  //     return <AppServiceList />
-  //   }
-  // }
-  // renderRedirect = (url: string) => {
-  //   return <Redirect to={url} />
-  // }
-
   render() {
     return (
       <A10Row>
@@ -93,7 +83,7 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
             <Switch>
               <A10Route
                 path="/dashboard"
-                render={() => <Dashboard />}
+                render={() => <Dashboards />}
                 exact={true}
               />
               <A10Route

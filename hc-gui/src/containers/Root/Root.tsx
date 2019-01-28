@@ -14,7 +14,7 @@ import { L4SLB } from 'src/containers/L4SLB'
 import { Login } from 'src/components/shared/Login'
 import { TenantSelect } from 'src/components/shared/TenantSelect'
 import 'node_modules/pace-progress/themes/yellow/pace-theme-flash.css'
-// import { AppContext } from '../../constants/index'
+import { AppContext } from '../../constants/index'
 // tslint:disable-next-line
 const pace = require('pace-progress')
 // tslint:disable-next-line
@@ -24,6 +24,7 @@ const Highcharts = require('highcharts')
 ;(window as any).Highcharts = Highcharts
 
 class Root extends A10Container {
+  AppContext = new AppContext()
   constructor(props: any) {
     super(props)
     pace.start()
@@ -32,6 +33,34 @@ class Root extends A10Container {
         useUTC: false,
       },
     })
+  }
+
+  autoLogout = () => {
+    if (!sessionStorage.getItem('USER_SESSION_ID')) {
+      return
+    }
+    // Auto logout on Session expire
+    let currTime = new Date().getTime()
+    let allowedDifference = this.AppContext.SESSION_IDLE_PERIOD * 60 * 1000 // min * seconds * milli seconds
+    let lastClickedTimestamp = sessionStorage.getItem('LAST_CLICKED_TIMESTAMP')
+    let diff = currTime - parseInt(lastClickedTimestamp)
+
+    if (!lastClickedTimestamp) {
+      sessionStorage.setItem('LAST_CLICKED_TIMESTAMP', currTime)
+    } else if (diff > allowedDifference) {
+      const provider = sessionStorage.getItem('PROVIDER')
+      sessionStorage.clear()
+      window.localStorage.setItem('LASTALERT', 'true')
+      if (provider !== null) {
+        // tslint:disable-next-line:semicolon
+        ;(window as any).location = '/login/' + provider
+      } else {
+        // tslint:disable-next-line:semicolon
+        ;(window as any).location = '/login/root'
+      }
+    } else {
+      sessionStorage.setItem('LAST_CLICKED_TIMESTAMP', currTime)
+    }
   }
 
   render() {

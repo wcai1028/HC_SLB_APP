@@ -1,0 +1,277 @@
+@mixin subMenuHighlight {
+  .menu-icon {
+    background-color: #0082d6;
+  }
+  font-weight: bold;
+}
+
+.sticky-to-top {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 999;
+}
+
+.header {
+  flex-wrap: nowrap;
+  background-color: #04486d;
+  .container-box {
+    border-width: 0 0 1px;
+    border-color: #e7e7e7;
+    .label {
+      color: #ffffff;
+      font-size: 14px;
+      margin-top: 20px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.logo {
+  width: 75px;
+  height: 50px;
+  padding: 21px 20px;
+  margin-left: 10px;
+  margin-top: 4px;
+  background-image: url('/static/media/a10_logo_gold_white.05dd1328.png');
+  background-repeat: no-repeat;
+  background-size: 76px;
+  text-indent: -999em;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.product-dropdown {
+  display: inline-block;
+  width: 100%;
+  max-width: 152px;
+  padding: 10px 0 8px 5px;
+}
+
+.application-icon:nth-child(n + 2) {
+  .menu-item {
+    border-left: none;
+  }
+}
+
+.application-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.flex-box {
+  display: flex !important;
+  height: 64px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.fold-box {
+  background-color: #04486d;
+  .fold-app-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    border-top: 1px solid #0c608e;
+    .application-icon {
+      margin-top: -1px;
+    }
+  }
+}
+
+.menu-box {
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  i {
+    font-size: 26px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 3px;
+  }
+}
+
+.alert-container {
+  display: inline-block;
+  position: relative;
+  margin: 0 20px;
+  cursor: pointer;
+  .alert-count {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    transform: translateX(100%);
+    height: 16px;
+    min-width: 16px;
+    padding: 0 5px;
+    border-radius: 8px;
+    background-color: #fe5352;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .alert-with-count {
+    height: 24px;
+    width: 18px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.user-selector {
+  min-width: 60px;
+  margin-left: 15px;
+}
+
+.help-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  .help {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    color: #005f4a;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      transform: translateX(-50%);
+      border-top: 4px solid #ffffff;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-bottom: 0px;
+    }
+  }
+}
+
+.navbar-right {
+  display: contents !important;
+  color: #fff;
+  float: right !important;
+  font-size: 14px;
+
+  li {
+    margin-top: 5px;
+  }
+
+  li.dropdown-hover-menu {
+    margin-top: 15px;
+  }
+}
+
+.subMenuItems {
+  width: 75px;
+  border: 1px solid;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-left: 5px;
+  height: 55px;
+  box-shadow: black 1px 2px;
+  margin-left: 10px;
+}
+
+.sub-menu-item {
+  cursor: pointer;
+  font-size: 12px;
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+  .menu-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #0c608e;
+    padding: 4px;
+    background-size: 24px;
+    text-align: center;
+    margin: auto;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    @include subMenuHighlight;
+  }
+  &.active {
+    @include subMenuHighlight;
+  }
+}
+
+.icon {
+  background-position: 50% 50%;
+  background-size: 26px;
+  height: 30px;
+  background-repeat: no-repeat;
+}
+.analytics-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Dashboard.svg);
+}
+
+.services-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/AppService.svg);
+}
+
+.infra-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Infrastructure.svg);
+}
+
+.organization-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/organization.svg);
+}
+
+.monitor-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Monitor1.svg);
+}
+
+.apps-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Apps.svg);
+}
+
+.cluster-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Cluster1.svg);
+}
+
+.devicemanager-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Devices.svg);
+}
+
+.cred-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Credential.svg);
+}
+
+.providers-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Provider.svg);
+}
+
+.tenants-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Tenant.svg);
+}
+
+.users-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/Users.svg);
+}
+
+.my-apps-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/my-apps.svg);
+}
+
+.installed-apps-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/installed-apps.svg);
+}
+
+.app-catalog-icon {
+  background-image: url(~src/assets/images/svg/hc-icons/apps-catalog.svg);
+}
+
+.installed-apps-icon-black {
+  background-image: url(~src/assets/images/svg/black/hc-icons/InstalledApps.svg);
+}

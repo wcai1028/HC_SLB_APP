@@ -1,0 +1,49 @@
+.infographic {
+    width: 33%;
+    text-align: center;
+    font-size: 16px;
+    background: #eff7ff;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    padding: 1px;
+    margin: 2px;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 34px;
+    font-weight: bold;
+    min-height: 48px;
+    color: #333;
+    display: inline-block;
+  }
+  
+  .summary-widget.active.active {
+    border: solid 2px #4990e2;
+    background: #fff;
+    max-height: 105px;
+    padding: 0;
+  }
+  
+  .active {
+    border: solid 2px #4990e2;
+    background: #fff;
+    max-height: 105px;
+    padding: 0;
+  }
+
+  .ic{
+    background-size: 24px 24px;
+    background-position: 0 5px;
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .tab-name{
+    vertical-align: top;
+    margin-left: 5px;
+    padding: 8px 0;
+    display: inline-block;
+  }

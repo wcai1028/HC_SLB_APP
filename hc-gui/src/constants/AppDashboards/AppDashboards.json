@@ -1,0 +1,110 @@
+{
+    "Dashboards" : [],
+    "DefaultLayout" : {
+        "name" : "New Dashboard",
+        "gridLayout" : "Dashbaord",
+        "key" : "",
+        "selectedInfoGraphic": "all",
+        "drillDownName": "",
+        "drillDownID": null,
+        "rows" : [
+            {
+                "name" : "",
+                "cols" : [
+                    {
+                        "vizs" : [
+                            {
+                                "vizAnnotaion" : "AppSelector",
+                                "vizType" : "dropDown",
+                                "elements" : []
+                            }
+                        ],
+                        
+                        "width" : "1.8"
+                    }
+                ],
+                "rowHeight" : ".40",
+                "numofCols" : 1,
+                "key" : 1,
+                "modifyHeight" : false,
+                "infographics" : "all",
+                "modifyInfoGraphics" : false,
+                "dragabble" : false
+            },
+            {
+                "name" :  "",
+                "cols" : [
+                    {   
+                        "vizs" : [
+                            {
+                                "vizAnnotaion" : "TimeLine",
+                                "vizType" : "slider",
+                                "elements" : []
+                            }
+                        ],
+                        
+                        "width" : 10
+                    }
+                ],
+                "rowHeight" : ".1",
+                "numofCols" : 0,
+                "key" : 2,
+                "modifyHeight" : false,
+                "infographics" : "all",
+                "modifyInfoGraphics" : false,
+                "dragabble" : false
+            }
+        ],
+        "logs" : [
+        ]
+
+    },
+    "DefaultInfoGraphicsRow" : {
+        "name" :  "",
+        "infographics" : [
+            {
+                "name" : "infographic1",
+                "displayName": "Infographic 1",
+                "image" : "icon-client",
+                "disabled" : "boolean"
+            },
+            {
+                "name" : "infographic2",
+                "displayName": "Infographic 2",
+                "image" : "icon-application",
+                "disabled" : "boolean"
+            },
+            {
+                "name" : "infographic3",
+                "displayName": "Infographic 3",
+                "image" : "icon-ladc",
+                "disabled" : "boolean"
+            },
+            {
+                "name" : "infographic4",
+                "displayName": "Infographic 4",
+                "image" : "icon-wan",
+                "disabled" : "boolean"
+            },
+            {
+                "name" : "infographic5",
+                "displayName": "Infographic 5",
+                "image" : "icon-cluster-server",
+                "disabled" : "boolean"
+            },
+            {
+                "name" : "infographic6",
+                "displayName": "Infographic 6",
+                "image" : "icon-application",
+                "disabled" : "boolean"
+            }
+        ],
+        "rowHeight" : ".4",
+        "numofCols" : 0,
+        "key" : 2,
+        "modifyHeight" : false,
+        "infographic" : "all",
+        "modifyInfoGraphics" : false
+    }
+}
+

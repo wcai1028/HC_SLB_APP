@@ -1,0 +1,25 @@
+.summaryWidget {
+  text-align: center;
+  float: left;
+  min-width: 19%;
+}
+.warn {
+  color: orange;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.widgetData {
+  font-size: 23px;
+}
+.widgetUnit {
+  margin-left: -5px;
+  font-size: 20px;
+}
+.widgetName {
+  color: grey;
+  font-weight: bold;
+}

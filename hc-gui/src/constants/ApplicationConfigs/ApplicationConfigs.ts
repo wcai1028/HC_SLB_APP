@@ -1,16 +1,29 @@
 export class ApplicationConfigs {
   APPLICATIONS = [
     {
-      name: 'Dashboard',
-      icon: 'analytics-icon',
-      state: 'enabled',
-      // allowedRoles: ['provider', 'tenant', 'appadmin'],
+      name: 'Dashboards',
+      uri: 'dashboard',
+      icon: 'dashboardIcon',
+      state: 'disabled',
+      subApps: [
+        {
+          name: 'Analytics',
+          icon: 'my-apps-icon',
+          state: 'enabled',
+          allowedRoles: ['provider'],
+          selected: true,
+          isExternal: false,
+          id: 1,
+        }
+     
+      ],
+      allowedRoles: ['provider'],
       id: 1,
-      // providerMode: false
     },
     {
-      name: 'AppService',
-      icon: 'services-icon',
+      name: 'App Service',
+      uri: 'appservice',
+      icon: 'serviceIcon',
       state: 'enabled',
       // allowedRoles: ['provider', 'tenant', 'appadmin'],
       id: 2,

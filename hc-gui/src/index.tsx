@@ -8,7 +8,7 @@ import registerServiceWorker from './registerServiceWorker'
 import { Root } from './containers/Root'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css'
-// import './styles/index.scss'
+import './styles/index.scss'
 import './styles/index.less'
 import HCProvider from './HCProvider'
 

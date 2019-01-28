@@ -8,15 +8,14 @@ import {
 } from 'a10-gui-widgets'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { getItem } from 'src/libraries/storage';
+import { getItem } from 'src/libraries/storage'
+import { ApplicationConfigs } from 'src/constants/ApplicationConfigs'
 
 // tslint:disable-next-line:no-var-requires
 const styles = require('./styles/index.module.less')
 
 export interface INavBarProps {
-  // tenant: string
-  // tenantList: string[]
-  // onTenantchange: () => void
+  page?: string
 }
 
 export interface INavBarState {
@@ -26,10 +25,11 @@ export interface INavBarState {
 }
 
 class NavBar extends A10Container<any, INavBarState> {
+  ApplicationConfigs = new ApplicationConfigs()
   constructor(props: any) {
-    super(props)
+    super(props)   
     this.state = {
-      page: 'dashboard',
+      page: this.props.page? this.props.page : 'dashboard',
       menuStatus: 'menu-fold',
       helpModalState: false,
     }
@@ -62,6 +62,7 @@ class NavBar extends A10Container<any, INavBarState> {
 
   render() {
     const { page, menuStatus } = this.state
+    const applications = this.ApplicationConfigs.getAvailableApps()
     return (
       <>
         <A10Row type="flex" align="middle" className={styles.navBar}>
@@ -95,49 +96,36 @@ class NavBar extends A10Container<any, INavBarState> {
           >
             <A10Row type="flex" align="middle">
               <A10Col xs={12} sm={12} md={12} lg={12}>
-                <A10Col
-                  xs={8}
-                  sm={8}
-                  md={8}
-                  lg={8}
-                  className={`${
-                    page === 'dashboard'
-                      ? styles.lbFuncSelectBlock
-                      : styles.lbFuncBlock
-                  } ${styles.leftBorder}`}
-                  onClick={this.handleChange.bind(this, 'dashboard')}
-                >
-                  <Link
-                    to={'dashboard'}
-                    className={styles.navLink}
-                  >
-                    <div
-                      id={styles.dashboardIcon}
-                      className={styles.lbFuncBtn}
-                    />
-                    <span className={styles.lbFuncLabel}>Dashboard</span>
-                  </Link>
-                </A10Col>
-                <A10Col
-                  xs={8}
-                  sm={8}
-                  md={8}
-                  lg={8}
-                  className={
-                    page === 'appservice'
-                      ? styles.lbFuncSelectBlock
-                      : styles.lbFuncBlock
-                  }
-                  onClick={this.handleChange.bind(this, 'appservice')}
-                >
-                  <Link
-                    to={'/appservice'}
-                    className={styles.navLink}
-                  >
-                    <div id={styles.serviceIcon} className={styles.lbFuncBtn} />
-                    <span className={styles.lbFuncLabel}>App Service</span>
-                  </Link>
-                </A10Col>
+                {
+                  applications.map(app => {
+                    return (
+                      <A10Col
+                        key={app.id}
+                        xs={8}
+                        sm={8}
+                        md={8}
+                        lg={8}
+                        className={`${
+                          page === app.uri
+                            ? styles.lbFuncSelectBlock
+                            : styles.lbFuncBlock
+                        } ${styles.leftBorder}`}
+                        onClick={this.handleChange.bind(this, app.uri)}
+                      >
+                        <Link
+                          to={app.uri}
+                          className={styles.navLink}
+                        >
+                          <div
+                            id={styles[app.icon]}
+                            className={styles.lbFuncBtn}
+                          />
+                          <span className={styles.lbFuncLabel}>{app.name}</span>
+                        </Link>
+                      </A10Col>
+                    )
+                  })
+                }
               </A10Col>
               <A10Col xs={12} sm={12} md={12} lg={12}>
                 <A10Col className={styles.helpContainer}>

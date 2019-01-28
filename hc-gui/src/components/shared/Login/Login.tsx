@@ -14,7 +14,7 @@ import { NonLoggenInForm } from 'src/components/shared/NonLoggenInForm'
 import 'src/styles/login.scss'
 import 'src/styles/base.scss'
 
-import { IDefaultMethods } from 'src/containers/Controller'
+import { IDefaultMethods } from 'src/containers/L4SLB'
 export interface ILoginParams {
   provider: string
 }

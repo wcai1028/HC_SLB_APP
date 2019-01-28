@@ -1,0 +1,15 @@
+.modal-section {
+  padding: 5px;
+  min-height: 50vh;
+
+  .help-col {
+    text-align: center;
+    cursor: pointer;
+    .help-icons {
+      padding: 30px;
+      background-color: #f3f9ff;
+      border: 1px solid #e6f3ff;
+      border-radius: 3px;
+    }
+  }
+}

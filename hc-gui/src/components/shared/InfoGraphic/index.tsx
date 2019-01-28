@@ -1,0 +1,1 @@
+export { default, default as InfoGraphic } from './InfoGraphic'

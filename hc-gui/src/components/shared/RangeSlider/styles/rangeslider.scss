@@ -1,0 +1,81 @@
+.range-slider {
+  .slidecontainer {
+    width: 100%;
+  }
+
+  .slider-custom {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px !important;
+    background: transparent;
+    outline: none;
+    border: 0px !important;
+    top: 33px;
+    position: absolute;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    max-width: 100% !important;
+    margin: 0px !important;
+    padding: 0px;
+  }
+
+  .slider-custom:hover {
+    opacity: 1;
+  }
+
+  .slider-custom::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: solid 2px #91d5ff;
+    background-color: #fff;
+    margin-top: -20px;
+  }
+
+  .range-section {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    height: 4px;
+    margin-top: 20px;
+    .custom-section {
+      height: 4px;
+      float: left;
+    }
+    .red {
+      background-color: rgb(255, 46, 72);
+      border-radius: 4px 0px 0px 4px;
+    }
+
+    .green {
+      background-color: rgb(126, 211, 33);
+    }
+
+    .blue {
+      background-color: #91d5ff;
+    }
+  }
+
+  .inputNumber {
+    margin-left: 20px;
+  }
+
+  .used-label {
+    text-align: right;
+    margin-bottom: 0px;
+    color: #616161;
+    font-size: 10px !important;
+    margin-right: 12px;
+  }
+
+  .unit {
+    position: absolute;
+    display: block;
+    left: 4.5rem;
+    top: 3px;
+    z-index: 9;
+    font-size: 12px;
+  }
+}
