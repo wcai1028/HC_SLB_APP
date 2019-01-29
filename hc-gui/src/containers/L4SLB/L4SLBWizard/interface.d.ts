@@ -22,21 +22,33 @@ export interface IWizardData {
     ]
   }
   'service-group': {
+    name: string
     persistence: boolean
     'lb-method': LBMethod
     'health-check': boolean
   }
-  servers: [
-    {
-      host: string
-      port: [
-        {
-          'port-number': number
-        }
-      ]
+  servers: IServer[]
+  'health.monitor': {
+    name: string
+  }
+  template: {
+    persist: {
+      'source-ip': {
+        name: string
+      }
     }
-  ]
+  }
   deployment: DeploymentType 
   cluster: string
   partition: string
+}
+
+export interface IServer {
+  name: string
+  host: string
+  port: IServerPort[]
+}
+
+export interface IServerPort {
+  'port-number': number
 }

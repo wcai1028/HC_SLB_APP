@@ -41,12 +41,14 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           ],
         },
         'service-group': {
+          name: null,
           persistence: false,
           'lb-method': 'least-connection',
           'health-check': false,
         },
         servers: [
           {
+            name: null,
             host: null,
             port: [
               {
@@ -55,6 +57,16 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
             ],
           },
         ],
+        template: {
+          persist: {
+            'source-ip': {
+              name: null,
+            },
+          },
+        },
+        'health.monitor': {
+          name: null,
+        },
         deployment: 'INLINE',
         cluster: null,
         partition: null,

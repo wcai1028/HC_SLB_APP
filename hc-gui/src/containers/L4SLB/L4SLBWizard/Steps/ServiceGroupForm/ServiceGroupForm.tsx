@@ -75,6 +75,7 @@ export default class ServiceGroupForm extends AbstractStep<
   onClickAddServer = () => {
     const data = { ...this.props.data }
     data.servers.push({
+      name: null,
       host: null,
       port: [
         {

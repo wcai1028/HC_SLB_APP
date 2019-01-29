@@ -9,6 +9,7 @@ import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
 import { IWizardData } from '../../interface'
+import { generateNameByIP } from 'src/containers/L4SLB/Utilities'
 
 import './styles/index.less'
 
@@ -16,7 +17,17 @@ interface IReviewProps extends IAbstractStepProps {
   data?: IWizardData
 }
 
-export default class Review extends AbstractStep<IReviewProps> {
+interface IReviewState {
+  data?: IWizardData
+}
+
+export default class Review extends AbstractStep<IReviewProps, IReviewState> {
+  constructor(props: IReviewProps) {
+    super(props)
+    this.state = {
+      data: props.data,
+    }
+  }
   onPrev = (event: React.SyntheticEvent) => {
     event.preventDefault()
     event.stopPropagation()
@@ -27,8 +38,48 @@ export default class Review extends AbstractStep<IReviewProps> {
     this.props.onNext()
   }
 
+  componentDidMount() {
+    const timestamp = Date.now()
+    const data = { ...this.props.data }
+    const ip = data['virtual-server']['ip-address']
+    const port = data['virtual-server'].port[0]['port-number'].toString()
+    const protocol = data['virtual-server'].port[0].protocol
+    const members: string[] = []
+
+    data['virtual-server'].name = generateNameByIP(ip, 'vip', null, timestamp)
+
+    if (data['service-group']['health-check']) {
+      data['health.monitor'].name = generateNameByIP(ip, 'Hm', port, timestamp)
+    }
+
+    if (data['service-group'].persistence) {
+      data.template.persist['source-ip'].name = generateNameByIP(
+        ip,
+        'vip',
+        `persist_template_${port}`,
+        timestamp,
+      )
+    }
+
+    data.servers = data.servers.map(server => {
+      const name = generateNameByIP(server.host, 'srv')
+      server.name = name
+      members.push(name)
+      return server
+    })
+
+    data['service-group'].name = generateNameByIP(
+      ip,
+      'vip',
+      `${port}_${protocol}_sg`,
+      timestamp,
+    )
+
+    this.setState({ data })
+  }
+
   render() {
-    const { data } = this.props
+    const { data } = this.state
     const {
       'virtual-server': virtualServer,
       'service-group': serviceGroup,
