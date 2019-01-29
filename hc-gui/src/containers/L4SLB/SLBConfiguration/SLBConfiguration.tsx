@@ -1,9 +1,12 @@
 import * as React from 'react'
+import { Map, List } from 'immutable'
 import {
   _,
   A10Container,
   setupA10Container,
   IA10ContainerDefaultProps,
+  validations,
+  IValidationResult,
 } from 'a10-gui-framework'
 import {
   A10Row,
@@ -22,10 +25,12 @@ import './styles/SLBConfig.less'
 import { L4SLBUtilitis } from '../Utilities'
 import A10Panel from 'src/components/shared/A10Panel'
 import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
+import FormatForm from 'src/components/shared/FormatForm'
 
 export interface IVirtualService {
   appServiceName: string
   vip: string
+  vipName: string
   connectionLimit: boolean
   connectionLimitThreshold: number
   connectionRateLimit: boolean
@@ -41,12 +46,15 @@ export interface IVport {
   persistence: boolean
   healthMonitor: boolean
   members: any[]
+  healthMonitorName?: string
+  persistenceTemplateName?: string
 }
 
 export interface ISLBConfigurationFormProps {}
 export interface ISLBConfigurationFormState {
   VirtualService: IVirtualService
   Vports: IVport[]
+  formValidations?: Map<string, IValidationResult>
 }
 
 class SLBConfigurationForm extends A10Container<
@@ -55,12 +63,17 @@ class SLBConfigurationForm extends A10Container<
 > {
   configList: IObject[]
   L4SLBUtilitis = new L4SLBUtilitis()
+  defaultValidationResult: IValidationResult = {
+    validateStatus: 'success',
+    help: '',
+  }
   constructor(props: any) {
     super(props)
     this.state = {
       VirtualService: {
         appServiceName: '',
         vip: '',
+        vipName: '',
         connectionLimit: false,
         connectionLimitThreshold: undefined,
         connectionRateLimit: false,
@@ -79,6 +92,7 @@ class SLBConfigurationForm extends A10Container<
           members: [],
         },
       ],
+      formValidations: Map<string, IValidationResult>(),
     }
     this.configList = [
       {
@@ -138,6 +152,38 @@ class SLBConfigurationForm extends A10Container<
         />
       </div>
     )
+  }
+
+  handleSwitchChange = (switchName: string, index: number, e: any) => {
+    const { VirtualService, Vports } = this.state
+    const currentVport = Vports[index]
+    if (switchName === 'hm') {
+      if (e.target.checked) {
+        Vports[
+          index
+        ].healthMonitorName = this.L4SLBUtilitis.generateHealthMonitorName(
+          currentVport.portNumber,
+          'hm',
+        )
+      } else {
+        Vports[index].healthMonitorName = ''
+      }
+    }
+    if (switchName === 'persist') {
+      if (e.target.checked) {
+        Vports[
+          index
+        ].persistenceTemplateName = this.L4SLBUtilitis.generatePersistTemplateName(
+          VirtualService.vip,
+          currentVport.portNumber,
+          'persis',
+        )
+      } else {
+        Vports[index].persistenceTemplateName = ''
+      }
+    }
+
+    this.setState({ Vports })
   }
 
   renderVportPanel = (formItemLayout: IObject, Vports: IVport[]) => {
@@ -208,10 +254,16 @@ class SLBConfigurationForm extends A10Container<
               </A10Select>
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Persistence">
-              <A10Switch checked={Vport.persistence} />
+              <A10Switch
+                checked={Vport.persistence}
+                onChange={this.handleSwitchChange.bind(this, 'persist', index)}
+              />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Health Monitor">
-              <A10Switch checked={Vport.healthMonitor} />
+              <A10Switch
+                checked={Vport.healthMonitor}
+                onChange={this.handleSwitchChange.bind(this, 'hm', index)}
+              />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Members">
               <A10CompoundConfigList
@@ -303,16 +355,116 @@ class SLBConfigurationForm extends A10Container<
   }
   onAddIpChange = (e: any) => {
     // need to add ip check funciton here
+    const ipAddress = e.target.value
+    let validateStatus = 'success'
+    let help: string | React.ReactElement<any> = null
+    if (ipAddress.length > 0 && !validations.ipv4Address.validate(ipAddress)) {
+      validateStatus = 'error'
+      help = validations.ipv4Address.messages.error
+      const validationResult: IValidationResult = {
+        validateStatus,
+        help,
+      }
+      let { formValidations } = this.state
+      formValidations = formValidations.set('vip', validationResult)
+      this.setState({ formValidations })
+      return
+    }
     const { VirtualService } = this.state
     const virtualServer = {
-      name: VirtualService.appServiceName,
-      ip: e.target.value,
+      name: VirtualService.vipName,
+      ip: ipAddress,
     }
-    this.L4SLBUtilitis.prepopulateAppName(virtualServer, 'wizardApp')
-    VirtualService.appServiceName = virtualServer.name
-    VirtualService.vip = e.target.value
+    this.L4SLBUtilitis.prepopulateVipName(virtualServer, 'vip')
+    VirtualService.vipName = virtualServer.name
+    VirtualService.vip = ipAddress
     this.setState({ VirtualService })
     console.log('after', this.state)
+  }
+
+  formatVport = () => {
+    const { Vports } = this.state
+    const healthMonitorList: any = []
+    const persistTempList: any = []
+    const serverList: any = []
+    Vports.map((Vport: IVport, index: number) => {
+      debugger
+      if (Vport.healthMonitor === true && !_.isEmpty(Vport.healthMonitorName)) {
+        const hmObject = {
+          monitor: {
+            name: Vport.healthMonitorName,
+          },
+        }
+        healthMonitorList.push(hmObject)
+      }
+      if (
+        Vport.persistence === true &&
+        !_.isEmpty(Vport.persistenceTemplateName)
+      ) {
+        const persistObject = {
+          'source-ip': {
+            name: Vport.persistenceTemplateName,
+          },
+        }
+        persistTempList.push(persistObject)
+      }
+
+      this.formatVportMember(Vport,serverList)
+    })
+  }
+
+  formatVportMember = (Vport: IVport,serverList:any) => {
+    const { members, protocol } = Vport
+
+    if (members.length > 0) {
+      members.map((member: IObject, index: number) => {
+        debugger
+        if (member['member-ip'] && member['member-port']) {
+          const serverName = this.L4SLBUtilitis.generateServerName(
+            member['member-ip'],
+            'srv',
+          )
+          member.serverName = serverName
+
+          const serverObj = {
+            server: {
+              name: serverName,
+              host: member['member-ip'],
+              'port-list': [
+                {
+                  'port-number': member['member-port'],
+                  protocol,
+                  'health-check': 'ping',
+                  'conn-limit': 6400000,
+                  'sampling-enable': [
+                    {
+                      counters1: 'total_conn',
+                    },
+                    {
+                      counters1: 'total_fwd_bytes',
+                    },
+                    {
+                      counters1: 'total_rev_bytes',
+                    },
+                  ],
+                },
+              ],
+            },
+          }
+
+          serverList.push(serverObj)
+          return member
+        }
+      })
+    }
+    Vport.members=members
+  }
+
+  onRequestClose=()=>{
+    console.log('request close')
+  }
+  submit=()=>{
+    this.formatVport()
   }
 
   render() {
@@ -320,10 +472,16 @@ class SLBConfigurationForm extends A10Container<
       labelCol: { span: 9 },
       wrapperCol: { span: 13 },
     }
-    const { Vports } = this.state
+    const { Vports, formValidations } = this.state
 
     return (
       <div className="l4slb-wizard-config">
+      <FormatForm
+          title={'SLB Configuration'}
+          description=""
+          onRequestClose={this.onRequestClose}
+          onRequestOk={this.submit}
+        >
         <A10Form hideRequiredMark={true} layout="horizontal">
           <A10Row className="l4slb-wizard-config--header">
             <A10Col span={8}>
@@ -345,7 +503,17 @@ class SLBConfigurationForm extends A10Container<
                 onChange={this.onAppServiceNameChange}
               />
             </A10Form.Item>
-            <A10Form.Item {...formItemLayout} label="VIP">
+            <A10Form.Item
+              {...formItemLayout}
+              label="VIP"
+              validateStatus={
+                formValidations.get('vip', this.defaultValidationResult)
+                  .validateStatus
+              }
+              help={
+                formValidations.get('vip', this.defaultValidationResult).help
+              }
+            >
               <A10Input onChange={this.onAddIpChange} />
             </A10Form.Item>
 
@@ -392,6 +560,7 @@ class SLBConfigurationForm extends A10Container<
             <span style={{ marginLeft: '10px' }}>Add another vPort</span>
           </A10Button>
         </A10Form>
+        </FormatForm>
       </div>
     )
   }

@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should FormatForm work should render properly 1`] = `
+Array [
+  <div
+    className="a10SlidingPageContent"
+  >
+    <div
+      className="a10SlidingPageTitle"
+    />
+    <div
+      className="a10SlidingPageDescription"
+    />
+    <div>
+      test
+    </div>
+  </div>,
+  <div
+    className="a10SlidingPageFooter"
+  >
+    <button
+      className="ant-btn submit-button ant-btn-primary ant-btn-lg"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Save
+      </span>
+    </button>
+    <button
+      className="ant-btn cancel-button ant-btn-lg"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Cancel
+      </span>
+    </button>
+  </div>,
+]
+`;
+
+exports[`should FormatForm work should render properly with aliignSaveButtonToRight with custom text for save button 1`] = `
+Array [
+  <div
+    className="a10SlidingPageContent"
+  >
+    <div
+      className="a10SlidingPageTitle"
+    />
+    <div
+      className="a10SlidingPageDescription"
+    />
+    <div>
+      test
+    </div>
+  </div>,
+  <div
+    className="a10SlidingPageFooter"
+  >
+    <a
+      className="back-link"
+      onClick={[Function]}
+    >
+      <i
+        className="anticon anticon-double-left"
+      />
+       Back
+    </a>
+    <button
+      className="ant-btn submit-button ant-btn-primary ant-btn-lg"
+      onClick={[Function]}
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Test
+      </span>
+    </button>
+    <button>
+      Test
+    </button>
+  </div>,
+]
+`;
+
+exports[`should FormatForm work should render properly with aliignSaveButtonToRight without custom text for save button 1`] = `
+Array [
+  <div
+    className="a10SlidingPageContent"
+  >
+    <div
+      className="a10SlidingPageTitle"
+    />
+    <div
+      className="a10SlidingPageDescription"
+    />
+    <div>
+      test
+    </div>
+  </div>,
+  <div
+    className="a10SlidingPageFooter"
+  >
+    <a
+      className="back-link"
+      onClick={[Function]}
+    >
+      <i
+        className="anticon anticon-double-left"
+      />
+       Back
+    </a>
+    <button
+      className="ant-btn submit-button ant-btn-primary ant-btn-lg"
+      onClick={[Function]}
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Save
+      </span>
+    </button>
+    <button>
+      Test
+    </button>
+  </div>,
+]
+`;
+
+exports[`should FormatForm work should render properly with custom text for save button 1`] = `
+Array [
+  <div
+    className="a10SlidingPageContent"
+  >
+    <div
+      className="a10SlidingPageTitle"
+    />
+    <div
+      className="a10SlidingPageDescription"
+    />
+    <div>
+      test
+    </div>
+  </div>,
+  <div
+    className="a10SlidingPageFooter"
+  >
+    <a
+      className="back-link"
+      onClick={[Function]}
+    >
+      <i
+        className="anticon anticon-double-left"
+      />
+       Back
+    </a>
+    <button
+      className="ant-btn submit-button ant-btn-primary ant-btn-lg"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Test
+      </span>
+    </button>
+    <button>
+      Test
+    </button>
+  </div>,
+]
+`;
