@@ -78,6 +78,10 @@ class NavBar extends A10Container<any, INavBarState> {
                 <A10Col xs={10} sm={10} md={10} lg={10}>
                   <div id={styles.a10Icon} className={styles.logoBlock} />
                 </A10Col>
+                <A10Col xs={10} sm={10} md={10} lg={10}>
+                  <div id={styles.slbIcon} className={styles.appBlock} />
+                  <div className={styles.appTitle}>L4 SLB</div>
+                </A10Col>
               </A10Col>
               <A10Col xs={6} sm={8} md={10} lg={0} />
               <A10Col xs={4} sm={4} md={4} lg={0}>
