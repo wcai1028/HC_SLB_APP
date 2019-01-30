@@ -2,7 +2,7 @@ import React from 'react'
 import { A10Component } from 'a10-gui-framework'
 import { A10Steps, A10Icon } from 'a10-gui-widgets'
 
-import { IAbstractStepProps } from '../../AbstractStep'
+import { IAbstractStepProps } from './AbstractStep'
 
 import './styles/index.less'
 
@@ -14,14 +14,12 @@ export interface IStep {
 interface IWizardProps {
   title: string
   steps: IStep[]
-  actions?: { [key:string]: () => void }
+  data?: IObject
 }
 interface IWizardState {
   current: number
   stepsForRendering: IStep[]
 }
-
-export interface IActions { [key:string]: () => void }
 
 interface IDotOptions {
   index: number
@@ -33,23 +31,9 @@ interface IDotOptions {
 class Wizard extends A10Component<IWizardProps, IWizardState> {
   constructor(props: IWizardProps) {
     super(props)
-
-    const {steps, actions} = props
-    const defaultProps: IAbstractStepProps = {
-      onPrev: this.prev,
-      onNext: this.next,
-      actions
-    }
-    const stepsForRendering = steps.map(({ title, content }) => {
-      return {
-        title,
-        content: React.cloneElement(content, defaultProps),
-      }
-    })
-
     this.state = {
       current: 0,
-      stepsForRendering,
+      stepsForRendering: this.initStepsForRendering(),
     }
   }
 
@@ -61,6 +45,24 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
   next = () => {
     const current = this.state.current + 1
     this.setState({ current })
+  }
+
+  initStepsForRendering = () => {
+    const { steps, data, ...restProps } = this.props
+    const defaultProps: IAbstractStepProps = {
+      onPrev: this.prev,
+      onNext: this.next,
+      data,
+      ...restProps,
+    }
+    const stepsForRendering = steps.map(({ title, content }) => {
+      return {
+        title,
+        content: React.cloneElement(content, defaultProps),
+      }
+    })
+
+    return stepsForRendering
   }
 
   renderProgressDot = (iconDot: JSX.Element, dotOptions: IDotOptions) => {
@@ -76,6 +78,14 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
         <div className="title">{dotOptions.title}</div>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps: IWizardProps, prevState: IWizardState) {
+    const isDataChanged = prevProps.data !== this.props.data
+
+    if (isDataChanged) {
+      this.setState({ stepsForRendering: this.initStepsForRendering() })
+    }
   }
 
   render() {

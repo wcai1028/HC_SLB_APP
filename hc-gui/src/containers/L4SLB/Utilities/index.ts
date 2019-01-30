@@ -1,1 +1,1 @@
-export { L4SLBUtilitis } from './L4SLBUtilities'
+export { L4SLBUtilitis, generateNameByIP } from './L4SLBUtilities'

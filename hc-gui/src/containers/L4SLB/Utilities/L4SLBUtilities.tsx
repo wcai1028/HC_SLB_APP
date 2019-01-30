@@ -153,3 +153,28 @@ export class L4SLBUtilitis {
 }
 
 export default L4SLBUtilitis
+
+export const generateNameByIP = (
+  ip: string,
+  prefix: string,
+  suffix: string = null,
+  timestamp: number = null,
+) => {
+  let name = ''
+
+  if (!ip) {
+    return name
+  }
+
+  name = `${prefix}_${ip.replace(/[.]/g, '_')}`
+
+  if (suffix) {
+    name = `${name}_${suffix}`
+  }
+
+  if (timestamp) {
+    name = `${name}_${timestamp}`
+  }
+
+  return name
+}
