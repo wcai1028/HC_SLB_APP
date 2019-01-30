@@ -26,34 +26,17 @@ import { L4SLBUtilitis } from '../Utilities'
 import A10Panel from 'src/components/shared/A10Panel'
 import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import FormatForm from 'src/components/shared/FormatForm'
-
-export interface IVirtualService {
-  appServiceName: string
-  vip: string
-  vipName: string
-  connectionLimit: boolean
-  connectionLimitThreshold: number
-  connectionRateLimit: boolean
-  connectionRateLimitThreshold: number
-  cluster: string
-  partition: string
-}
-export interface IVport {
-  portNumber: number
-  protocol: string
-  deployment: string
-  lbMethod: string
-  persistence: boolean
-  healthMonitor: boolean
-  members: any[]
-  healthMonitorName?: string
-  persistenceTemplateName?: string
-}
+import { IVirtualService, IVport } from './interface'
+import { getItem } from 'src/libraries/storage'
+import { httpClient } from 'src/libraries/httpClient'
 
 export interface ISLBConfigurationFormProps {}
 export interface ISLBConfigurationFormState {
   VirtualService: IVirtualService
   Vports: IVport[]
+  clusterList: string[]
+  partitionList: string[]
+  aflexList: string[]
   formValidations?: Map<string, IValidationResult>
 }
 
@@ -75,24 +58,35 @@ class SLBConfigurationForm extends A10Container<
         vip: '',
         vipName: '',
         connectionLimit: false,
-        connectionLimitThreshold: undefined,
+        connectionLimitThreshold: null,
         connectionRateLimit: false,
-        connectionRateLimitThreshold: undefined,
+        connectionRateLimitThreshold: null,
         cluster: '',
         partition: '',
       },
       Vports: [
         {
-          portNumber: undefined,
+          portNumber: null,
           protocol: 'tcp',
           deployment: 'inline',
           lbMethod: 'round-robin',
           persistence: false,
           healthMonitor: false,
-          members: [],
+          members: [{ 'member-ip': '', 'member-port': null }],
+          aflex: '',
+          vPortConnectionLimit: false,
+          vPortConnectionLimitThreshold: null,
+          vPortConnectionRateLimit: false,
+          vPortConnectionRateLimitThreshold: null,
+          vPortIdleTimeout: false,
+          vPortIdleTimeoutValue: null,
+          vPortMaxOpenSession: null,
         },
       ],
       formValidations: Map<string, IValidationResult>(),
+      clusterList: [],
+      partitionList: [],
+      aflexList: [],
     }
     this.configList = [
       {
@@ -115,21 +109,105 @@ class SLBConfigurationForm extends A10Container<
       },
     ]
   }
-
-  onConfigListDataChange = (currentList: any[]) => {
-    console.log('currentList', currentList)
+  getAflex = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    httpClient
+      .get(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/aflex`,
+      )
+      .then(response => {
+        if (response.data && response.data['aflex-list']) {
+          this.setState({
+            aflexList: response.data['aflex-list'].map(
+              ({ name }: { name: string }) => name,
+            ),
+          })
+        }
+      })
   }
-  onChangeValue = (updateFunc: any, newVal: any) => {
-    updateFunc(newVal)
+
+  getProviderCluster = () => {
+    const provider = getItem('PROVIDER')
+    httpClient.get(`/hccapi/v3/provider/${provider}/cluster`).then(response => {
+      if (response.data && response.data['cluster-list']) {
+        this.setState({
+          clusterList: response.data['cluster-list'].map(
+            ({ name }: { name: string }) => name,
+          ),
+        })
+      }
+    })
+  }
+
+  getPartitionListByCluster = (cluster: string) => {
+    const provider = getItem('PROVIDER')
+    httpClient
+      .get(
+        `/hccapi/v3/provider/${provider}/device?cluster=${cluster}&detail=true`,
+      )
+      .then(response => {
+        if (response.data && response.data['device-list']) {
+          let partitionList: string[] = []
+          response.data['device-list'].forEach((device: IObject) => {
+            const devicePartitionList = device['partition-list'] || []
+            partitionList = partitionList.concat(
+              devicePartitionList.map(({ name }: { name: string }) => name),
+            )
+          })
+
+          this.setState({
+            partitionList,
+          })
+        }
+      })
+  }
+
+  componentDidMount() {
+    this.getProviderCluster()
+    this.getAflex()
+  }
+
+  onChangeCluster = (cluster: string) => {
+    const { VirtualService } = this.state
+    VirtualService.cluster = cluster
+    this.setState({ VirtualService })
+    this.getPartitionListByCluster(cluster)
+  }
+
+  onChangePartition = (partition: string) => {
+    const { VirtualService } = this.state
+    VirtualService.partition = partition
+    this.setState({ VirtualService })
+  }
+  onChangeAflex = (index: number, aflex: string) => {
+    const { Vports } = this.state
+    Vports[index].aflex = aflex
+    this.setState({ Vports })
+  }
+
+  onConfigListDataChange = (index: number, currentList: any[]) => {
+    const { Vports } = this.state
+    Vports[index].members = currentList
+    this.setState({ Vports })
+   // console.log('index', index, 'state', this.state.Vports)
+  }
+  onChangeValue = (updateFunc: any, value: any) => {
+    if (_.isUndefined(value)) {
+      return
+    }
+    if (_.isNumber(value)) {
+      updateFunc(value)
+    } else if (_.isString(value.target.value)) {
+      updateFunc(value.target.value)
+    }
   }
   renderMemberIP = (props: IObject) => {
     const { value, labelElement, updateValue } = props
     return (
       <div>
         {labelElement}
-        <A10InputNumber
-          min={0}
-          max={255}
+        <A10Input
           value={value}
           onChange={this.onChangeValue.bind(this, updateValue)}
           style={{ display: 'block', width: '80%' }}
@@ -155,7 +233,6 @@ class SLBConfigurationForm extends A10Container<
   }
 
   handleSwitchChange = (switchName: string, index: number, e: any) => {
-    debugger
     const { VirtualService, Vports } = this.state
     const currentVport = Vports[index]
     if (switchName === 'hm') {
@@ -166,8 +243,10 @@ class SLBConfigurationForm extends A10Container<
           currentVport.portNumber,
           'hm',
         )
+        Vports[index].healthMonitor = true
       } else {
         Vports[index].healthMonitorName = ''
+        Vports[index].healthMonitor = false
       }
     }
     if (switchName === 'persist') {
@@ -179,20 +258,118 @@ class SLBConfigurationForm extends A10Container<
           currentVport.portNumber,
           'persis',
         )
+        Vports[index].persistence = true
       } else {
         Vports[index].persistenceTemplateName = ''
+        Vports[index].persistence = false
       }
     }
-
+    if (
+      switchName === 'vPortConnectionLimit' ||
+      switchName === 'vPortConnectionRateLimit'
+    ) {
+      if (e === true) {
+        Vports[
+          index
+        ].virtualPortTemplateName = this.L4SLBUtilitis.generateVirtualPortTemplateName(
+          VirtualService.vip,
+          currentVport.portNumber,
+          'vPortTmp',
+        )
+        switchName === 'vPortConnectionLimit'
+          ? (Vports[index].vPortConnectionLimit = true)
+          : (Vports[index].vPortConnectionRateLimit = true)
+      } else {
+        Vports[index].virtualPortTemplateName = ''
+        switchName === 'vPortConnectionLimit'
+          ? (Vports[index].vPortConnectionLimit = false)
+          : (Vports[index].vPortConnectionRateLimit = false)
+      }
+    }
+    if (switchName === 'vPortIdleTimeout') {
+      if (e === true) {
+        if (Vports[index].protocol === 'tcp') {
+          Vports[
+            index
+          ].tcpTemplateName = this.L4SLBUtilitis.generateTcpORUdpTemplateName(
+            VirtualService.vip,
+            currentVport.portNumber,
+            'tcp',
+            'Tmp',
+          )
+        } else {
+          Vports[index].tcpTemplateName = ''
+        }
+        if (Vports[index].protocol === 'udp') {
+          Vports[
+            index
+          ].udpTemplateName = this.L4SLBUtilitis.generateTcpORUdpTemplateName(
+            VirtualService.vip,
+            currentVport.portNumber,
+            'udp',
+            'Tmp',
+          )
+        } else {
+          Vports[index].udpTemplateName = ''
+        }
+        Vports[index].vPortIdleTimeout = true
+      } else {
+        Vports[index].tcpTemplateName = ''
+        Vports[index].udpTemplateName = ''
+        Vports[index].vPortIdleTimeout = false
+      }
+    }
     this.setState({ Vports })
   }
 
   onVportNumberChange = (index: number, value: number) => {
-    const {  Vports } = this.state
+    const { Vports } = this.state
 
-    Vports[index].portNumber=value
+    Vports[index].portNumber = value
     this.setState({ Vports })
   }
+
+  onVportProtocolChange = (index: number, value: string) => {
+    const { Vports } = this.state
+
+    Vports[index].protocol = value
+    this.setState({ Vports })
+  }
+  onVportDeploymentChange = (index: number, value: string) => {
+    const { Vports } = this.state
+
+    Vports[index].deployment = value
+    this.setState({ Vports })
+  }
+  onVportLbMethodChange = (index: number, value: string) => {
+    const { Vports } = this.state
+
+    Vports[index].lbMethod = value
+    this.setState({ Vports })
+  }
+
+  onVPortMaxOpenSessionChange = (index: number, value: number) => {
+    const { Vports } = this.state
+    Vports[index].vPortMaxOpenSession = value
+    this.setState({ Vports })
+  }
+  onvPortConnectionLimitInputChange = (index: number, value: number) => {
+    const { Vports } = this.state
+    Vports[index].vPortConnectionLimitThreshold = value
+    this.setState({ Vports })
+  }
+
+  onvPortConnectionRateLimitInputChange = (index: number, value: number) => {
+    const { Vports } = this.state
+    Vports[index].vPortConnectionRateLimitThreshold = value
+    this.setState({ Vports })
+  }
+  onvPortIdleTimeoutInputChange = (index: number, value: number) => {
+    const { Vports } = this.state
+    Vports[index].vPortIdleTimeoutValue = value
+    this.setState({ Vports })
+  }
+
   renderVportPanel = (formItemLayout: IObject, Vports: IVport[]) => {
     return Vports.map((Vport: IVport, index: number) => {
       return (
@@ -224,17 +401,24 @@ class SLBConfigurationForm extends A10Container<
                 value={Vport.portNumber}
                 style={{ display: 'block', width: '100%' }}
                 defaultValue={Vport.portNumber}
-                onChange={this.onVportNumberChange}
+                onChange={this.onVportNumberChange.bind(this, index)}
               />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Protocol">
-              <A10Select value={Vport.protocol}>
+              <A10Select
+                disabled={!Vport.portNumber}
+                value={Vport.protocol}
+                onChange={this.onVportProtocolChange.bind(this, index)}
+              >
                 <A10Select.Option value="tcp">TCP</A10Select.Option>
                 <A10Select.Option value="udp">UDP</A10Select.Option>
               </A10Select>
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Deployment">
-              <A10Select value={Vport.deployment}>
+              <A10Select
+                value={Vport.deployment}
+                onChange={this.onVportDeploymentChange.bind(this, index)}
+              >
                 <A10Select.Option value="inline">Inline</A10Select.Option>
                 <A10Select.Option value="source-nat-auto">
                   Source Nat Auto
@@ -243,7 +427,10 @@ class SLBConfigurationForm extends A10Container<
               </A10Select>
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="LB Method">
-              <A10Select value={Vport.lbMethod}>
+              <A10Select
+                value={Vport.lbMethod}
+                onChange={this.onVportLbMethodChange.bind(this, index)}
+              >
                 <A10Select.Option value="least-connection">
                   Least Connection
                 </A10Select.Option>
@@ -263,35 +450,38 @@ class SLBConfigurationForm extends A10Container<
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Persistence">
               <A10Switch
-                checked={Vport.persistence}
                 onChange={this.handleSwitchChange.bind(this, 'persist', index)}
               />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Health Monitor">
               <A10Switch
-                checked={Vport.healthMonitor}
                 onChange={this.handleSwitchChange.bind(this, 'hm', index)}
               />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Members">
               <A10CompoundConfigList
-                dataList={[{ 'member-ip': '', 'member-port': '' }]}
+                dataList={Vport.members}
                 configList={this.configList}
-                onDataChange={this.onConfigListDataChange}
+                onDataChange={this.onConfigListDataChange.bind(this, index)}
                 deleteLabel={''}
                 deleteSpan={3}
                 equalHeight={true}
                 createLabel="Add another member"
               />
             </A10Form.Item>
-            {this.renderVPortAdvanceFiled(formItemLayout, Vport)}
+            {this.renderVPortAdvanceFiled(formItemLayout, Vport, index)}
           </A10Panel>
         </>
       )
     })
   }
 
-  renderVPortAdvanceFiled = (formItemLayout: IObject, Vport: IVport) => {
+  renderVPortAdvanceFiled = (
+    formItemLayout: IObject,
+    Vport: IVport,
+    index: number,
+  ) => {
+    const { aflexList } = this.state
     return (
       <A10Collapse bordered={false}>
         <A10Collapse.Panel
@@ -304,28 +494,79 @@ class SLBConfigurationForm extends A10Container<
           className="no-border"
         >
           <A10Form.Item {...formItemLayout} label="aFlex">
-            <A10Select />
+            <A10Select
+              value={Vport.aflex}
+              onChange={this.onChangeAflex.bind(this, index)}
+            >
+              {aflexList.map(aflex => {
+                return (
+                  <A10Select.Option key={aflex} value={aflex}>
+                    {aflex}
+                  </A10Select.Option>
+                )
+              })}
+            </A10Select>
           </A10Form.Item>
 
           <A10Form.Item {...formItemLayout} label="Connection Limit">
-            <A10Input className="col-sm-8 " />
-            <A10Switch defaultChecked style={{ marginLeft: '40px' }} />
+            <A10InputNumber
+              className="col-sm-8 "
+              onChange={this.onvPortConnectionLimitInputChange.bind(
+                this,
+                index,
+              )}
+            />
+            <A10Switch
+              onChange={this.handleSwitchChange.bind(
+                this,
+                'vPortConnectionLimit',
+                index,
+              )}
+              style={{ marginLeft: '40px' }}
+            />
             <span style={{ marginLeft: '10px' }}>Disabled</span>
           </A10Form.Item>
 
           <A10Form.Item {...formItemLayout} label="Connection Rate Limit">
-            <A10Input className="col-sm-8 " />
-            <A10Switch defaultChecked style={{ marginLeft: '40px' }} />
+            <A10InputNumber
+              className="col-sm-8 "
+              onChange={this.onvPortConnectionRateLimitInputChange.bind(
+                this,
+                index,
+              )}
+            />
+            <A10Switch
+              onChange={this.handleSwitchChange.bind(
+                this,
+                'vPortConnectionRateLimit',
+                index,
+              )}
+              style={{ marginLeft: '40px' }}
+            />
             <span style={{ marginLeft: '10px' }}>Disabled</span>
           </A10Form.Item>
 
           <A10Form.Item {...formItemLayout} label="Idle Timeout">
-            <A10Input className="col-sm-8 " />
-            <A10Switch defaultChecked style={{ marginLeft: '40px' }} />
+            <A10InputNumber
+              className="col-sm-8 "
+              onChange={this.onvPortIdleTimeoutInputChange.bind(this, index)}
+            />
+            <A10Switch
+              onChange={this.handleSwitchChange.bind(
+                this,
+                'vPortIdleTimeout',
+                index,
+              )}
+              style={{ marginLeft: '40px' }}
+            />
             <span style={{ marginLeft: '10px' }}>Disabled</span>
           </A10Form.Item>
           <A10Form.Item {...formItemLayout} label="Max. Open Sessions">
-            <A10Input className="col-sm-8 " />
+            <A10InputNumber
+              className="col-sm-8 "
+              value={Vport.vPortMaxOpenSession}
+              onChange={this.onVPortMaxOpenSessionChange.bind(this, index)}
+            />
           </A10Form.Item>
         </A10Collapse.Panel>
       </A10Collapse>
@@ -335,13 +576,21 @@ class SLBConfigurationForm extends A10Container<
   addVPort = () => {
     const { Vports } = this.state
     Vports.push({
-      portNumber: undefined,
+      portNumber: null,
       protocol: 'tcp',
       deployment: 'inline',
       lbMethod: 'round-robin',
       persistence: false,
       healthMonitor: false,
-      members: [],
+      members: [{ 'member-ip': '', 'member-port': null }],
+      aflex: '',
+      vPortConnectionLimit: false,
+      vPortConnectionLimitThreshold: null,
+      vPortConnectionRateLimit: false,
+      vPortConnectionRateLimitThreshold: null,
+      vPortIdleTimeout: false,
+      vPortIdleTimeoutValue: null,
+      vPortMaxOpenSession: null,
     })
     this.setState({
       Vports,
@@ -361,7 +610,38 @@ class SLBConfigurationForm extends A10Container<
     VirtualService.appServiceName = e.target.value
     this.setState({ VirtualService })
   }
-  onAddIpChange = (e: any) => {
+
+  onConnectionLimitChange = (e: any) => {
+    const { VirtualService } = this.state
+    if (_.isBoolean(e)) {
+      // switch
+      if (e === true) {
+        VirtualService.connectionLimit = true
+      } else {
+        VirtualService.connectionLimit = false
+      }
+    } else if (e.target && e.target.value && _.isString(e.target.value)) {
+      VirtualService.connectionLimitThreshold = e.target.value
+    }
+    this.setState({ VirtualService })
+  }
+
+  onConnectionRateLimitChange = (e: any) => {
+    const { VirtualService } = this.state
+    if (_.isBoolean(e)) {
+      // switch
+      if (e === true) {
+        VirtualService.connectionRateLimit = true
+      } else {
+        VirtualService.connectionRateLimit = false
+      }
+    } else if (e.target && e.target.value && _.isString(e.target.value)) {
+      VirtualService.connectionRateLimitThreshold = e.target.value
+    }
+    this.setState({ VirtualService })
+  }
+
+  onAppIpChange = (e: any) => {
     // need to add ip check funciton here
     const ipAddress = e.target.value
     let validateStatus = 'success'
@@ -391,7 +671,6 @@ class SLBConfigurationForm extends A10Container<
     VirtualService.vipName = virtualServer.name
     VirtualService.vip = ipAddress
     this.setState({ VirtualService })
-    console.log('after', this.state)
   }
 
   formatVport = () => {
@@ -400,7 +679,6 @@ class SLBConfigurationForm extends A10Container<
     const persistTempList: any = []
     const serverList: any = []
     Vports.map((Vport: IVport, index: number) => {
-      debugger
       if (Vport.healthMonitor === true && !_.isEmpty(Vport.healthMonitorName)) {
         const hmObject = {
           monitor: {
@@ -423,14 +701,14 @@ class SLBConfigurationForm extends A10Container<
 
       this.formatVportMember(Vport, serverList)
     })
+    this.setState({Vports})
+    console.log(this.state)
   }
 
   formatVportMember = (Vport: IVport, serverList: any) => {
     const { members, protocol } = Vport
-
     if (members.length > 0) {
       members.map((member: IObject, index: number) => {
-        debugger
         if (member['member-ip'] && member['member-port']) {
           const serverName = this.L4SLBUtilitis.generateServerName(
             member['member-ip'],
@@ -465,8 +743,8 @@ class SLBConfigurationForm extends A10Container<
           }
 
           serverList.push(serverObj)
-          return member
         }
+        return member
       })
     }
     Vport.members = members
@@ -484,7 +762,13 @@ class SLBConfigurationForm extends A10Container<
       labelCol: { span: 9 },
       wrapperCol: { span: 13 },
     }
-    const { Vports, formValidations } = this.state
+    const {
+      Vports,
+      formValidations,
+      clusterList,
+      partitionList,
+      VirtualService,
+    } = this.state
 
     return (
       <div className="l4slb-wizard-config">
@@ -506,7 +790,7 @@ class SLBConfigurationForm extends A10Container<
             >
               <A10Form.Item {...formItemLayout} label="App Service Name">
                 <A10Input
-                  value={this.state.VirtualService.appServiceName}
+                  value={VirtualService.appServiceName}
                   onChange={this.onAppServiceNameChange}
                 />
               </A10Form.Item>
@@ -521,7 +805,7 @@ class SLBConfigurationForm extends A10Container<
                   formValidations.get('vip', this.defaultValidationResult).help
                 }
               >
-                <A10Input onChange={this.onAddIpChange} />
+                <A10Input onChange={this.onAppIpChange} />
               </A10Form.Item>
 
               <A10Collapse bordered={false}>
@@ -537,28 +821,62 @@ class SLBConfigurationForm extends A10Container<
                   className="no-border"
                 >
                   <A10Form.Item {...formItemLayout} label="Connection Limit">
-                    <A10Switch defaultChecked />
+                    <A10Switch onChange={this.onConnectionLimitChange} />
                   </A10Form.Item>
 
                   <A10Form.Item {...formItemLayout} label="Thredshold">
-                    <A10Input />
+                    <A10Input
+                      disabled={!VirtualService.connectionLimit}
+                      onChange={this.onConnectionLimitChange}
+                    />
                   </A10Form.Item>
 
                   <A10Form.Item
                     {...formItemLayout}
                     label="Connection Rate Limit"
                   >
-                    <A10Switch defaultChecked />
+                    <A10Switch onChange={this.onConnectionRateLimitChange} />
                   </A10Form.Item>
 
                   <A10Form.Item {...formItemLayout} label="Thredshold">
-                    <A10Input />
+                    <A10Input
+                      disable={!VirtualService.connectionRateLimit}
+                      onChange={this.onConnectionRateLimitChange}
+                    />
                   </A10Form.Item>
                   <A10Form.Item {...formItemLayout} label="Cluster">
-                    <A10Select />
+                    <A10Select
+                      value={VirtualService.cluster}
+                      onChange={this.onChangeCluster}
+                    >
+                      {clusterList.map(providerCluster => {
+                        return (
+                          <A10Select.Option
+                            key={providerCluster}
+                            value={providerCluster}
+                          >
+                            {providerCluster}
+                          </A10Select.Option>
+                        )
+                      })}
+                    </A10Select>
                   </A10Form.Item>
                   <A10Form.Item {...formItemLayout} label="Partition">
-                    <A10Select />
+                    <A10Select
+                      value={VirtualService.partition}
+                      onChange={this.onChangePartition}
+                    >
+                      {partitionList.map(devicePartition => {
+                        return (
+                          <A10Select.Option
+                            key={devicePartition}
+                            value={devicePartition}
+                          >
+                            {devicePartition}
+                          </A10Select.Option>
+                        )
+                      })}
+                    </A10Select>
                   </A10Form.Item>
                 </A10Collapse.Panel>
               </A10Collapse>

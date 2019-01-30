@@ -19,7 +19,7 @@ export class L4SLBUtilitis {
     // at the end of save
     let hmName = ''
     try {
-      if (!_.isUndefined(vPortNumber) && !_.isEmpty(vPortNumber)) {
+      if (!_.isUndefined(vPortNumber)) {
         const defaultHmName = prefix + '_' + vPortNumber
         hmName = defaultHmName
       }
@@ -48,7 +48,7 @@ export class L4SLBUtilitis {
   generateServiceGroupName = (
     vip: string,
     vPortNumber: string,
-    protocol:string,
+    protocol: string,
     prefix: any,
   ) => {
     // example {prefix}+_+memberIp:  'sg_1_1_1_1_88_tcp'  timestamp will be applied
@@ -59,10 +59,11 @@ export class L4SLBUtilitis {
       if (
         !_.isUndefined(ipAdd) &&
         !_.isEmpty(ipAdd) &&
-        !_.isUndefined(vPortNumber) &&
-        !_.isEmpty(vPortNumber)
+        !_.isUndefined(vPortNumber)
+
       ) {
-        const defaultServiceGroupName = prefix + '_' + ipAdd + '_' + vPortNumber+'_'+protocol
+        const defaultServiceGroupName =
+          prefix + '_' + ipAdd + '_' + vPortNumber + '_' + protocol
         serviceGroupName = defaultServiceGroupName
       }
     } catch (err) {
@@ -70,7 +71,6 @@ export class L4SLBUtilitis {
     }
     return serviceGroupName
   }
-
 
   generatePersistTemplateName = (
     vip: string,
@@ -85,16 +85,70 @@ export class L4SLBUtilitis {
       if (
         !_.isUndefined(ipAdd) &&
         !_.isEmpty(ipAdd) &&
-        !_.isUndefined(vPortNumber) &&
-        !_.isEmpty(vPortNumber)
+        !_.isUndefined(vPortNumber)
       ) {
-        const defaultpersistTemplateName = prefix + '_' + ipAdd + '_' + vPortNumber
+        const defaultpersistTemplateName =
+          prefix + '_' + ipAdd + '_' + vPortNumber
         persistTemplateName = defaultpersistTemplateName
       }
     } catch (err) {
       //$log.debug("prepopulate appname error.");
     }
     return persistTemplateName
+  }
+
+  generateVirtualPortTemplateName = (
+    vip: string,
+    vPortNumber: number,
+    prefix: any,
+  ) => {
+    // example {prefix}+_+memberIp:  'vPortTmp_1_1_1_1_88'  timestamp will be applied
+    // at the end of save
+    let virtualPortTemplate = ''
+    try {
+      const ipAdd = vip.replace(/[.]/g, '_')
+      if (
+        !_.isUndefined(ipAdd) &&
+        !_.isEmpty(ipAdd) &&
+        !_.isUndefined(vPortNumber)
+
+      ) {
+        const defaultvirtualPortTemplate =
+          prefix + '_' + ipAdd + '_' + vPortNumber
+        virtualPortTemplate = defaultvirtualPortTemplate
+      }
+    } catch (err) {
+      //$log.debug("prepopulate appname error.");
+    }
+    return virtualPortTemplate
+  }
+
+  generateTcpORUdpTemplateName = (
+    vip: string,
+    vPortNumber: number,
+    protocol: string,
+    prefix: any,
+  ) => {
+    // example {prefix}+_+memberIp:  '{tcp/udp}Tmp_1_1_1_1_88'  timestamp will be applied
+    // at the end of save
+    let templateName = ''
+    try {
+      const ipAdd = vip.replace(/[.]/g, '_')
+      if (
+        !_.isUndefined(ipAdd) &&
+        !_.isEmpty(ipAdd) &&
+        !_.isUndefined(vPortNumber) &&
+        !_.isUndefined(protocol) &&
+        !_.isEmpty(protocol)
+      ) {
+        const defaultvirtualPortTemplate =
+          protocol + prefix + '_' + ipAdd + '_' + vPortNumber
+        templateName = defaultvirtualPortTemplate
+      }
+    } catch (err) {
+      //$log.debug("prepopulate appname error.");
+    }
+    return templateName
   }
 }
 
