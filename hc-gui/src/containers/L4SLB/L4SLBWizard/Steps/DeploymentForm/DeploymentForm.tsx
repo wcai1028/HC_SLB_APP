@@ -72,14 +72,14 @@ export default class DeploymentForm extends AbstractStep<
 
   onChangeCluster = (cluster: string) => {
     const data = { ...this.props.data }
-    data.cluster = cluster
+    data['logical-cluster']['physical-cluster-list'][0].cluster = cluster
     this.props.onChange(data)
     this.getPartitionListByCluster(cluster)
   }
 
   onChangePartition = (partition: string) => {
     const data = { ...this.props.data }
-    data.partition = partition
+    data['logical-cluster']['physical-cluster-list'][0].partition = partition
     this.props.onChange(data)
   }
 
@@ -185,7 +185,7 @@ export default class DeploymentForm extends AbstractStep<
               <A10Form>
                 <A10Form.Item label="Cluster" {...this.formItemLayout}>
                   <A10Select
-                    value={data.cluster}
+                    value={data['logical-cluster']['physical-cluster-list'][0].cluster}
                     onChange={this.onChangeCluster}
                   >
                     {clusterList.map(providerCluster => {
@@ -202,7 +202,7 @@ export default class DeploymentForm extends AbstractStep<
                 </A10Form.Item>
                 <A10Form.Item label="Partition" {...this.formItemLayout}>
                   <A10Select
-                    value={data.partition}
+                    value={data['logical-cluster']['physical-cluster-list'][0].partition}
                     onChange={this.onChangePartition}
                   >
                     {partitionList.map(devicePartition => {

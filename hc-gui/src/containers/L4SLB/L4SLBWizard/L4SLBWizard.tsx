@@ -36,7 +36,7 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           port: [
             {
               'port-number': null,
-              protocol: 'TCP',
+              protocol: 'tcp',
             },
           ],
         },
@@ -50,7 +50,7 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           {
             name: null,
             host: null,
-            port: [
+            'port-list': [
               {
                 'port-number': null,
               },
@@ -67,9 +67,16 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
         'health.monitor': {
           name: null,
         },
+        'logical-cluster': {
+          name: null,
+          'physical-cluster-list': [
+            {
+              cluster: null,
+              partition: null,
+            },
+          ],
+        },
         deployment: 'INLINE',
-        cluster: null,
-        partition: null,
       },
     }
     this.init()

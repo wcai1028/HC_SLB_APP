@@ -68,7 +68,7 @@ export default class ServiceGroupForm extends AbstractStep<
 
   onChangeServerPort = (index: number) => (port: number) => {
     const data = { ...this.props.data }
-    data.servers[index].port[0]['port-number'] = port
+    data.servers[index]['port-list'][0]['port-number'] = port
     this.props.onChange(data)
   }
 
@@ -77,7 +77,7 @@ export default class ServiceGroupForm extends AbstractStep<
     data.servers.push({
       name: null,
       host: null,
-      port: [
+      'port-list': [
         {
           'port-number': null,
         },
@@ -111,7 +111,7 @@ export default class ServiceGroupForm extends AbstractStep<
             </A10Col>
             <A10Col span={6}>
               <A10InputNumber
-                value={server.port[0]['port-number']}
+                value={server['port-list'][0]['port-number']}
                 onChange={this.onChangeServerPort(index)}
               />
             </A10Col>

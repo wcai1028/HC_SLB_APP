@@ -38,15 +38,22 @@ export interface IWizardData {
       }
     }
   }
-  deployment: DeploymentType 
-  cluster: string
-  partition: string
+  'logical-cluster': {
+    name: string
+    'physical-cluster-list': [
+      {
+        cluster: string
+        partition: string
+      }
+    ]
+  }
+  deployment: DeploymentType
 }
 
 export interface IServer {
   name: string
   host: string
-  port: IServerPort[]
+  'port-list': IServerPort[]
 }
 
 export interface IServerPort {
