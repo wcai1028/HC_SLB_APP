@@ -121,7 +121,7 @@ class SLBConfigurationForm extends A10Container<
           this.setState({
             aflexList: response.data['aflex-list'].map(
               ({ name }: { name: string }) => name,
-            ),
+            ).concat('None'),
           })
         }
       })
@@ -190,7 +190,7 @@ class SLBConfigurationForm extends A10Container<
     const { Vports } = this.state
     Vports[index].members = currentList
     this.setState({ Vports })
-   // console.log('index', index, 'state', this.state.Vports)
+    // console.log('index', index, 'state', this.state.Vports)
   }
   onChangeValue = (updateFunc: any, value: any) => {
     if (_.isUndefined(value)) {
@@ -268,7 +268,8 @@ class SLBConfigurationForm extends A10Container<
       switchName === 'vPortConnectionLimit' ||
       switchName === 'vPortConnectionRateLimit'
     ) {
-      if (e === true) {
+      if (e !== true) {
+        // uncheck == undisable
         Vports[
           index
         ].virtualPortTemplateName = this.L4SLBUtilitis.generateVirtualPortTemplateName(
@@ -287,7 +288,7 @@ class SLBConfigurationForm extends A10Container<
       }
     }
     if (switchName === 'vPortIdleTimeout') {
-      if (e === true) {
+      if (e !== true) {
         if (Vports[index].protocol === 'tcp') {
           Vports[
             index
@@ -510,6 +511,7 @@ class SLBConfigurationForm extends A10Container<
 
           <A10Form.Item {...formItemLayout} label="Connection Limit">
             <A10InputNumber
+              disabled={!Vport.vPortConnectionLimit}
               className="col-sm-8 "
               onChange={this.onvPortConnectionLimitInputChange.bind(
                 this,
@@ -517,6 +519,7 @@ class SLBConfigurationForm extends A10Container<
               )}
             />
             <A10Switch
+              checked={!Vport.vPortConnectionLimit}
               onChange={this.handleSwitchChange.bind(
                 this,
                 'vPortConnectionLimit',
@@ -529,6 +532,7 @@ class SLBConfigurationForm extends A10Container<
 
           <A10Form.Item {...formItemLayout} label="Connection Rate Limit">
             <A10InputNumber
+              disabled={!Vport.vPortConnectionRateLimit}
               className="col-sm-8 "
               onChange={this.onvPortConnectionRateLimitInputChange.bind(
                 this,
@@ -536,6 +540,7 @@ class SLBConfigurationForm extends A10Container<
               )}
             />
             <A10Switch
+              checked={!Vport.vPortConnectionRateLimit}
               onChange={this.handleSwitchChange.bind(
                 this,
                 'vPortConnectionRateLimit',
@@ -548,10 +553,12 @@ class SLBConfigurationForm extends A10Container<
 
           <A10Form.Item {...formItemLayout} label="Idle Timeout">
             <A10InputNumber
+              disabled={!Vport.vPortIdleTimeout}
               className="col-sm-8 "
               onChange={this.onvPortIdleTimeoutInputChange.bind(this, index)}
             />
             <A10Switch
+              checked={!Vport.vPortIdleTimeout}
               onChange={this.handleSwitchChange.bind(
                 this,
                 'vPortIdleTimeout',
@@ -701,7 +708,7 @@ class SLBConfigurationForm extends A10Container<
 
       this.formatVportMember(Vport, serverList)
     })
-    this.setState({Vports})
+    this.setState({ Vports })
     console.log(this.state)
   }
 
