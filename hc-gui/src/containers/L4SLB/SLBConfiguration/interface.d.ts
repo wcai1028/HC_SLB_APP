@@ -8,6 +8,7 @@ export interface IVirtualService {
   connectionRateLimitThreshold: number
   cluster: string
   partition: string
+  logicalClusterName:string
 }
 export interface IVport {
   portNumber: number
@@ -15,25 +16,26 @@ export interface IVport {
   deployment: string
   lbMethod: string
   persistence: boolean
-  healthMonitor: boolean
+  healthMonitor: boolean,
+  serviceGroupName:string,
   members: IMember[]
   healthMonitorName?: string
   persistenceTemplateName?: string
-  aflex:string
-  vPortConnectionLimit:boolean
-  vPortConnectionLimitThreshold:number
-  vPortConnectionRateLimit:boolean
-  vPortConnectionRateLimitThreshold:number
-  vPortIdleTimeout:boolean
-  vPortIdleTimeoutValue:number
-  vPortMaxOpenSession:number
+  aflex: string
+  vPortConnectionLimit: boolean
+  vPortConnectionLimitThreshold: number
+  vPortConnectionRateLimit: boolean
+  vPortConnectionRateLimitThreshold: number
+  vPortIdleTimeout: boolean
+  vPortIdleTimeoutValue: number
+  vPortMaxOpenSession: number
   virtualPortTemplateName?: string
   tcpTemplateName?: string
   udpTemplateName?: string
-
 }
 export interface IMember {
   'member-ip': string
   'member-port': number
   serverName?: string
+  protocol?: string
 }
