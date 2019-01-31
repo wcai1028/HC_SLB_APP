@@ -26,7 +26,7 @@ import { L4SLBUtilitis } from '../Utilities'
 import A10Panel from 'src/components/shared/A10Panel'
 import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import FormatForm from 'src/components/shared/FormatForm'
-import { IVirtualService, IVport } from './interface'
+import { IVirtualService, IVport, IMember } from './interface'
 import { getItem } from 'src/libraries/storage'
 import { httpClient } from 'src/libraries/httpClient'
 
@@ -38,6 +38,7 @@ export interface ISLBConfigurationFormState {
   partitionList: string[]
   aflexList: string[]
   formValidations?: Map<string, IValidationResult>
+  timestamp?: number
 }
 
 class SLBConfigurationForm extends A10Container<
@@ -63,6 +64,7 @@ class SLBConfigurationForm extends A10Container<
         connectionRateLimitThreshold: null,
         cluster: '',
         partition: '',
+        logicalClusterName: '',
       },
       Vports: [
         {
@@ -70,6 +72,7 @@ class SLBConfigurationForm extends A10Container<
           protocol: 'tcp',
           deployment: 'inline',
           lbMethod: 'round-robin',
+          serviceGroupName: '',
           persistence: false,
           healthMonitor: false,
           members: [{ 'member-ip': '', 'member-port': null }],
@@ -87,6 +90,7 @@ class SLBConfigurationForm extends A10Container<
       clusterList: [],
       partitionList: [],
       aflexList: [],
+      timestamp: Date.now(),
     }
     this.configList = [
       {
@@ -119,9 +123,9 @@ class SLBConfigurationForm extends A10Container<
       .then(response => {
         if (response.data && response.data['aflex-list']) {
           this.setState({
-            aflexList: response.data['aflex-list'].map(
-              ({ name }: { name: string }) => name,
-            ).concat('None'),
+            aflexList: response.data['aflex-list']
+              .map(({ name }: { name: string }) => name)
+              .concat('None'),
           })
         }
       })
@@ -180,11 +184,6 @@ class SLBConfigurationForm extends A10Container<
     VirtualService.partition = partition
     this.setState({ VirtualService })
   }
-  onChangeAflex = (index: number, aflex: string) => {
-    const { Vports } = this.state
-    Vports[index].aflex = aflex
-    this.setState({ Vports })
-  }
 
   onConfigListDataChange = (index: number, currentList: any[]) => {
     const { Vports } = this.state
@@ -233,7 +232,7 @@ class SLBConfigurationForm extends A10Container<
   }
 
   handleSwitchChange = (switchName: string, index: number, e: any) => {
-    const { VirtualService, Vports } = this.state
+    const { VirtualService, Vports, timestamp } = this.state
     const currentVport = Vports[index]
     if (switchName === 'hm') {
       if (e === true) {
@@ -242,6 +241,7 @@ class SLBConfigurationForm extends A10Container<
         ].healthMonitorName = this.L4SLBUtilitis.generateHealthMonitorName(
           currentVport.portNumber,
           'hm',
+          timestamp,
         )
         Vports[index].healthMonitor = true
       } else {
@@ -257,6 +257,7 @@ class SLBConfigurationForm extends A10Container<
           VirtualService.vip,
           currentVport.portNumber,
           'persis',
+          timestamp,
         )
         Vports[index].persistence = true
       } else {
@@ -276,6 +277,7 @@ class SLBConfigurationForm extends A10Container<
           VirtualService.vip,
           currentVport.portNumber,
           'vPortTmp',
+          timestamp,
         )
         switchName === 'vPortConnectionLimit'
           ? (Vports[index].vPortConnectionLimit = true)
@@ -297,6 +299,7 @@ class SLBConfigurationForm extends A10Container<
             currentVport.portNumber,
             'tcp',
             'Tmp',
+            timestamp,
           )
         } else {
           Vports[index].tcpTemplateName = ''
@@ -309,6 +312,7 @@ class SLBConfigurationForm extends A10Container<
             currentVport.portNumber,
             'udp',
             'Tmp',
+            timestamp,
           )
         } else {
           Vports[index].udpTemplateName = ''
@@ -323,51 +327,47 @@ class SLBConfigurationForm extends A10Container<
     this.setState({ Vports })
   }
 
-  onVportNumberChange = (index: number, value: number) => {
+  onVportInputFiledsChange = (index: number, type: string, value: any) => {
     const { Vports } = this.state
+    switch (type) {
+      case 'vPortNumber': {
+        Vports[index].portNumber = value
+        break
+      }
+      case 'vPortProtocol': {
+        Vports[index].protocol = value
+        break
+      }
+      case 'vPortDeployment': {
+        Vports[index].deployment = value
+        break
+      }
+      case 'vPortLbMethod': {
+        Vports[index].lbMethod = value
+        break
+      }
+      case 'vPortMaxOpenSession': {
+        Vports[index].vPortMaxOpenSession = value
+        break
+      }
+      case 'vPortConnectionLimitThreshold': {
+        Vports[index].vPortConnectionLimitThreshold = value
+        break
+      }
+      case 'vPortConnectionRateLimitThreshold': {
+        Vports[index].vPortConnectionRateLimitThreshold = value
+        break
+      }
 
-    Vports[index].portNumber = value
-    this.setState({ Vports })
-  }
-
-  onVportProtocolChange = (index: number, value: string) => {
-    const { Vports } = this.state
-
-    Vports[index].protocol = value
-    this.setState({ Vports })
-  }
-  onVportDeploymentChange = (index: number, value: string) => {
-    const { Vports } = this.state
-
-    Vports[index].deployment = value
-    this.setState({ Vports })
-  }
-  onVportLbMethodChange = (index: number, value: string) => {
-    const { Vports } = this.state
-
-    Vports[index].lbMethod = value
-    this.setState({ Vports })
-  }
-
-  onVPortMaxOpenSessionChange = (index: number, value: number) => {
-    const { Vports } = this.state
-    Vports[index].vPortMaxOpenSession = value
-    this.setState({ Vports })
-  }
-  onvPortConnectionLimitInputChange = (index: number, value: number) => {
-    const { Vports } = this.state
-    Vports[index].vPortConnectionLimitThreshold = value
-    this.setState({ Vports })
-  }
-
-  onvPortConnectionRateLimitInputChange = (index: number, value: number) => {
-    const { Vports } = this.state
-    Vports[index].vPortConnectionRateLimitThreshold = value
-    this.setState({ Vports })
-  }
-  onvPortIdleTimeoutInputChange = (index: number, value: number) => {
-    const { Vports } = this.state
-    Vports[index].vPortIdleTimeoutValue = value
+      case 'vPortIdleTimeoutValue': {
+        Vports[index].vPortIdleTimeoutValue = value
+        break
+      }
+      case 'vPortAflex': {
+        Vports[index].aflex = value
+        break
+      }
+    }
     this.setState({ Vports })
   }
 
@@ -402,14 +402,22 @@ class SLBConfigurationForm extends A10Container<
                 value={Vport.portNumber}
                 style={{ display: 'block', width: '100%' }}
                 defaultValue={Vport.portNumber}
-                onChange={this.onVportNumberChange.bind(this, index)}
+                onChange={this.onVportInputFiledsChange.bind(
+                  this,
+                  index,
+                  'vPortNumber',
+                )}
               />
             </A10Form.Item>
             <A10Form.Item {...formItemLayout} label="Protocol">
               <A10Select
                 disabled={!Vport.portNumber}
                 value={Vport.protocol}
-                onChange={this.onVportProtocolChange.bind(this, index)}
+                onChange={this.onVportInputFiledsChange.bind(
+                  this,
+                  index,
+                  'vPortProtocol',
+                )}
               >
                 <A10Select.Option value="tcp">TCP</A10Select.Option>
                 <A10Select.Option value="udp">UDP</A10Select.Option>
@@ -418,7 +426,11 @@ class SLBConfigurationForm extends A10Container<
             <A10Form.Item {...formItemLayout} label="Deployment">
               <A10Select
                 value={Vport.deployment}
-                onChange={this.onVportDeploymentChange.bind(this, index)}
+                onChange={this.onVportInputFiledsChange.bind(
+                  this,
+                  index,
+                  'vPortDeployment',
+                )}
               >
                 <A10Select.Option value="inline">Inline</A10Select.Option>
                 <A10Select.Option value="source-nat-auto">
@@ -430,7 +442,11 @@ class SLBConfigurationForm extends A10Container<
             <A10Form.Item {...formItemLayout} label="LB Method">
               <A10Select
                 value={Vport.lbMethod}
-                onChange={this.onVportLbMethodChange.bind(this, index)}
+                onChange={this.onVportInputFiledsChange.bind(
+                  this,
+                  index,
+                  'vPortLbMethod',
+                )}
               >
                 <A10Select.Option value="least-connection">
                   Least Connection
@@ -497,7 +513,11 @@ class SLBConfigurationForm extends A10Container<
           <A10Form.Item {...formItemLayout} label="aFlex">
             <A10Select
               value={Vport.aflex}
-              onChange={this.onChangeAflex.bind(this, index)}
+              onChange={this.onVportInputFiledsChange.bind(
+                this,
+                index,
+                'vPortAflex',
+              )}
             >
               {aflexList.map(aflex => {
                 return (
@@ -513,9 +533,10 @@ class SLBConfigurationForm extends A10Container<
             <A10InputNumber
               disabled={!Vport.vPortConnectionLimit}
               className="col-sm-8 "
-              onChange={this.onvPortConnectionLimitInputChange.bind(
+              onChange={this.onVportInputFiledsChange.bind(
                 this,
                 index,
+                'vPortConnectionLimitThreshold',
               )}
             />
             <A10Switch
@@ -534,9 +555,10 @@ class SLBConfigurationForm extends A10Container<
             <A10InputNumber
               disabled={!Vport.vPortConnectionRateLimit}
               className="col-sm-8 "
-              onChange={this.onvPortConnectionRateLimitInputChange.bind(
+              onChange={this.onVportInputFiledsChange.bind(
                 this,
                 index,
+                'vPortConnectionRateLimitThreshold',
               )}
             />
             <A10Switch
@@ -555,7 +577,11 @@ class SLBConfigurationForm extends A10Container<
             <A10InputNumber
               disabled={!Vport.vPortIdleTimeout}
               className="col-sm-8 "
-              onChange={this.onvPortIdleTimeoutInputChange.bind(this, index)}
+              onChange={this.onVportInputFiledsChange.bind(
+                this,
+                index,
+                'vPortIdleTimeoutValue',
+              )}
             />
             <A10Switch
               checked={!Vport.vPortIdleTimeout}
@@ -572,7 +598,11 @@ class SLBConfigurationForm extends A10Container<
             <A10InputNumber
               className="col-sm-8 "
               value={Vport.vPortMaxOpenSession}
-              onChange={this.onVPortMaxOpenSessionChange.bind(this, index)}
+              onChange={this.onVportInputFiledsChange.bind(
+                this,
+                index,
+                'vPortMaxOpenSession',
+              )}
             />
           </A10Form.Item>
         </A10Collapse.Panel>
@@ -587,6 +617,7 @@ class SLBConfigurationForm extends A10Container<
       protocol: 'tcp',
       deployment: 'inline',
       lbMethod: 'round-robin',
+      serviceGroupName: '',
       persistence: false,
       healthMonitor: false,
       members: [{ 'member-ip': '', 'member-port': null }],
@@ -618,32 +649,35 @@ class SLBConfigurationForm extends A10Container<
     this.setState({ VirtualService })
   }
 
-  onConnectionLimitChange = (e: any) => {
+  onConnectionLimitChange = (type: string, e: any) => {
     const { VirtualService } = this.state
-    if (_.isBoolean(e)) {
-      // switch
-      if (e === true) {
-        VirtualService.connectionLimit = true
-      } else {
-        VirtualService.connectionLimit = false
+    switch (type) {
+      case 'connectionLimit': {
+        if (_.isBoolean(e)) {
+          // switch
+          if (e === true) {
+            VirtualService.connectionLimit = true
+          } else {
+            VirtualService.connectionLimit = false
+          }
+        } else if (e.target && e.target.value && _.isString(e.target.value)) {
+          VirtualService.connectionLimitThreshold = e.target.value
+        }
+        break
       }
-    } else if (e.target && e.target.value && _.isString(e.target.value)) {
-      VirtualService.connectionLimitThreshold = e.target.value
-    }
-    this.setState({ VirtualService })
-  }
-
-  onConnectionRateLimitChange = (e: any) => {
-    const { VirtualService } = this.state
-    if (_.isBoolean(e)) {
-      // switch
-      if (e === true) {
-        VirtualService.connectionRateLimit = true
-      } else {
-        VirtualService.connectionRateLimit = false
+      case 'connectionRateLimit': {
+        if (_.isBoolean(e)) {
+          // switch
+          if (e === true) {
+            VirtualService.connectionRateLimit = true
+          } else {
+            VirtualService.connectionRateLimit = false
+          }
+        } else if (e.target && e.target.value && _.isString(e.target.value)) {
+          VirtualService.connectionRateLimitThreshold = e.target.value
+        }
+        break
       }
-    } else if (e.target && e.target.value && _.isString(e.target.value)) {
-      VirtualService.connectionRateLimitThreshold = e.target.value
     }
     this.setState({ VirtualService })
   }
@@ -669,87 +703,92 @@ class SLBConfigurationForm extends A10Container<
 
     formValidations = formValidations.set('vip', validationResult)
     this.setState({ formValidations })
-    const { VirtualService } = this.state
-    const virtualServer = {
-      name: VirtualService.vipName,
-      ip: ipAddress,
-    }
-    this.L4SLBUtilitis.prepopulateVipName(virtualServer, 'vip')
-    VirtualService.vipName = virtualServer.name
+    const { VirtualService, timestamp } = this.state
+
+    VirtualService.vipName = this.L4SLBUtilitis.generateNameByIP(
+      ipAddress,
+      'vip',
+      null,
+      timestamp,
+    )
     VirtualService.vip = ipAddress
+    VirtualService.logicalClusterName = this.L4SLBUtilitis.generateNameByIP(
+      ipAddress,
+      'logical-cluster',
+      null,
+      timestamp,
+    )
     this.setState({ VirtualService })
   }
 
-  formatVport = () => {
+  formatVirtualService = () => {
     const { Vports } = this.state
-    const healthMonitorList: any = []
-    const persistTempList: any = []
-    const serverList: any = []
+    const healthMonitorList: string[] = []
+    const persistTempList: string[] = []
+    const serverList: IMember[] = []
+    this.formatVport(Vports, healthMonitorList, persistTempList, serverList)
+    const promises: Array<Promise<any>> = [
+      this.createLogicalCluster(),
+      this.createServers(serverList),
+      this.createHealthMonitor(healthMonitorList),
+      this.createPersistSourceIP(persistTempList),
+    ]
+
+    Promise.all(promises)
+      .then(this.createServerPorts.bind(this, serverList))
+      .then(this.createAppService)
+      .then(this.createServiceGroup)
+      .then(this.createVirtualServer)
+      .then(this.createVirtualPort)
+
+  }
+
+  formatVport = (
+    Vports: IVport[],
+    healthMonitorList: string[],
+    persistTempList: string[],
+    serverList: IMember[],
+  ) => {
     Vports.map((Vport: IVport, index: number) => {
+      const { VirtualService, timestamp } = this.state
+      const { vip } = VirtualService
+      const serviceGroupName = this.L4SLBUtilitis.generateServiceGroupName(
+        vip,
+        Vport.portNumber,
+        Vport.protocol,
+        'sg',
+        timestamp,
+      )
+      Vport.serviceGroupName = serviceGroupName
       if (Vport.healthMonitor === true && !_.isEmpty(Vport.healthMonitorName)) {
-        const hmObject = {
-          monitor: {
-            name: Vport.healthMonitorName,
-          },
-        }
-        healthMonitorList.push(hmObject)
+        healthMonitorList.push(Vport.healthMonitorName)
       }
       if (
         Vport.persistence === true &&
         !_.isEmpty(Vport.persistenceTemplateName)
       ) {
-        const persistObject = {
-          'source-ip': {
-            name: Vport.persistenceTemplateName,
-          },
-        }
-        persistTempList.push(persistObject)
+        persistTempList.push(Vport.persistenceTemplateName)
       }
-
       this.formatVportMember(Vport, serverList)
     })
     this.setState({ Vports })
-    console.log(this.state)
   }
 
   formatVportMember = (Vport: IVport, serverList: any) => {
     const { members, protocol } = Vport
+    const { timestamp } = this.state
+
     if (members.length > 0) {
       members.map((member: IObject, index: number) => {
         if (member['member-ip'] && member['member-port']) {
           const serverName = this.L4SLBUtilitis.generateServerName(
             member['member-ip'],
             'srv',
+            timestamp,
           )
           member.serverName = serverName
-
-          const serverObj = {
-            server: {
-              name: serverName,
-              host: member['member-ip'],
-              'port-list': [
-                {
-                  'port-number': member['member-port'],
-                  protocol,
-                  'health-check': 'ping',
-                  'conn-limit': 6400000,
-                  'sampling-enable': [
-                    {
-                      counters1: 'total_conn',
-                    },
-                    {
-                      counters1: 'total_fwd_bytes',
-                    },
-                    {
-                      counters1: 'total_rev_bytes',
-                    },
-                  ],
-                },
-              ],
-            },
-          }
-
-          serverList.push(serverObj)
+          member.protocol = protocol
+          serverList.push(member)
         }
         return member
       })
@@ -757,11 +796,241 @@ class SLBConfigurationForm extends A10Container<
     Vport.members = members
   }
 
+  createLogicalCluster = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { VirtualService } = this.state
+    const { partition, cluster, logicalClusterName } = VirtualService
+
+    return httpClient.post(
+      `/hccapi/v3/provider/${provider}/tenant/${tenant}/logical-cluster`,
+      {
+        'logical-cluster': {
+          name: logicalClusterName,
+          'physical-cluster-list': [
+            {
+              cluster,
+              partition,
+            },
+          ],
+        },
+      },
+    )
+  }
+
+  createAppService = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { VirtualService } = this.state
+    const { appServiceName, logicalClusterName } = VirtualService
+    return httpClient.post(
+      `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc`,
+      {
+        'app-svc': {
+          name: appServiceName,
+          'app-svc-type': 'adc',
+          'logical-cluster': logicalClusterName,
+        },
+      },
+    )
+  }
+
+  createServers = (serverList: IMember[]) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    const promises: Array<Promise<any>> = serverList.map(server => {
+      const name = server.serverName
+      const host = server['member-ip']
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server`,
+        {
+          server: {
+            name,
+            host,
+          },
+        },
+      )
+    })
+
+    return Promise.all(promises)
+  }
+
+  createServerPorts = (serverList: IMember[]) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    const promises: Array<Promise<any>> = serverList.map(server => {
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server/${
+          server.serverName
+        }/port`,
+        {
+          port: {
+            'port-number': server['member-port'],
+            protocol: server.protocol,
+            'health-check': 'ping',
+            'sampling-enable': [
+              {
+                counters1: 'total_conn',
+              },
+              {
+                counters1: 'total_fwd_bytes',
+              },
+              {
+                counters1: 'total_rev_bytes',
+              },
+            ],
+          },
+        },
+      )
+    })
+
+    return Promise.all(promises)
+  }
+
+  createHealthMonitor = (healthMonitorList: string[]) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    const promises: Array<Promise<any>> = healthMonitorList.map(monitorName => {
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/health/monitor`,
+        {
+          monitor: {
+            name: monitorName,
+          },
+        },
+      )
+    })
+
+    return Promise.all(promises)
+  }
+
+  createPersistSourceIP = (persistTempList: string[]) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    const promises: Array<Promise<any>> = persistTempList.map(templateName => {
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/template/persist/source-ip`,
+        {
+          'source-ip': {
+            name: templateName,
+          },
+        },
+      )
+    })
+    return Promise.all(promises)
+  }
+
+  createServiceGroup = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { Vports, VirtualService } = this.state
+    const promises: Array<Promise<any>> = Vports.map(vport => {
+      const { healthMonitorName, serviceGroupName, protocol, members } = vport
+
+      const memberList = members.map(member => {
+        return {
+          name: member.serverName,
+          port: member['member-port'],
+        }
+      })
+
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${
+          VirtualService.appServiceName
+        }/slb/service-group/`,
+        {
+          'service-group': {
+            name: serviceGroupName,
+            protocol,
+            'health-check': healthMonitorName,
+            'member-list': memberList,
+          },
+        },
+      )
+    })
+
+    return Promise.all(promises)
+  }
+
+  createVirtualServer = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { VirtualService } = this.state
+    const { vip, appServiceName, vipName } = VirtualService
+    const virtualServerPayload: IObject = {
+      'virtual-server': {
+        name: vipName,
+        'ip-address': vip,
+      },
+    }
+
+    return httpClient.post(
+      `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}/slb/virtual-server/`,
+      virtualServerPayload,
+    )
+  }
+
+  createVirtualPort = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { VirtualService, Vports } = this.state
+    const { appServiceName, vipName } = VirtualService
+
+    const promises: Array<Promise<any>> = Vports.map(vport => {
+      const {
+        persistenceTemplateName,
+        portNumber,
+        protocol,
+        serviceGroupName,
+        deployment,
+      } = vport
+      const virtualPortPayload: IObject = {
+        port: {
+          'port-number': portNumber,
+          protocol,
+          'service-group': serviceGroupName,
+          'template-persist-source-ip': persistenceTemplateName,
+          'sampling-enable': [
+            {
+              counters1: 'total_l4_conn',
+            },
+            {
+              counters1: 'total_fwd_bytes',
+            },
+            {
+              counters1: 'total_rev_bytes',
+            },
+          ],
+        },
+      }
+      switch (deployment) {
+        case 'source-nat-auto':
+          virtualPortPayload.port.auto = 1
+          break
+        case 'dsr':
+          virtualPortPayload.port['no-dest-nat'] = 1
+          break
+      }
+
+      return httpClient.post(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}/slb/virtual-server/${vipName}/port`,
+        virtualPortPayload,
+      )
+    })
+    return Promise.all(promises)
+  }
+
   onRequestClose = () => {
     console.log('request close')
   }
   submit = () => {
-    this.formatVport()
+    this.formatVirtualService()
+    console.log('final service', this.state)
+    // 1. create servers, logical-cluster
   }
 
   render() {
@@ -828,13 +1097,22 @@ class SLBConfigurationForm extends A10Container<
                   className="no-border"
                 >
                   <A10Form.Item {...formItemLayout} label="Connection Limit">
-                    <A10Switch onChange={this.onConnectionLimitChange} />
+                    <A10Switch
+                      checked={VirtualService.connectionLimit}
+                      onChange={this.onConnectionLimitChange.bind(
+                        this,
+                        'connectionLimit',
+                      )}
+                    />
                   </A10Form.Item>
 
                   <A10Form.Item {...formItemLayout} label="Thredshold">
                     <A10Input
                       disabled={!VirtualService.connectionLimit}
-                      onChange={this.onConnectionLimitChange}
+                      onChange={this.onConnectionLimitChange.bind(
+                        this,
+                        'connectionLimit',
+                      )}
                     />
                   </A10Form.Item>
 
@@ -842,13 +1120,22 @@ class SLBConfigurationForm extends A10Container<
                     {...formItemLayout}
                     label="Connection Rate Limit"
                   >
-                    <A10Switch onChange={this.onConnectionRateLimitChange} />
+                    <A10Switch
+                      checked={VirtualService.connectionRateLimit}
+                      onChange={this.onConnectionLimitChange.bind(
+                        this,
+                        'connectionRateLimit',
+                      )}
+                    />
                   </A10Form.Item>
 
                   <A10Form.Item {...formItemLayout} label="Thredshold">
                     <A10Input
-                      disable={!VirtualService.connectionRateLimit}
-                      onChange={this.onConnectionRateLimitChange}
+                      disabled={!VirtualService.connectionRateLimit}
+                      onChange={this.onConnectionLimitChange.bind(
+                        this,
+                        'connectionRateLimit',
+                      )}
                     />
                   </A10Form.Item>
                   <A10Form.Item {...formItemLayout} label="Cluster">
