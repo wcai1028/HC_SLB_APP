@@ -15,8 +15,8 @@ import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
-import { IWizardData, IServer } from '../../interface'
-import { generateNameByIP } from 'src/containers/L4SLB/Utilities'
+import { IWizardData } from '../../interface'
+import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 import { httpClient } from 'src/libraries/httpClient'
 import { getItem } from 'src/libraries/storage'
 
@@ -314,42 +314,48 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const timestamp = Date.now()
     const data = { ...this.props.data }
     const ip = data['virtual-server']['ip-address']
-    const port = data['virtual-server'].port[0]['port-number'].toString()
+    const port = data['virtual-server'].port[0]['port-number']
     const protocol = data['virtual-server'].port[0].protocol
     const members: string[] = []
 
-    data['logical-cluster'].name = generateNameByIP(
+    data['logical-cluster'].name = L4SLBUtilities.generateLogicalClusterName(
       ip,
-      'logical-cluster',
-      null,
       timestamp,
     )
-    data['virtual-server'].name = generateNameByIP(ip, 'vip', null, timestamp)
+    data['virtual-server'].name = L4SLBUtilities.generateVirtualServerName(
+      ip,
+      timestamp,
+    )
 
     if (data['service-group']['health-check']) {
-      data['health.monitor'].name = generateNameByIP(ip, 'Hm', port, timestamp)
+      data['health.monitor'].name = L4SLBUtilities.generateHealthMonitorName(
+        ip,
+        port,
+        timestamp,
+      )
     }
 
     if (data['service-group'].persistence) {
-      data.template.persist['source-ip'].name = generateNameByIP(
+      data.template.persist[
+        'source-ip'
+      ].name = L4SLBUtilities.generatePersistSourceIPTemplateName(
         ip,
-        'vip',
-        `persist_template_${port}`,
+        port,
         timestamp,
       )
     }
 
     data.servers = data.servers.map(server => {
-      const name = generateNameByIP(server.host, 'srv', null, timestamp)
+      const name = L4SLBUtilities.generateServerName(server.host, timestamp)
       server.name = name
       members.push(name)
       return server
     })
 
-    data['service-group'].name = generateNameByIP(
+    data['service-group'].name = L4SLBUtilities.generateServiceGroupName(
       ip,
-      'vip',
-      `${port}_${protocol}_sg`,
+      port,
+      protocol,
       timestamp,
     )
 

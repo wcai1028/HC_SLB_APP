@@ -2,7 +2,7 @@ export class ApplicationConfigs {
   APPLICATIONS = [
     {
       name: 'Dashboards',
-      uri: 'dashboard',
+      uri: '/dashboard',
       icon: 'dashboardIcon',
       state: 'disabled',
       subApps: [
@@ -22,7 +22,7 @@ export class ApplicationConfigs {
     },
     {
       name: 'App Service',
-      uri: 'appservice',
+      uri: '/appservice',
       icon: 'serviceIcon',
       state: 'enabled',
       // allowedRoles: ['provider', 'tenant', 'appadmin'],
