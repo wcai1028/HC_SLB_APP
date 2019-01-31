@@ -15,6 +15,7 @@ interface IWizardProps {
   title: string
   steps: IStep[]
   data?: IObject
+  isUpdate?: boolean
 }
 interface IWizardState {
   current: number
@@ -48,11 +49,12 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
   }
 
   initStepsForRendering = () => {
-    const { steps, data, ...restProps } = this.props
+    const { steps, data, isUpdate, ...restProps } = this.props
     const defaultProps: IAbstractStepProps = {
       onPrev: this.prev,
       onNext: this.next,
       data,
+      isUpdate,
       ...restProps,
     }
     const stepsForRendering = steps.map(({ title, content }) => {

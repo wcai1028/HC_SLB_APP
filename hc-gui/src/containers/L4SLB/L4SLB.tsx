@@ -99,24 +99,20 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
           <div>
             <NavBar page={this.state.applicationName} />
             <Switch>
-              <A10Route
-                path="/dashboard"
-                render={() => <Dashboards />}
-                exact={true}
-              />
+              <A10Route path="/dashboard" component={Dashboards} exact={true} />
               <A10Route
                 path="/appservice"
-                render={() => <AppServiceList />}
+                component={AppServiceList}
                 exact={true}
               />
               <A10Route
-                path="/wizard"
-                render={() => <L4SLBWizard />}
+                path="/wizard/:appServiceName?"
+                component={L4SLBWizard}
                 exact={true}
               />
               <A10Route
                 path="/configuration"
-                render={() => <SLBConfig />}
+                component={SLBConfig}
                 exact={true}
               />
             </Switch>

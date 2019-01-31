@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom'
 
 import { _, A10Container } from 'a10-gui-framework'
 
-import { A10Button, A10Badge, A10Table, A10DropdownMenu } from 'a10-gui-widgets'
+import {
+  A10Button,
+  A10Badge,
+  A10Table,
+  A10DropdownMenu,
+  A10Modal,
+} from 'a10-gui-widgets'
 
 import { HealthStatus } from 'src/components/shared'
 import { getItem } from 'src/libraries/storage'
@@ -33,7 +39,7 @@ export default class AppServiceList extends A10Container<
   IAppServiceListProps,
   IAppServiceState
 > {
-  columns = [
+  private columns = [
     {
       title: 'App Service',
       dataIndex: 'name',
@@ -66,22 +72,26 @@ export default class AppServiceList extends A10Container<
         }
 
         return deployed.map((deploy: IPhysicalCluster, index: number) => {
-          return (
-            <div key={index}>
-              <HealthStatus
-                type="ongoing"
-                tooltip="Cluster"
-                text="C"
-                description={deploy.cluster}
-              />
-              <HealthStatus
-                type="ongoing"
-                tooltip="Partition"
-                text="P"
-                description={deploy.partition}
-              />
-            </div>
-          )
+          const { cluster, partition } = deploy
+          if (cluster && partition) {
+            return (
+              <div key={index}>
+                <HealthStatus
+                  type="ongoing"
+                  tooltip="Cluster"
+                  text="C"
+                  description={deploy.cluster}
+                />
+                <HealthStatus
+                  type="ongoing"
+                  tooltip="Partition"
+                  text="P"
+                  description={deploy.partition}
+                />
+              </div>
+            )
+          }
+          return null
         })
       },
     },
@@ -102,7 +112,12 @@ export default class AppServiceList extends A10Container<
             style={{ color: '#757575', marginBottom: '-15px' }}
             menu={[
               <div key="viewDashboard">View Dashboard</div>,
-              <div key="edit">Edit</div>,
+              <div key="edit">
+                <Link to={`/wizard/${record.name}`}>Edit</Link>
+              </div>,
+              <div key="delete" onClick={this.onClickDelete(record.uuid)}>
+                Delete
+              </div>,
             ]}
             trigger="hover"
             placement="bottomRight"
@@ -118,6 +133,20 @@ export default class AppServiceList extends A10Container<
     this.state = {
       data: [],
     }
+  }
+
+  onClickDelete = (uuid: string) => () => {
+    A10Modal.confirm({
+      title: 'Confirmation',
+      content: 'Do you want to delete this Item?',
+      okText: 'OK',
+      cancelText: 'Cancel',
+      onOk: this.onDelete(uuid),
+    })
+  }
+
+  onDelete = (uuid: string) => () => {
+    httpClient.delete(`/hccapi/v3/uuid/${uuid}`).then(this.getData)
   }
 
   getData = async () => {

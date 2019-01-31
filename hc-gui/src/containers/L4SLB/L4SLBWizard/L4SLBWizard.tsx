@@ -1,5 +1,7 @@
 import React from 'react'
-import { A10Container } from 'a10-gui-framework'
+import { RouteComponentProps } from 'react-router'
+
+import { _, A10Container } from 'a10-gui-framework'
 import { Wizard } from 'src/components/shared'
 import {
   VirtualServerForm,
@@ -13,8 +15,9 @@ interface IStep {
   title: string
   content: JSX.Element
 }
-interface IL4SLBWizardProps {}
+interface IL4SLBWizardProps extends RouteComponentProps {}
 interface IL4SLBWizardState {
+  isUpdate: boolean
   current: number
   data: IWizardData
 }
@@ -22,9 +25,14 @@ interface IL4SLBWizardState {
 class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   private steps: IStep[]
 
-  constructor(props: any) {
+  constructor(props: IL4SLBWizardProps) {
     super(props)
+    const {
+      match: { params },
+    } = this.props
+    const { appServiceName } = params as IObject
     this.state = {
+      isUpdate: _.isString(appServiceName),
       current: 0,
       data: {
         'app-svc': {
@@ -87,6 +95,7 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   }
 
   render() {
+    const { isUpdate } = this.state
     const { data } = this.state
     return (
       <div className="l4slb-wizard">

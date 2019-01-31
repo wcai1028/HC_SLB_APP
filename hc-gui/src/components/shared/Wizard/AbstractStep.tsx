@@ -5,6 +5,7 @@ export interface IAbstractStepProps {
   onNext?: () => void
   onChange?: (data: IObject) => void
   data?: {}
+  isUpdate?: boolean
 }
 
 export default abstract class AbstractStep<
@@ -13,6 +14,7 @@ export default abstract class AbstractStep<
     onNext?: () => void
     onChange?: (data: IObject) => void
     data?: {}
+    isUpdate?: false
   },
   S = {}
 > extends A10Component<P, S> {
