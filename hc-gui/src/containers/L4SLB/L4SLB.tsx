@@ -11,8 +11,8 @@ import { A10Row, A10Col } from 'a10-gui-widgets'
 import { ApplicationConfigs } from 'src/constants/ApplicationConfigs'
 import { NavBar } from 'src/components/shared/NavBar'
 import { AppRoot } from 'src/settings/appRoot'
-import { getItem } from 'src/libraries/storage'
-
+import { getItem, setItem } from 'src/libraries/storage'
+import * as queryString from 'query-string'
 import { Dashboards } from 'src/containers/L4SLB/Dashboards'
 import { SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
 import { L4SLBWizard } from 'src/containers/L4SLB/L4SLBWizard'
@@ -45,6 +45,24 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
     props: IControllerProps,
     state: IControllerState,
   ) {
+    if (props.location.search) {
+      const params = queryString.parse(props.location.search)
+      if (params.api_ep) {
+        setItem('BASE_URL', params.api_ep)
+      }
+      if (params.provider) {
+        setItem('PROVIDER', params.provider)
+      }
+      if (params.tenant) {
+        setItem('tenant', params.tenant)
+      }
+      if (params.token) {
+        setItem('ENCODED_SESSION_ID', `Session ${params.token}`)
+      }
+      if (params.user_id) {
+        setItem('USER_ID', params.user_id)
+      }
+    }
     if (props.match) {
       if (props.match.params.applicationName !== state.applicationName) {
         return {
