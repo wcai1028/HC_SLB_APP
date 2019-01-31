@@ -1,10 +1,3 @@
-export type LBMethod =
-  | 'least-connection'
-  | 'round-robin'
-  | 'src-ip-only-hash'
-  | 'service-least-connection'
-  | 'fastest-response'
-
 export type DeploymentType = 'INLINE' | 'SOURCE-NAT' | 'DSR'
 
 export interface IWizardData {
