@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Map, List } from 'immutable'
+import { Link } from 'react-router-dom'
 import {
   _,
   A10Container,
@@ -578,7 +579,6 @@ class SLBConfigurationForm extends A10Container<
 
   onAppIpChange = (e: any) => {
     // need to add ip check funciton here
-    debugger
     const { data } = this.state
     const ipAddress = e.target.value
     let validateStatus = 'success'
@@ -679,7 +679,7 @@ class SLBConfigurationForm extends A10Container<
   }
 
   onRequestClose = () => {
-    console.log('request close')
+    console.log('close')
   }
   submit = () => {
     const { onSubmit } = this.props

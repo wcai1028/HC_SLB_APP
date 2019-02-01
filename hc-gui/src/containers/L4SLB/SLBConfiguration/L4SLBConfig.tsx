@@ -5,17 +5,19 @@ import { IVirtualService, IVport, IMember } from './interface'
 import { SLBConfigurationForm } from './VirtualServer'
 import { httpClient } from 'src/libraries/httpClient'
 import { getItem } from 'src/libraries/storage'
+import { IAppServiceObject, IVirtualServerObject } from '../interface'
 
+export interface IConfigData {
+  VirtualService: IVirtualService
+  Vports: IVport[]
+  clusterList: string[]
+  partitionList: string[]
+  aflexList: string[]
+  timestamp?: number
+}
 export interface IL4SLBConfigProps extends RouteComponentProps {}
 export interface IL4SLBConfigState {
-  data: {
-    VirtualService: IVirtualService
-    Vports: IVport[]
-    clusterList: string[]
-    partitionList: string[]
-    aflexList: string[]
-    timestamp?: number
-  }
+  data: IConfigData
   isUpdate: boolean
 }
 
@@ -26,7 +28,7 @@ class L4SLBConfig extends A10Container<IL4SLBConfigProps, IL4SLBConfigState> {
       match: { params },
     } = this.props
     const { appServiceName } = params as IObject
-    console.log('if edit',appServiceName)
+    console.log('if edit', appServiceName)
     this.state = {
       isUpdate: _.isString(appServiceName),
       data: {
@@ -360,9 +362,68 @@ class L4SLBConfig extends A10Container<IL4SLBConfigProps, IL4SLBConfigState> {
     return Promise.all(promises)
   }
 
+  getAppService = (appServiceName: string) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    return httpClient
+      .get<IAppServiceObject>(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}`,
+      )
+      .then(({ data }) => data)
+  }
+
+  getVirtualServer = (
+    data: IConfigData,
+    appServiceName: string,
+    virtualServerName: string = null,
+  ) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    if (!virtualServerName) {
+      return Promise.resolve()
+    }
+
+    return httpClient
+      .get(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}/slb/virtual-server/${virtualServerName}`,
+      )
+      .then(response => {
+        const { 'virtual-server': virtualServer } = response.data
+        data.VirtualService.vipName = virtualServer.name
+        data.VirtualService.vip = virtualServer['ip-address']
+        data.Vports = _.get(virtualServer, 'port-list').map((port:IVport) => {
+          let deployment = 'inline'
+          if (_.get(port, 'no-dest-nat')) {
+            deployment = 'dsr'
+          } else if (_.get(virtualServer, 'auto')) {
+            deployment = 'source-nat-auto'
+          }
+          const singleVPort:IVport={
+            portNumber: port['port-number'],
+            protocol: port.protocol,
+            deployment,
+            lbMethod: 'round-robin',
+            serviceGroupName: _.get(port, 'service-group', ''),
+            persistence: !!_.get(port, 'template-persist-source-ip', null),
+            healthMonitor: false,
+            members: [{ 'member-ip': '', 'member-port': null }],
+            aflex: '',
+            vPortConnectionLimit: false,
+            vPortConnectionLimitThreshold: null,
+            vPortConnectionRateLimit: false,
+            vPortConnectionRateLimitThreshold: null,
+            vPortIdleTimeout: false,
+            vPortIdleTimeoutValue: null,
+            vPortMaxOpenSession: null,
+          }
+          return singleVPort
+        })
+      })
+  }
+
   render() {
     const { data } = this.state
-    console.log('outter state', this.state)
     return (
       <div>
         <SLBConfigurationForm data={data} onSubmit={this.onSubmit} />
