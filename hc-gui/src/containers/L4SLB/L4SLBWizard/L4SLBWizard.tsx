@@ -18,6 +18,8 @@ import {
   IServiceGroupObject,
   IServiceGroupMember,
 } from '../interface'
+import { A10Button } from 'a10-gui-widgets'
+import { Link } from 'react-router-dom'
 import { getItem } from 'src/libraries/storage'
 import { httpClient } from 'src/libraries/httpClient'
 interface IStep {
@@ -291,10 +293,17 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   }
 
   render() {
-    const { data } = this.state
+    const { data, isUpdate, appServiceName } = this.state
+    let editUrl = '/configuration'
+    if (isUpdate) {
+      editUrl = `${editUrl}/${appServiceName}`
+    }
     return (
       <div className="l4slb-wizard">
         <Wizard title="SLB Wizard" steps={this.steps} data={data} />
+        <A10Button className="pull-right btn-action">
+          <Link to={editUrl}>Skip Wizard to configuration</Link>
+        </A10Button>
       </div>
     )
   }
