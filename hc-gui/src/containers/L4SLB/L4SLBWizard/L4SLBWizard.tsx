@@ -293,17 +293,10 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   }
 
   render() {
-    const { data, isUpdate, appServiceName } = this.state
-    let editUrl = '/configuration'
-    if (isUpdate) {
-      editUrl = `${editUrl}/${appServiceName}`
-    }
+    const { data } = this.state
     return (
       <div className="l4slb-wizard">
         <Wizard title="SLB Wizard" steps={this.steps} data={data} />
-        <A10Button className="pull-right btn-action">
-          <Link to={editUrl}>Skip Wizard to configuration</Link>
-        </A10Button>
       </div>
     )
   }

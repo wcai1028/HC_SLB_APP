@@ -363,6 +363,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
   }
 
   render() {
+    const { isUpdate } = this.props
     const { data } = this.state
     const {
       'virtual-server': virtualServer,
@@ -483,9 +484,16 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          {/* <A10Button className="btn-action">
-            <Link to="/configuration">Skip Wizard to configuration</Link>
-          </A10Button> */}
+          <A10Button className="btn-action">
+            <Link
+              to={L4SLBUtilities.getURLForConfiguration(
+                isUpdate,
+                data['app-svc'].name,
+              )}
+            >
+              Skip Wizard to configuration
+            </Link>
+          </A10Button>
         </div>
       </div>
     )

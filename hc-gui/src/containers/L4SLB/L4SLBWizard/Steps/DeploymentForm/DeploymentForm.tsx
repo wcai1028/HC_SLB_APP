@@ -19,6 +19,7 @@ import { httpClient } from 'src/libraries/httpClient'
 import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import { A10Panel } from 'src/components/shared/A10Panel'
 import { IWizardData, DeploymentType } from '../../interface'
+import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 
 import './styles/index.less'
 
@@ -124,8 +125,8 @@ export default class DeploymentForm extends AbstractStep<
   }
 
   render() {
+    const { data, isUpdate } = this.props
     const { clusterList, partitionList } = this.state
-    const { data } = this.props
     return (
       <React.Fragment>
         <A10Panel
@@ -228,9 +229,16 @@ export default class DeploymentForm extends AbstractStep<
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          {/* <A10Button className="btn-action">
-            <Link to="/configuration">Skip Wizard to configuration</Link>
-          </A10Button> */}
+          <A10Button className="btn-action">
+            <Link
+              to={L4SLBUtilities.getURLForConfiguration(
+                isUpdate,
+                data['app-svc'].name,
+              )}
+            >
+              Skip Wizard to configuration
+            </Link>
+          </A10Button>
         </div>
       </React.Fragment>
     )

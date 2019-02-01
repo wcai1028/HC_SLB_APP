@@ -18,6 +18,7 @@ import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
 import { IWizardData } from '../../interface'
+import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 
 interface IVirtualServerFormProps extends IAbstractStepProps {
   data?: IWizardData
@@ -59,7 +60,7 @@ export default class VirtualServerForm extends AbstractStep<
   }
 
   render() {
-    const { data } = this.props
+    const { data, isUpdate } = this.props
     return (
       <React.Fragment>
         <A10Panel
@@ -112,9 +113,16 @@ export default class VirtualServerForm extends AbstractStep<
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          {/* <A10Button className="btn-action">
-            <Link to="/configuration">Skip Wizard to configuration</Link>
-          </A10Button> */}
+          <A10Button className="btn-action">
+            <Link
+              to={L4SLBUtilities.getURLForConfiguration(
+                isUpdate,
+                data['app-svc'].name,
+              )}
+            >
+              Skip Wizard to configuration
+            </Link>
+          </A10Button>
         </div>
       </React.Fragment>
     )

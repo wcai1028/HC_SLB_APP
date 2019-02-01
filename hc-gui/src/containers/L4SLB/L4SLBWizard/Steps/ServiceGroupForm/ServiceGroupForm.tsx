@@ -18,8 +18,10 @@ import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
+import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 
-import { IWizardData, LBMethod } from '../../interface'
+import { IWizardData } from '../../interface'
+import { LBMethod } from '../../../interface'
 
 import './styles/index.less'
 
@@ -150,7 +152,7 @@ export default class ServiceGroupForm extends AbstractStep<
   }
 
   render() {
-    const { data } = this.props
+    const { data, isUpdate } = this.props
     return (
       <div className="l4slb-wizard--service-group">
         <A10Panel
@@ -212,9 +214,16 @@ export default class ServiceGroupForm extends AbstractStep<
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          {/* <A10Button className="btn-action">
-            <Link to="/configuration">Skip Wizard to configuration</Link>
-          </A10Button> */}
+          <A10Button className="btn-action">
+            <Link
+              to={L4SLBUtilities.getURLForConfiguration(
+                isUpdate,
+                data['app-svc'].name,
+              )}
+            >
+              Skip Wizard to configuration
+            </Link>
+          </A10Button>
         </div>
       </div>
     )
