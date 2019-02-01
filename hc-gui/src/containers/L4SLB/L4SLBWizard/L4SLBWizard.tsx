@@ -10,7 +10,7 @@ import {
   Review,
 } from './Steps'
 import './styles/L4SLBWizard.less'
-import { IWizardData } from './interface'
+import { IWizardData, IServerObject } from './interface'
 import {
   IAppServiceObject,
   IVirtualServerObject,
@@ -18,8 +18,6 @@ import {
   IServiceGroupObject,
   IServiceGroupMember,
 } from '../interface'
-import { A10Button } from 'a10-gui-widgets'
-import { Link } from 'react-router-dom'
 import { getItem } from 'src/libraries/storage'
 import { httpClient } from 'src/libraries/httpClient'
 interface IStep {
@@ -54,16 +52,28 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
         'virtual-server': {
           name: null,
           'ip-address': null,
-          port: [
+          'port-list': [
             {
               'port-number': null,
               protocol: 'tcp',
+              'service-group': null,
+              'template-persist-source-ip': null,
+              'sampling-enable': [
+                {
+                  counters1: 'total_l4_conn',
+                },
+                {
+                  counters1: 'total_fwd_bytes',
+                },
+                {
+                  counters1: 'total_rev_bytes',
+                },
+              ],
             },
           ],
         },
         'service-group': {
           name: null,
-          persistence: false,
           'lb-method': 'least-connection',
           'health-check': false,
         },
@@ -73,7 +83,20 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
             host: null,
             'port-list': [
               {
+                protocol: null,
                 'port-number': null,
+                'health-check': 'ping',
+                'sampling-enable': [
+                  {
+                    counters1: 'total_conn',
+                  },
+                  {
+                    counters1: 'total_fwd_bytes',
+                  },
+                  {
+                    counters1: 'total_rev_bytes',
+                  },
+                ],
               },
             ],
           },
@@ -98,6 +121,9 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           ],
         },
         deployment: 'INLINE',
+        persistence: false,
+        enableHealthCheck: false,
+        notEditableServers: {},
       },
     }
     this.init()
@@ -119,20 +145,33 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
         )
         const logicalClusterName = _.get(appService, 'logical-cluster', null)
 
-        data['app-svc'].name = appService.name
+        data['app-svc'] = _.merge(data['app-svc'], appService)
 
         return Promise.all([
           this.getVirtualServer(data, appServiceName, virtualServerName),
-          this.getPhysicalCluster(data, logicalClusterName),
+          this.getLogicalCluster(data, logicalClusterName),
         ])
       })
-      .then(results => {
-        const serviceGroupName = results[0]
-        return this.getServiceGroup(data, appServiceName, serviceGroupName)
+      .then(() => {
+        const serviceGroupName = _.get(
+          data['virtual-server'],
+          'port-list[0].service-group',
+          null,
+        )
+        const templatePersistSourceIPName = _.get(
+          data['virtual-server'],
+          'port-list[0].template-persist-source-ip',
+          null,
+        )
+        return Promise.all([
+          this.getTemplatePersistSourceIP(data, templatePersistSourceIPName),
+          this.getServiceGroup(data, appServiceName, serviceGroupName),
+        ])
       })
       .then(() => {
-        console.log('done')
-        console.log(data)
+        return this.getServers(data)
+      })
+      .then(() => {
         this.setState({ data })
       })
   }
@@ -165,19 +204,8 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
       )
       .then(response => {
         const { 'virtual-server': virtualServer } = response.data
-        data['virtual-server'].name = virtualServer.name
-        data['virtual-server']['ip-address'] = virtualServer['ip-address']
-        data['virtual-server'].port = [
-          {
-            protocol: _.get(virtualServer, 'port-list[0].protocol', null),
-            'port-number': _.get(
-              virtualServer,
-              'port-list[0].port-number',
-              null,
-            ),
-          },
-        ]
 
+        data['virtual-server'] = _.merge(data['virtual-server'], virtualServer)
         data.template.persist['source-ip'].name = _.get(
           virtualServer,
           'port-list[0].template-persist-source-ip',
@@ -192,14 +220,11 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           data.deployment = 'INLINE'
         }
 
-        data['service-group'].persistence = !!data.template.persist['source-ip']
-          .name
-
-        return _.get(virtualServer, 'port-list[0].service-group', null)
+        data.persistence = !!data.template.persist['source-ip'].name
       })
   }
 
-  getPhysicalCluster = (
+  getLogicalCluster = (
     data: IWizardData,
     logicalClusterName: string = null,
   ) => {
@@ -212,31 +237,15 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
 
     return httpClient
       .get<ILogicalClusterObject>(
-        `/hccapi/v3/provider/${provider}/tenant/${tenant}/logical-cluster/${logicalClusterName}?detail=true`,
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/logical-cluster/${logicalClusterName}`,
       )
       .then(response => {
         const { 'logical-cluster': logicalCluster } = response.data
-        const partition = _.get(
-          logicalCluster,
-          'physical-cluster-list[0].partition',
-          null,
-        )
-        const cluster = _.get(
-          logicalCluster,
-          'physical-cluster-list[0].cluster',
-          null,
-        )
-        data['logical-cluster'] = {
-          name: logicalCluster.name,
-          'physical-cluster-list': [
-            {
-              cluster,
-              partition,
-            },
-          ],
-        }
 
-        return null
+        data['logical-cluster'] = _.merge(
+          data['logical-cluster'],
+          logicalCluster,
+        )
       })
   }
 
@@ -258,9 +267,9 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
       )
       .then(response => {
         const { 'service-group': serviceGroup } = response.data
-        data['health.monitor'].name = serviceGroup['health-check']
-        data['service-group']['health-check'] = !!data['health.monitor'].name
-        data['service-group']['lb-method'] = serviceGroup['lb-method']
+        data['service-group'] = _.merge(data['service-group'], serviceGroup)
+        data['health.monitor'].name = serviceGroup['health-check'] || null
+        data.enableHealthCheck = !!serviceGroup['health-check']
 
         data.servers = (_.get(
           serviceGroup,
@@ -274,13 +283,73 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
           return {
             name: member.name,
             host,
-            'port-list': [
-              {
-                'port-number': member.port,
-              },
-            ],
           }
         })
+      })
+  }
+
+  getServers = (data: IWizardData) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const promises = data.servers
+      .filter(server => !!server.name)
+      .map(server => {
+        return httpClient.get<IServerObject>(
+          `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server/${
+            server.name
+          }`,
+        )
+      })
+
+    return Promise.all(promises).then(results => {
+      data.servers = results.map(result => {
+        const { server } = result.data
+
+        if (Array.isArray(server['port-list'])) {
+          data.notEditableServers[server.host] = { name: server.name }
+        } else {
+          server['port-list'] = [
+            {
+              protocol: null,
+              'port-number': null,
+              'health-check': 'ping',
+              'sampling-enable': [
+                {
+                  counters1: 'total_conn',
+                },
+                {
+                  counters1: 'total_fwd_bytes',
+                },
+                {
+                  counters1: 'total_rev_bytes',
+                },
+              ],
+            },
+          ]
+        }
+
+        return server
+      })
+    })
+  }
+
+  getTemplatePersistSourceIP = (data: IWizardData, name: string) => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+
+    if (!name) {
+      return Promise.resolve()
+    }
+
+    return httpClient
+      .get<IServiceGroupObject>(
+        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/template/persist/source-ip/${name}`,
+      )
+      .then(response => {
+        data.template.persist['source-ip'] = _.merge(
+          data.template.persist['source-ip'],
+          response.data['source-ip'],
+        )
       })
   }
 
@@ -293,10 +362,15 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
   }
 
   render() {
-    const { data } = this.state
+    const { data, isUpdate } = this.state
     return (
       <div className="l4slb-wizard">
-        <Wizard title="SLB Wizard" steps={this.steps} data={data} />
+        <Wizard
+          title="SLB Wizard"
+          steps={this.steps}
+          data={data}
+          isUpdate={isUpdate}
+        />
       </div>
     )
   }

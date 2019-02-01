@@ -1,1 +1,1 @@
-export { L4SLBUtilitis, generateNameByIP, default } from './L4SLBUtilities'
+export { default, default as L4SLBUtilities } from './L4SLBUtilities'

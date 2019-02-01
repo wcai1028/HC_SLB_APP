@@ -20,7 +20,7 @@ import AbstractStep, {
 } from 'src/components/shared/Wizard/AbstractStep'
 import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 
-import { IWizardData } from '../../interface'
+import { IWizardData, IServerPort } from '../../interface'
 import { LBMethod } from '../../../interface'
 
 import './styles/index.less'
@@ -50,13 +50,13 @@ export default class ServiceGroupForm extends AbstractStep<
 
   onChangePersistence = (isChecked: boolean) => {
     const data = { ...this.props.data }
-    data['service-group'].persistence = isChecked
+    data.persistence = isChecked
     this.props.onChange(data)
   }
 
   onChangeHealthMonitor = (isChecked: boolean) => {
     const data = { ...this.props.data }
-    data['service-group']['health-check'] = isChecked
+    data.enableHealthCheck = isChecked
     this.props.onChange(data)
   }
 
@@ -68,9 +68,11 @@ export default class ServiceGroupForm extends AbstractStep<
     this.props.onChange(data)
   }
 
-  onChangeServerPort = (index: number) => (port: number) => {
+  onChangeServerPort = (serverIndex: number, portIndex: number) => (
+    port: number,
+  ) => {
     const data = { ...this.props.data }
-    data.servers[index]['port-list'][0]['port-number'] = port
+    data.servers[serverIndex]['port-list'][portIndex]['port-number'] = port
     this.props.onChange(data)
   }
 
@@ -81,53 +83,77 @@ export default class ServiceGroupForm extends AbstractStep<
       host: null,
       'port-list': [
         {
+          protocol: null,
           'port-number': null,
+          'health-check': 'ping',
+          'sampling-enable': [
+            {
+              counters1: 'total_conn',
+            },
+            {
+              counters1: 'total_fwd_bytes',
+            },
+            {
+              counters1: 'total_rev_bytes',
+            },
+          ],
         },
       ],
     })
     this.props.onChange(data)
   }
 
-  onClickRemoveServer = (index: number) => () => {
+  onClickRemoveServer = (serverIndex: number, portIndex: number) => () => {
     const data = { ...this.props.data }
-    data.servers.splice(index, 1)
+    const server = data.servers[serverIndex]
+
+    if (server['port-list'].length === 1) {
+      data.servers.splice(serverIndex, 1)
+    } else {
+      server['port-list'].splice(portIndex, 1)
+    }
+
     this.props.onChange(data)
   }
 
   renderServers() {
     const { data } = this.props
     const { servers } = data
-    const rows = servers.map((server, index: number) => {
-      return (
-        <div key={index}>
-          <A10Row gutter={16} type="flex" align="top">
-            <A10Col span={12}>
-              <A10Input
-                placeholder="IP address of application server"
-                value={server.host}
-                onChange={this.onChangeServerIPAddress(index)}
-              />
-            </A10Col>
-            <A10Col span={4}>
-              <div style={{ textAlign: 'right' }}>Port</div>
-            </A10Col>
-            <A10Col span={6}>
-              <A10InputNumber
-                value={server['port-list'][0]['port-number']}
-                onChange={this.onChangeServerPort(index)}
-              />
-            </A10Col>
-            <A10Col span={2}>
-              <A10Button
-                size="default"
-                shape="circle"
-                icon="minus"
-                onClick={this.onClickRemoveServer(index)}
-              />
-            </A10Col>
-          </A10Row>
-        </div>
-      )
+    const rows = servers.map((server, serverIndex: number) => {
+      return server['port-list'].map((port: IServerPort, portIndex: number) => {
+        return (
+          <div key={serverIndex}>
+            <A10Row gutter={16} type="flex" align="top">
+              <A10Col span={12}>
+                <A10Input
+                  placeholder="IP address of application server"
+                  value={server.host}
+                  onChange={this.onChangeServerIPAddress(serverIndex)}
+                  disabled={data.notEditableServers[server.host]}
+                />
+              </A10Col>
+              <A10Col span={4}>
+                <div style={{ textAlign: 'right' }}>Port</div>
+              </A10Col>
+              <A10Col span={6}>
+                <A10InputNumber
+                  value={port['port-number']}
+                  onChange={this.onChangeServerPort(serverIndex, portIndex)}
+                  disabled={data.notEditableServers[server.host]}
+                />
+              </A10Col>
+              <A10Col span={2}>
+                <A10Button
+                  size="default"
+                  shape="circle"
+                  icon="minus"
+                  onClick={this.onClickRemoveServer(serverIndex, portIndex)}
+                />
+              </A10Col>
+            </A10Row>
+          </div>
+        )
+      })
     })
 
     return (
@@ -190,13 +216,13 @@ export default class ServiceGroupForm extends AbstractStep<
                 </A10Form.Item>
                 <A10Form.Item label="Persistence" {...this.formItemLayout}>
                   <A10Switch
-                    checked={data['service-group'].persistence}
+                    checked={data.persistence}
                     onChange={this.onChangePersistence}
                   />
                 </A10Form.Item>
                 <A10Form.Item label="Health Monitor" {...this.formItemLayout}>
                   <A10Switch
-                    checked={data['service-group']['health-check']}
+                    checked={data.enableHealthCheck}
                     onChange={this.onChangeHealthMonitor}
                   />
                 </A10Form.Item>

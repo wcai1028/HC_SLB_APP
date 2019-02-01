@@ -49,13 +49,13 @@ export default class VirtualServerForm extends AbstractStep<
 
   onChangeVPort = (port: number) => {
     const data = { ...this.props.data }
-    data['virtual-server'].port[0]['port-number'] = port
+    data['virtual-server']['port-list'][0]['port-number'] = port
     this.props.onChange(data)
   }
 
   onChangeProtocol = (protocol: string) => {
     const data = { ...this.props.data }
-    data['virtual-server'].port[0].protocol = protocol
+    data['virtual-server']['port-list'][0].protocol = protocol
     this.props.onChange(data)
   }
 
@@ -78,6 +78,7 @@ export default class VirtualServerForm extends AbstractStep<
                   <A10Input
                     onChange={this.onChangeAppServiceName}
                     value={data['app-svc'].name}
+                    disabled={isUpdate}
                   />
                 </A10Form.Item>
                 <A10Form.Item label="VIP" {...this.formItemLayout}>
@@ -90,13 +91,15 @@ export default class VirtualServerForm extends AbstractStep<
                 <A10Form.Item label="Virtual Port" {...this.formItemLayout}>
                   <A10InputNumber
                     onChange={this.onChangeVPort}
-                    value={data['virtual-server'].port[0]['port-number']}
+                    value={
+                      data['virtual-server']['port-list'][0]['port-number']
+                    }
                   />
                 </A10Form.Item>
                 <A10Form.Item label="Protocol" {...this.formItemLayout}>
                   <A10Select
                     onChange={this.onChangeProtocol}
-                    value={data['virtual-server'].port[0].protocol}
+                    value={data['virtual-server']['port-list'][0].protocol}
                   >
                     <A10Select.Option value="tcp">TCP</A10Select.Option>
                     <A10Select.Option value="udp">UDP</A10Select.Option>

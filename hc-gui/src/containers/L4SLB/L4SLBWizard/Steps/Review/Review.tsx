@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { _ } from 'a10-gui-framework'
 import {
   A10Button,
   A10Form,
@@ -15,7 +16,7 @@ import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
-import { IWizardData } from '../../interface'
+import { IWizardData, IServer } from '../../interface'
 import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 import { httpClient } from 'src/libraries/httpClient'
 import { getItem } from 'src/libraries/storage'
@@ -34,7 +35,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
   constructor(props: IReviewProps) {
     super(props)
     this.state = {
-      data: props.data,
+      data: _.cloneDeep(props.data),
     }
   }
   onPrev = (event: React.SyntheticEvent) => {
@@ -44,17 +45,75 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
   }
 
   onNext = () => {
-    this.onSubmit()
+    const { isUpdate } = this.props
+    if (isUpdate) {
+      this.clearBeforeSave()
+    } else {
+      this.save()
+    }
   }
 
-  onSubmit = () => {
+  clearBeforeSave = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
+    const { data } = this.state
+    const itemsWillBeRemoved = [
+      {
+        url: `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${
+          data['app-svc'].name
+        }`,
+      },
+    ]
+
+    Object.values(data.notEditableServers).forEach(server => {
+      itemsWillBeRemoved.push({
+        url: `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server/${
+          server.name
+        }`,
+      })
+    })
+
+    if (data['logical-cluster'].name) {
+      itemsWillBeRemoved.push({
+        url: `/hccapi/v3/uuid/${data['logical-cluster'].uuid}`,
+      })
+    }
+
+    if (_.get(data, 'template.persist.source-ip.uuid')) {
+      itemsWillBeRemoved.push({
+        url: `/hccapi/v3/uuid/${data.template.persist['source-ip'].uuid}`,
+      })
+    }
+
+    if (_.get(data, 'health.monitor.uuid')) {
+      itemsWillBeRemoved.push({
+        url: `/hccapi/v3/uuid/${data['health.monitor'].uuid}`,
+      })
+    }
+
+    this.clearConfiguration(itemsWillBeRemoved).then(this.save)
+  }
+
+  clearConfiguration = (
+    itemsWillBeRemoved: Array<{
+      url: string
+    }>,
+  ) => {
+    return Promise.all(
+      itemsWillBeRemoved.map(item => {
+        return httpClient.delete(item.url)
+      }),
+    )
+  }
+
+  save = () => {
     const { data } = this.props
     const promises: Array<Promise<any>> = [
       this.createLogicalCluster(),
       this.createServers(),
     ]
-    const { 'health-check': healthCheck, persistence } = data['service-group']
-    if (healthCheck) {
+    const { persistence, enableHealthCheck } = data
+    if (enableHealthCheck) {
       promises.push(this.createHealthMonitor())
     }
 
@@ -63,11 +122,9 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     }
 
     Promise.all([promises])
-      .then(this.createServerPorts)
       .then(this.createAppService)
       .then(this.createServiceGroup)
       .then(this.createVirtualServer)
-      .then(this.createVirtualPort)
       .then(() => {
         A10Notification.open({
           message: 'Success!',
@@ -83,23 +140,11 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const provider = getItem('PROVIDER')
     const tenant = getItem('tenant')
     const { data } = this.state
-    const { name } = data['logical-cluster']
-    const { partition, cluster } = data['logical-cluster'][
-      'physical-cluster-list'
-    ][0]
 
     return httpClient.post(
       `/hccapi/v3/provider/${provider}/tenant/${tenant}/logical-cluster`,
       {
-        'logical-cluster': {
-          name,
-          'physical-cluster-list': [
-            {
-              cluster,
-              partition,
-            },
-          ],
-        },
+        'logical-cluster': data['logical-cluster'],
       },
     )
   }
@@ -128,65 +173,28 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const tenant = getItem('tenant')
     const { data } = this.state
     const appServiceName = data['app-svc'].name
-    const { name, 'ip-address': ipAddress } = data['virtual-server']
-    const virtualServerPayload: IObject = {
-      'virtual-server': {
-        name,
-        'ip-address': ipAddress,
-      },
-    }
+    const virtualServer = _.cloneDeep(data['virtual-server'])
+    const { deployment } = data
+
+    virtualServer['port-list'].forEach(port => {
+      port['service-group'] = data['service-group'].name
+      port['template-persist-source-ip'] =
+        data.template.persist['source-ip'].name
+      switch (deployment) {
+        case 'SOURCE-NAT':
+          port.auto = true
+          break
+        case 'DSR':
+          port['no-dest-nat'] = true
+          break
+      }
+    })
 
     return httpClient.post(
       `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}/slb/virtual-server/`,
-      virtualServerPayload,
-    )
-  }
-
-  createVirtualPort = () => {
-    const provider = getItem('PROVIDER')
-    const tenant = getItem('tenant')
-    const { data } = this.state
-    const appServiceName = data['app-svc'].name
-    const serviceGroupName = data['service-group'].name
-    const persistSourceIPName = data.template.persist['source-ip'].name
-    const { name } = data['virtual-server']
-    const { 'port-number': portNumber, protocol } = data[
-      'virtual-server'
-    ].port[0]
-    const { deployment } = data
-
-    const virtualPortPayload: IObject = {
-      port: {
-        'port-number': portNumber,
-        protocol,
-        'service-group': serviceGroupName,
-        'template-persist-source-ip': persistSourceIPName,
-        'sampling-enable': [
-          {
-            counters1: 'total_l4_conn',
-          },
-          {
-            counters1: 'total_fwd_bytes',
-          },
-          {
-            counters1: 'total_rev_bytes',
-          },
-        ],
+      {
+        'virtual-server': virtualServer,
       },
-    }
-
-    switch (deployment) {
-      case 'SOURCE-NAT':
-        virtualPortPayload.port.auto = 1
-        break
-      case 'DSR':
-        virtualPortPayload.port['no-dest-nat'] = 1
-        break
-    }
-
-    return httpClient.post(
-      `/hccapi/v3/provider/${provider}/tenant/${tenant}/app-svc/${appServiceName}/slb/virtual-server/${name}/port`,
-      virtualPortPayload,
     )
   }
 
@@ -197,7 +205,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const appServiceName = data['app-svc'].name
     const healthMonitorName = data['health.monitor'].name
     const { servers } = data
-    const { protocol } = data['virtual-server'].port[0]
+    const { protocol } = data['virtual-server']['port-list'][0]
     const { name } = data['service-group']
     const memberList = servers.map(server => {
       return {
@@ -227,50 +235,10 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const { servers } = data
 
     const promises: Array<Promise<any>> = servers.map(server => {
-      const { name, host } = server
       return httpClient.post(
         `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server`,
         {
-          server: {
-            name,
-            host,
-          },
-        },
-      )
-    })
-
-    return Promise.all(promises)
-  }
-
-  createServerPorts = () => {
-    const provider = getItem('PROVIDER')
-    const tenant = getItem('tenant')
-
-    const { data } = this.state
-    const { protocol } = data['virtual-server'].port[0]
-    const { servers } = data
-    const promises: Array<Promise<any>> = servers.map(server => {
-      const { name, 'port-list': portList } = server
-
-      return httpClient.post(
-        `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/server/${name}/port`,
-        {
-          port: {
-            'port-number': portList[0]['port-number'],
-            protocol,
-            'health-check': 'ping',
-            'sampling-enable': [
-              {
-                counters1: 'total_conn',
-              },
-              {
-                counters1: 'total_fwd_bytes',
-              },
-              {
-                counters1: 'total_rev_bytes',
-              },
-            ],
-          },
+          server,
         },
       )
     })
@@ -282,14 +250,12 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const provider = getItem('PROVIDER')
     const tenant = getItem('tenant')
     const { data } = this.state
-    const { name } = data['health.monitor']
+    const monitor = data['health.monitor']
 
     return httpClient.post(
       `/hccapi/v3/provider/${provider}/tenant/${tenant}/health/monitor`,
       {
-        monitor: {
-          name,
-        },
+        monitor,
       },
     )
   }
@@ -298,7 +264,19 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const provider = getItem('PROVIDER')
     const tenant = getItem('tenant')
     const { data } = this.state
-    const { name } = data.template.persist['source-ip']
+    const sourceIP = data.template.persist['source-ip']
+
+    return httpClient.post(
+      `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/template/persist/source-ip`,
+      {
+        'source-ip': sourceIP,
+      },
+    )
+  }
+
+  getServers = () => {
+    const provider = getItem('PROVIDER')
+    const tenant = getItem('tenant')
 
     return httpClient.post(
       `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/template/persist/source-ip`,
@@ -312,10 +290,11 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
 
   componentDidMount() {
     const timestamp = Date.now()
-    const data = { ...this.props.data }
+    const { data } = this.state
+    const { enableHealthCheck, persistence } = data
     const ip = data['virtual-server']['ip-address']
-    const port = data['virtual-server'].port[0]['port-number']
-    const protocol = data['virtual-server'].port[0].protocol
+    const port = data['virtual-server']['port-list'][0]['port-number']
+    const protocol = data['virtual-server']['port-list'][0].protocol
     const members: string[] = []
 
     data['logical-cluster'].name = L4SLBUtilities.generateLogicalClusterName(
@@ -327,7 +306,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
       timestamp,
     )
 
-    if (data['service-group']['health-check']) {
+    if (enableHealthCheck) {
       data['health.monitor'].name = L4SLBUtilities.generateHealthMonitorName(
         ip,
         port,
@@ -335,7 +314,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
       )
     }
 
-    if (data['service-group'].persistence) {
+    if (persistence) {
       data.template.persist[
         'source-ip'
       ].name = L4SLBUtilities.generatePersistSourceIPTemplateName(
@@ -344,6 +323,8 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
         timestamp,
       )
     }
+
+    console.log('Review componentDidMount', data)
 
     data.servers = data.servers.map(server => {
       const name = L4SLBUtilities.generateServerName(server.host, timestamp)
@@ -370,6 +351,8 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
       'service-group': serviceGroup,
       servers,
       'logical-cluster': { 'physical-cluster-list': clusterList },
+      persistence,
+      enableHealthCheck,
     } = data
     const { partition } = clusterList[0]
 
@@ -428,14 +411,14 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
                 <A10Form.Item label="Virtual Port" {...this.formItemLayout}>
                   <span>
                     {`${
-                      virtualServer.port[0]['port-number']
-                        ? virtualServer.port[0]['port-number']
+                      virtualServer['port-list'][0]['port-number']
+                        ? virtualServer['port-list'][0]['port-number']
                         : 'No virtual port was added'
                     }`}
                   </span>
                 </A10Form.Item>
                 <A10Form.Item label="Protocol" {...this.formItemLayout}>
-                  <span>{virtualServer.port[0].protocol}</span>
+                  <span>{virtualServer['port-list'][0].protocol}</span>
                 </A10Form.Item>
               </A10Form>
             </A10Col>
@@ -453,21 +436,15 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
                   <span>{serviceGroup['lb-method']}</span>
                 </A10Form.Item>
                 <A10Form.Item label="Persistence" {...this.formItemLayout}>
-                  <span
-                    className={`${
-                      serviceGroup.persistence ? 'enable' : 'disable'
-                    }`}
-                  >
-                    {serviceGroup.persistence ? 'On' : 'Off'}
+                  <span className={`${persistence ? 'enable' : 'disable'}`}>
+                    {persistence ? 'On' : 'Off'}
                   </span>
                 </A10Form.Item>
                 <A10Form.Item label="Health Monitor" {...this.formItemLayout}>
                   <span
-                    className={`${
-                      serviceGroup['health-check'] ? 'enable' : 'disable'
-                    }`}
+                    className={`${enableHealthCheck ? 'enable' : 'disable'}`}
                   >
-                    {serviceGroup['health-check'] ? 'On' : 'Off'}
+                    {enableHealthCheck ? 'On' : 'Off'}
                   </span>
                 </A10Form.Item>
                 <A10Form.Item label="Members" {...this.formItemLayout}>

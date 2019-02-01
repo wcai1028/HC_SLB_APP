@@ -19,7 +19,6 @@ interface IWizardProps {
 }
 interface IWizardState {
   current: number
-  stepsForRendering: IStep[]
 }
 
 interface IDotOptions {
@@ -34,7 +33,6 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
     super(props)
     this.state = {
       current: 0,
-      stepsForRendering: this.initStepsForRendering(),
     }
   }
 
@@ -46,25 +44,6 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
   next = () => {
     const current = this.state.current + 1
     this.setState({ current })
-  }
-
-  initStepsForRendering = () => {
-    const { steps, data, isUpdate, ...restProps } = this.props
-    const defaultProps: IAbstractStepProps = {
-      onPrev: this.prev,
-      onNext: this.next,
-      data,
-      isUpdate,
-      ...restProps,
-    }
-    const stepsForRendering = steps.map(({ title, content }) => {
-      return {
-        title,
-        content: React.cloneElement(content, defaultProps),
-      }
-    })
-
-    return stepsForRendering
   }
 
   renderProgressDot = (iconDot: JSX.Element, dotOptions: IDotOptions) => {
@@ -82,17 +61,11 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
     )
   }
 
-  componentDidUpdate(prevProps: IWizardProps, prevState: IWizardState) {
-    const isDataChanged = prevProps.data !== this.props.data
-
-    if (isDataChanged) {
-      this.setState({ stepsForRendering: this.initStepsForRendering() })
-    }
-  }
-
   render() {
-    const { title } = this.props
-    const { stepsForRendering, current } = this.state
+    const { title, steps, data, isUpdate, ...restProps } = this.props
+    const { current } = this.state
+    const Content = steps[current].content.type
+    const contentProps = steps[current].content.props
     const { Step } = A10Steps
     return (
       <div className="app-wizard">
@@ -102,11 +75,18 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
           labelPlacement="vertical"
           progressDot={this.renderProgressDot}
         >
-          {stepsForRendering.map(step => (
+          {steps.map(step => (
             <Step key={step.title} title={step.title} />
           ))}
         </A10Steps>
-        <div>{stepsForRendering[current].content}</div>
+        <Content
+          data={data}
+          isUpdate={isUpdate}
+          onPrev={this.prev}
+          onNext={this.next}
+          {...restProps}
+          {...contentProps}
+        />
       </div>
     )
   }

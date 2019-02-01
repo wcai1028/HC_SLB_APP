@@ -195,16 +195,18 @@ export default class AppServiceList extends A10Container<
 
     const numberOfServers: { [key: string]: number } = {}
     await Promise.all(promises).then((results: IVirtualPortList[]) => {
-      results.forEach(({ 'port-list': portList }) => {
-        portList.forEach(port => {
-          const appServiceName = port['app-svc']
-          if (_.isUndefined(numberOfServers[appServiceName])) {
-            numberOfServers[appServiceName] = 0
-          }
-          numberOfServers[appServiceName] =
-            numberOfServers[appServiceName] +
-            _.get(port, 'service-group.member-list', []).length
-        })
+      results.forEach(vport => {
+        if (Array.isArray(vport['port-list'])) {
+          vport['port-list'].forEach(port => {
+            const appServiceName = port['app-svc']
+            if (_.isUndefined(numberOfServers[appServiceName])) {
+              numberOfServers[appServiceName] = 0
+            }
+            numberOfServers[appServiceName] =
+              numberOfServers[appServiceName] +
+              _.get(port, 'service-group.member-list', []).length
+          })
+        }
       })
     })
 
