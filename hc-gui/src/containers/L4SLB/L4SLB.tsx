@@ -14,7 +14,7 @@ import { AppRoot } from 'src/settings/appRoot'
 import { getItem, setItem } from 'src/libraries/storage'
 import * as queryString from 'query-string'
 import { Dashboards } from 'src/containers/L4SLB/Dashboards'
-import { SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
+import { L4SLBConfig } from 'src/containers/L4SLB/SLBConfiguration'
 import { L4SLBWizard } from 'src/containers/L4SLB/L4SLBWizard'
 import { AppServiceList } from 'src/containers/L4SLB/AppServiceList'
 // End importing applications
@@ -111,8 +111,8 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
                 exact={true}
               />
               <A10Route
-                path="/configuration"
-                component={SLBConfig}
+                path="/configuration/:appServiceName?"
+                component={L4SLBConfig}
                 exact={true}
               />
             </Switch>

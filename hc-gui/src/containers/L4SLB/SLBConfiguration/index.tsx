@@ -1,1 +1,1 @@
-export {default,default as SLBConfig} from './SLBConfiguration'
+export {default,default as L4SLBConfig} from './L4SLBConfig'

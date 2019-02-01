@@ -483,9 +483,9 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
           <A10Button className="btn-next" type="primary" onClick={this.onNext}>
             Next
           </A10Button>
-          <A10Button className="btn-action">
+          {/* <A10Button className="btn-action">
             <Link to="/configuration">Skip Wizard to configuration</Link>
-          </A10Button>
+          </A10Button> */}
         </div>
       </div>
     )
