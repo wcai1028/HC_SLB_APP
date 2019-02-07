@@ -1,0 +1,1821 @@
+{
+    "dashboards" : [ 
+
+        { 
+    
+            "name":"L4SLB",
+    
+            "gridLayout":"Dashbaord",
+    
+            "key":1,
+    
+            "selectedInfoGraphic":"all",
+    
+            "drillDownName":"",
+    
+            "drillDownID":null,
+            "context" : "appservices",
+            "rows":[ 
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "vizAnnotaion":"AppSelector",
+    
+                                    "vizType":"dropDown",
+    
+                                    "elements":[
+    
+    
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":"1.8"
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"App Servers",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"",
+    
+                                        "description":"App Services",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"PeakAppLatency",
+    
+                                                "formula":"peakAppLatency",
+    
+                                                "units":"",
+    
+                                                "series":"PeakAppLatency"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"TotalAppLatency",
+    
+                                                "formula":"totalAppLatency",
+    
+                                                "units":"",
+    
+                                                "series":"TotalAppLatency",
+    
+                                                "data":[
+    
+                                                    2678
+    
+                                                ]
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "threshold":"",
+    
+                                        "prefix":"UP",
+    
+                                        "divider":"/",
+    
+                                        "inverse":false,
+    
+                                        "dimension":"1,1"
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakAppLatency",
+    
+                                                "totalAppLatency"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Servers",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"",
+    
+                                        "description":"Servers",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"PeakAppLatency",
+    
+                                                "formula":"peakAppLatency",
+    
+                                                "units":"",
+    
+                                                "series":"PeakAppLatency",
+    
+                                                "data":[
+    
+                                                    2648
+    
+                                                ]
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"TotalAppLatency",
+    
+                                                "formula":"totalAppLatency",
+    
+                                                "units":"",
+    
+                                                "series":"TotalAppLatency"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "threshold":"",
+    
+                                        "prefix":"UP",
+    
+                                        "divider":"/",
+    
+                                        "inverse":false,
+    
+                                        "dimension":"1,1"
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakAppLatency",
+    
+                                                "totalAppLatency"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Throughput",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID52",
+    
+                                        "description":"Throughput",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Throughput",
+    
+                                                "formula":"totalBandwidth / 600",
+    
+                                                "units":"bps",
+    
+                                                "series":"Throughput"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalBandwidth"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Connection / Sec",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID25",
+    
+                                        "description":"Connections per seconds",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"connections",
+    
+                                                "formula":"peakRequestSize / 600",
+    
+                                                "units":"",
+    
+                                                "series":"connections"
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakRequestSize"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Current Connections",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID86",
+    
+                                        "description":"Curr",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Current Connections",
+    
+                                                "formula":"numOfapplicationId",
+    
+                                                "units":"",
+    
+                                                "series":"Current Connections"
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "numOfapplicationId"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Errors",
+    
+                                        "annotation":"topindicators",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID34",
+    
+                                        "description":"",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Errors",
+    
+                                                "formula":"numOfRecords / 50",
+    
+                                                "units":"",
+    
+                                                "series":"Errors"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "number"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "numOfRecords"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":1.7
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":".40",
+    
+                    "numofCols":1,
+    
+                    "key":1,
+    
+                    "modifyHeight":false,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":false,
+    
+                    "dragabble":false
+    
+                },
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "vizAnnotaion":"TimeLine",
+    
+                                    "vizType":"slider",
+    
+                                    "elements":[
+    
+    
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":12
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":".1",
+    
+                    "numofCols":0,
+    
+                    "key":2,
+    
+                    "modifyHeight":false,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":false,
+    
+                    "dragabble":false
+    
+                },
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"CPU & MEMORY",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID69",
+    
+                                        "description":"CPU & MEMORY",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"peakInLatency/600",
+    
+                                                "units":"",
+    
+                                                "series":"Data CPU"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"peakOutLatency/600",
+    
+                                                "units":"",
+    
+                                                "series":"Control CPU"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"totalInLatency/600",
+    
+                                                "units":"",
+    
+                                                "series":"Total Memory"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"totalOutLatency/600",
+    
+                                                "units":"",
+    
+                                                "series":"SSL Memory"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "multi"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakInLatency",
+    
+                                                "peakOutLatency",
+    
+                                                "totalInLatency",
+    
+                                                "totalOutLatency"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":8
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Error Types",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID63",
+    
+                                        "description":"Errors",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Dropped",
+    
+                                                "formula":"totalInLatency / 600",
+    
+                                                "units":"",
+    
+                                                "series":"Dropped"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"Client Conn Failed",
+    
+                                                "formula":"totalOutLatency / 600",
+    
+                                                "units":"",
+    
+                                                "series":"Client Conn Failed"
+                                            },
+    
+                                            { 
+    
+                                                "name":"Server Conn Failed",
+    
+                                                "formula":"peakInLatency / 600",
+    
+                                                "units":"",
+    
+                                                "series":"Server Conn Failed"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"SNAT Failed",
+    
+                                                "formula":"peakOutLatency / 600",
+    
+                                                "units":"",
+    
+                                                "series":"SNAT Failed"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"L4 Server Error",
+    
+                                                "formula":"totalAppLatency / 600",
+    
+                                                "units":"",
+    
+                                                "series":"L4 Server Error"
+    
+                                            },
+    
+                                            { 
+    
+                                                "name":"Anamolies",
+    
+                                                "formula":"totalRequestEndTime / 600",
+    
+                                                "units":"",
+    
+                                                "series":"Anamolies"
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"nonHistograms",
+    
+                                        "chartType":[
+    
+                                            "donut"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakInLatency",
+    
+                                                "peakOutLatency",
+    
+                                                "totalInLatency",
+    
+                                                "totalOutLatency",
+    
+                                                "peakAppLatency",
+    
+                                                "totalRequestEndTime"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":4
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":1,
+    
+                    "numofCols":0,
+    
+                    "key":3,
+    
+                    "modifyHeight":true,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":true,
+    
+                    "dragabble":true
+    
+                },
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Avg Throughput",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID48",
+    
+                                        "description":"Throughput",
+    
+                                        "xAxis":"Timeline",
+    
+                                        "yAxis":"Throughput",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Throughput",
+    
+                                                "formula":"totalBandwidth / 600",
+    
+                                                "units":"bps",
+    
+                                                "series":"Throughput",
+    
+                                                "color":"#FA6174",
+    
+                                                "id":"Throughput",
+    
+                                                "visible":true,
+    
+                                                "_symbolIndex":0
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalBandwidth"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Connection Rate",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID6",
+    
+                                        "description":"Connection Rate",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"Connection Rate",
+    
+                                                "formula":"totalAppServerConnEstablishTime / 600",
+    
+                                                "units":"",
+    
+                                                "series":"Connection Rate",
+    
+                                              
+                                                "color":"#FA6174",
+    
+                                                "id":"Connection Rate",
+    
+                                                "visible":true,
+    
+                                                "_symbolIndex":0
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalAppServerConnEstablishTime"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":1,
+    
+                    "numofCols":0,
+    
+                    "key":4,
+    
+                    "modifyHeight":true,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":true,
+    
+                    "dragabble":true
+    
+                },
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Servers AVG Throughput",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID64",
+    
+                                        "description":"Servers AVG Throughput",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"totalBandwidth/600",
+    
+                                                "units":"",
+    
+                                                "series":"Servers AVG Throughput"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalBandwidth"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":"appServerIP"
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Server Connection Rate",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID62",
+    
+                                        "description":"Server Connection Rate",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"peakAppServerConnEstablishTime/600",
+    
+                                                "units":"",
+    
+                                                "series":"Server Conn Rate"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "peakAppServerConnEstablishTime"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":"appServerIP"
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":"1",
+    
+                    "numofCols":0,
+    
+                    "key":5,
+    
+                    "modifyHeight":true,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":true,
+    
+                    "dragabble":true
+    
+                },
+    
+                { 
+    
+                    "name":"",
+    
+                    "cols":[ 
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Total Current Connections",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID64",
+    
+                                        "description":"Total Current Connections",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"totalRequestEndTime/600",
+    
+                                                "units":"",
+    
+                                                "series":"Total Current Connections"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalRequestEndTime"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":""
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        },
+    
+                        { 
+    
+                            "vizs":[ 
+    
+                                { 
+    
+                                    "displayProperties":{
+    
+                                        "name":"Server Total Current Connections",
+    
+                                        "annotation":"mainchart",
+    
+                                        "drillDown":false,
+    
+                                        "drillDownID":"dummmyDrillDownID62",
+    
+                                        "description":"Server Total Current Connections",
+    
+                                        "xAxis":"",
+    
+                                        "yAxis":"",
+    
+                                        "labels":true,
+    
+                                        "seriesName":"",
+    
+                                        "seriesArr":[
+    
+                                            { 
+    
+                                                "name":"",
+    
+                                                "formula":"totalRequestEndTime/600",
+    
+                                                "units":"",
+    
+                                                "series":"Server Conn Rate"
+    
+                                            }
+    
+                                        ],
+    
+                                        "seriesFormula":"",
+    
+                                        "visualizationType":"histograms",
+    
+                                        "chartType":[
+    
+                                            "area"
+    
+                                        ],
+    
+                                        "dimension":"1,1",
+    
+                                        "threshold":"",
+    
+                                        "prefix":"",
+    
+                                        "divider":"",
+    
+                                        "inverse":false
+    
+                                    },
+    
+                                    "queries":[
+    
+                                        { 
+    
+                                            "dataSource":"RPT",
+    
+                                            "endPoint":"thunder-adc",
+    
+                                            "metrics":"pr",
+    
+                                            "filters":[
+    
+                                                "applicationId"
+    
+                                            ],
+    
+                                            "fields":[
+    
+                                                "totalRequestEndTime"
+    
+                                            ],
+    
+                                            "aggregation":"sum",
+    
+                                            "groupBy":"appServerIP"
+    
+                                        }
+    
+                                    ]
+    
+                                }
+    
+                            ],
+    
+                            "width":6
+    
+                        }
+    
+                    ],
+    
+                    "rowHeight":"1",
+    
+                    "numofCols":0,
+    
+                    "key":5,
+    
+                    "modifyHeight":true,
+    
+                    "infographics":"all",
+    
+                    "modifyInfoGraphics":true,
+    
+                    "dragabble":true
+    
+                }
+    
+            ],
+    
+            "logs":[ 
+    
+    
+    
+            ],
+    
+            "editable":false
+    
+        }
+    
+    ]
+    
+    
+    
+}

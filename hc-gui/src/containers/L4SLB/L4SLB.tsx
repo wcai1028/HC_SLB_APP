@@ -93,6 +93,7 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
   }
 
   render() {
+    console.log(this.state.applicationName)
     return (
       <A10Row>
         <A10Col span={24}>

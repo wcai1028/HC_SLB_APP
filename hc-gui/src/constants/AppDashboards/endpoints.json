@@ -220,8 +220,8 @@
             "line",
             "column",
             "area",
-            "stackedArea",
-            "stackedColumn"
+            "areaspline",
+            "multi"
         ],
         "nonHistograms" : [
             "line",

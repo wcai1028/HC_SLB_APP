@@ -17,15 +17,16 @@ import { DashboardService } from 'src/services/DashboardService/DashboardService
 import { IDefaultMethods } from 'src/containers/L4SLB'
 import * as config from 'src/constants/AppDashboards/AppDashboards.json'
 import {Row} from 'src/components/shared/Row'
+import {CollapsePanel} from 'src/components/shared/CollapsePanel'
 import parameters from 'parameters'
 //import { window } from 'd3';
 
 export interface IDashboardProps extends IA10ContainerDefaultProps {
   defaultMethods: IDefaultMethods
   dashboardIndex : number
-  appService : any
-  appServices : any
-  onChangeOfAppService : any
+  selectedContext : any
+  contextArray : any
+  onChangeOfContext : any
   onUpdate : any
   dashboard : any
   vizCount : number
@@ -86,6 +87,15 @@ class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
 
   defaultView (){
     this.props.defaultView()
+  }
+
+  addLogs(){
+    let stateDashboard : any= {...this.state.dashboard}
+    stateDashboard.showLogs = true
+    let StoredDashBoards = JSON.parse(window.sessionStorage.getItem('DASHBOARDS'))
+    StoredDashBoards[this.state.dashboardIndex] = stateDashboard
+    window.sessionStorage.setItem('DASHBOARDS',JSON.stringify(StoredDashBoards))
+    this.props.onUpdate()
   }
 
 
@@ -193,6 +203,13 @@ class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
                 </A10Button>
                 : null
               }
+              { !(this.state.dashboard.showLogs)? 
+                <A10Button className="action-button pull-right" onClick ={() => this.addLogs()}>
+                <A10Icon type="plus" className="action-icon" />
+                Add Logs
+                </A10Button>
+                : null
+              }
               
             </div>
           
@@ -207,9 +224,9 @@ class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
               // console.log('calling Row', index)
               return (<Row 
                         row={row}
-                        appServices={this.props.appServices}
-                        appService={this.props.appService}
-                        onChangeOfAppService= {this.props.onChangeOfAppService}
+                        contextArray={this.props.contextArray}
+                        selectedContext={this.props.selectedContext}
+                        onChangeOfContext= {this.props.onChangeOfContext}
                         dashboardIndex= {this.state.dashboardIndex}
                         rowIndex={index}
                         dashboard={this.state.dashboard}
@@ -218,6 +235,7 @@ class Dashboard extends A10Container<IDashboardProps, IDashboardState> {
                         setSchedule={this.props.setSchedule}
                         key={index}
                         updates={this.state.updates}
+                        updateTimeRange  = {this.props.updateTimeRange}
                      />)
             }
           })

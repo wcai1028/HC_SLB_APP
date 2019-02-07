@@ -3,7 +3,7 @@ import { A10Component } from 'a10-gui-framework'
 import { A10Collapse } from 'a10-gui-widgets'
 import { LoadbalancerChart } from '../LoadbalancerChart'
 import { RoundNumber } from 'src/components/shared/RoundNumber'
-import 'src/styles/base.scss'
+import 'src/styles/base.css'
 
 export interface ILoadbalancerChartsProps {
   chartsInput: any

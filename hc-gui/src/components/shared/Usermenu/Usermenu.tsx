@@ -3,7 +3,7 @@ import { A10Component } from 'a10-gui-framework'
 import { A10Row, A10Col, A10Icon, A10Avatar, A10Message } from 'a10-gui-widgets'
 
 import { LoggedInUser } from 'src/libraries/loggedInUser'
-import { FormatSlidingPage } from 'src/components/ADC/FormatSlidingPage'
+import { FormatSlidingPage } from 'src/components/shared/FormatSlidingPage'
 import { MyProfile } from 'src/components/shared/MyProfile'
 import { getItem } from 'src/libraries/storage'
 import './styles/Usermenu.scss'

@@ -19,21 +19,24 @@ import * as config from 'src/constants/AppRows/AppRows.json'
 import {Col} from 'src/components/shared/Col'
 import parameters from 'parameters'
 import { InfoGraphics } from 'src/components/shared/InfoGraphics'
+import {DashboardService} from 'src/services/DashboardService'
 //import { window } from 'd3';
+const styles = require('./styles/row.scss')
 
 export interface IRowProps extends IA10ContainerDefaultProps {
   defaultMethods: IDefaultMethods
   rowIndex : number
   dashboardIndex : number
-  appService : any
-  appServices : any
-  onChangeOfAppService : any
+  selectedContext : any
+  contextArray : any
+  onChangeOfContext : any
   onUpdate : any
   dashboard : any
   setSchedule : any
   updates : any
   row : any
   updateDrillDown: any
+  updateTimeRange  : any
 }
 export interface IRowState {
   row: any,
@@ -46,6 +49,9 @@ export interface IRowState {
 class Row extends A10Container<IRowProps, IRowState> {
   
   pageLength = 5
+  dragEl:any
+  nextEl:any
+  myRef: any
 
   state = {
     row :  this.props.dashboard['rows'][this.props.rowIndex],
@@ -56,8 +62,9 @@ class Row extends A10Container<IRowProps, IRowState> {
   }
   constructor(props: any) {
     super(props)
+    this.myRef = React.createRef()
   }
-
+  DashboardService = new DashboardService()
   receiveUpdate = () => {
     // this.dataLoaded = false
     // this.setState({
@@ -109,14 +116,29 @@ class Row extends A10Container<IRowProps, IRowState> {
   //   this.setState({ visible  : visible});
   // }
 
+  updateColOrder(){
+ 
+    const property = 'key'
+    const columns = this.myRef.current.children
+    const sortedArrayIndexs: any[] = []
+    console.log('updateColOrder !!!!!!!!!', columns)
+    for (const column of columns) {
+      console.log(column.dataset[property])
+      sortedArrayIndexs.push(column.dataset[property])
+    }
+    console.log('sortedArrayIndex', sortedArrayIndexs)
+  }
+
   addNewCol (){
 
     let StoredDashBoards = JSON.parse(window.sessionStorage.getItem('DASHBOARDS'))
-
+    const length =  StoredDashBoards[this.props.dashboardIndex]['rows'][this.state.rowIndex]['cols'].length
+    const keyValue = length + 1
     let newCol :any =  {
                           "vizs" : [
                           ],
-                          "width" : 2
+                          "width" : 2,
+                          "key": keyValue
                       }
     StoredDashBoards[this.props.dashboardIndex]['rows'][this.state.rowIndex]['cols'].push(newCol)
     window.sessionStorage.setItem('DASHBOARDS',JSON.stringify(StoredDashBoards))
@@ -165,6 +187,42 @@ class Row extends A10Container<IRowProps, IRowState> {
     this.props.onUpdate()
   }
 
+   handleDrag(event: any) {
+        // console.log('handleDrag !!!!!!!!!!!!!',event.target.parentNode)
+        event.target.parentNode.classList.add('no-pointers')
+        this.dragEl = event.target
+        event.dataTransfer.effectAllowed = 'move'
+        event.dataTransfer.setData('Text', this.dragEl.textContent)
+    }
+    handleDragEnd(event: any) {
+      // event.target.classList.remove('red')
+      event.target.parentNode.classList.remove('no-pointers')
+    }
+
+    handleDragOver(event: any) {
+        if(event.target.classList.contains('column')){
+          // event.target.classList.add('red')
+        }
+        event.stopPropagation()
+        event.preventDefault()
+        event.dataTransfer.dropEffect = 'move'
+        const target = event.target
+        if( target && target !== this.dragEl && target.classList.contains('column')){
+            if(target.classList.contains('column-content')) {
+                event.stopPropagation()
+            } else {
+                console.log('target.nextSibling', target.nextSibling)
+                if( target.nextSibling){
+                  this.myRef.current.insertBefore(this.dragEl, target)
+                }else{
+                  this.myRef.current.insertBefore(this.dragEl, null)
+                }
+                
+            }
+        }  
+        // event.target.classList.remove('red') 
+    }
+
   render() {
   //  console.log('Row called', this.state.dashboardIndex + '_' + this.state.rowIndex,new Date(), new Date().getMilliseconds())
     const mode = parameters.MODE
@@ -172,7 +230,7 @@ class Row extends A10Container<IRowProps, IRowState> {
     const styles = {
       rowHeight: {
         minHeight: height,
-        maxHeight : height,
+      //  maxHeight : height,
         border: mode ==='DEVELOPMENT'  ? '0.2px solid #e6eae3' : '0px',
         marginTop: '6px',
         marginLeft: '6px',
@@ -192,6 +250,13 @@ class Row extends A10Container<IRowProps, IRowState> {
           <A10Icon type="plus" className="action-icon" />
           Add Column
         </A10Button>
+        {this.state.row.dragabble ? 
+        <A10Button className="action-button pull-right" onClick ={() => this.updateColOrder()}>
+          <A10Icon type="plus" className="action-icon" />
+          Update Column Order
+        </A10Button>
+        : null 
+        }
         <div className="pull-right">
           <A10InputNumber
             size="middle"
@@ -223,14 +288,18 @@ class Row extends A10Container<IRowProps, IRowState> {
       }
       </A10Row>
       {typeof this.state.row.infoGraphicsRow === 'undefined'?
-        (<div style={styles.rowHeight}>
+        (<div ref={this.myRef} 
+          onDragOver={()=>{this.handleDragOver(event)}} 
+          onDragEnd={()=>{this.handleDragEnd(event)}} 
+          onDragStart={()=>{this.handleDrag(event)}} 
+          style={styles.rowHeight}>
         
           {this.state.row.cols.map((col : any,index : any)=>{
           return   (<Col 
               col={col}
-              appServices={this.props.appServices}
-              appService={this.props.appService}
-              onChangeOfAppService= {this.props.onChangeOfAppService}
+              contextArray={this.props.contextArray}
+              selectedContext={this.props.selectedContext}
+              onChangeOfContext= {this.props.onChangeOfContext}
               dashboardIndex= {this.props.dashboardIndex}
               rowIndex={this.state.rowIndex}
               colIndex={index}
@@ -240,6 +309,9 @@ class Row extends A10Container<IRowProps, IRowState> {
               setSchedule={this.props.setSchedule}
               key={index}
               updates={this.state.updates}
+              draggable = {this.state.row.dragabble}
+              updateTimeRange  = {this.props.updateTimeRange}
+              chartHeight = {300*this.state.row.rowHeight}
             />)
           })}
         </div>)

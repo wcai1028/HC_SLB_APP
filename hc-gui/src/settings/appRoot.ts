@@ -49,6 +49,7 @@ export class AppRoot {
               window.sessionStorage.getItem('LADC_CREDENTIALS') || '[]',
             )
           : [],
+        scheduleJobs : {}
       },
     }
   }

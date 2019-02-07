@@ -6,7 +6,8 @@ import {
 } from 'a10-gui-framework'
 import {
   A10Icon,
-  A10Input
+  A10Input,
+  A10Select
 } from 'a10-gui-widgets'
 import parameters from 'parameters'
 const styles = require('./styles/infographic.scss')
@@ -29,6 +30,11 @@ class InfoGraphicState extends A10Container<
   }
 
   igName = ''
+  igIcon = ''
+
+  onIconChange = (value: any) => {
+    this.igIcon = value
+  }
 
   onNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     this.igName = e.currentTarget.value
@@ -55,8 +61,11 @@ class InfoGraphicState extends A10Container<
   changeName = () => {
     let igVar = {
       'igIndex': this.props.igIndex,
-      'option': ['editable', 'displayName'],
-      'value': [false, this.igName]
+      'option': ['editable', 'displayName', 'image'],
+      'value': [false,
+                this.igName ? this.igName : this.props.details.displayName,
+                this.igIcon ? this.igIcon : this.props.details.image
+              ]
     }
     this.props.updateIG(igVar)
   }
@@ -70,6 +79,32 @@ class InfoGraphicState extends A10Container<
     const icon = {
       backgroundImage: `url(../assets/images/svg/info-graphics/${this.props.details.image}.svg)`
     }
+    const icons = [ {
+      bg: {
+        backgroundImage: `url(../assets/images/svg/info-graphics/icon-application.svg)`
+      },
+      name: 'icon-application'
+    }, {
+      bg: {
+        backgroundImage: `url(../assets/images/svg/info-graphics/icon-client.svg)`
+      },
+      name: 'icon-client'
+    }, {
+      bg: {
+        backgroundImage: `url(../assets/images/svg/info-graphics/icon-cluster-server.svg)`
+      },
+      name: 'icon-cluster-server'
+    }, {
+      bg: {
+        backgroundImage: `url(../assets/images/svg/info-graphics/icon-ladc.svg)`
+      },
+      name: 'icon-ladc'
+    }, {
+      bg: {
+        backgroundImage: `url(../assets/images/svg/info-graphics/icon-wan.svg)`
+      },
+      name: 'icon-wan'
+    }]
     return (
       <div
         className={
@@ -81,9 +116,19 @@ class InfoGraphicState extends A10Container<
         onClick={this.selectedInfoGraphic}
       >
         <div className="title-panel">
-          <div className="ic adc" style={icon}/>
+          {/* <div className="ic adc" style={icon}/> */}
           {
             this.props.details.editable ? (
+            <>
+              <A10Select defaultValue={this.props.details.image} className="mxw100" onChange={this.onIconChange}>
+              {icons.map( (obj, index) => {
+                return (
+                  <A10Select.Option value={obj.name} key={index}>
+                    <div className="ic adc" style={obj.bg}/>
+                  </A10Select.Option>
+                )
+              })}
+              </A10Select>
               <div className="tab-name" key={this.props.details.name}>
                 <A10Input 
                 defaultValue={this.props.details.displayName}
@@ -97,7 +142,10 @@ class InfoGraphicState extends A10Container<
                   <A10Icon app="global" type="close" className="action-icon" />
                 </span>
               </div>
+            </>
             ) : (
+              <>
+              <div className="ic adc" style={icon}/>
               <div className="tab-name" key={this.props.details.name}>
                 {this.props.details.displayName}
                 { mode === 'DEVELOPMENT' ? 
@@ -105,6 +153,7 @@ class InfoGraphicState extends A10Container<
                   <A10Icon app="global" type="edit" className="action-icon" />
                 </span> : null}
               </div>
+              </>
             )
           }
           {/* <div className="tab-name">{this.props.details.displayName}</div> */}

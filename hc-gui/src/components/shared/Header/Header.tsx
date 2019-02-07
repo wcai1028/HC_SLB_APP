@@ -5,7 +5,7 @@ import { A10Row, A10Col, A10Modal, A10Icon } from 'a10-gui-widgets'
 
 import { ProviderTenantMenu } from 'src/components/shared/ProviderTenantMenu'
 import { HelpSupport } from 'src/components/shared/HelpSupport'
-import DropdownMenu from 'src/components/ADC/DropdownMenu'
+import DropdownMenu from 'src/components/shared/DropdownMenu'
 import { ApplicationConfigs } from 'src/constants/ApplicationConfigs'
 
 import { ApplicationIcons } from '../ApplicationIcons'

@@ -59,7 +59,7 @@ export class URLConstants {
       NEEDED_QUERYSTRING: true,
     },
     GET_CLUSTERS_O: {
-      URL: '/providers/~/clusters',
+      URL: '/hpcapi/v3/provider/~/cluster',
       METHOD: 'GET',
       NEEDED_QUERYSTRING: true,
     },

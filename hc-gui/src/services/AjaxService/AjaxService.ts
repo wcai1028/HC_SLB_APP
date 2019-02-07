@@ -23,13 +23,13 @@ export class AjaxService {
   ) => {
     const customURL = parameters.BASE_URL + url
 
-    if (window.sessionStorage.getItem('CURRENT_TENANT')) {
-      this.defaultHeaders.tenant =
-        window.sessionStorage.getItem('CURRENT_TENANT') !== 'undefined'
-          ? JSON.parse(window.sessionStorage.getItem('CURRENT_TENANT') || '{}')
-              .name
-          : ''
-    }
+    // if (window.sessionStorage.getItem('CURRENT_TENANT')) {
+    //   this.defaultHeaders.tenant =
+    //     window.sessionStorage.getItem('CURRENT_TENANT') !== 'undefined'
+    //       ? JSON.parse(window.sessionStorage.getItem('CURRENT_TENANT') || '{}')
+    //           .name
+    //       : ''
+    // }
     if (window.sessionStorage.getItem('ENCODED_SESSION_ID')) {
       this.defaultHeaders.Authorization = window.sessionStorage.getItem(
         'ENCODED_SESSION_ID',

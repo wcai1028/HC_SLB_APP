@@ -32,7 +32,7 @@ export class ParserService {
       case '+': return a + b
       case '-': return a - b 
       case '*': return a * b 
-      case '/': return b > 0 ? a/b : 0 
+      case '/': return b > 0 ? b/a : 0 
     } 
   }
   calculateInfix =(infix : any)=>{
@@ -73,11 +73,11 @@ export class ParserService {
       }
       if(stack.length === 1){
         result = stack.pop()
-        return result
+        return parseFloat(parseFloat(result).toFixed(2))
       }else{
         result = this.evaluate(stack[0],stack[2],stack[1])
       }
-     return result
+     return  parseFloat(parseFloat(result).toFixed(2))
   }
 
   parseRPTData(viz : any){
@@ -117,6 +117,8 @@ export class ParserService {
               if(formula[k] !== ""){
                 if(symbols.indexOf(formula[k]) > -1){
                   formulaReplacedWithValues.push(formula[k])
+                }else if(!isNaN(parseFloat(formula[k]))){
+                  formulaReplacedWithValues.push(parseFloat(formula[k]))
                 }else{
                   let responseKeys = Object.keys(viz.mergedResponses)
                   for(let l=0;l<responseKeys.length;l++){
@@ -133,7 +135,11 @@ export class ParserService {
               }
             }
             formulaReplacedWithValues.push(')')
-            tempData.push([parseInt(timeStamps[e]),this.calculateInfix(formulaReplacedWithValues)])
+            let calulatedData = this.calculateInfix(formulaReplacedWithValues)
+            if(viz.displayProperties.annotation === "topindicators"){
+              calulatedData = calulatedData/3
+            }
+            tempData.push([parseInt(timeStamps[e]),calulatedData])
           }
           viz.displayProperties.seriesArr[i].data = tempData
           viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
@@ -156,6 +162,8 @@ export class ParserService {
                 if(formula[k] !== ""){
                   if(symbols.indexOf(formula[k]) > -1){
                     formulaReplacedWithValues.push(formula[k])
+                  }else if(!isNaN(parseFloat(formula[k]))){
+                    formulaReplacedWithValues.push(parseFloat(formula[k]))
                   }else{
                     let responseKeys = Object.keys(viz.mergedResponses)
                     for(let l=0;l<responseKeys.length;l++){
@@ -174,7 +182,11 @@ export class ParserService {
               }
               formulaReplacedWithValues.push(')')
               data = this.calculateInfix(formulaReplacedWithValues)
-              viz.displayProperties.seriesArr[i].data = data
+             
+              if(viz.displayProperties.annotation === "topindicators"){
+                data = data/3
+              }
+              viz.displayProperties.seriesArr[i].data = [data]
               viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
           }
       }
@@ -219,7 +231,9 @@ export class ParserService {
                 if(formula[k] !== ""){
                   if(symbols.indexOf(formula[k]) > -1){
                     formulaReplacedWithValues.push(formula[k])
-                  }else{
+                  }else if(!isNaN(parseFloat(formula[k]))){
+                    formulaReplacedWithValues.push(parseFloat(formula[k]))
+                  } else{
                     let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
                     for(let l=0;l<responseKeys.length;l++){
                       if((formula[k]+'_sum' === responseKeys[l]) 
@@ -232,17 +246,28 @@ export class ParserService {
                       }
                     } 
                   }
-                  formulaReplacedWithValues.push(')')
-                  tempData[index].data.push([parseInt(timeStamps[t]),this.calculateInfix(formulaReplacedWithValues)])
+                  
+                //  tempData[index].data.push([parseInt(timeStamps[t]),this.calculateInfix(formulaReplacedWithValues)])
                 }
               }
+              formulaReplacedWithValues.push(')')
+              if(groups[e] === ''){
+                groups[e] = 'Unknown'
+              }
+              let calulatedData = this.calculateInfix(formulaReplacedWithValues)
              
+              if(viz.displayProperties.annotation === "topindicators"){
+                calulatedData = calulatedData/3
+              }
+              tempData[index].data.push([parseInt(timeStamps[t]),calulatedData])
             }
           }
-          viz.displayProperties.seriesArr[i] = tempData //data
+         viz.displayProperties.seriesArr[i].data = tempData //data
        //   viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
        }
-       viz.displayProperties.seriesArr = viz.displayProperties.seriesArr[0]
+       viz.displayProperties.seriesArr =  viz.displayProperties.seriesArr[0] ? viz.displayProperties.seriesArr[0].data : []
+      //  viz.displayProperties.seriesArr[0].data
+      
       }else{ // grouped non histogram field, these will be generating series showing dtaa for diffrenet attrinues like requests for clients
         let groups = Object.keys(viz.mergedResponses)
        
@@ -265,6 +290,8 @@ export class ParserService {
               if(formula[k] !== ""){
                 if(symbols.indexOf(formula[k]) > -1){
                   formulaReplacedWithValues.push(formula[k])
+                }else if(!isNaN(parseFloat(formula[k]))){
+                  formulaReplacedWithValues.push(parseFloat(formula[k]))
                 }else{
                   let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
                   for(let l=0;l<responseKeys.length;l++){
@@ -284,7 +311,12 @@ export class ParserService {
             if(groups[e] === ''){
               groups[e] = 'Unknown'
             }
-            tempData.push([groups[e],this.calculateInfix(formulaReplacedWithValues)])
+            let calulatedData = this.calculateInfix(formulaReplacedWithValues)
+             
+              if(viz.displayProperties.annotation === "topindicators"){
+                calulatedData = calulatedData/3
+              }
+            tempData.push([groups[e],calulatedData])
           }
           viz.displayProperties.seriesArr[i].data = tempData
           viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series

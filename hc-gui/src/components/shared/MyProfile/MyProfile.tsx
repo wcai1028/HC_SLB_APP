@@ -6,9 +6,8 @@ import {
     A10Label,
     A10Table,
 } from 'a10-gui-widgets'
-import { IDefaultMethods } from 'src/containers/Controller'
-import { A10Panel } from 'src/components/ADC/A10Panel'
-import { A10IconTextGroup } from 'src/components/ADC/A10IconTextGroup'
+import { A10Panel } from 'src/components/shared/A10Panel'
+import { A10IconTextGroup } from 'src/components/shared/A10IconTextGroup'
 import { Messages } from 'src/locale/en/Messages'
 import { DashboardService } from 'src/services'
 import ReactLoading from 'react-loading'

@@ -7,6 +7,8 @@
         "selectedInfoGraphic": "all",
         "drillDownName": "",
         "drillDownID": null,
+        "showLogs": false,
+        "context" : "appservices",
         "rows" : [
             {
                 "name" : "",
@@ -19,8 +21,8 @@
                                 "elements" : []
                             }
                         ],
-                        
-                        "width" : "1.8"
+                        "width" : "1.8",
+                        "key" : 1
                     }
                 ],
                 "rowHeight" : ".40",
@@ -42,8 +44,8 @@
                                 "elements" : []
                             }
                         ],
-                        
-                        "width" : 10
+                        "key" : 1,
+                        "width" : 12
                     }
                 ],
                 "rowHeight" : ".1",

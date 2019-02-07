@@ -1,13 +1,14 @@
 // tslint:disable-next-line:no-var-requires
 import * as queryString from 'query-string'
 
-import { UrlService, AjaxService } from 'src/services'
+import { UrlService, AjaxService, Utilities } from 'src/services'
 import { AppRoot } from 'src/settings/appRoot'
 import { Data } from 'src/constants/Data/Data'
 
 export class DashboardService {
   UrlService = new UrlService()
   AjaxService = new AjaxService()
+  Utilities = new Utilities( )
   AppRoot = new AppRoot()
   Data = new Data()
 
@@ -31,9 +32,9 @@ export class DashboardService {
     if (urlObj.NEEDED_QUERYSTRING) {
       urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
     }
-    return new Promise((resolve: any, rej: any) => {
-      resolve(this.Data.tenants)
-    })
+    // return new Promise((resolve: any, rej: any) => {
+    //   resolve(this.Data.tenants)
+    // })
     return this.AjaxService.promisingHttpRequest(
       urlObj.URL,
       urlObj.METHOD,
@@ -162,9 +163,9 @@ export class DashboardService {
     if (urlObj.NEEDED_QUERYSTRING) {
       urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
     }
-    return new Promise((resolve: any, rej: any) => {
-      resolve(this.Data.tenants)
-    })
+    // return new Promise((resolve: any, rej: any) => {
+    //   resolve(this.Data.tenants)
+    // })
     return this.AjaxService.promisingHttpRequest(
       urlObj.URL,
       urlObj.METHOD,
@@ -983,6 +984,95 @@ export class DashboardService {
       payload,
     )
   }
+  getRPTMetricsData= (headers: any, payload: any, urlInput: any) => {
+    const urlObj = this.UrlService.get('GET_METRICS')
+    if (urlObj.NEEDED_QUERYSTRING) {
+      urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
+    }
+    return this.AjaxService.promisingHttpRequest(
+      urlObj.URL,
+      urlObj.METHOD,
+      headers,
+      payload,
+    )
+  }
+  getRPTMetrics=(querySet : any,key : any, scheduleJobsMap : any,fn:any)=>{
+ 
+    let keyPath = key.replace("RPT/","/analytics/")
+    for(let i=0; i<querySet.length; i++){
+      let payload = querySet[i];
+      let data = this.getRPTMetricsData(null,payload,[keyPath])
+      data.then((response : any)=>{
+        querySet[i].responses = response.data
+        fn(querySet[i],i,key)
+      })
+    }
+    
+    return querySet
+  }
+  getBatchAnalyticsData = (scheduleJobs : any, scheduleJobsMap : any,fn:any)=>{
+    let keys = Object.keys(scheduleJobs)
+    for(let i=0;i<keys.length;i++){
+      let dataSource = keys[i].split('/')[0]
+      switch(dataSource){
+        case 'RPT' : 
+        scheduleJobs[keys[i]] = this.getRPTMetrics(scheduleJobs[keys[i]],keys[i], scheduleJobsMap,fn)
+        default :
+          //return false
+      }
+    }
+   
+    return (scheduleJobs)
+  }
+  getClusters = (headers: any, payload: any, urlInput: any) => {
+    const urlObj = this.UrlService.get('GET_CLUSTERS')
+    if (urlObj.NEEDED_QUERYSTRING) {
+      urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
+    }
+    return this.AjaxService.promisingHttpRequest(
+      urlObj.URL,
+      urlObj.METHOD,
+      headers,
+      payload,
+      undefined,
+    )
+  }
+
+  getDevices = (headers: any, payload: any, urlInput: any) => {
+    const urlObj = this.UrlService.get('GET_INDEPENDENT_DEVICES')
+    if (urlObj.NEEDED_QUERYSTRING) {
+      urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
+    }
+    return this.AjaxService.promisingHttpRequest(
+      urlObj.URL,
+      urlObj.METHOD,
+      headers,
+      payload,
+      undefined,
+    )
+  }
+  getDashboardContextElements = (context : any)=>{
+     switch(context){
+       case 'provider' : 
+        return this.getProviders(null,null)
+       case 'tenant' : 
+        return this.getTenants(null,null,[window.sessionStorage.getItem('PROVIDER')],false)
+       case 'cluster' : 
+        return this.getClusters(null,null,[window.sessionStorage.getItem('PROVIDER')])
+       case 'device' : 
+          return this.getDevices(null,null,[window.sessionStorage.getItem('PROVIDER')])
+       case 'appservices' : 
+       if(!JSON.parse(window.sessionStorage.getItem('CURRENT_TENANT'))){
+          this.Utilities.showMessage('Failed to set dashboard context as no tennat is selected', 0, false) 
+            return new Promise((resolve: any, rej: any) => {
+              resolve([])
+            })
+       }
+        return this.getApplications(null,null,[window.sessionStorage.getItem('PROVIDER'),JSON.parse(window.sessionStorage.getItem('CURRENT_TENANT')).name])
+  
+     }
+    // return contextArray
+   }
 }
 
 export default DashboardService

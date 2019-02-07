@@ -9,4 +9,5 @@ var parameters = {
   VERSION_NUMBER: '4.0.1',
   BUILD_NUMBER: '78755630314bbbbe41122885ae874ed76b4aac3a',
   SUPPORT_URL: 'http://www.a10networks.com/cloud-support',
+  MODE : "DEVELOPMENT"
 }

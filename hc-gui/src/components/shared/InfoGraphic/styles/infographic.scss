@@ -14,23 +14,23 @@
     min-height: 48px;
     color: #333;
     display: inline-block;
-  }
+}
   
-  .summary-widget.active.active {
+.summary-widget.active.active {
     border: solid 2px #4990e2;
     background: #fff;
     max-height: 105px;
     padding: 0;
-  }
+}
   
-  .active {
+.active {
     border: solid 2px #4990e2;
     background: #fff;
     max-height: 105px;
     padding: 0;
-  }
+}
 
-  .ic{
+.ic {
     background-size: 24px 24px;
     background-position: 0 5px;
     width: 30px;
@@ -39,11 +39,15 @@
     background-repeat: no-repeat;
     display: inline-block;
     cursor: pointer;
-  }
+}
   
-  .tab-name{
+.tab-name {
     vertical-align: top;
     margin-left: 5px;
     padding: 8px 0;
     display: inline-block;
-  }
+}
+
+.mxw100 {
+    width: 100px !important;
+}

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { A10Component } from 'a10-gui-framework'
 
-import '../../../styles/base.css'
+import '../../../styles/base.scss'
 
 export interface ISubappsProps {
   value: any
