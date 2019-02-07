@@ -508,6 +508,11 @@ export class URLConstants {
       METHOD: 'DELETE',
       NEEDED_QUERYSTRING: true,
     },
+    GET_METRICS: {
+      URL: '~',
+      METHOD: 'POST',
+      NEEDED_QUERYSTRING: true,
+    },
   }
 
   getURLS = (url: string) => {
