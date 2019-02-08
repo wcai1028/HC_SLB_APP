@@ -64,6 +64,9 @@ export class AjaxService {
       delete customHeaders.Authorization
     }
 
+    if(window.sessionStorage.getItem('CURRENT_TENANT')){
+      customHeaders['x-account'] = JSON.parse(window.sessionStorage.getItem('CURRENT_TENANT')).uuid
+    }
     // Cancel token used to cancel the http call when component gets unmounted
     const body: IObject = {
       method,

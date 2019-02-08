@@ -234,8 +234,6 @@ class Vizualization extends A10Container<
     this.props.onChangeOfContext(e)
   }
   render() {
-    if(this.state.viz.displayProperties){
-    console.log(this.state.viz.displayProperties.name, this.state.viz.dataSet)}
     const {
       MainChart,
       Indicator,

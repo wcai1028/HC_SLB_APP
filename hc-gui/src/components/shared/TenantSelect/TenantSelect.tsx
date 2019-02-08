@@ -38,21 +38,22 @@ class TenantSelect extends A10Component<ITenantSelectProps, ITenantSelectStates>
     }
 
     onClickSubmit = (e: any) => {
-        setItem('tenant', this.state.selectedTenant)
+        const tenantName = JSON.parse(this.state.selectedTenant).name
+        setItem('tenant', tenantName)
+        setItem('CURRENT_TENANT', this.state.selectedTenant)
         this.setState({redirect: true})
-        
     }
 
     onChangeTenant = (tenant: string) => {
-        console.log('switch')
         this.setState({selectedTenant: tenant})
     }
 
     render() {
         const { tenantList, redirect, selectedTenant } = this.state
         const options = tenantList.map((tenant: IObject) => {
+            const keyStr = JSON.stringify(tenant)
             return (
-              <A10Select.Option value={tenant.name} key={tenant.name}>
+              <A10Select.Option key={keyStr}>
                 <span>{tenant.name}</span>
               </A10Select.Option>
             )
@@ -62,7 +63,7 @@ class TenantSelect extends A10Component<ITenantSelectProps, ITenantSelectStates>
             const usr = getItem('USER_ID')
             const api = parameters.BASE_URL
             const provider = getItem('PROVIDER')
-            const tenant = selectedTenant
+            const tenant = getItem('tenant')
             const token = getItem('USER_SESSION_ID')
             uri = `/dashboard?user_id=${usr}&api_ep=${api}&provider=${provider}&tenant=${tenant}&token=${token}`
         }

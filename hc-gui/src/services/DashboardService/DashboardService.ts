@@ -985,7 +985,6 @@ export class DashboardService {
     )
   }
   getRPTMetricsData= (headers: any, payload: any, urlInput: any) => {
-    console.log(this.UrlService)
     const urlObj = this.UrlService.get('GET_METRICS')
     if (urlObj.NEEDED_QUERYSTRING) {
       urlObj.URL = this.UrlService.formatURL(urlInput, urlObj.URL)
