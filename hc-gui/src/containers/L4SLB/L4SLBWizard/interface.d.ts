@@ -3,6 +3,7 @@ export type DeploymentType = 'INLINE' | 'SOURCE-NAT' | 'DSR'
 export interface IWizardData {
   'app-svc': {
     name: string
+    uuid?: string
   }
   'virtual-server': {
     name: string
@@ -68,4 +69,30 @@ export interface IServerPort {
   'port-number': number
   'health-check'?: string
   'sampling-enable'?: Array<{ counters1: string }>
+}
+
+export interface IDirtyInstanceListObject {
+  'dirty-instance-list': IDirtyInstance[]
+}
+
+export interface IDirtyInstance {
+  uri: string
+  uuid: string
+
+  latest?: string
+  before?: string
+  deployspec?: IDeploySpec
+}
+
+export interface IDiff {
+  latest: string
+  before: string
+}
+
+export interface IDeploySpec {
+  'app-svc-association-list': [
+    {
+      'app-svc': string
+    }
+  ]
 }

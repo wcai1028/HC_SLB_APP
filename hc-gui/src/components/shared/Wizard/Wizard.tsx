@@ -73,7 +73,7 @@ class Wizard extends A10Component<IWizardProps, IWizardState> {
         <A10Steps
           current={current}
           labelPlacement="vertical"
-          progressDot={this.renderProgressDot}
+          // progressDot={this.renderProgressDot}
         >
           {steps.map(step => (
             <Step key={step.title} title={step.title} />

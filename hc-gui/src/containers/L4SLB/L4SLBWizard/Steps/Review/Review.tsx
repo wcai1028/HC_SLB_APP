@@ -16,7 +16,7 @@ import A10IconTextGroup from 'src/components/shared/A10IconTextGroup'
 import AbstractStep, {
   IAbstractStepProps,
 } from 'src/components/shared/Wizard/AbstractStep'
-import { IWizardData, IServer } from '../../interface'
+import { IWizardData } from '../../interface'
 import L4SLBUtilities from 'src/containers/L4SLB/Utilities'
 import { httpClient } from 'src/libraries/httpClient'
 import { getItem } from 'src/libraries/storage'
@@ -48,8 +48,14 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     const { isUpdate } = this.props
     if (isUpdate) {
       this.clearBeforeSave()
+        .then(this.save)
+        .then(() => {
+          this.props.onNext()
+        })
     } else {
-      this.save()
+      this.save().then(() => {
+        this.props.onNext()
+      })
     }
   }
 
@@ -91,7 +97,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
       })
     }
 
-    this.clearConfiguration(itemsWillBeRemoved).then(this.save)
+    return this.clearConfiguration(itemsWillBeRemoved)
   }
 
   clearConfiguration = (
@@ -107,7 +113,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
   }
 
   save = () => {
-    const { data } = this.props
+    const { data } = this.state
     const promises: Array<Promise<any>> = [
       this.createLogicalCluster(),
       this.createServers(),
@@ -121,7 +127,7 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
       promises.push(this.createPersistSourceIP())
     }
 
-    Promise.all([promises])
+    return Promise.all([promises])
       .then(this.createAppService)
       .then(this.createServiceGroup)
       .then(this.createVirtualServer)
@@ -274,20 +280,6 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
     )
   }
 
-  getServers = () => {
-    const provider = getItem('PROVIDER')
-    const tenant = getItem('tenant')
-
-    return httpClient.post(
-      `/hccapi/v3/provider/${provider}/tenant/${tenant}/shared-object/slb/template/persist/source-ip`,
-      {
-        'source-ip': {
-          name,
-        },
-      },
-    )
-  }
-
   componentDidMount() {
     const timestamp = Date.now()
     const { data } = this.state
@@ -323,8 +315,6 @@ export default class Review extends AbstractStep<IReviewProps, IReviewState> {
         timestamp,
       )
     }
-
-    console.log('Review componentDidMount', data)
 
     data.servers = data.servers.map(server => {
       const name = L4SLBUtilities.generateServerName(server.host, timestamp)

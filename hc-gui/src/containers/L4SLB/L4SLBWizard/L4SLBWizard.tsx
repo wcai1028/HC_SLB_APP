@@ -8,6 +8,7 @@ import {
   ServiceGroupForm,
   DeploymentForm,
   Review,
+  AppServiceAssociateDeploy,
 } from './Steps'
 import './styles/L4SLBWizard.less'
 import { IWizardData, IServerObject } from './interface'
@@ -392,6 +393,10 @@ class L4SLBWizard extends A10Container<IL4SLBWizardProps, IL4SLBWizardState> {
       {
         title: 'Review',
         content: <Review />,
+      },
+      {
+        title: 'Deploy',
+        content: <AppServiceAssociateDeploy />,
       },
     ]
   }
