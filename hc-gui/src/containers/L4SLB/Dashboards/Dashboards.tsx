@@ -51,8 +51,8 @@ class Dashboards extends A10Container<
       selectedApp: applications[applicationIndex].subApps[0].name,
       tenantToggled: this.props.tenantToggled,
     })
-    window.sessionStorage.removeItem('TENANT')
-    window.sessionStorage.removeItem('CURRENT_TENANT')
+    // window.sessionStorage.removeItem('TENANT')
+    // window.sessionStorage.removeItem('CURRENT_TENANT')
     window.sessionStorage.setItem('DRILL_LEVEL', 'provider')
     window.sessionStorage.setItem('CURRENT_STATE', 'Dashboards')
     this.AppRoot.setRootScopeElement('currentDrillLevel', 'provider')

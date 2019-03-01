@@ -21,15 +21,15 @@ import { AppServiceList } from 'src/containers/L4SLB/AppServiceList'
 
 export interface IDefaultMethods {}
 
-export interface IControllerParams {
+export interface IL4SLBParams {
   applicationName: string
 }
 
-export interface IControllerProps
+export interface IL4SLBProps
   extends IA10ContainerDefaultProps,
-    RouteComponentProps<IControllerParams> {}
+    RouteComponentProps<IL4SLBParams> {}
 
-export interface IControllerState {
+export interface IL4SLBState {
   applicationName: string
   adminLevel: string | null
   tenants?: any
@@ -40,10 +40,10 @@ export interface IControllerState {
   changeApplicationTo: string
 }
 
-class L4SLB extends A10Container<IControllerProps, IControllerState> {
+class L4SLB extends A10Container<IL4SLBProps, IL4SLBState> {
   static getDerivedStateFromProps(
-    props: IControllerProps,
-    state: IControllerState,
+    props: IL4SLBProps,
+    state: IL4SLBState,
   ) {
     if (props.location.search) {
       const params = queryString.parse(props.location.search)
@@ -55,6 +55,7 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
       }
       if (params.tenant) {
         setItem('tenant', params.tenant)
+        setItem('CURRENT_TENANT', JSON.stringify({name: params.tenant}))
       }
       if (params.token) {
         setItem('ENCODED_SESSION_ID', `Session ${params.token}`)
@@ -77,7 +78,7 @@ class L4SLB extends A10Container<IControllerProps, IControllerState> {
   AppRoot = new AppRoot()
   isTenantSet = false
 
-  constructor(props: IControllerProps) {
+  constructor(props: IL4SLBProps) {
     super(props)
     this.state = {
       applicationName: this.props.match
