@@ -6,6 +6,7 @@ import {
 
   import {
     A10Collapse,
+    A10Tabs
   } from 'a10-gui-widgets'
 
 
@@ -31,19 +32,52 @@ class VizDetails extends A10Container<IVizDetailsProps, IVizDetailsState> {
                                     className="col-md-12 productHeader inline"
                                    
                                     >
-                                    <div className="col-md-4 no-padding">
-                                        <span className="label">{series.name}</span>
+                                    <div className="col-md-3 no-padding">
+                                        <span className="label">{series.name ? series.name : this.props.viz.displayProperties.name}</span>
                                         {/* <RoundNumber number={this.props.appServices.length} /> */}
                                     </div>
-                                    <div className="col-md-8 appLauncherDiv">
-                                       Formula Used : ({series.formula})
+                                    <div className="col-md-9 appLauncherDiv">
+                                       Series Formula: <b> {series.formula} </b>
                                     </div>
                                     </div>
                                 }
                                 key={index}
                                 className="white"
-                                >
-                            
+                                >   
+                                    <A10Collapse>
+                                    <A10Collapse.Panel 
+                                    header={
+                                        <div className="col-md-12 productHeader inline">
+                                         QUERY
+                                        </div>}
+                                    >
+                                        {JSON.stringify(this.props.viz.modifiedQuery)}
+
+                                    </A10Collapse.Panel>
+
+                                    <A10Collapse.Panel 
+                                    header={
+                                        <div className="col-md-12 productHeader inline">
+                                         RESPONSE
+                                        </div>}
+                                    >
+                                        {JSON.stringify(this.props.viz.mergedResponses)}
+
+                                    </A10Collapse.Panel>
+
+                                    <A10Collapse.Panel 
+                                    header={
+                                        <div className="col-md-12 productHeader inline">
+                                         Series Calculated Data
+                                        </div>}
+                                    >
+                                        {JSON.stringify(series.data)}
+
+                                    </A10Collapse.Panel>
+
+                                    </A10Collapse> 
+                                    
+                                   
                             </A10Collapse.Panel>
                     </A10Collapse>)
             })

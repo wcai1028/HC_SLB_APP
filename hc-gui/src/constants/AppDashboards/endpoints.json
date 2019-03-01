@@ -1,238 +1,2715 @@
 {
-  "endPoints" :   {
-        "RPT" :{
-            "ladc" : {
-
-            },
-            "thunder-adc" : {
-                "slb_virtual_server_port" :{
-                    "histogramField" : "ts",
-                    "fields" : [
-                        "total_mf_dns_pkts",
-                        "compression_miss",
-                        "curr_resp_rate",
-                        "total_ssl_conn",
-                        "last_rsp_time",
-                        "loc_deny",
-                        "total_l7_conn",
-                        "out_latency",
-                        "es_total_failure_actions",
-                        "total_fwd_bytes_out",
-                        "peak_conn",
-                        "total_tcp_conn",
-                        "total_resp",
-                        "total_conn",
-                        "fastest_rsp_time",
-                        "in_latency",
-                        "slowest_rsp_time",
-                        "backend_time_to_first_byte",
-                        "total_fwd_bytes",
-                        "total_rev_bytes",
-                        "total_req",
-                        "curr_conn",
-                        "curr_conn_rate",
-                        "compression_bytes_after",
-                        "total_l4_conn",
-                        "total_fwd_pkts",
-                        "total_rev_pkts",
-                        "total_dns_pkts",
-                        "curr_req",
-                        "total_rev_bytes_out",
-                        "total_resp_succ",
-                        "loc_conn",
-                        "compression_bytes_before",
-                        "backend_time_to_last_byte",
-                        "curr_req_rate",
-                        "curr_resp",
-                        "compression_miss_no_client",
-                        "total_req_succ",
-                        "curr_conn_overflow",
-                        "compression_miss_template_exclusion",
-                        "compression_hit",
-                        "loc_permit",
-                        "total_rev_pkts_out",
-                        "curr_ssl_conn",
-                        "total_fwd_pkts_out"
-                    ],
-                    "filters" :[
-                        "app_svc_id",
-                        "app_svc_type",
-                        "account_id"
-                    ],
-                    "groupBy" :[
-                        "o_ha_state",
-                        "o_oper_state",
-                        "p_ver",
-                        "device_uuid",
-                        "cluster_id"
-                    ]
-                },
-                "slb_virtual_server" :{
-                    "histogramField" : "ts",
-                    "fields" : [
-                        "packet_in",
-                        "packet_out",
-                        "total_req"
-                    ],
-                    "filters" :[
-                        "appserverId",
-                        "accountId",
-                        "providerid"
-                    ],
-                    "groupBy" :[
-                        "appserverId",
-                        "clusterId",
-                        "serverip",
-                        "port"
-                    ]
-                },
-                "pr" : {
-                    "histogramField" : "timestamp",
-                    "fields" : [
-                        "numOfMethodType",
-                        "appServerPort",
-                        "peakInLatency",
-                        "totalRequestSize",
-                        "peakOutLatency",
-                        "peakAppServerRequestEndTime",
-                        "numOfProtocol",
-                        "totalRequestEndTime",
-                        "totalClientSRTT",
-                        "peakRequestSize",
-                        "peakClientSRTT",
-                        "peakAppServerConnStartTime",
-                        "totalAppServerResponseStartTime",
-                        "totalAppServerConnEstablishTime",
-                        "peakAppServerRequestStartTime",
+    "endPoints" :   {
+          "RPT" :{
+              "ladc" : {
+  
+              },
+              "thunder-adc" : { 
+                "pr-url":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
+                        "peakE2EResponseTime",
+                        "numOfRecords",
+                        "totalE2EResponseTime",
                         "numOfapplicationId",
-                        "peakBandwidth",
-                        "totalInLatency",
-                        "totalCompressedResponseSize",
-                        "totalOutLatency",
+                        "totalClientSRTT",
+                        "peakClientSRTT"
+                    ],
+                    "filters":[  
+                         "productId",
+                          "accountId",
+                          "applicationId",
+                          "serviceId"
+                    ],
+                    "groupBy":[  
+                        "type",
+                        "URL"
+                    ]
+                }, 
+                "pr-client-ip":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
                         "totalDuration",
                         "totalRequestDataTransfer",
-                        "peakRequestDataTransfer",
-                        "peakResponseSize",
-                        "numOfResponseCode",
-                        "totalResponseEndTime",
-                        "totalUncompressedResponseSize",
-                        "numOfRecords",
-                        "totalRequestStartTime",
-                        "totalAppServerConnStartTime",
-                        "peakAppServerResponseStartTime",
-                        "totalResponseSize",
-                        "totalAppServerResponseEndTime",
                         "totalResponseDataTransfer",
-                        "peakResponseDataTransfer",
-                        "totalAppLatency",
-                        "peakAppServerResponseEndTime",
-                        "peakAppServerConnEstablishTime",
-                        "peakRequestEndTime",
-                        "peakResponseStartTime",
-                        "numOfClientSSL",
-                        "totalAppServerRequestStartTime",
-                        "totalResponseStartTime",
-                        "totalAppServerRequestEndTime",
-                        "numOfServedByAppServer",
+                        "totalClientSRTT",
                         "totalAppServerSRTT",
-                        "peakResponseEndTime",
-                        "peakDuration",
-                        "totalE2EResponseTime",
-                        "numOfCompressed",
-                        "numOfCached",
-                        "numOfAppServerSSL",
-                        "numOfAcknowledged",
-                        "totalBandwidth",
-                        "peakAppLatency",
-                        "peakAppServerSRTT",
-                        "peakRequestStartTime"
-                    ],
-                    "filters" :[
-                        "applicationId",
-                        "accountId"
-                    ],
-                    "groupBy" :[
-                        "virtualHost",
-                        "serviceId",
-                        "flowId",
-                        "domainId",
-                        "appServerIP"
-                    ]
-                    
-                }
-            }
-        },
-        "Splunk" :{
-            "Test1" : {
-
-            },
-            "Test2" : {
-                "ABC" :{
-                    "histogramField" : "ts",
-                    "fields" : [
-                        "bytes_in",
-                        "bytes_out",
-                        "total_req"
-                    ],
-                    "filters" :[
-                        "appserverId",
+                        "totalAppLatency",
+                        "numOfRecords",
                         "accountId",
-                        "providerid"
+                        "clientIP",
+                        "numOfapplicationId",
+                        "totalInLatency",
+                        "totalOutLatency"
                     ],
-                    "groupBy" :[
-                        "appserverId",
-                        "clusterId",
-                        "serverip",
-                        "port"
+                    "filters":[  
+                         "productId",
+                          "accountId",
+                          "applicationId"
+                          
+                    ],
+                    "groupBy":[  
+                        "clientIP",
+                        "type",
+                        "serviceId"
                     ]
                 },
-                "DEF" :{
-                    "histogramField" : "ts",
-                    "fields" : [
-                        "bytes_in",
-                        "bytes_out",
-                        "total_req"
+                "pr-client-family":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
+                        "peakE2EResponseTime",
+                        "numOfRecords",
+                        "totalE2EResponseTime",
+                        "numOfapplicationId"
                     ],
-                    "filters" :[
-                        "appserverId",
-                        "accountId",
-                        "providerid"
+                    "filters":[  
+                         "productId",
+                          "accountId",
+                          "applicationId"
                     ],
-                    "groupBy" :[
-                        "appserverId",
-                        "clusterId",
-                        "serverip",
-                        "port"
+                    "groupBy":[  
+                        "clientFamilyName",
+                        "type"
                     ]
-                }
-            }
-        }
-    },
-    "aggregations" : [
-        "sum",
-        "avg",
-        "max",
-        "min",
-        "count"
-    ],
-    "vizTypes" : {
-        "histograms" : [
-            "line",
-            "column",
+                },
+                "pr-client-device":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
+                        "peakE2EResponseTime",
+                        "numOfRecords",
+                        "totalE2EResponseTime",
+                        "numOfapplicationId"
+                    ],
+                    "filters":[  
+                         "productId",
+                          "accountId",
+                          "applicationId"
+                    ],
+                    "groupBy":[  
+                        "clientDeviceName",
+                        "type"
+                    ]
+                },
+                "pr-client-os":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
+                        "peakE2EResponseTime",
+                        "numOfRecords",
+                        "totalE2EResponseTime",
+                        "numOfapplicationId"
+                    ],
+                    "filters":[  
+                         "productId",
+                          "accountId",
+                          "applicationId"
+                    ],
+                    "groupBy":[  
+                        "clientOSName",
+                        "type"
+                    ]
+                },
+                "pr-client-countrycode":{  
+                    "histogramField":"timestamp",
+                    "fields":[  
+                        "totalResponseSize",
+          
+                            "totalRequestSize",
+                            "totalClientSRTT",
+                            
+                            "peakClientSRTT",
+                            "numOfRecords",
+                            
+                            "totalE2EResponseTime",
+                            "totalBandwidth",
+                            "numOfapplicationId",
+                            "numOfClientSSL.false",
+                            "numOfClientSSL.true"
+                    ],
+                    "filters":[  
+                         "productId",
+                          
+                          "accountId",
+                          "applicationId"
+                    ],
+                    "groupBy":[  
+                        "clientCountryCodeName"
+                    ]
+                },
+                   "pr" : {
+                      "histogramField" : "timestamp",
+                      "fields" : [
+                        "numOfMethodType.GET" ,
+                        "numOfMethodType.PUT",
+                        "numOfMethodType.POST",
+                        "numOfMethodType.DELETE",
+                        "numOfMethodType.OPTIONS",
+                        "numOfMethodType.HEAD",
+                        "numOfMethodType.CONNECT",
+                        "numOfMethodType.TRACE",
+                        "numOfMethodType.PATCH",
+                          "appServerPort",
+                          "peakInLatency",
+                          "totalRequestSize",
+                          "peakOutLatency",
+                          "peakAppServerRequestEndTime",
+                          "numOfProtocol",
+                          "totalRequestEndTime",
+                          "totalClientSRTT",
+                          "peakRequestSize",
+                          "peakClientSRTT",
+                          "peakAppServerConnStartTime",
+                          "totalAppServerResponseStartTime",
+                          "totalAppServerConnEstablishTime",
+                          "peakAppServerRequestStartTime",
+                          "numOfapplicationId",
+                          "peakBandwidth",
+                          "totalInLatency",
+                          "totalCompressedResponseSize",
+                          "totalOutLatency",
+                          "totalDuration",
+                          "totalRequestDataTransfer",
+                          "peakRequestDataTransfer",
+                          "peakResponseSize",
+                          "numOfResponseCode",
+                          "totalResponseEndTime",
+                          "totalUncompressedResponseSize",
+                          "numOfRecords",
+                          "totalRequestStartTime",
+                          "totalAppServerConnStartTime",
+                          "peakAppServerResponseStartTime",
+                          "totalResponseSize",
+                          "totalAppServerResponseEndTime",
+                          "totalResponseDataTransfer",
+                          "peakResponseDataTransfer",
+                          "totalAppLatency",
+                          "peakAppServerResponseEndTime",
+                          "peakAppServerConnEstablishTime",
+                          "peakRequestEndTime",
+                          "peakResponseStartTime",
+                          "numOfClientSSL",
+                          "totalAppServerRequestStartTime",
+                          "totalResponseStartTime",
+                          "totalAppServerRequestEndTime",
+                          "numOfServedByAppServer",
+                          "totalAppServerSRTT",
+                          "peakResponseEndTime",
+                          "peakDuration",
+                          "totalE2EResponseTime",
+                          "numOfCompressed",
+                          "numOfCached",
+                          "numOfAppServerSSL",
+                          "numOfAcknowledged",
+                          "totalBandwidth",
+                          "peakAppLatency",
+                          "peakAppServerSRTT",
+                          "peakRequestStartTime"
+                      ],
+                      "filters" :[
+                          "applicationId",
+                          "accountId"
+                      ],
+                      "groupBy" :[
+                          "virtualHost",
+                          "serviceId",
+                          "flowId",
+                          "domainId",
+                          "appServerIP"
+                      ]
+                      
+                  },
+                  "slb_virtual_server_port":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "total_mf_dns_pkts",
+                          "compression_miss",
+                          "curr_resp_rate",
+                          "total_ssl_conn",
+                          "last_rsp_time",
+                          "loc_deny",
+                          "total_l7_conn",
+                          "out_latency",
+                          "es_total_failure_actions",
+                          "total_fwd_bytes_out",
+                          "peak_conn",
+                          "total_tcp_conn",
+                          "total_resp",
+                          "total_conn",
+                          "fastest_rsp_time",
+                          "in_latency",
+                          "slowest_rsp_time",
+                          "backend_time_to_first_byte",
+                          "total_fwd_bytes",
+                          "total_rev_bytes",
+                          "total_req",
+                          "curr_conn",
+                          "curr_conn_rate",
+                          "compression_bytes_after",
+                          "total_l4_conn",
+                          "total_fwd_pkts",
+                          "total_rev_pkts",
+                          "total_dns_pkts",
+                          "curr_req",
+                          "total_rev_bytes_out",
+                          "total_resp_succ",
+                          "loc_conn",
+                          "compression_bytes_before",
+                          "backend_time_to_last_byte",
+                          "curr_req_rate",
+                          "curr_resp",
+                          "compression_miss_no_client",
+                          "total_req_succ",
+                          "curr_conn_overflow",
+                          "compression_miss_template_exclusion",
+                          "compression_hit",
+                          "loc_permit",
+                          "total_rev_pkts_out",
+                          "curr_ssl_conn",
+                          "total_fwd_pkts_out"
+                      ],
+                      "filters":[  
+                          "app_svc_id",
+                          "app_svc_type",
+                          "account_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "device_uuid",
+                          "cluster_id"
+                      ]
+                  },
+                  "slb_ssl_forward_proxy":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_template_cache":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_alg_tftp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "session_created"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id",
+                          "p_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "h_ver",
+                          "app_svc_type",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id",
+                          "p_id"
+                      ]
+                  },
+                  "slb_http_proxy":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "system_telemetry_log_top_k_app_svc_list":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "rev_ingress_bytes_icmp",
+                          "fwd_egress_pkt_size_range2",
+                          "fwd_ingress_packets_udp",
+                          "fwd_egress_pkt_size_range1",
+                          "tcp_fullcone_freed",
+                          "limit_entry_marked_deleted",
+                          "fwd_egress_packets_others",
+                          "rev_ingress_pkt_size_range4",
+                          "rev_egress_packets_tcp",
+                          "rev_ingress_pkt_size_range3",
+                          "rev_ingress_bytes_udp",
+                          "fwd_egress_pkt_size_range4",
+                          "fwd_egress_pkt_size_range3",
+                          "rev_ingress_pkt_size_range2",
+                          "fullcone_creation_failure",
+                          "rev_ingress_pkt_size_range1",
+                          "fwd_ingress_packets_tcp",
+                          "data_session_freed",
+                          "fwd_egress_packets_tcp",
+                          "rev_egress_pkt_size_range1",
+                          "rev_egress_bytes_tcp",
+                          "fwd_egress_bytes_others",
+                          "rev_egress_pkt_size_range2",
+                          "data_session_created",
+                          "rev_ingress_bytes_tcp",
+                          "fwd_ingress_pkt_size_range4",
+                          "fwd_ingress_pkt_size_range3",
+                          "fwd_egress_bytes_udp",
+                          "fwd_ingress_pkt_size_range2",
+                          "fwd_ingress_pkt_size_range1",
+                          "limit_entry_created",
+                          "rev_ingress_packets_others",
+                          "fwd_egress_bytes_icmp",
+                          "fwd_egress_packets_udp",
+                          "rev_ingress_packets_udp",
+                          "fwd_ingress_packets_icmp",
+                          "rev_egress_bytes_udp",
+                          "fwd_egress_packets_icmp",
+                          "rev_egress_pkt_size_range3",
+                          "rev_egress_pkt_size_range4",
+                          "fwd_egress_bytes_tcp",
+                          "fwd_ingress_bytes_udp",
+                          "rev_ingress_packets_icmp",
+                          "udp_fullcone_freed",
+                          "fwd_ingress_bytes_others",
+                          "tcp_fullcone_created",
+                          "rev_ingress_packets_tcp",
+                          "rev_egress_bytes_icmp",
+                          "rev_egress_bytes_others",
+                          "rev_egress_packets_others",
+                          "udp_fullcone_created",
+                          "rev_egress_packets_udp",
+                          "rev_egress_packets_icmp",
+                          "fwd_ingress_bytes_icmp",
+                          "rev_ingress_bytes_others",
+                          "active_fullcone_session",
+                          "fwd_ingress_bytes_tcp",
+                          "fwd_ingress_packets_others"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "app_svc_id",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "p_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "app_svc_type",
+                          "h_ver",
+                          "device_uuid",
+                          "app_svc_id",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "p_id"
+                      ]
+                  },
+                  "slb_server":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "curr_conn",
+                          "total_ssl_conn",
+                          "total_fwd_pkts",
+                          "total_rev_pkts",
+                          "peak_conn",
+                          "total_req_succ",
+                          "total_conn",
+                          "account_id",
+                          "rev_pkt",
+                          "fwd_pkt",
+                          "curr_ssl_conn",
+                          "total_fwd_bytes",
+                          "total_req",
+                          "total_rev_bytes"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "app_svc_id",
+                          "p_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "app_svc_type",
+                          "h_ver",
+                          "name",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "app_svc_id",
+                          "p_id"
+                      ]
+                  },
+                  "slb_server_port":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "resp_latency",
+                          
+                          "total_ssl_conn",
+                         
+                          "peak_conn",
+                          
+                          "es_req_count",
+                          "app_svc_type",
+                          "curr_pconn",
+                          "es_resp_count",
+                          "resp_5xx",
+                          "total_rev_pkts_inspected",
+                          
+                          "resp_3xx",
+                          "total_conn",
+                          "resp_1xx",
+                          "fastest_rsp_time",
+                          
+                          "resp_count",
+                          "es_resp_300",
+                          "es_resp_500",
+                          "slowest_rsp_time",
+                          "total_fwd_bytes",
+                          "total_req",
+                          "total_rev_bytes",
+                          "curr_conn",
+                          "total_fwd_pkts",
+                          "total_rev_pkts",
+                          
+                          "last_total_conn",
+                          "cluster_id",
+                          "total_rev_pkts_inspected_good_status_code",
+                          "curr_req",
+                          "es_resp_invalid_http",
+                          "resp_other",
+                          "total_req_succ",
+                          "resp_4xx",
+                          "resp_2xx",
+                          
+                          "es_resp_other",
+                          "port_number",
+                          "es_resp_200",
+                          "curr_ssl_conn",
+                          "es_resp_400",
+                          "response_time"
+                          
+                      ],
+                      "filters":[  
+                          "o_uuid",
+                          "account_id",
+                          "app_svc_id",
+                          "device_uuid"
+              
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "protocol",
+                          "h_ver",
+                          "p_id",
+                          "name",
+                          "account_id",
+                          "app_svc_id",
+                          "device_uuid"
+                      ]
+                  },
+                  "system_telemetry_log_partition_metrics":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "pr_drop",
+                          
+                          "pe_sent",
+                          
+                          "pe_drop",
+                          "pr_sent",
+                          "pc_drop",
+                          
+                          
+                          "data_cpu_usage",
+                          "avg_data_cpu_usage",
+                          
+                          "max_data_cpu_usage",
+                         
+                          "max_io_cpu_usage",
+                          "pc_sent",
+                          "ts",
+                          "avg_io_cpu_usage"
+                      ],
+                      "filters":[  
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "device_uuid",
+                          "app_svc_id"
+                      ],
+                      "groupBy":[  
+                          "o_oper_state",
+                          "o_ha_state",
+                          "p_ver",
+                          "h_ver",
+                          "device_uuid",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id"
+                      ]
+                  },
+                  "aam_authentication_server_windows":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgnv6_nat64_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "fwd_egress_pkt_size_range2",
+                          
+                          "fullcone_self_hairpinning_drop",
+                          "fwd_ingress_packets_udp",
+                          "fwd_egress_pkt_size_range1",
+                          "endpoint_indep_map_match",
+                          "tcp_fullcone_freed",
+                          "fullcone_failure",
+                          "port_overloading_smp_free_tcp",
+                          "ha_nat_pool_batch_type_mismatch",
+                          
+                          "fwd_egress_packets_others",
+                          "rev_ingress_pkt_size_range4",
+                          "rev_ingress_pkt_size_range3",
+                          "no_class_list_match",
+                          "rev_ingress_bytes_udp",
+                          "nat_pool_unusable",
+                          "fwd_egress_pkt_size_range4",
+                          "user_quota_unusable_drop",
+                          "fwd_egress_pkt_size_range3",
+                          "rev_ingress_pkt_size_range2",
+                          "rev_ingress_pkt_size_range1",
+                          "nat_port_unavailable_icmp",
+                          "extended_quota_exceeded",
+                          "fwd_ingress_packets_tcp",
+                          "total_tcp_allocated",
+                          "rev_egress_pkt_size_range1",
+                          "fwd_egress_bytes_others",
+                          "rev_egress_pkt_size_range2",
+                          "prefix_quota_mismatch",
+                          "rev_ingress_bytes_tcp",
+                          "fwd_ingress_pkt_size_range4",
+                          "fwd_ingress_pkt_size_range3",
+                          "fwd_egress_bytes_udp",
+                          "fwd_ingress_pkt_size_range2",
+                          "fwd_ingress_pkt_size_range1",
+                          "nat_port_unavailable_udp",
+                          "fwd_egress_bytes_icmp",
+                          "rev_ingress_packets_udp",
+                          "l3",
+                          "fwd_ingress_packets_icmp",
+                          "total_udp_allocated",
+                          
+                          "eif_limit_exceeded",
+                          "fwd_egress_bytes_tcp",
+                          "rev_ingress_packets_icmp",
+                          "ha_nat_pool_unusable",
+                          "user_quota_created",
+                          "rev_ingress_packets_tcp",
+                          "extended_quota_matched",
+                          "total_udp_overloaded",
+                          "port_overloading_smp_free_udp",
+                          "no_radius_profile_match",
+                          "udp_fullcone_created",
+                          
+                          "rev_egress_packets_icmp",
+                          "fwd_ingress_bytes_icmp",
+                          "udp_user_quota_exceeded",
+                          "hairpin",
+                          "inbound_filtered",
+                          
+                          "data_sesn_user_quota_exceeded",
+                          
+                          "rev_ingress_bytes_icmp",
+                          "port_overloading_smp_inserted_udp",
+                          "icmp_user_quota_exceeded",
+                          "data_sesn_rate_user_quota_exceeded",
+                          "user_quota_put_in_del_q",
+                          "rev_egress_packets_tcp",
+                          
+                          "total_tcp_freed",
+                          "total_icmp_freed",
+                          "port_overloading_smp_inserted_tcp",
+                          "data_session_freed",
+                          "source_matches_prefix",
+                          "fwd_egress_packets_tcp",
+                          
+                          "rev_egress_bytes_tcp",
+                          "data_session_created",
+                          "endpoint_indep_filter_match",
+                          "tcp_user_quota_exceeded",
+                          "rev_ingress_packets_others",
+                          "fwd_egress_packets_udp",
+                          "rev_egress_bytes_udp",
+                          
+                          "fwd_egress_packets_icmp",
+                          "rev_egress_pkt_size_range3",
+                          "rev_egress_pkt_size_range4",
+                          "total_udp_freed",
+                          "user_quota_unusable",
+                          "fwd_ingress_bytes_udp",
+                          "lid_drop",
+                          "nat_port_unavailable_tcp",
+                          "udp_fullcone_freed",
+                          "fwd_ingress_bytes_others",
+                          "tcp_fullcone_created",
+                          "total_tcp_overloaded",
+                          "rev_egress_bytes_icmp",
+                          "rev_egress_bytes_others",
+                          "new_user_resource_unavailable",
+                          "rev_egress_packets_others",
+                          "total_icmp_allocated",
+                          "rev_egress_packets_udp",
+                          "user_quota_failure",
+                          "lid_pass_through",
+                          "rev_ingress_bytes_others",
+                          "fwd_ingress_bytes_tcp",
+                          "fwd_ingress_packets_others"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "account_id",
+                          "cluster_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "p_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "account_id",
+                          "p_id",
+                          "o_oper_state",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "h_ver",
+                          "cluster_id"
+                      ]
+                  },
+                  "slb_service_group":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "service_resp_5xx",
+                         
+                          "service_req_count",
+                         
+                          "service_resp_2xx",
+                          
+                          "service_resp_3xx",
+                          "service_unhealthy_host",
+                          "service_resp_4xx",
+                          "server_selection_fail_drop",
+                          
+                          "service_healthy_host",
+                          "service_curr_conn_overflow",
+                          
+                          "server_selection_fail_reset",
+                          
+                          "service_peak_conn",
+                         
+                          "service_resp_count"
+                      ],
+                      "filters":[  
+                     
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "app_svc_id",
+                  
+                          "account_id"
+                          
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "h_ver",
+                          "account_id",
+                          "name",
+                          "p_id"
+                      ]
+                  },
+                  "fw_alg_pptp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "gre_session_freed",
+                         
+                          "call_reply_pns_call_id_mismatch",
+                          
+                          "call_req_pns_call_id_mismatch",
+                         
+                          "gre_session_created",
+                          "calls_established"
+                          
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "h_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id"
+                      ]
+                  },
+                  "vpn_error":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "vpn_ike_stats_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "ip_nat_pool":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "Total_Used",
+                          
+                          "Failed",
+                         
+                          "Total_Freed",
+                         
+                          "Port_Usage"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "pool_name",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "h_ver",
+                          "device_uuid",
+                          "pool_name",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id"
+                      ]
+                  },
+                  "slb_vport_l7_http_pr":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_saml_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_tcp_window_check":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "outside_window"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "h_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id"
+                      ]
+                  },
+                  "slb_connection_reuse":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "nestab",
+                          "ntermi",
+                          
+                          "unbound_data_rcv",
+                          "pause_conn_fail",
+                          
+                          "long_resp",
+                          "nunbind",
+                          "not_remove_from_rport",
+                          "nbind",
+                          "ntermi_err",
+                          "delay_unbind",
+                         
+                          "current_open",
+                         
+                          "miss_resp",
+                          "current_active",
+                          
+                          "resume_conn",
+                          "pause_conn"
+                      ],
+                      "filters":[  
+                          "cluster_id",
+                          "app_svc_id",
+                          "device_uuid",
+                          "account_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "h_ver",
+                          "account_id",
+                          "p_id"
+                      ]
+                  },
+                  "slb_persist":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "dst_ip_new_sess_sel",
+                         
+                          "src_ip_enforce",
+                          
+                          "url_hash_pri",
+                          "src_ip_new_sess_sel",
+                          "dst_ip_hash_enqueue",
+                          "sssl_sid_not_found",
+                         
+                          "src_ip_enqueue",
+                          "url_hash_enqueue",
+                          "sssl_sid_not_match",
+                          "hash_tbl_create_ok",
+                          "dst_ip_hash_fail",
+                          
+                          "dst_ip_new_sess_cache",
+                          "cookie_pass_thru",
+                          "cssl_sid_not_match",
+                          "src_ip_hash_fail",
+                          "src_ip_hash_pri",
+                          
+                          "cookie_invalid",
+                          "ssl_sid_persist_ok",
+                          "url_hash_sec",
+                          "header_hash_pri",
+                          "src_ip_hash_enqueue",
+                          "ssl_sid_session_ok",
+                          "src_ip_fail",
+                          "src_ip_new_sess_sel_fail",
+                          "sssl_sid_reset",
+                          "hash_tbl_free",
+                          "hash_tbl_rst_adddel",
+                          "hash_tbl_create_fail",
+                          "dst_ip_hash_pri",
+                          "hash_tbl_rst_updown",
+                          "src_ip_new_sess_cache",
+                          "src_ip_hash_sec",
+                          "cookie_persist_fail",
+                          "header_hash_sec",
+                          "src_ip_new_sess_cache_fail",
+                          
+                          "header_hash_fail",
+                          "cssl_sid_not_found",
+                          "sssl_sid_match",
+                          "dst_ip_new_sess_cache_fail",
+                          "dst_ip_enqueue",
+                          "ssl_sid_session_fail",
+                          "dst_ip_fail",
+                          "cssl_sid_match",
+                          "hash_tbl_trylock_fail",
+                          "cookie_persist_ok",
+                          "cookie_not_found",
+                          "dst_ip_hash_sec",
+                          "ssl_sid_persist_fail",
+                          "header_hash_enqueue",
+                          
+                          "url_hash_fail",
+                          "dst_ip_new_sess_sel_fail"
+                      ],
+                      "filters":[  
+                          "cluster_id",
+                          "app_svc_id",
+                          "device_uuid",
+                          "account_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "device_uuid",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "h_ver",
+                          "dst_ip",
+                          "o_uuid",
+                          "src_ip",
+                          "cluster_id",
+                          "account_id",
+                          "p_id"
+                      ]
+                  },
+                  "fw_l4_pc":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "counter_http_vport":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "REQ_2m",
+                          "REQ_100m",
+                          "device_uuid",
+                          "jsi_skip_no_ua",
+                          "jsi_api_requests",
+                          "http2_reset_sent",
+                          "REQ_1s",
+                          "status_207",
+                          "status_449",
+                          "status_203",
+                          "status_204",
+                          "status_6xx",
+                          "status_205",
+                          "status_206",
+                          "status_unknown",
+                          "status_200",
+                          "status_2xx",
+                          "status_201",
+                          "status_202",
+                          "curr_http2_conn",
+                          "http2_reset_received",
+                          "total_requests",
+                          "REQ_2s",
+                          "status_416",
+                          "status_417",
+                          "status_418",
+                          "status_412",
+                          "status_413",
+                          "status_414",
+                          "status_415",
+                          "status_410",
+                          "status_411",
+                          "http2_control_bytes",
+                          
+                          "jsi_responses",
+                          "total_http2_bytes",
+                          "status_306",
+                          "status_307",
+                          "REQ_1m",
+                          "status_302",
+                          "status_423",
+                          "jsi_api_no_auth_hdr",
+                          "status_303",
+                          "status_424",
+                          "status_304",
+                          "status_425",
+                          "status_305",
+                          "status_426",
+                          "status_300",
+                          "status_3xx",
+                          "status_301",
+                          "status_422",
+                          "REQ_OVER_5s",
+                          "jsi_api_responses",
+                          
+                          "status_504_ax",
+                          "REQ_100u",
+                         
+                         
+                          "jsi_hash_add_fails",
+                          "REQ_500m",
+                          "status_510",
+                          "stream_closed",
+                          "ws_server_switch",
+                          
+                          "jsi_skip_not_browser",
+                          "peak_http2_conn",
+                          
+                          "http2_goaway_received",
+                          "REQ_200u",
+                          "status_405",
+                          "status_406",
+                          "status_407",
+                          "status_408",
+                          "status_401",
+                          "status_402",
+                          "REQ_200m",
+                          "status_403",
+                          "ws_handshake_success",
+                          "status_404",
+                          "jsi_api_no_token",
+                          "REQ_20u",
+                         
+                          "status_400",
+                          "status_4xx",
+                          "REQ_20m",
+                          
+                          "status_409",
+                          "jsi_requests",
+                          "jsi_pri_requests",
+                          "status_450",
+                          "cluster_id",
+                          "jsi_hash_lookup_fails",
+                          "jsi_skip_no_fi",
+                          "status_504",
+                          "REQ_5s",
+                          "status_505",
+                          "status_506",
+                          "status_507",
+                          "http2_goaway_sent",
+                          "status_500",
+                          "status_5xx",
+                          "status_501",
+                          "http2_data_bytes",
+                          "status_502",
+                          "REQ_5m",
+                          "status_503",
+                          "REQ_50u",
+                          "status_100",
+                          "status_1xx",
+                          "status_101",
+                          "ws_client_switch",
+                          "status_102",
+                          "status_103",
+                          "REQ_10u",
+                          "REQ_50m",
+                          "REQ_10m",
+                          "port_number",
+                          "total_http2_conn",
+                          "REQ_500u",
+                          "status_508",
+                          "ws_handshake_request",
+                          "status_509",
+                          "http2_header_bytes"
+                      ],
+                      "filters":[  
+                          
+                          "app_svc_id",
+                         
+                          "account_id"
+                      ],
+                      "groupBy":[  
+                          "o_ha_state",
+                          "p_ver",
+                          "o_uuid",
+                          "account_id",
+                          "p_id",
+                          "o_oper_state",
+                          "protocol",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "h_ver",
+                          "name"
+                      ]
+                  },
+                  "system_telemetry_log_top_k_source_list":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_vport_l4_pc":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_l4":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "tcp_rev_fin",
+              
+                          "inband_hm_reassign",
+                          "outrst_aflex",
+                          "syncookiescheckfailed",
+              
+                          "synreceived",
+                          "udp_req_resp_notmatch",
+                          "outrst_tcpproxy",
+                          "ignore_msl",
+                          "throttle_syn",
+                          "dns_policy_drop",
+                          "tcp_fwd_fin",
+                          "nosyn_drop_ack",
+                          "tcp_syn_rcv_ack",
+                          "synattack",
+                          "tcp_invalid_drop",
+                          "reset_l7_on_failover",
+                          "nat_cps_exceed",
+                          "tcp_rev_last_ack",
+                          "syncookiessentfailed",
+                          "udp_sess_aged_out",
+                          "tcp_rexmit_synack",
+                          "bw_rate_limit_exceed",
+                          "tcp_ax_rexmit_syn",
+                          "rate_drop_reset_unkn",
+                          "fast_aging_set",
+                          "outrst_ack_attack",
+                          "tcp_rev_rst",
+                          "other_sess_aged_out",
+                          "no_resourse_drop",
+                          "tcp_rexmit_syn_delq",
+                          "ssl_tpt_exceed",
+              
+                          "outrst_broker",
+                          "stateless_conn_timeout",
+                          "outrst",
+                          "udp_req_oneplus_no_resp",
+                          "proxy_nosock_drop",
+                          "tcp_syn_rcv_rst",
+                          "tcp_sess_aged_out",
+                          "snat_icmp_no_match",
+                          "tcp_no_slb",
+                          "tcp_sess_noest_aged_out",
+                          "intcp",
+                          "udp_resp_oneplus",
+                          "tcp_fwd_ackfin",
+                          "tcp_fwd_rst",
+                          "l2_dsr",
+              
+                          "concurrent_conn_exceed",
+                          "tcp_sess_noest_csyn_rcv_aged_out",
+                          "novport_drop",
+                          "reset_unknown_conn",
+                          "dnssec_switch",
+                          "bw_watermark_drop",
+              
+                          "fast_aging_reset",
+                          "l7_cps_exceed",
+                          "o_oper_state",
+                          "inband_hm_retry",
+                          "snat_no_rev_route",
+                          "snat_icmp_error_process",
+                          "inudp",
+                          "tcp_connections_closed",
+                          "l4_cps_exceed",
+                          "ssl_watermark_drop",
+                          "l3_dsr",
+                          "conn_rate_limit_drop",
+                          "auto_reassign",
+                          "tcpotherflags_drop",
+                          "nosyn_drop",
+                          "syncookie_buff_drop",
+                          "syncookiessent",
+              
+                          "svrselfail",
+                          "nosyn_drop_fin",
+                          "drop_aflex",
+                          "outrst_stale_sess",
+                          "anomaly_pbslb_drop",
+                          "smart_nat_id_mismatch",
+              
+                          "tcp_rev_fin_dup",
+                          "tcp_est",
+                          "dns_id_switch",
+                          "tcpsyndata_drop",
+                          "udp_req_more_resp",
+                          "connlimit_reset",
+                          "tcp_fwd_fin_dup",
+                          "tcp_fwd_last_ack",
+                          "tcp_rev_ackfin",
+                          "outrst_nosyn",
+                          "anomaly_out_seq",
+                          "sess_aged_out",
+                          "port_preserve_attempt",
+                          "tcp_sess_noest_ssyn_xmit_aged_out",
+                          "out_seq_ack_drop",
+              
+                          "skip_insert_client_ip",
+                          "syncookiessent_ts",
+                          "udp_no_slb",
+                          "svr_syn_handshake_fail",
+                          "syncookie_buff_queue",
+                          "anomaly_zero_win",
+                          "ssl_cps_exceed",
+                          "server_down_del",
+                          "snat_no_fwd_route",
+                          "nosyn_drop_rst",
+                          "port_preserve_succ",
+                          "syn_rate",
+                          "conn_rate_limit_reset",
+                          "drop_gslb",
+                          "udp_req_oneplus",
+                          "synreceived_hw",
+                          "syn_stale_sess",
+                          "anomaly_bad_content",
+                          "tcp_rexmit_synack_delq",
+                          "udp_req_one_oneplus_resp",
+                          "no_vport_drop",
+                          "snat_fail",
+                          "connlimit_drop",
+                          "noroute",
+                          "udp_resp_more_req",
+                          "tcp_rexmit_syn"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "account_id",
+                          "p_id",
+                          "app_svc_id",
+                          "cluster_id"
+                      ],
+                      "groupBy":[  
+                          "p_ver",
+                          "o_ha_state",
+                          "app_svc_type",
+                          "h_ver",
+                          "p_id",
+                          "cluster_id"
+                      ]
+                  },
+                  "aam_authentication_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_vport_ssli_pe":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_server_ldap":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_vport_ssli_pc":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_radius_server":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "ipv6_prefix_length_mismatch",
+                          "p_ver",
+                          "msisdn_received",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "imei_received",
+                          "request_ignored",
+                          "ha_standby_dropped",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "smp_deleted",
+                          "request_bad_secret_dropped",
+                          "custom_received",
+                          "radius_table_full",
+                          "invalid_key",
+                          "radius_request_dropped",
+                          "h_ver",
+                          "request_malformed_dropped",
+                          "imsi_received",
+                          "smp_created",
+                          "radius_request_received",
+                          "account_id",
+                          "secret_not_configured_dropped",
+                          "p_id",
+                          "ts",
+                          "request_no_key_vap_dropped"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgnv6_fixed_nat_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "nat44_data_session_freed",
+                          "dslite_tcp_fullcone_freed",
+                          "fnatdslite_rev_ingress_pkt_size_range4",
+                          "fnatdslite_rev_ingress_pkt_size_range3",
+                          "fnat44_fwd_egress_bytes_others",
+                          "fnatdslite_rev_ingress_pkt_size_range2",
+                          "fnatdslite_fwd_ingress_packets_others",
+                          "device_uuid",
+                          "fnatdslite_rev_egress_bytes_icmp",
+                          "fnatdslite_fwd_ingress_bytes_tcp",
+                          "fnat44_rev_egress_bytes_icmp",
+                          "fnat44_fwd_ingress_bytes_tcp",
+                          "fnat44_fwd_ingress_packets_tcp",
+                          "config_not_found",
+                          "nat_port_unavailable_icmp",
+                          "fnat44_fwd_egress_packets_others",
+                          "fnatdslite_fwd_ingress_bytes_udp",
+                          "dslite_udp_alg_fullcone_created",
+                          "fnat44_fwd_ingress_bytes_udp",
+                          "nat_port_unavailable_udp",
+                          "fnat44_fwd_ingress_packets_udp",
+                          "fnat44_rev_ingress_bytes_others",
+                          "fnatdslite_rev_ingress_packets_icmp",
+                          "fnat64_rev_egress_bytes_icmp",
+                          "fnatdslite_rev_egress_packets_tcp",
+                          "fnat64_rev_ingress_packets_udp",
+                          "nat44_eif_limit_exceeded",
+                          "dslite_tcp_fullcone_created",
+                          "fnat64_fwd_ingress_pkt_size_range2",
+                          "fnat64_fwd_ingress_pkt_size_range1",
+                          "nat64_udp_alg_fullcone_created",
+                          "fnat64_fwd_ingress_pkt_size_range4",
+                          "fnatdslite_rev_egress_packets_others",
+                          "fnat64_fwd_ingress_pkt_size_range3",
+                          "fnat64_rev_egress_pkt_size_range4",
+                          "fnat64_rev_egress_pkt_size_range3",
+                          "dest_rlist_pass_through",
+                          "fnat64_rev_egress_pkt_size_range2",
+                          "fnat64_fwd_ingress_bytes_tcp",
+                          "fnat64_rev_egress_pkt_size_range1",
+                          "fnatdslite_rev_ingress_packets_others",
+                          "nat44_tcp_fullcone_created",
+                          "dest_rlist_snat_drop",
+                          "fnat64_rev_egress_packets_icmp",
+                          "fnatdslite_rev_ingress_bytes_icmp",
+                          "fnat64_rev_ingress_packets_tcp",
+                          "account_id",
+                          "fnatdslite_fwd_egress_bytes_others",
+                          "total_udp_free_overload",
+                          "fnatdslite_rev_ingress_pkt_size_range1",
+                          "nat64_tcp_fullcone_created",
+                          "total_tcp_overload_released",
+                          "ts",
+                          "fnat64_fwd_ingress_bytes_udp",
+                          "fnat64_fwd_egress_pkt_size_range1",
+                          "o_oper_state",
+                          "fnat64_rev_egress_packets_others",
+                          "fnat64_fwd_egress_pkt_size_range2",
+                          "fnat64_fwd_egress_pkt_size_range3",
+                          "fnat64_fwd_egress_pkt_size_range4",
+                          "fnatdslite_fwd_ingress_bytes_icmp",
+                          "sixrd_drop",
+                          "fnatdslite_fwd_egress_packets_others",
+                          "icmp_user_quota_exceeded",
+                          "fnatdslite_fwd_egress_packets_tcp",
+                          "fnat44_fwd_egress_bytes_tcp",
+                          "app_svc_type",
+                          "fnat44_rev_egress_packets_others",
+                          "total_icmp_freed",
+                          "fnat64_fwd_egress_packets_udp",
+                          "nat44_data_session_created",
+                          "fnat64_rev_ingress_bytes_others",
+                          "h_ver",
+                          "total_nat_in_use",
+                          "fnatdslite_rev_egress_packets_udp",
+                          "fnatdslite_fwd_egress_packets_udp",
+                          "fnatdslite_rev_egress_packets_icmp",
+                          "fnat44_fwd_ingress_pkt_size_range3",
+                          "fnat44_fwd_ingress_pkt_size_range4",
+                          "dslite_udp_alg_fullcone_freed",
+                          "fnat44_fwd_ingress_pkt_size_range1",
+                          "fnat64_rev_ingress_packets_icmp",
+                          "dslite_data_session_created",
+                          "fnat44_fwd_ingress_pkt_size_range2",
+                          "fnatdslite_fwd_ingress_packets_udp",
+                          "fnat44_rev_egress_bytes_others",
+                          "fnatdslite_fwd_egress_bytes_udp",
+                          "total_udp_alloc_overload",
+                          "fnat64_rev_egress_bytes_others",
+                          "fnat64_rev_egress_packets_udp",
+                          "dslite_eim_match",
+                          "fnat64_rev_egress_bytes_udp",
+                          "nat44_udp_alg_fullcone_freed",
+                          "nat64_data_session_freed",
+                          "nat64_eif_match",
+                          "fnat44_rev_ingress_packets_icmp",
+                          "fnat64_fwd_egress_packets_icmp",
+                          "fnat64_rev_egress_bytes_tcp",
+                          "fnatdslite_fwd_ingress_packets_tcp",
+                          "fnatdslite_fwd_egress_bytes_tcp",
+                          "standby_drop",
+                          "dslite_eif_limit_exceeded",
+                          "fnat64_rev_egress_packets_tcp",
+                          "dslite_udp_fullcone_created",
+                          "nat64_hairpin",
+                          "nat44_eif_match",
+                          "fnat44_fwd_egress_bytes_udp",
+                          "nat44_udp_fullcone_created",
+                          "fnat44_fwd_egress_packets_icmp",
+                          "fnat64_fwd_egress_packets_tcp",
+                          "o_ha_state",
+                          "nat64_inbound_filtered",
+                          "p_ver",
+                          "fullcone_failure",
+                          "fnatdslite_fwd_ingress_pkt_size_range3",
+                          "fnatdslite_fwd_ingress_pkt_size_range2",
+                          "fnatdslite_fwd_ingress_pkt_size_range4",
+                          "fnat64_rev_ingress_bytes_tcp",
+                          "fnatdslite_fwd_ingress_pkt_size_range1",
+                          "fnatdslite_fwd_ingress_bytes_others",
+                          "fnat44_fwd_egress_packets_tcp",
+                          "fnat44_fwd_ingress_bytes_icmp",
+                          "fnat44_fwd_egress_pkt_size_range4",
+                          "fnatdslite_fwd_egress_pkt_size_range1",
+                          "fnat44_fwd_egress_bytes_icmp",
+                          "fnat44_fwd_egress_pkt_size_range3",
+                          "fnatdslite_fwd_egress_pkt_size_range3",
+                          "fnatdslite_fwd_egress_pkt_size_range2",
+                          "total_tcp_allocated",
+                          "nat64_eim_match",
+                          "fnat44_fwd_egress_pkt_size_range2",
+                          "fnat44_fwd_egress_pkt_size_range1",
+                          "nat64_udp_alg_fullcone_freed",
+                          "fnatdslite_fwd_egress_bytes_icmp",
+                          "fnat44_rev_ingress_bytes_icmp",
+                          "fnatdslite_fwd_egress_pkt_size_range4",
+                          "ha_session_user_quota_exceeded",
+                          "fnat64_rev_ingress_bytes_udp",
+                          "fnatdslite_rev_egress_pkt_size_range4",
+                          "total_tcp_overload_acquired",
+                          "fnatdslite_rev_egress_pkt_size_range1",
+                          "fnatdslite_rev_egress_pkt_size_range2",
+                          "fnatdslite_rev_egress_pkt_size_range3",
+                          "nat44_hairpin",
+                          "fnat64_rev_ingress_packets_others",
+                          "fnatdslite_rev_ingress_bytes_tcp",
+                          "fnat44_rev_egress_packets_tcp",
+                          "total_udp_allocated",
+                          "o_uuid",
+                          "nat64_tcp_fullcone_freed",
+                          "total_tcp_free_overload",
+                          "nat44_inbound_filtered",
+                          "fnat44_rev_ingress_bytes_tcp",
+                          "fnat64_fwd_egress_packets_others",
+                          "total_udp_overload_released",
+                          "fnat44_rev_ingress_packets_udp",
+                          "fnat44_rev_egress_packets_icmp",
+                          "dest_rlist_drop",
+                          "total_tcp_alloc_overload",
+                          "fnatdslite_rev_ingress_bytes_udp",
+                          "fnat44_rev_egress_packets_udp",
+                          "nat44_tcp_fullcone_freed",
+                          "dslite_udp_fullcone_freed",
+                          "fnat64_fwd_ingress_packets_others",
+                          "fnatdslite_fwd_ingress_packets_icmp",
+                          "nat44_udp_alg_fullcone_created",
+                          "fnat44_rev_ingress_bytes_udp",
+                          "fnat44_fwd_ingress_bytes_others",
+                          "udp_user_quota_exceeded",
+                          "fnat44_rev_ingress_packets_tcp",
+                          "fnat44_fwd_egress_packets_udp",
+                          "p_id",
+                          "fixed_nat_fullcone_self_hairpinning_drop",
+                          "fnatdslite_rev_ingress_packets_udp",
+                          "port_overload_failed",
+                          "nat64_data_session_created",
+                          "fnat64_fwd_egress_bytes_others",
+                          "fnat64_fwd_ingress_packets_udp",
+                          "fnat44_rev_ingress_pkt_size_range3",
+                          "fnat44_rev_ingress_pkt_size_range4",
+                          "fnat44_rev_ingress_pkt_size_range1",
+                          "fnatdslite_fwd_egress_packets_icmp",
+                          "session_user_quota_exceeded",
+                          "fnat44_rev_ingress_pkt_size_range2",
+                          "fnatdslite_rev_egress_bytes_others",
+                          "nat64_udp_fullcone_created",
+                          "fnatdslite_rev_egress_bytes_udp",
+                          "app_svc_id",
+                          "nat64_eif_limit_exceeded",
+                          "fnat64_fwd_ingress_bytes_others",
+                          "total_tcp_freed",
+                          "fnat64_fwd_egress_bytes_udp",
+                          "fnatdslite_rev_ingress_packets_tcp",
+                          "total_udp_overload_acquired",
+                          "dslite_data_session_freed",
+                          "fnat64_fwd_ingress_packets_icmp",
+                          "fnat64_rev_ingress_pkt_size_range4",
+                          "fnat64_rev_ingress_pkt_size_range3",
+                          "fnat64_fwd_ingress_packets_tcp",
+                          "fnat64_rev_ingress_pkt_size_range2",
+                          "fnat64_rev_ingress_pkt_size_range1",
+                          "dslite_eif_match",
+                          "fnat44_rev_egress_pkt_size_range2",
+                          "fnat44_rev_egress_pkt_size_range1",
+                          "fnat44_rev_egress_pkt_size_range4",
+                          "fnat44_rev_egress_pkt_size_range3",
+                          "fnat64_fwd_ingress_bytes_icmp",
+                          "tcp_user_quota_exceeded",
+                          "nat44_udp_fullcone_freed",
+                          "fnat44_rev_egress_bytes_tcp",
+                          "fnat64_rev_ingress_bytes_icmp",
+                          "fnat44_fwd_ingress_packets_others",
+                          "fnat44_fwd_ingress_packets_icmp",
+                          "cluster_id",
+                          "nat44_eim_match",
+                          "dslite_inbound_filtered",
+                          "total_udp_freed",
+                          "fnatdslite_rev_ingress_bytes_others",
+                          "nat_port_unavailable_tcp",
+                          "fnat44_rev_ingress_packets_others",
+                          "fnat64_fwd_egress_bytes_icmp",
+                          "fnat44_rev_egress_bytes_udp",
+                          "dslite_hairpin",
+                          "total_icmp_allocated",
+                          "fnatdslite_rev_egress_bytes_tcp",
+                          "nat64_udp_fullcone_freed",
+                          "fnat64_fwd_egress_bytes_tcp"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_alg_sip":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "method_ack",
+                          "stat_request",
+                          "device_uuid",
+                          "method_update",
+                          "o_uuid",
+                          "method_register",
+                          "cluster_id",
+                          "method_publish",
+                          "method_prack",
+                          "method_notify",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "method_unknown",
+                          "method_subscribe",
+                          "h_ver",
+                          "stat_response",
+                          "method_options",
+                          "account_id",
+                          "method_refer",
+                          "method_info",
+                          "method_cancel",
+                          "method_invite",
+                          "method_bye",
+                          "p_id",
+                          "ts",
+                          "method_message"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_account":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgn_l4_pe_log":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "vpn_vpn":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgnv6_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_server_ocsp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_server_radius":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_alg_ftp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "client_port_request",
+                          "o_oper_state",
+                          "p_ver",
+                          "server_pasv_reply",
+                          "h_ver",
+                          "device_uuid",
+                          "server_epsv_reply",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "client_eprt_request",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id",
+                          "ts"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "system_logs_to_hc":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_alg_rtsp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "data_session_freed",
+                          "h_ver",
+                          "transport_alloc_failure",
+                          "device_uuid",
+                          "data_session_created",
+                          "o_uuid",
+                          "cluster_id",
+                          "account_id",
+                          "transport_inserted",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "p_id",
+                          "transport_freed",
+                          "ts"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "aam_authentication_relay_kerberos":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_vport_l7_http_error":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgn_l4_pc":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_gtp":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "create_session_request",
+                          "invalid_apn_len_drop",
+                          "o_oper_state",
+                          "p_ver",
+                          "delete_pdp_context_response_v0",
+                          "delete_pdp_context_response_v1",
+                          "delete_pdp_context_request_v1",
+                          "no_fwd_route",
+                          "create_session_request_retransmit",
+                          "delete_pdp_context_request_v0",
+                          "message_length_drop_v1",
+                          "device_uuid",
+                          "message_length_drop_v0",
+                          "path_management_message_v1",
+                          "path_management_message_v0",
+                          "filter_list_drop_v0",
+                          "filter_list_drop_v1",
+                          "app_svc_id",
+                          "delete_session_request_retransmit",
+                          "invalid_imsi_len_drop",
+                          "app_svc_type",
+                          "reserved_information_element_drop",
+                          "create_pdp_context_response_v0",
+                          "create_pdp_context_response_v1",
+                          "invalid_key",
+                          "mandatory_information_element_drop",
+                          "reserved_information_element_drop_v1",
+                          "delete_session_request",
+                          "h_ver",
+                          "create_pdp_context_request_v0",
+                          "create_pdp_context_request_v1",
+                          "path_management_message",
+                          "message_filtering_drop_v1",
+                          "invalid_teid_drop",
+                          "message_filtering_drop_v0",
+                          "response_cause_not_accepted_drop",
+                          "reserved_field_set_drop",
+                          "invalid_teid_drop_v1",
+                          "delete_session_response",
+                          "invalid_tid_drop_v0",
+                          "o_uuid",
+                          "reserved_field_set_drop_v1",
+                          "version_not_supported",
+                          "cluster_id",
+                          "create_session_response",
+                          "filter_list_drop",
+                          "tunnel_id_flag_drop",
+                          "invalid_flow_label_drop_v0",
+                          "message_length_drop",
+                          "no_rev_route",
+                          "message_filtering_drop",
+                          "out_of_session_memory",
+                          "unsupported_message_type_v1",
+                          "unsupported_message_type_v2",
+                          "account_id",
+                          "unsupported_message_type_v0",
+                          "gtp_in_gtp_drop",
+                          "fast_conn_setup",
+                          "p_id",
+                          "out_of_state_drop",
+                          "mandatory_information_element_drop_v1",
+                          "ts",
+                          "mandatory_information_element_drop_v0"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_ssl_cert_revoke":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgn_summary_log_pe":{  
+                      "histogramField":"ts",
+                      "fields":[  
+              
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "fw_logging":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "tcp_session_deleted",
+                          "o_oper_state",
+                          "p_ver",
+                          "sctp_session_created",
+                          "icmp_session_created",
+                          "icmpv6_session_deleted",
+                          "log_type_deny",
+                          "rule_not_logged",
+                          "other_session_created",
+                          "log_type_gtp_apn_filtering",
+                          "log_type_gtp_mandatory_ie_missing",
+                          "log_type_session_opened",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "tcp_session_created",
+                          "sctp_session_deleted",
+                          "log_type_gtp_invalid_teid",
+                          "log_type_sctp_inner_proto_filter",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "log_type_reset",
+                          "log_type_gtp_message_filtering",
+                          "h_ver",
+                          "http_logging_invalid_format",
+                          "icmpv6_session_created",
+                          "log_dropped",
+                          "udp_session_created",
+                          "account_id",
+                          "log_gtp_type_reserved_ie_present",
+                          "log_message_sent",
+                          "other_session_deleted",
+                          "icmp_session_deleted",
+                          "log_type_session_closed",
+                          "udp_session_deleted",
+                          "http_request_logged",
+                          "p_id",
+                          "ts"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "system_session":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "conn_type_4_available",
+                          "o_oper_state",
+                          "p_ver",
+                          "diameter_conn_counter",
+                          "total_curr_conn",
+                          "total_local_conn",
+                          "total_l7_conn",
+                          "conn_smp_type_1_available",
+                          "fp_session_fin_rst",
+                          "server_ssl_reuse_total",
+                          "device_uuid",
+                          "total_l2l3_conn",
+                          "conn_counter",
+                          "total_tcp_conn",
+                          "conn_type_1_available",
+                          "app_svc_id",
+                          "diameter_conn_freed_counter",
+                          "app_svc_type",
+                          "other_counter",
+                          "conn_smp_type_4_available",
+                          "conn_app_smp_alloc_counter",
+                          "total_fw_conn",
+                          "client_ssl_fin_rst",
+                          "conn_smp_type_0_available",
+                          "reverse_nat_udp_counter",
+                          "h_ver",
+                          "total_ip_nat_conn",
+                          "conn_type_3_available",
+                          "curr_free_conn",
+                          "tcp_syn_half_open_counter",
+                          "client_ssl_fatal_alert",
+                          "tcp_half_open_counter",
+                          "conn_type_0_available",
+                          "conn_smp_type_3_available",
+                          "udp_counter",
+                          "tcp_est_counter",
+                          "total_l4_conn_proxy",
+                          "conn_smp_free_counter",
+                          "server_template_unknown_err",
+                          "server_ssl_fin_rst",
+                          "total_l4_conn",
+                          "conn_type_2_available",
+                          "server_template_int_err",
+                          "sctp_half_open_counter",
+                          "o_uuid",
+                          "tcp_half_close_counter",
+                          "sctp_est_counter",
+                          "cluster_id",
+                          "ip_counter",
+                          "conn_smp_type_2_available",
+                          "client_template_int_err",
+                          "server_ssl_count_curr",
+                          "conn_freed_counter",
+                          "client_ssl_reuse_total",
+                          "conn_smp_alloc_counter",
+                          "ssl_count_total",
+                          "reverse_nat_tcp_counter",
+                          "ssl_count_curr",
+                          "client_template_unknown_err",
+                          "server_ssl_count_total",
+                          "account_id",
+                          "conn_smp_aged_counter",
+                          "total_l7_packet_count",
+                          "total_l4_packet_count",
+                          "server_ssl_fatal_alert",
+                          "p_id",
+                          "ts"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "system_telemetry_log_device_status":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          
+                          "free_session_ratio",
+                          
+                          "total_bytes_in",
+                          "pr_sent",
+                          
+                          "free_memory_ratio",
+                          
+                          "avg_data_cpu_usage",
+                         
+                          "max_data_cpu_usage",
+                          "pr_drop",
+                          "avg_vthunder_cpu_usage",
+                          "cpu_usage_overall",
+                          "pc_drop",
+                          "max_vthunder_cpu_usage",
+                          
+                          "free_buffer_ratio",
+                          "total_bytes_out",
+                          "max_control_cpu_usage",
+                          
+                          "avg_control_cpu_usage",
+                          
+                          "max_io_cpu_usage",
+                          "pc_sent",
+                          "avg_io_cpu_usage"
+                      ],
+                      "filters":[  
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "cluster_vcs_state",
+                          "app_svc_id",
+                          "account_id",
+                          "p_id"
+                      ],
+                      "groupBy":[  
+                        "h_ver",
+                          "cluster_type",
+                          "o_ha_state",
+                          "o_oper_state",
+                          "p_ver",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "cluster_vcs_state",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "account_id",
+                          "p_id"
+                      ]
+                  },
+                  "cgnv6_lsn_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "fwd_egress_pkt_size_range2",
+                          "p_ver",
+                          "fullcone_self_hairpinning_drop",
+                          "fwd_ingress_packets_udp",
+                          "fwd_egress_pkt_size_range1",
+                          "endpoint_indep_map_match",
+                          "tcp_fullcone_freed",
+                          "fullcone_failure",
+                          "port_overloading_smp_free_tcp",
+                          "ha_nat_pool_batch_type_mismatch",
+                          "device_uuid",
+                          "fwd_egress_packets_others",
+                          "rev_ingress_pkt_size_range4",
+                          "rev_ingress_pkt_size_range3",
+                          "no_class_list_match",
+                          "rev_ingress_bytes_udp",
+                          "nat_pool_unusable",
+                          "fwd_egress_pkt_size_range4",
+                          "user_quota_unusable_drop",
+                          "fwd_egress_pkt_size_range3",
+                          "rev_ingress_pkt_size_range2",
+                          "rev_ingress_pkt_size_range1",
+                          "nat_port_unavailable_icmp",
+                          "extended_quota_exceeded",
+                          "fwd_ingress_packets_tcp",
+                          "total_tcp_allocated",
+                          "rev_egress_pkt_size_range1",
+                          "fwd_egress_bytes_others",
+                          "rev_egress_pkt_size_range2",
+                          "rev_ingress_bytes_tcp",
+                          "fwd_ingress_pkt_size_range4",
+                          "nat_ip_max_tcp_ports_allocated",
+                          "fwd_ingress_pkt_size_range3",
+                          "fwd_egress_bytes_udp",
+                          "fwd_ingress_pkt_size_range2",
+                          "fwd_ingress_pkt_size_range1",
+                          "nat_port_unavailable_udp",
+                          "fwd_egress_bytes_icmp",
+                          "rev_ingress_packets_udp",
+                          "fwd_ingress_packets_icmp",
+                          "total_udp_allocated",
+                          "o_uuid",
+                          "eif_limit_exceeded",
+                          "fwd_egress_bytes_tcp",
+                          "rev_ingress_packets_icmp",
+                          "ha_nat_pool_unusable",
+                          "user_quota_created",
+                          "rev_ingress_packets_tcp",
+                          "extended_quota_matched",
+                          "total_udp_overloaded",
+                          "port_overloading_smp_free_udp",
+                          "no_radius_profile_match",
+                          "udp_fullcone_created",
+                          "account_id",
+                          "rev_egress_packets_icmp",
+                          "fwd_ingress_bytes_icmp",
+                          "udp_user_quota_exceeded",
+                          "hairpin",
+                          "inbound_filtered",
+                          "p_id",
+                          "data_sesn_user_quota_exceeded",
+                          "ts",
+                          "o_oper_state",
+                          "rev_ingress_bytes_icmp",
+                          "port_overloading_smp_inserted_udp",
+                          "icmp_user_quota_exceeded",
+                          "data_sesn_rate_user_quota_exceeded",
+                          "user_quota_put_in_del_q",
+                          "rev_egress_packets_tcp",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "total_tcp_freed",
+                          "total_icmp_freed",
+                          "port_overloading_smp_inserted_tcp",
+                          "data_session_freed",
+                          "fwd_egress_packets_tcp",
+                          "h_ver",
+                          "rev_egress_bytes_tcp",
+                          "data_session_created",
+                          "endpoint_indep_filter_match",
+                          "tcp_user_quota_exceeded",
+                          "rev_ingress_packets_others",
+                          "fwd_egress_packets_udp",
+                          "nat_ip_max_udp_ports_allocated",
+                          "rev_egress_bytes_udp",
+                          "cluster_id",
+                          "fwd_egress_packets_icmp",
+                          "rev_egress_pkt_size_range3",
+                          "rev_egress_pkt_size_range4",
+                          "total_udp_freed",
+                          "user_quota_unusable",
+                          "fwd_ingress_bytes_udp",
+                          "lid_drop",
+                          "nat_port_unavailable_tcp",
+                          "udp_fullcone_freed",
+                          "fwd_ingress_bytes_others",
+                          "tcp_fullcone_created",
+                          "total_tcp_overloaded",
+                          "rev_egress_bytes_icmp",
+                          "rev_egress_bytes_others",
+                          "new_user_resource_unavailable",
+                          "rev_egress_packets_others",
+                          "total_icmp_allocated",
+                          "rev_egress_packets_udp",
+                          "user_quota_failure",
+                          "lid_pass_through",
+                          "rev_ingress_bytes_others",
+                          "fwd_ingress_bytes_tcp",
+                          "fwd_ingress_packets_others"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "cgnv6_ds_lite_global":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "fwd_egress_pkt_size_range2",
+                          "p_ver",
+                          "fullcone_self_hairpinning_drop",
+                          "fwd_ingress_packets_udp",
+                          "fwd_egress_pkt_size_range1",
+                          "endpoint_indep_map_match",
+                          "tcp_fullcone_freed",
+                          "fullcone_failure",
+                          "port_overloading_smp_free_tcp",
+                          "truncated_packet",
+                          "ha_nat_pool_batch_type_mismatch",
+                          "device_uuid",
+                          "fwd_egress_packets_others",
+                          "rev_ingress_pkt_size_range4",
+                          "rev_ingress_pkt_size_range3",
+                          "class_list_permit_drop",
+                          "no_class_list_match",
+                          "rev_ingress_bytes_udp",
+                          "nat_pool_unusable",
+                          "fwd_egress_pkt_size_range4",
+                          "user_quota_unusable_drop",
+                          "fwd_egress_pkt_size_range3",
+                          "rev_ingress_pkt_size_range2",
+                          "rev_ingress_pkt_size_range1",
+                          "nat_port_unavailable_icmp",
+                          "extended_quota_exceeded",
+                          "fwd_ingress_packets_tcp",
+                          "total_tcp_allocated",
+                          "rev_egress_pkt_size_range1",
+                          "fwd_egress_bytes_others",
+                          "rev_egress_pkt_size_range2",
+                          "prefix_quota_mismatch",
+                          "rev_ingress_bytes_tcp",
+                          "fwd_ingress_pkt_size_range4",
+                          "fwd_ingress_pkt_size_range3",
+                          "fwd_egress_bytes_udp",
+                          "fwd_ingress_pkt_size_range2",
+                          "fwd_ingress_pkt_size_range1",
+                          "nat_port_unavailable_udp",
+                          "fwd_egress_bytes_icmp",
+                          "rev_ingress_packets_udp",
+                          "fwd_ingress_packets_icmp",
+                          "total_udp_allocated",
+                          "o_uuid",
+                          "eif_limit_exceeded",
+                          "fwd_egress_bytes_tcp",
+                          "rev_ingress_packets_icmp",
+                          "ha_nat_pool_unusable",
+                          "user_quota_created",
+                          "rev_ingress_packets_tcp",
+                          "extended_quota_matched",
+                          "total_udp_overloaded",
+                          "port_overloading_smp_free_udp",
+                          "no_radius_profile_match",
+                          "udp_fullcone_created",
+                          "account_id",
+                          "rev_egress_packets_icmp",
+                          "fwd_ingress_bytes_icmp",
+                          "udp_user_quota_exceeded",
+                          "hairpin",
+                          "inbound_filtered",
+                          "p_id",
+                          "data_sesn_user_quota_exceeded",
+                          "ts",
+                          "o_oper_state",
+                          "rev_ingress_bytes_icmp",
+                          "port_overloading_smp_inserted_udp",
+                          "icmp_user_quota_exceeded",
+                          "data_sesn_rate_user_quota_exceeded",
+                          "user_quota_put_in_del_q",
+                          "rev_egress_packets_tcp",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "total_tcp_freed",
+                          "total_icmp_freed",
+                          "port_overloading_smp_inserted_tcp",
+                          "data_session_freed",
+                          "fwd_egress_packets_tcp",
+                          "h_ver",
+                          "rev_egress_bytes_tcp",
+                          "data_session_created",
+                          "endpoint_indep_filter_match",
+                          "tcp_user_quota_exceeded",
+                          "rev_ingress_packets_others",
+                          "fwd_egress_packets_udp",
+                          "rev_egress_bytes_udp",
+                          "cluster_id",
+                          "fwd_egress_packets_icmp",
+                          "rev_egress_pkt_size_range3",
+                          "rev_egress_pkt_size_range4",
+                          "total_udp_freed",
+                          "user_quota_unusable",
+                          "fwd_ingress_bytes_udp",
+                          "lid_drop",
+                          "nat_port_unavailable_tcp",
+                          "udp_fullcone_freed",
+                          "fwd_ingress_bytes_others",
+                          "tcp_fullcone_created",
+                          "total_tcp_overloaded",
+                          "rev_egress_bytes_icmp",
+                          "rev_egress_bytes_others",
+                          "new_user_resource_unavailable",
+                          "rev_egress_packets_others",
+                          "total_icmp_allocated",
+                          "rev_egress_packets_udp",
+                          "user_quota_failure",
+                          "lid_pass_through",
+                          "rev_ingress_bytes_others",
+                          "fwd_ingress_bytes_tcp",
+                          "fwd_ingress_packets_others"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_l7session":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "data_event",
+                          "o_oper_state",
+                          "p_ver",
+                          "conn_not_exist",
+                          "device_uuid",
+                          "o_uuid",
+                          "cluster_id",
+                          "err_cb_failed",
+                          "server_conn_failed",
+                          "curr_proxy",
+                          "total_proxy",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "server_fin",
+                          "start_server_conn_succ",
+                          "client_rst",
+                          "data_cb_failed",
+                          "wbuf_event",
+                          "h_ver",
+                          "client_fin",
+                          "err_event",
+                          "account_id",
+                          "hps_fwdreq_fail",
+                          "wbuf_cb_failed",
+                          "server_rst",
+                          "p_id",
+                          "server_select_fail",
+                          "ts"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  },
+                  "slb_http2":{  
+                      "histogramField":"ts",
+                      "fields":[  
+                          "o_ha_state",
+                          "cancel",
+                          "http_1_1_required",
+                          "err_sent_inadequate_security",
+                          "p_ver",
+                          "header_no_stream",
+                          "alloc_fail_total",
+                          "frame_header_bytes_sent",
+                          "reserved_local_state_unexpected_frame",
+                          "device_uuid",
+                          "invalid_push_promise",
+                          "headers_after_continuation",
+                          "goaway_frame_sent",
+                          "err_sent_stream_closed",
+                          "control_frame_sent",
+                          "peak_proxy",
+                          "headers_frame_sent",
+                          "err_sent_connect_err",
+                          "inadequate_security",
+                          "header_padlen_gt_frame_payload",
+                          "refused_stream",
+                          "half_closed_remote_state_unexpected_frame",
+                          "frame_header_bytes_received",
+                          "headers_frame",
+                          "buff_alloc_error",
+                          "err_sent_internal_err",
+                          "idle_state_unexpected_frame",
+                          "rst_frame_rcvd",
+                          "data_frame",
+                          "rst_frame_sent",
+                          "split_buff_fail",
+                          "err_sent_frame_size_err",
+                          "control_bytes_received",
+                          "o_uuid",
+                          "data_bytes_received",
+                          "trailers_no_end_stream",
+                          "err_sent_your_calm",
+                          "protocol_error",
+                          "connection_preface_rcvd",
+                          "control_frame",
+                          "proxy_alloc_error",
+                          "connection_preface_sent",
+                          "internal_error",
+                          "ping_frame_sent",
+                          "err_sent_total",
+                          "settings_frame_sent",
+                          "bad_connection_preface",
+                          "account_id",
+                          "cant_allocate_stream",
+                          "err_sent_http11_required",
+                          "empty_settings_rcvd",
+                          "continuation_frame",
+                          "closed_state_unexpected_frame",
+                          "empty_settings_sent",
+                          "cant_allocate_rst_frame",
+                          "cant_allocate_goaway_frame",
+                          "p_id",
+                          "ts",
+                          "invalid_frame_size",
+                          "cant_allocate_ping_frame",
+                          "o_oper_state",
+                          "data_queue_alloc_error",
+                          "invalid_stream_id",
+                          "reserved_remote_state_unexpected_frame",
+                          "settings_ack_sent",
+                          "priority_frame_sent",
+                          "stream_closed",
+                          "header_bytes_received",
+                          "err_sent_cancel",
+                          "deflate_alloc_fail",
+                          "settings_ack_rcvd",
+                          "data_no_stream",
+                          "cant_allocate_control_frame",
+                          "invalid_frame_during_headers",
+                          "app_svc_id",
+                          "app_svc_type",
+                          "err_sent_refused_stream",
+                          "goaway_frame",
+                          "inflate_alloc_fail",
+                          "wrong_stream_state",
+                          "control_bytes_sent",
+                          "cant_allocate_settings_frame",
+                          "err_sent_proto_err",
+                          "error_max_invalid_stream",
+                          "unknown_frame",
+                          "invalid_window_update",
+                          "h_ver",
+                          "err_sent_setting_timeout",
+                          "data_to_app",
+                          "connect_error",
+                          "settings_frame",
+                          "inflate_header_fail",
+                          "zero_window_size_on_stream",
+                          "streams_gt_max_concur_streams",
+                          "continuation_frame_sent",
+                          "headers_interleaved",
+                          "cluster_id",
+                          "invalid_setting_value",
+                          "err_rcvd_total",
+                          "header_to_app",
+                          "curr_proxy",
+                          "total_proxy",
+                          "err_sent_flow_control",
+                          "continuation_before_headers",
+                          "header_bytes_sent",
+                          "window_update_frame",
+                          "exceeds_max_window_size_stream",
+                          "priority_frame",
+                          "flow_control_error",
+                          "ping_frame",
+                          "settings_timeout",
+                          "enhance_your_calm",
+                          "bad_frame_type_for_stream_state",
+                          "frame_size_error",
+                          "data_bytes_sent",
+                          "total_bytes_received",
+                          "data_frame_sent",
+                          "total_bytes_sent",
+                          "err_sent_compression_err",
+                          "cant_allocate_window_frame",
+                          "window_update_frame_sent",
+                          "compression_error"
+                      ],
+                      "filters":[  
+              
+                      ],
+                      "groupBy":[  
+              
+                      ]
+                  }
+              }
+          },
+          "Splunk" :{
+              "Test1" : {
+  
+              },
+              "Test2" : {
+                  "ABC" :{
+                      "histogramField" : "ts",
+                      "fields" : [
+                          "bytes_in",
+                          "bytes_out",
+                          "total_req"
+                      ],
+                      "filters" :[
+                          "appserverId",
+                          "accountId",
+                          "providerid"
+                      ],
+                      "groupBy" :[
+                          "appserverId",
+                          "clusterId",
+                          "serverip",
+                          "port"
+                      ]
+                  },
+                  "DEF" :{
+                      "histogramField" : "ts",
+                      "fields" : [
+                          "bytes_in",
+                          "bytes_out",
+                          "total_req"
+                      ],
+                      "filters" :[
+                          "appserverId",
+                          "accountId",
+                          "providerid"
+                      ],
+                      "groupBy" :[
+                          "appserverId",
+                          "clusterId",
+                          "serverip",
+                          "port"
+                      ]
+                  }
+              }
+          }
+      },
+      "aggregations" : [
+          "sum",
+          "avg",
+          "max",
+          "min",
+          "count"
+      ],
+      "vizTypes" : {
+          "histograms" : [
             "area",
             "areaspline",
-            "multi"
-        ],
-        "nonHistograms" : [
-            "line",
             "column",
+            "column_timeseries", 
+            "line",
+            "list",
+            "multi",
+            "overall"
+          ],
+          "nonHistograms" : [
             "area",
             "areaspline",
-            "pie",
-            "donut",
-            "number", 
+            "column",
+            "column_timeseries",   
+            "donut", 
+            "grid", 
+            "indicator",
+            "line",
             "map",
+            "number", 
+            "pie",
+            "progress-bar",
+            "semi-donut", 
             "table"
-        ]
-    }
-}
+            ]
+      }
+  }

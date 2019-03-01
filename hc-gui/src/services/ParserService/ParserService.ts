@@ -1,19 +1,14 @@
-// tslint:disable-next-line:no-var-requires
-//import * as queryString from 'query-string'
 
-//import { UrlService, AjaxService } from 'src/services'
-// import { AppRoot } from 'src/settings/appRoot'
-// import { Data } from 'src/constants/Data/Data'
-//import * as endPoint from 'src/constants/AppDashboards/endpoints.json'
+import { QueryService } from 'src/services/QueryService'
 export class ParserService {
   // UrlService = new UrlService()
   // AjaxService = new AjaxService()
   // AppRoot = new AppRoot()
   // Data = new Data()
-
+  QueryService = new QueryService()
   
 
-  parseData=(viz: any)=>{
+  parseData=(viz: any, startTime : number, endtTime : number)=>{
     let dataSource = viz.queries[0].dataSource
 
     //for now we are supporting RPT, in future any supoted datasource will have to be entered here
@@ -30,12 +25,12 @@ export class ParserService {
   evaluate = (a: any,b:any,op:any)=>{
     switch(op){ 
       case '+': return a + b
-      case '-': return a - b 
+      case '-': return b - a 
       case '*': return a * b 
       case '/': return b > 0 ? b/a : 0 
     } 
   }
-  calculateInfix =(infix : any)=>{
+  calculateInfix =(infix : any)=>{ 
     let stack = []
     let result = ''
     let closeBraceMap = {
@@ -80,7 +75,7 @@ export class ParserService {
      return  parseFloat(parseFloat(result).toFixed(2))
   }
 
-  parseRPTData(viz : any){
+  parseRPTData(viz : any,startTime : number, endtTime : number){
     viz.mergedResponses = {}
     let data : any= []
     for(let i=0;i<viz.responses.length;i++){
@@ -120,7 +115,14 @@ export class ParserService {
                 }else if(!isNaN(parseFloat(formula[k]))){
                   formulaReplacedWithValues.push(parseFloat(formula[k]))
                 }else{
-                  let responseKeys = Object.keys(viz.mergedResponses)
+                  if(formula[k] === 'timeSeriesInterval'){
+                    if(viz.displayProperties.annotation === "topindicators"){
+                      formulaReplacedWithValues.push(180)
+                    }else{
+                      formulaReplacedWithValues.push(this.QueryService.getInterval(startTime,endtTime)/1000)
+                    }
+                  }else
+                  {let responseKeys = Object.keys(viz.mergedResponses)
                   for(let l=0;l<responseKeys.length;l++){
                     if((formula[k]+'_sum' === responseKeys[l]) 
                     || (formula[k]+'_avg' === responseKeys[l]) 
@@ -130,7 +132,7 @@ export class ParserService {
                      ){
                      formulaReplacedWithValues.push(viz.mergedResponses[responseKeys[l]][timeStamps[e]])
                     }
-                  } 
+                  } }
                 }
               }
             }
@@ -142,7 +144,7 @@ export class ParserService {
             tempData.push([parseInt(timeStamps[e]),calulatedData])
           }
           viz.displayProperties.seriesArr[i].data = tempData
-          viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
+        //  viz.displayProperties.seriesArr[i].name = 'Test'//viz.displayProperties.seriesArr[i].series
        }
       }else{
          // non grouped non histogram field, these will be generating a single  number or set of numbers to be shown seperatly
@@ -165,17 +167,26 @@ export class ParserService {
                   }else if(!isNaN(parseFloat(formula[k]))){
                     formulaReplacedWithValues.push(parseFloat(formula[k]))
                   }else{
-                    let responseKeys = Object.keys(viz.mergedResponses)
-                    for(let l=0;l<responseKeys.length;l++){
-                      if((formula[k]+'_sum' === responseKeys[l]) 
-                      || (formula[k]+'_avg' === responseKeys[l]) 
-                      || (formula[k]+'_max' === responseKeys[l])
-                      || (formula[k]+'_min' === responseKeys[l])
-                      || (formula[k]+'_count' === responseKeys[l])
-                      ){
-                        formulaReplacedWithValues.push(viz.mergedResponses[responseKeys[l]])
+                    if(formula[k] === 'timeSeriesInterval'){
+                      if(viz.displayProperties.annotation === "topindicators"){
+                        formulaReplacedWithValues.push(180)
+                      }else{
+                        formulaReplacedWithValues.push(this.QueryService.getInterval(startTime,endtTime)/1000)
+                      }
+                    }else{
+                      let responseKeys = Object.keys(viz.mergedResponses)
+                      for(let l=0;l<responseKeys.length;l++){
+                        if((formula[k]+'_sum' === responseKeys[l]) 
+                        || (formula[k]+'_avg' === responseKeys[l]) 
+                        || (formula[k]+'_max' === responseKeys[l])
+                        || (formula[k]+'_min' === responseKeys[l])
+                        || (formula[k]+'_count' === responseKeys[l])
+                        ){
+                          formulaReplacedWithValues.push(viz.mergedResponses[responseKeys[l]])
+                        }
                       }
                     }
+                    
                   }
                   
                 }
@@ -187,7 +198,8 @@ export class ParserService {
                 data = data/3
               }
               viz.displayProperties.seriesArr[i].data = [data]
-              viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
+         //     viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
+             
           }
       }
     }else{ // grouped graphs
@@ -234,7 +246,15 @@ export class ParserService {
                   }else if(!isNaN(parseFloat(formula[k]))){
                     formulaReplacedWithValues.push(parseFloat(formula[k]))
                   } else{
-                    let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
+                    if(formula[k] === 'timeSeriesInterval'){
+                      if(viz.displayProperties.annotation === "topindicators"){
+                        formulaReplacedWithValues.push(180)
+                      }else{
+                        formulaReplacedWithValues.push(this.QueryService.getInterval(startTime,endtTime)/1000)
+                      }
+                    }else
+                    {
+                      let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
                     for(let l=0;l<responseKeys.length;l++){
                       if((formula[k]+'_sum' === responseKeys[l]) 
                       || (formula[k]+'_avg' === responseKeys[l]) 
@@ -244,7 +264,7 @@ export class ParserService {
                       ){
                       formulaReplacedWithValues.push(viz.mergedResponses[groups[e]][responseKeys[l]][timeStamps[t]])
                       }
-                    } 
+                    }} 
                   }
                   
                 //  tempData[index].data.push([parseInt(timeStamps[t]),this.calculateInfix(formulaReplacedWithValues)])
@@ -293,7 +313,15 @@ export class ParserService {
                 }else if(!isNaN(parseFloat(formula[k]))){
                   formulaReplacedWithValues.push(parseFloat(formula[k]))
                 }else{
-                  let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
+                  if(formula[k] === 'timeSeriesInterval'){
+                    if(viz.displayProperties.annotation === "topindicators"){
+                      formulaReplacedWithValues.push(180)
+                    }else{
+                      formulaReplacedWithValues.push(this.QueryService.getInterval(startTime,endtTime)/1000)
+                    }
+                  }else
+                  {
+                    let responseKeys = Object.keys(viz.mergedResponses[groups[e]])
                   for(let l=0;l<responseKeys.length;l++){
                     if((formula[k]+'_sum' === responseKeys[l]) 
                     || (formula[k]+'_avg' === responseKeys[l]) 
@@ -303,7 +331,7 @@ export class ParserService {
                      ){
                      formulaReplacedWithValues.push(viz.mergedResponses[groups[e]][responseKeys[l]])
                     }
-                  } 
+                  } }
                 }
               }
             }
@@ -319,7 +347,7 @@ export class ParserService {
             tempData.push([groups[e],calulatedData])
           }
           viz.displayProperties.seriesArr[i].data = tempData
-          viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
+      //    viz.displayProperties.seriesArr[i].name = viz.displayProperties.seriesArr[i].series
        }
       }
     }

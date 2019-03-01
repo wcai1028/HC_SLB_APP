@@ -14,14 +14,14 @@ import { NonLoggenInForm } from 'src/components/shared/NonLoggenInForm'
 import 'src/styles/login.scss'
 import 'src/styles/base.scss'
 
-import { IDefaultMethods } from 'src/containers/L4SLB'
+import { IDefaultMethods } from 'src/containers/Controller'
 export interface ILoginParams {
   provider: string
 }
 
 export interface ILoginProps
   extends IA10ContainerDefaultProps,
-    RouteComponentProps<ILoginParams> {
+  RouteComponentProps<ILoginParams> {
   defaultMethods: IDefaultMethods
 }
 export interface ILoginState {
@@ -135,7 +135,7 @@ class Login extends A10Component<ILoginProps, ILoginState> {
         window.sessionStorage.setItem('USER_SESSION_ID', response.id)
         window.sessionStorage.setItem('USER_ID', response.userId)
         window.sessionStorage.setItem('PROVIDER', response.provider.name)
-        window.sessionStorage.setItem('PROVIDER_ID', response.provider.id)
+        window.sessionStorage.setItem('PROVIDER_ID', response.provider.uuid)
         if (response.authenticationProvider) {
           this.AppRoot.setRootScopeElement(
             'sessionAuthType',
@@ -190,21 +190,21 @@ class Login extends A10Component<ILoginProps, ILoginState> {
               .then((resp: any) => {
                 let userResponse = resp.data
                 let userName =
-                  (userResponse.firstName !== undefined
-                    ? userResponse.firstName
+                  (userResponse['first-name'] !== undefined
+                    ? userResponse['first-name']
                     : '') +
                   ' ' +
-                  (userResponse.lastName !== undefined
-                    ? userResponse.lastName
+                  (userResponse['last-name'] !== undefined
+                    ? userResponse['last-name']
                     : '')
                 window.sessionStorage.setItem('USER_NAME', userName)
                 window.sessionStorage.setItem(
                   'USER_EMAIL_ID',
-                  userResponse.emailId,
+                  userResponse['email-id'],
                 )
                 window.sessionStorage.setItem(
                   'LOCAL_USER',
-                  userResponse.localUser,
+                  userResponse['local-user'],
                 )
                 window.sessionStorage.setItem(
                   'ENCODED_SESSION_ID',
@@ -212,22 +212,23 @@ class Login extends A10Component<ILoginProps, ILoginState> {
                 )
                 this.AppRoot.setRootScopeElement(
                   'localUser',
-                  userResponse.localUser,
+                  userResponse['local-user'],
                 )
                 // $rootScope.$broadcast('userLoggedIn', resp);
                 //here we have to set the main state , look what needs tp be done here
 
-                for (let k = 0; k < userResponse.roles.length; k++) {
-                  let scopedProvider = userResponse.roles[
+                const roles = userResponse['roles-list']
+                for (let k = 0; k < roles.length; k++) {
+                  let scopedProvider = roles[
                     k
-                  ].scopes[0].providers.ids[0].split('/')
-                  let roleName = userResponse.roles[k].role
-                  let roleObject = userResponse.roles[k].scopes[0]
+                  ].scope.providers.ids[0]
+                  let roleName = roles[k].role
+                  let roleObject = roles[k].scope
 
                   if (
-                    scopedProvider[0] === '*' ||
-                    scopedProvider[scopedProvider.length - 1] ===
-                      window.sessionStorage.getItem('PROVIDER')
+                    scopedProvider === '*' ||
+                    scopedProvider ===
+                    window.sessionStorage.getItem('PROVIDER')
                   ) {
                     if (role[roleName].providers.actions.length) {
                       window.sessionStorage.setItem('ADMIN_LEVEL', 'provider')
@@ -236,7 +237,7 @@ class Login extends A10Component<ILoginProps, ILoginState> {
                       if (role[roleName].providers.tenants) {
                         this.selectedTenants +=
                           roleObject.providers.tenants.ids[0]
-                        if (k < userResponse.roles.length - 1) {
+                        if (k < roles.length - 1) {
                           this.selectedTenants += ','
                         }
                         if (
@@ -282,11 +283,13 @@ class Login extends A10Component<ILoginProps, ILoginState> {
                   'readTenants',
                   this.readTenants,
                 )
-                for (let k = 0; k < userResponse.roles.length; k++) {
-                  let roleName = userResponse.roles[k].role
+
+                for (let k = 0; k < roles.length; k++) {
+                  let roleName = roles[k].role
                   if (
-                    role[roleName].helptexts &&
-                    role[roleName].helptexts.actions.length
+                    roleName === 'superadmin'
+                    // role[roleName].helptexts &&
+                    // role[roleName].helptexts.actions.length
                   ) {
                     this.AppRoot.setRootScopeElement('isSuperUser', true)
                     window.sessionStorage.setItem('IS_SUPER_USER', 'true')
@@ -359,9 +362,13 @@ class Login extends A10Component<ILoginProps, ILoginState> {
                   console.log('Tenant APP to be loaded')
                 }
               })
-              .catch((error: any) => {})
+              .catch((error: any) => {
+                console.error(error)
+              })
           })
-          .catch((error: any) => {})
+          .catch((error: any) => {
+            console.error(error)
+          })
       })
       .catch((error: any) => {
         if (error.response) {
@@ -404,7 +411,7 @@ class Login extends A10Component<ILoginProps, ILoginState> {
               label="Sign in"
               onSubmit={this.loginHandler}
               onChange={this.changeHandler}
-              submitLabel="Sign In"
+              submitLabel="Sign in"
               showBack={false}
               showForgotPass={true}
               showCancel={false}
@@ -413,8 +420,8 @@ class Login extends A10Component<ILoginProps, ILoginState> {
         </div>
       </div>
     ) : (
-      <Redirect to={uri} />
-    )
+        <Redirect to={uri} />
+      )
   }
 }
 

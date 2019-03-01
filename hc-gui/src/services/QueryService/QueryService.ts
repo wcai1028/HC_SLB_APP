@@ -52,11 +52,11 @@ export class QueryService {
         case 'cluster' : 
           rawQuery['filters'].indexOf('clusterid') > -1 
             ? 
-              queryFilter = {clusterid : selectedArrayElement.id}
+              queryFilter = {clusterid : selectedArrayElement.uuid}
             :  
               rawQuery['filters'].indexOf('cluster_id') > -1 
                 ? 
-                queryFilter = {cluster_id : selectedArrayElement.id}
+                queryFilter = {cluster_id : selectedArrayElement.uuid}
                 : 
                   console.log('')
         case 'appservices' : 
@@ -72,27 +72,27 @@ export class QueryService {
         case 'provider' : 
           rawQuery['filters'].indexOf('providerid') > -1 
             ? 
-              queryFilter = {providerid : selectedArrayElement.id}
+              queryFilter = {providerid : selectedArrayElement.uuid}
             :  
               console.log('')
         case 'tenant' : 
           rawQuery['filters'].indexOf('tenantid') > -1 
             ? 
-              queryFilter = {tenantid : selectedArrayElement.id}
+              queryFilter = {tenantid : selectedArrayElement.uuid}
             :  
               rawQuery['filters'].indexOf('account_id') > -1 
                 ? 
-                queryFilter = {account_id : selectedArrayElement.id}
+                queryFilter = {account_id : selectedArrayElement.uuid}
                 : 
                   console.log('')
         case 'device' : 
           rawQuery['filters'].indexOf('deviceid') > -1 
             ? 
-              queryFilter = {deviceid : selectedArrayElement.id}
+              queryFilter = {deviceid : selectedArrayElement.uuid}
             :  
               rawQuery['filters'].indexOf('device_uuid') > -1 
                 ? 
-                queryFilter = {device_uuid : selectedArrayElement.id}
+                queryFilter = {device_uuid : selectedArrayElement.uuid}
                 : 
                   console.log('')
       }

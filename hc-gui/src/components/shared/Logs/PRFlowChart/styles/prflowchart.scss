@@ -1,0 +1,126 @@
+.flow-diagram {
+    text-align: center;
+    height: 150px;
+    padding: 0px 0 !important;
+    margin: 0px 10px !important;
+
+    .title, .value{
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .ic {
+        background-size: 35px 35px;
+        background-position: 0px 0px;
+        width: 36px;
+        height: 36px;
+        cursor: default;
+    }
+
+    .client{
+        background-image: url('../../../../../assets/images/svg/info-graphics/icon-client.svg');
+    }
+    .adc{
+        background-image: url('../../../../../assets/images/svg/info-graphics/icon-ladc.svg');
+    }
+    .clusters{
+        background-image: url('../../../../../assets/images/svg/info-graphics/icon-cluster-server.svg');
+    }
+
+    .bigMarginBottom {
+        margin-bottom: 45px!important;
+    }
+
+    .client-section, .server-section, .adc-section {
+        border: 1px solid #1893ff;
+        border-radius: 10px;
+        background: #f9fafb;
+        z-index: 1;
+    }
+    
+    .client-section, .server-section {
+        margin-top: -22px;
+    }
+
+    .adc-section {
+        height: 112px;
+        margin-top: -46px !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .l4bigMarginBottom {
+        margin-bottom: 35px !important;
+        left: -3%;
+    }
+
+    .l4-flow {
+        margin-bottom: 30px;
+
+        .l4-section {
+            height: 90;
+            margin-top: -30px !important;
+            border: 1px solid #e2e3e4;
+            border-radius: 5px;
+            padding: 5px 0;
+            background: #ffffff;
+            z-index: 1;
+        }
+        .l4-flow-line {
+            border-bottom: 2px dashed #7bd500;
+        }
+        .arrows {
+            position: absolute;
+            font-size: 16px;
+            color: #7bd500;
+        }
+        .right-1 {
+            position: absolute;
+            font-size: 16px;
+            top: 10px;
+            left: 96%;
+        }
+        .left-1 {
+            position: absolute;
+            font-size: 16px;
+            top: 10px;
+            left: -1%;
+        }
+    }
+
+    .flow-line {
+        position: absolute;
+        z-index: 0;
+        border: 2px dashed #1893ff;
+        border-radius: 10px;
+        height: 85px;
+        width: 128%;
+        margin-top: -30px !important;
+        margin-left: 12% !important;
+
+        .arrows {
+            position: absolute;
+            font-size: 16px;
+            color: #1893ff;
+        }
+
+        .right-1, .right-2 {
+            top: -9px;
+        }
+        .left-1, .left-2 {
+            bottom: -10px;
+        }
+        .right-1 {
+            left: 20%;
+        }
+        .right-2 {
+            left: 95%;
+        }
+        .left-1 {
+            right: 45%;
+        }
+        .left-2 {
+            right: 96%;
+        }
+    }
+
+}

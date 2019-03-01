@@ -15,7 +15,9 @@ const styles = require('./styles/addlog.scss')
 
 export interface IAddLogProps {
     updateModalData: any
-    handleCancel: any
+    handleCancel: any,
+    logForm: any,
+    isEdit: boolean
 }
 export interface IAddLogState {
     logForm: any,
@@ -26,25 +28,34 @@ export interface IAddLogState {
 
 class AddLog extends A10Container<IAddLogProps, IAddLogState> {
 
-    state = {
+  // static getDerivedStateFromProps(props: IAddLogProps, state: IAddLogState): any{
+  //   console.log('props')
+  //   return null
+  // }
+  formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  }
+
+  buttonItemLayout = {
+    wrapperCol: { span: 14, offset: 8 },
+  }
+  constructor(props: IAddLogProps) {
+    super(props)
+    console.log('endPoint.endPoints', endPoint.endPoints)
+    this.state = {
         logForm: {
-            dataSource : '',
-            endPoint : '',
-            metrics :'',
-            name: ''
+            dataSource : this.props.isEdit ? this.props.logForm.dataSource : '',
+            endPoint :  this.props.isEdit ?  this.props.logForm.endPoint: '',
+            metrics :  this.props.isEdit ? this.props.logForm.metrics: '',
+            name:  this.props.isEdit ?  this.props.logForm.name: '',
         },
-        dataSourceSelected: '',
-        endPointSelected: '',
-        metricSelected: '',
+        dataSourceSelected: this.props.isEdit? endPoint.endPoints[this.props.logForm.dataSource]: '',
+        endPointSelected:this.props.isEdit?  endPoint.endPoints[this.props.logForm.dataSource][this.props.logForm.endPoint]: '',
+        metricSelected: this.props.isEdit?  endPoint.endPoints[this.props.logForm.dataSource][this.props.logForm.endPoint][this.props.logForm.metrics]: '',
     }
-    formItemLayout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-      }
+  }
     
-    buttonItemLayout = {
-        wrapperCol: { span: 14, offset: 8 },
-      }
 
     handleChange = (stateName: any, e: any) => {
     const tempState = this.state

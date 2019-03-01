@@ -6,9 +6,9 @@ import {
 } from 'a10-gui-framework'
 import { A10Spin, A10Alert, A10Modal, A10Select, A10Row, A10Col, A10Button,A10Icon } from 'a10-gui-widgets'
 import { Viz, ACTIONS, VizContext, VIZ_CONTEXT_DATA } from 'a10-gui-dgp-viz'
-import { VizDetails } from 'src/components/shared/Viz/VizDetails'
+import {VizDetails} from 'src/components/shared/Viz/VizDetails'
 import { IDefaultMethods } from 'src/containers/L4SLB'
-const styles = require('./styles/Vizualization.scss')
+import './styles/Vizualization.scss'
 import parameters from 'parameters'
 
 export interface IVizualizationProps extends IA10ContainerDefaultProps {
@@ -27,6 +27,7 @@ export interface IVizualizationProps extends IA10ContainerDefaultProps {
   updateTimeRange  : any
   editDeleteViz: any
   chartHeight: any
+  drillDownFunction : any
 }
 export interface IVizualizationState {
   data: any
@@ -122,22 +123,29 @@ class Vizualization extends A10Container<
         },
       ],
     }
+
     for (let i = 0; i < series.length; i++) {
+      const numData = series[i].data[0]
       foramttedDonutData.series[0].data.push({
         name: series[i].name,
-        y: series[i].data[0],
+        y: numData === null || isNaN(numData) || !isFinite(numData) ? 0 : numData,
       })
     }
     return foramttedDonutData
   }
-  getSeriesTotal(data: any) {
-    let sum = 0
-    for (let i = 0; i < data.length; i++) {
-      sum = sum + data[i][1]
-    }
-    sum = sum / data.length
-    sum = parseFloat(sum.toFixed(2))
-    return sum
+  getSeriesTotal(data: number[][]) {
+    // let sum = 0
+    // for (let i = 0; i < data.length; i++) {
+    //   sum = sum + data[i][1]
+    // }
+    // sum = sum / data.length
+    // sum = parseFloat(sum.toFixed(2))
+    // return sum
+    return this.isTimeseriesDataValid(data) ? parseFloat((data.map(d=> d[1])
+    .reduce((accum: number, curr: number) => accum + curr, 0)
+    /data.length)
+    .toFixed(2))
+    .toString() : '-'
   }
   getMultiCharts(series: any) {
     let charts: any = []
@@ -219,6 +227,98 @@ class Vizualization extends A10Container<
     )
   }
 
+  getMapData(series : any){
+    return ({
+      series: [{
+        name: 'Geo-Locations',
+        data: [
+          {code: 'us', name: 'USA', value: 100},
+          {code: 'in', name: 'India', value: 200},
+          {code: 'cn', name: 'China', value: 300},    
+        ]
+      }],
+    })
+
+  }
+
+  getChartData(){
+    const {seriesArr, name, chartType} = this.state.viz.displayProperties
+    switch(this.state.displayType){
+      case 'donut':
+          return this.getDonutData(
+            seriesArr,
+            name,
+          )
+      case 'semi-donut':
+          return this.getDonutData(
+            seriesArr,
+            name,
+          )
+      case 'map':
+          return this.getMapData(
+           seriesArr,
+          )
+      case 'multi':
+          return this.getMultiCharts(
+            seriesArr,
+          )
+      case 'grid':
+          return seriesArr.map((series: {name: string, data: []} ) => ({
+            name: series.name,
+            value: series.data[0] ? series.data[0] : '-',
+          }))
+      case 'overall':
+          // data for two charts
+          return seriesArr.map((series: any) => ({
+            title: series.name, // chart title
+            counter: this.getTimeseriesTotal(series.data), // chart caption/counter
+            data: this.isTimeseriesDataValid(series.data) ? series.data : null, // data for chart
+            color: 'green',
+          }))
+      case 'indicator':
+          return seriesArr.map((series: {name: string, data: []}) => {
+            const data = series.data[0]
+            return data !== null && !isNaN(data) && isFinite(data) ? data : '-'
+          })
+      case 'progress-bar':
+          return seriesArr ? seriesArr.map((series: any) => ({
+            // set min/max, and zero for default values for progress bar's data
+            data: isNaN(series.data[0]) || !isFinite(series.data[0]) 
+            || series.data[0] > 1 || series.data[0] ? 0 : series.data[0], 
+            name: isNaN(series.data[0]) || !isFinite(series.data[0]) ? 'No Data' : series.name,  
+            total: 1,
+          })) : [{
+            data: 0, 
+            name: 'No Data',  
+            total: 1,
+          }]
+      case 'list':
+          return seriesArr.map((series: any, i: number) => [
+            {value: `Rule ${i}`}, 
+            {value: this.getTimeseriesTotal(series.data)},
+            {type: 'chart', value: this.isTimeseriesDataValid(series.data) ? series.data : null}
+          ])
+      default:
+          return {
+            series: seriesArr,
+            categories: chartType.includes('column') ? 
+              seriesArr.map((series:any)=> series.name) 
+              : null,
+          }
+    }
+  }
+  getTimeseriesTotal(total: number[][]){
+    // make sure 2 dimensional arr
+    return this.isTimeseriesDataValid(total) ? parseFloat((total.map(series=> series[1])
+                .reduce((accum: number, curr: number) => accum + curr, 0)
+                /total.length).toFixed(2))
+                .toString() : '-'
+  }
+
+  isTimeseriesDataValid(data: number[][]){
+    return data[0] && data[0][1]
+  }
+
   renderServiceOptions() {
     const keys = this.props.contextArray
     return keys.map((key: any, index: any) => {
@@ -233,6 +333,10 @@ class Vizualization extends A10Container<
   updateContext(e : any){
     this.props.onChangeOfContext(e)
   }
+  drillDown =()=>{
+    this.props.drillDownFunction(this.state.viz)
+  }
+
   render() {
     const {
       MainChart,
@@ -241,7 +345,14 @@ class Vizualization extends A10Container<
       Selector,
       PieChart,
       MultiChart,
+      MapChart, 
+      GridChart,
+      OverallChart,
+      IndicatorChart,
+      ProgressBarChart,
+      ListChart,
     } = Viz
+    const {displayType} = this.state
     const mode = parameters.MODE
     let vheight = '100%'
     let vwidth = '100%'
@@ -268,17 +379,37 @@ class Vizualization extends A10Container<
       },
       chartHeight: {
         height: vheight,
+      },
+      negMargin :{
+        marginBottom: '-60px',
+        marginRight: 20 // to uncover the rightmost icon
+      },
+      debug : {
+        maxHeight : '2px'
+      },
+      visibleIcon: {
+        width: 'calc(100% - 60px)',
       }
     }
-
     return (
       <>
-          {/* <A10Row>
+          {this.state.viz.vizAnnotaion === 'AppSelector' || this.state.viz.vizAnnotaion === 'TimeLine' ? 
+          
+          null : 
+          <div style={style.debug}> 
+          <A10Row >
               <A10Col className="pull-right">
                 <A10Button className="action-button padding-3" onClick={this.showModal}>
                   <A10Icon style={{ width: '13px', height: '13px' }} app="global" type="view-analytic" className="action-icon" />
                 </A10Button>
                 </A10Col>
+                {this.state.viz.displayProperties.drillDown ? 
+                  <A10Col className="pull-right">
+                  <A10Button className="action-button padding-3" onClick={this.drillDown.bind(this)}>
+                    <span className="fa fa-external-link" />
+                  </A10Button>
+                  </A10Col>
+                : null }
             </A10Row> 
            <A10Modal
               title="Vizualization Details"
@@ -288,10 +419,12 @@ class Vizualization extends A10Container<
               destroyOnClose={true}
               onCancel={this.handleCancel}>
                 <VizDetails viz={this.state.viz}/> 
-            </A10Modal> */}
+            </A10Modal>
+            </div>
+          }
        {mode === 'DEVELOPMENT' ? 
         
-            <A10Row>
+            <A10Row style={style.negMargin}>
               
                 <A10Col className="pull-right">
                     <A10Icon onClick={()=> {this.editDeleteVizualization(true)}} style={{ width: '13px', height: '13px' }} app="global" type="edit" className="action-icon" />
@@ -320,59 +453,129 @@ class Vizualization extends A10Container<
         ) : this.state.viz.dataSet ? (
           this.state.viz.displayProperties.annotation === 'mainchart' ? (
             <div className="mainChartBody" style={style.chartHeight}>
-              {this.state.displayType !== 'number' ? (
-                this.state.displayType === 'donut' ? (
+              {displayType !== 'number' ? (
+                displayType === 'donut' ? (
                   <div style={style.chartBackGround}>
                     <PieChart
                       name={this.state.viz.displayProperties.name.toUpperCase()}
-                      vizType="donut"
-                      data={this.getDonutData(
-                        this.state.viz.displayProperties.seriesArr,
-                        this.state.viz.displayProperties.name,
-                      )}
-                      description=""
+                      data={this.getChartData()}
+                      description={this.state.viz.displayProperties.description}
                       legend={true}
-                      //counters={this.getDonutData(this.state.viz.displayProperties.seriesArr)}
                     />
                   </div>
-                ) : this.state.displayType === 'multi' ? (
+                ) : displayType === 'multi' ? (
                   <div style={style.chartBackGround}>
                     <MultiChart
                       name={this.state.viz.displayProperties.name.toUpperCase()}
-                      // data={this.getMultiData(
-                      //   this.state.viz.displayProperties.seriesArr,
-                      // )}
-                      charts={this.getMultiCharts(
-                        this.state.viz.displayProperties.seriesArr,
-                      )}
+                      charts={this.getChartData()}
+                      description={this.state.viz.displayProperties.description}
                     />
-                    {/* {console.log(
-                      'charts',
-                      this.getMultiCharts(
-                        this.state.viz.displayProperties.seriesArr,
-                      ),
-                    )} */}
+                  </div>
+                ) : displayType === 'map' ? (
+                  <div style={style.chartBackGround}>
+                    <MapChart
+                      name={this.state.viz.displayProperties.name.toUpperCase()}
+                      description={this.state.viz.displayProperties.description}
+                      data={this.getChartData()}
+                      height={200}
+                    />
+                  </div>
+                ) : displayType === 'grid' ? (
+                  <div style={style.chartBackGround}>
+                    <GridChart
+                      name={this.state.viz.displayProperties.name.toUpperCase()}
+                      data={this.getChartData()}
+                      description={this.state.viz.displayProperties.description}
+                      inverse={true}
+                    />
+                  </div>
+                ) : displayType === 'indicator' ? (
+                  <div style={style.chartBackGround}>
+                    <IndicatorChart
+                      name={this.state.viz.displayProperties.name.toUpperCase()}
+                      units ={this.state.viz.displayProperties.seriesArr.map((series:any) => series.units)}
+                      divider={true}
+                      data={this.getChartData()}
+                    />
+                    </div>
+                ) : displayType === 'semi-donut' ? (
+                  <div style={style.chartBackGround}>
+                    <PieChart
+                        name={this.state.viz.displayProperties.name.toUpperCase()}
+                        vizType={'semi-donut'} // vizType donut is spelled wrong in dgp library
+                        data={this.getChartData()}
+                        // data={{data: }}
+                        description={this.state.viz.displayProperties.description}
+                        legend={false}
+                        showTotal={true}
+                        // counters={this.getDonutData(this.state.viz.displayProperties.seriesArr)}
+                      />
+                    </div>
+                ): displayType === 'progress-bar' ? (
+                  <div style={style.chartBackGround}>
+                    <ProgressBarChart 
+                      name={this.state.viz.displayProperties.name.toUpperCase()}
+                      data={{series: this.getChartData()}}
+                    />
+                  </div>
+                ): displayType === 'overall' ? (
+                  <div style={style.chartBackGround}>
+                  {/* need to call here otherwise renders twice, and gives two charts */}
+                  <OverallChart 
+                    name={this.state.viz.displayProperties.name.toUpperCase()}
+                    totalTitle={this.state.viz.displayProperties.seriesArr[2] ? 
+                      this.state.viz.displayProperties.seriesArr[2].name : ''}
+                    summaryCounter={this.getTimeseriesTotal(this.state.viz.displayProperties.seriesArr[2].data)}
+                    summaryUnit={this.state.viz.displayProperties.seriesArr[2] ?
+                      this.state.viz.displayProperties.seriesArr[2].units 
+                      : '-'}
+                    description={this.state.viz.displayProperties.description}
+                    unit={this.state.viz.displayProperties.units}
+                    itemInfo={this.getChartData()}
+                  />
+                  </div>
+                ) : displayType === 'list' ? (
+                  <div style={style.chartBackGround}>
+                  <ListChart 
+                    name={this.state.viz.displayProperties.name.toUpperCase()}
+                    headers={[{
+                      name: 'Rules',
+                      span: 4,
+                    },
+                    {
+                      name: 'Hits',
+                      span: 8,
+                    },
+                    {
+                      name: 'Hits over time',
+                      span: 12,
+                    }]}
+                    data={this.getChartData()}
+                  />
                   </div>
                 ) : (
-                  <MainChart
-                    name={this.state.viz.displayProperties.name.toUpperCase()}
-                    data={{
-                      series: this.state.viz.displayProperties.seriesArr,
-                    }}
-                    vizType={this.state.viz.displayProperties.chartType}
-                    description="This is my chart"
-                    colors="cyan_to_green"
-                  />
+                  <div style={style.chartBackGround}>
+                    <MainChart
+                      name={this.state.viz.displayProperties.name.toUpperCase()}
+                      data={this.getChartData()}
+                      vizType={this.state.viz.displayProperties.chartType}
+                      description={this.state.viz.displayProperties.description}
+                      colors="red_to_blue"
+                    />
+                  </div>
                 )
               ) : this.state.viz.displayProperties.seriesArr[0] ? (
-                <Indicator
-                  name={this.state.viz.displayProperties.name.toUpperCase()}
-                  data={[this.state.viz.displayProperties.seriesArr[0]]}
-                  prefix=""
-                  range={[200, 500]}
-                  inverse={false}
-                  divider=""
-                />
+                <div style={style.chartBackGround}>
+                  <Indicator
+                    name={this.state.viz.displayProperties.name.toUpperCase()}
+                    data={[this.state.viz.displayProperties.seriesArr[0]]}
+                    prefix=""
+                    range={[200, 500]}
+                    inverse={false}
+                    divider=""
+                    description={this.state.viz.displayProperties.description}
+                  />
+                </div>
               ) : null}
             </div>
           ) : (
@@ -389,11 +592,12 @@ class Vizualization extends A10Container<
                 inverse={this.state.viz.displayProperties.inverse}
                 divider={this.state.viz.displayProperties.divider}
                 unit={this.state.viz.displayProperties.seriesArr[0].units}
+                description={this.state.viz.displayProperties.description}
               />
             </div>
           )
         ) : (
-          <A10Spin>
+          <A10Spin >
             <A10Alert
               message="Fetching data"
               description={this.props.vizIndex}

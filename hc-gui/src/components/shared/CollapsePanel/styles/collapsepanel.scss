@@ -9,6 +9,47 @@
     z-index: 2048;
     padding: 0;
     color: #000;
+    .input{
+        border: 1px solid #EBEBEB;
+        border-radius: 20px;
+        width: 95%;
+        height: 22px;
+        font-size: 14px;
+        padding: 0 15px;
+        margin: 3px;
+    }
+    .c-header{
+        color: rgb(144, 144, 144);
+        .title {
+            font-size: 13px;
+            padding: 5px 0 !important;
+            color: #656464;
+            min-height: 22px;
+    
+            .logs-count {
+                background: #a0a0a0;
+                border-radius: 10px;
+                color: #fff;
+                padding: 1px 5px;
+                display: inline-block;
+                min-width: 30px;
+                text-align: center;
+                font-size: 11px;
+                vertical-align: text-bottom;
+                margin-left: 6px;
+            }
+        }
+
+        .log-page-options{
+            height: 22px;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+        .select-drop{
+            width: 145px;
+            margin-left: 15px;
+        }
+    }
 }
 .icons{
     span{
@@ -27,5 +68,6 @@
 }
 
 .animate{
-    transition: all 1.5s ease 0s;
+    transition: all 0.75s ease 0s;
+    overflow: scroll;
 }

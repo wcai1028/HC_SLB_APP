@@ -9,6 +9,7 @@
     letter-spacing: normal;
     color: #2c2c2c;
     min-width: 100%;
+
 }
 .mainChartContainer{
     background: #ffffff;
@@ -18,7 +19,30 @@
     min-width: 80%;
     padding-left: 1%;
 }
-
+.mainChartBody{
+    > div{
+        height: inherit;
+        > div:not(.a10-chart){
+            height: 100%;
+        }
+        >div.viz-chart-header{
+            height: 38px;
+            padding: 10px 10px 0 10px;
+        }
+    }
+}
 .padding-3{
     padding: 3px;
+}
+
+// timeseries / timeline slider margins
+.maincontainer {
+    .ant-dropdown-trigger ~ .ant-slider{
+        margin-right: 50px;
+    }
+    
+    .ant-spin-nested-loading{
+        width: calc(100% - 60px);
+    }
+    
 }

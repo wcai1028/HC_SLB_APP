@@ -70,11 +70,11 @@ class TenantSelect extends A10Component<ITenantSelectProps, ITenantSelectStates>
         return ( !redirect ?
             <A10Form layout="horizontal">
                 <A10Form.Item label="Tenants">
-                    <A10Select onChange={this.onChangeTenant.bind(this)} >
+                    <A10Select onChange={this.onChangeTenant} >
                       {options}
                     </A10Select>
                 </A10Form.Item>
-                <A10Button className="submit-button" onClick={this.onClickSubmit.bind(this)} >
+                <A10Button className="submit-button" onClick={this.onClickSubmit} >
                     Select
                 </A10Button>
             </A10Form> :

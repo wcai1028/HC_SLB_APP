@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {
+  _,
   A10Container,
   setupA10Container,
   IA10ContainerDefaultProps,
@@ -922,7 +923,7 @@ class Col extends A10Container<IColProps, IColState> {
                 />
               </FormItem>
               <FormItem
-                label="Labels"
+                label="Filter Labels"
                 {...this.formItemLayout}
               >
                 <A10Radio.Group
@@ -934,7 +935,7 @@ class Col extends A10Container<IColProps, IColState> {
                   <A10Radio value={false}>False</A10Radio>
                 </A10Radio.Group>
               </FormItem>
-              <FormItem label="Histogram" {...this.formItemLayout}>
+              <FormItem label="Time Series" {...this.formItemLayout}>
                 <A10Radio.Group
                   onChange={this.handleChange.bind(this, 'visualizationType')}
                   value={this.state.vizForm.displayProperties.visualizationType}
@@ -944,58 +945,70 @@ class Col extends A10Container<IColProps, IColState> {
                 </A10Radio.Group>
               </FormItem>
               <FormItem
-                label={
-                  <div
-                    onClick={() => {
-                      this.addNewForumulaSeries()
-                    }}
-                  >
-                    <A10IconTextGroup
-                      text="  Series"
-                      icon={<A10Icon app="global" type="add-another" />}
-                    />
-                  </div>
-                }
+                label="Series"
                 {...this.formItemLayout}
               >
-                <div>
-                  {this.state.vizForm.displayProperties.seriesArr.map(
-                    (object, i) => (
-                      <div className="sf-input" key={'seriesArr' + i}>
-                        <A10Input
-                          type="text"
-                          placeholder="Name"
-                          key={'series' + i}
-                          className="sf-input"
-                          defaultValue={this.state.vizForm.displayProperties.seriesArr[i].name}
-                          onChange={this.handleSFChange.bind(this, 'series', i)}
-                        />
-                        <A10Input
-                          type="text"
-                          placeholder="Formula"
-                          key={'formula' + i}
-                          className="sf-input"
-                          defaultValue={this.state.vizForm.displayProperties.seriesArr[i].formula}
-                          onChange={this.handleSFChange.bind(
-                            this,
-                            'formula',
-                            i,
-                          )}
-                        />
-                        <A10Input
-                          type="text"
-                          placeholder="Units"
-                          key={'units' + i}
-                          className="sf-input"
-                          defaultValue={this.state.vizForm.displayProperties.seriesArr[i].units}
-                          onChange={this.handleSFChange.bind(this, 'units', i)}
-                        />
-                      </div>
-                    ),
-                  )}
+                <div className="ant-table-body">
+                  <table className="c-table">
+                    <thead className="ant-table-thead">
+                      <tr className="ant-table-thead">
+                        <th>Name</th>
+                        <th>Formula</th>
+                        <th>Units</th>
+                      </tr>
+                    </thead>
+                    <tbody className="ant-table-tbody">
+                    {this.state.vizForm.displayProperties.seriesArr.map(
+                       (object, i) => (
+                      <tr className="ant-table-row" key={'row' + i}>
+                        <td key={'series' + i}>
+                          <A10Input
+                            type="text"
+                            placeholder="Name"
+                            key={'series' + i}
+                            className="sf-input"
+                            defaultValue={this.state.vizForm.displayProperties.seriesArr[i].name}
+                            onChange={this.handleSFChange.bind(this, 'name', i)}
+                          />
+                        </td>
+                        <td  key={'formula' + i}>
+                          <A10Input
+                            type="text"
+                            placeholder="Formula"
+                            key={'formula' + i}
+                            className="sf-input"
+                            defaultValue={this.state.vizForm.displayProperties.seriesArr[i].formula}
+                            onChange={this.handleSFChange.bind(
+                              this,
+                              'formula',
+                              i,
+                            )}
+                          />
+                        </td>
+                        <td  key={'units' + i}>
+                          <A10Input
+                            type="text"
+                            placeholder="Units"
+                            key={'units' + i}
+                            className="sf-input"
+                            defaultValue={this.state.vizForm.displayProperties.seriesArr[i].units}
+                            onChange={this.handleSFChange.bind(this, 'units', i)}
+                          />
+                        </td>
+                      </tr>
+                        
+                      ),
+                      )}
+                    </tbody>
+                  </table>
+                  <div className="add-series"  onClick={() => {
+                      this.addNewForumulaSeries()
+                    }}>
+                  <A10Icon app="global" type="add-another" />
+                </div>
                 </div>
               </FormItem>
-              <FormItem label="Dimension" {...this.formItemLayout}>
+              {/* <FormItem label="Dimension" {...this.formItemLayout}>
                 <A10Radio.Group
                   onChange={this.handleChange.bind(this, 'dimension')}
                   value={this.state.vizForm.displayProperties.dimension}
@@ -1005,7 +1018,7 @@ class Col extends A10Container<IColProps, IColState> {
                   <A10Radio value={'0,0'}>Half Width, Half Height</A10Radio>
                   <A10Radio value={'0,1'}>Half Width, Full Height</A10Radio>
                 </A10Radio.Group>
-              </FormItem>
+              </FormItem> */}
 
               <FormItem label="Chart Type" {...this.formItemLayout}>
                 <A10Select
@@ -1019,7 +1032,7 @@ class Col extends A10Container<IColProps, IColState> {
                 </A10Select>
               </FormItem>
               <FormItem
-                label="X Axis"
+                label="X Axis Label"
                 {...this.formItemLayout}
               >
                 <A10Input
@@ -1029,7 +1042,7 @@ class Col extends A10Container<IColProps, IColState> {
                 />
               </FormItem>
               <FormItem
-                label="Y Axis"
+                label="Y Axis Label"
                 {...this.formItemLayout}
               >
                 <A10Input
@@ -1041,19 +1054,20 @@ class Col extends A10Container<IColProps, IColState> {
             </A10Form>
           </A10Modal>
           {this.state.col.vizs.map((viz: any, index: number) => {
+            const clonedViz = _.cloneDeep(viz)
             return (
               <React.Fragment key={index}>
-                {viz.displayProperties &&
-                viz.displayProperties.annotation === 'topindicators' ? (
-                  <div>
-                    {viz.displayProperties.drillDown ? (
-                      <span
-                        onClick={() => {
-                          this.viewDrillDashboard(viz)
-                        }}
-                        className="fa fa-external-link"
-                      />
-                    ) : null}
+                {clonedViz.displayProperties &&
+                clonedViz.displayProperties.annotation === 'topindicators' ? (
+                  // <>
+                  //   {clonedViz.displayProperties.drillDown ? (
+                  //     <div
+                  //       onClick={() => {
+                  //         this.viewDrillDashboard(viz)
+                  //       }}
+                  //       className="fa fa-external-link"
+                  //     />
+                  //   ) : null}
 
                     <Vizualization
                       col={this.state.col}
@@ -1070,8 +1084,9 @@ class Col extends A10Container<IColProps, IColState> {
                       updates={this.state.updates}
                       dashboard={this.state.dashboard}
                       editDeleteViz = {this.updateViz}
+                      drillDownFunction={this.viewDrillDashboard}
                     />
-                  </div>
+                  // </>
                 ) : (
                   <Vizualization
                     col={this.state.col}

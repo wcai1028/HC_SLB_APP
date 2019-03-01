@@ -235,7 +235,7 @@ class Row extends A10Container<IRowProps, IRowState> {
         marginTop: '6px',
         marginLeft: '6px',
         marginRight: '6px',
-        overflow : 'auto',
+        overflow : 'hidden',
         display: 'flex'
       }
     }
